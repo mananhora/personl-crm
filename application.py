@@ -25,8 +25,8 @@ port = int(os.environ.get("PORT", 5000))
 
 
 @application.route('/')
-def hello():
-    return "Hello World!"
+def home():
+    render_template("index.html")
 
 
 # @app.route('/<name>')
