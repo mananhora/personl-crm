@@ -1,1 +1,1 @@
-web: gunicorn mesamis.wsgi --log-file -
+web: gunicorn --log-file -
