@@ -1,0 +1,26 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[dev-packages]
+
+
+
+[packages]
+
+flask = "==0.10.1"
+flask-sqlalchemy = "==2.0"
+flask-wtf = "==0.10.3"
+"jinja2" = "==2.7.3"
+markupsafe = "==0.23"
+pymysql = "==0.6.3"
+sqlalchemy = "==0.9.8"
+wtforms = "==2.0.1"
+werkzeug = "==0.9.6"
+argparse = "==1.2.1"
+itsdangerous = "==0.24"
+boto = "==2.28.0"
+gunicorn = "*"
