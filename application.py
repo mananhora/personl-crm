@@ -2,6 +2,8 @@ from flask import Flask, render_template, request #import flask
 
 application = Flask(__name__) #instance of application
 
+import os
+port = int(os.environ.get("PORT", 5000))
 
 
 # from application import db
@@ -33,4 +35,4 @@ def hello():
 
 
 if __name__ == '__main__':
-    application.run(debug=True)
+    application.run(debug=True, host='0.0.0.0', port=port)
