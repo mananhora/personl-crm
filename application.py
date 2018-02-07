@@ -10,13 +10,17 @@ application = Flask(__name__) #instance of application
 
 #  "postgresql://mananhora@localhost/messamis"
 
+application.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://mananhora@localhost/messamis"
 
-application.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://kabpjhzvtsincy:da9b7e11e66d93cb77f054465b4c399742e87555c4129b038a56eda6626014e9@ec2-184-73-201-79.compute-1.amazonaws.com:5432/d1d5c4sdakh9ip"
+"""Notice how you don’t have to make any changes to the config file
+- it’s setting the database based on the newly created DATABASE_URL environment variable."""
+
+# application.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://kabpjhzvtsincy:da9b7e11e66d93cb77f054465b4c399742e87555c4129b038a56eda6626014e9@ec2-184-73-201-79.compute-1.amazonaws.com:5432/d1d5c4sdakh9ip"
 # application.config['DEBUG'] = True
 
-db = SQLAlchemy(application)
+db = SQLAlchemy(application) #create instance of sql alchemy with application as parameter 
 
-from models import User
+from models import User #import the user table from models
 
 
 

@@ -2,6 +2,7 @@ from application import db
 from sqlalchemy.dialects.postgresql import JSON
 
 
+#User class corresponding to user table
 class User(db.Model):
     __tablename__ = 'users'
 
