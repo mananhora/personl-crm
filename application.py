@@ -42,7 +42,7 @@ def login():
 			error = 'Invalid credentials. Please try again.'
 		else:
 			session['logged_in'] = True
-			print 'logged in'
+			print ('logged in')
 			return redirect(url_for('home'))
 	return render_template('index.html', error=error)
 
@@ -51,7 +51,7 @@ def login():
 def logout():
 	error = None
 	session.pop('logged_in', None)
-	print 'logged out'
+	print ('logged out')
 	return redirect(url_for('welcome'))
 	return render_template('index.html', error=error)
 
