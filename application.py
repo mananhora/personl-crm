@@ -43,7 +43,7 @@ def login():
 		else:
 			session['logged_in'] = True
 			return redirect(url_for('home'))
-	return render_template('login.html', error=error)
+	return render_template('index.html', error=error)
 
 
 @application.route('/logout', methods=['GET', 'POST'])
