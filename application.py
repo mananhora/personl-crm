@@ -1,6 +1,7 @@
 import os
 import requests
-from flask import Flask, render_template, request, session, flash
+from flask import Flask, render_template, request, session, flash, g
+from functools import wraps
 port = int(os.environ.get("PORT", 5433))
 from flask_sqlalchemy import SQLAlchemy
 
@@ -40,6 +41,9 @@ def login_required(f):
 @application.route('/')
 @login_required
 def home():
+	g.db = connect_db() #connect to database
+	#perform queries here..
+	g.db.close() #close connection with database..
     return render_template('index.html')  # render a template
 
 
@@ -76,6 +80,13 @@ def logout():
 	print ('logged out')
 	flash('you were just logged out')
 	return redirect(url_for('welcome'))
+
+# connect to database
+
+def connect_db():
+    #add code here..
+
+
 
 
 
