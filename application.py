@@ -1,11 +1,11 @@
 import os
-from flask import Flask, render_template, request #import flask
+import requests
+from flask import Flask, render_template, request, session
 port = int(os.environ.get("PORT", 5433))
 from flask_sqlalchemy import SQLAlchemy
 
 
 application = Flask(__name__) #instance of application
-
 
 
 #  "postgresql://mananhora@localhost/messamis"
@@ -21,7 +21,7 @@ application.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://mananhora@localhos
 
 db = SQLAlchemy(application) #create instance of sql alchemy with application as parameter 
 
-import models
+import models, config
 
 
 @application.route('/')
@@ -32,6 +32,37 @@ def home():
 @application.route('/<name>')
 def hello_name(name):
     return "Hello {}!".format(name)
+
+
+@application.route('/login', methods=['GET', 'POST'])
+def login():
+	error = None
+	if request.method=='POST':
+		if request.form['username']!='admin' or request.form['password']!='admin':
+			error = 'Invalid credentials. Please try again.'
+		else:
+			session['logged_in'] = True
+			return redirect(url_for('home'))
+	return render_template('login.html', error=error)
+
+
+@application.route('/logout', methods=['GET', 'POST'])
+def logout():
+	error = None
+	session.pop('logged_in', None)
+	return redirect(url_for('welcome'))
+	return render_template('index.html', error=error)
+
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':

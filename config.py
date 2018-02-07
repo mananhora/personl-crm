@@ -27,7 +27,7 @@ class Config(object):
     DEBUG = True
     TESTING = True
     CSRF_ENABLED = True
-    SECRET_KEY = 'this-really-needs-to-be-changed'
+    SECRET_KEY = 'Wahe Guru'
 
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
