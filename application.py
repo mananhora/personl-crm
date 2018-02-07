@@ -24,15 +24,32 @@ db = SQLAlchemy(application) #create instance of sql alchemy with application as
 
 import models, config
 
+# login required decorator
+def login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash('You need to login first.')
+            return redirect(url_for('login'))
+    return wrap
+
+
 
 @application.route('/')
+@login_required
 def home():
-    return render_template("index.html")
+    return render_template('index.html')  # render a template
 
 
 @application.route('/<name>')
 def hello_name(name):
     return "Hello {}!".format(name)
+
+@app.route('/welcome')
+def welcome():
+    return render_template('welcome.html')  # render a template
 
 
 @application.route('/login', methods=['GET', 'POST'])
@@ -47,10 +64,9 @@ def login():
 			session['logged_in'] = True
 			print ('logged in')
 			flash('you were just logged in ')
-			# return redirect(url_for('home'))
-	else:
-		flash('hello there')
+			return redirect(url_for('home'))
 	return render_template('index.html', error=error)
+
 
 
 @application.route('/logout', methods=['GET', 'POST'])
@@ -59,12 +75,7 @@ def logout():
 	session.pop('logged_in', None)
 	print ('logged out')
 	flash('you were just logged out')
-	# return redirect(url_for('welcome'))
-	return render_template('index.html', error=error)
-
-
-
-
+	return redirect(url_for('welcome'))
 
 
 
