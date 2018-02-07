@@ -37,6 +37,7 @@ def hello_name(name):
 
 @application.route('/login', methods=['GET', 'POST'])
 def login():
+	flash('in login')
 	error = None
 	if request.method=='POST':
 		if request.form['username']!='admin' or request.form['password']!='admin':
