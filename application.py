@@ -1,6 +1,6 @@
 import os
 import requests
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, flash
 port = int(os.environ.get("PORT", 5433))
 from flask_sqlalchemy import SQLAlchemy
 
@@ -11,6 +11,7 @@ application = Flask(__name__) #instance of application
 #  "postgresql://mananhora@localhost/messamis"
 
 application.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://mananhora@localhost/messamis"
+application.secret_key = "wahe guru"
 
 
 # Notice how you don't have to make any changes to the config file
@@ -43,6 +44,7 @@ def login():
 		else:
 			session['logged_in'] = True
 			print ('logged in')
+			flash('you were just logged in ')
 			return redirect(url_for('home'))
 	return render_template('index.html', error=error)
 
@@ -52,6 +54,7 @@ def logout():
 	error = None
 	session.pop('logged_in', None)
 	print ('logged out')
+	flash('you were just logged out')
 	return redirect(url_for('welcome'))
 	return render_template('index.html', error=error)
 
