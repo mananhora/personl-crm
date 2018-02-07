@@ -3,12 +3,22 @@ from flask import Flask, render_template, request #import flask
 port = int(os.environ.get("PORT", 5000))
 from flask_sqlalchemy import SQLAlchemy
 
+
 application = Flask(__name__) #instance of application
 
 
-application.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+
+#  "postgresql://mananhora@localhost/messamis"
+
+
+application.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://mananhora@localhost/mesamis"
+# application.config['DEBUG'] = True
 
 db = SQLAlchemy(application)
+
+from models import User
+
+
 
 @application.route('/')
 def home():
