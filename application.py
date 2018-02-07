@@ -48,6 +48,8 @@ def login():
 			print ('logged in')
 			flash('you were just logged in ')
 			# return redirect(url_for('home'))
+	else:
+		flash('hello there')
 	return render_template('index.html', error=error)
 
 
