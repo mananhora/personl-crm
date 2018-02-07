@@ -41,6 +41,7 @@ def login():
 	if request.method=='POST':
 		if request.form['username']!='admin' or request.form['password']!='admin':
 			error = 'Invalid credentials. Please try again.'
+			flash('ERROR')
 		else:
 			session['logged_in'] = True
 			print ('logged in')
