@@ -13,14 +13,14 @@ application = Flask(__name__) #instance of application
 
 #  "postgresql://mananhora@localhost/messamis"
 
-# application.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://mananhora@localhost/mesamis"
+application.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://mananhora@localhost/mesamis"
 application.secret_key = "wahe guru"
 
 
 # Notice how you don't have to make any changes to the config file
 # - it's setting the database based on the newly created DATABASE_URL environment variable.
 
-application.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://kabpjhzvtsincy:da9b7e11e66d93cb77f054465b4c399742e87555c4129b038a56eda6626014e9@ec2-184-73-201-79.compute-1.amazonaws.com:5432/d1d5c4sdakh9ip"
+# application.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://kabpjhzvtsincy:da9b7e11e66d93cb77f054465b4c399742e87555c4129b038a56eda6626014e9@ec2-184-73-201-79.compute-1.amazonaws.com:5432/d1d5c4sdakh9ip"
 application.config['DEBUG'] = True
 
 
@@ -65,22 +65,21 @@ def login():
     flash('in login')
     error = None
     form = LoginForm(request.form)
-    if request.method=='POST' or request.method=='GET':
+    if request.method=='POST':
         #if the form is VALID
-        #if form.validate_on_submit():
-        #QUERY THE DATABASE to check if the user exists
-        # user = User.query.filter_by(name=request.form['username']).first()
-        user = User.query.filter_by(name='Tarin').first()
-        pw = user.password
-        #if user exists, check password
-        if user is not None and pw=='hello_tarin':
-            session['logged_in'] = True
-            flash('You were logged in. Go Crazy.')
-            return redirect(url_for('home'))
-        else:
-            flash('ERROR')
-            error = 'Invalid username or password.'
-            flash('ERROR')
+        if form.validate_on_submit():
+            #QUERY THE DATABASE to check if the user exists
+            user = User.query.filter_by(name=request.form['username']).first()
+            pw = user.password
+            #if user exists, check password
+            if user is not None and pw==request.form['password']:
+                session['logged_in'] = True
+                flash('You were logged in. Go Crazy.')
+                return redirect(url_for('home'))
+            else:
+                flash('ERROR')
+                error = 'Invalid username or password.'
+                flash('ERROR')
     return render_template('login.html', error=error, form=form)
 
 
