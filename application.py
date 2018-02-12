@@ -76,7 +76,7 @@ def login():
         if user is not None and pw=='hello_tarin':
             session['logged_in'] = True
             flash('You were logged in. Go Crazy.')
-            return redirect(url_for('home.home'))
+            return redirect(url_for('home'))
         else:
             error = 'Invalid username or password.'
             flash('ERROR')
