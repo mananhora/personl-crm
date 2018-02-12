@@ -76,7 +76,7 @@ def login():
         print (bcrypt.check_password_hash(user.password, 'hello_tarin'))
         flash('helllooo')
         #if user exists, check password
-        if user is not None and bcrypt.check_password_hash(user.password, 'hello_tarin'):
+        if user is not None and bcrypt.check_password_hash(user.password, 'hello_tarin'.encode('utf-8')):
             session['logged_in'] = True
             flash('You were logged in. Go Crazy.')
             return redirect(url_for('home.home'))
