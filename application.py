@@ -3,13 +3,13 @@ import requests
 from flask import Flask, render_template, request, session, flash, g, redirect, url_for
 from functools import wraps
 from flask_sqlalchemy import SQLAlchemy
-# import models, config
+from flask.ext.bcrypt import Bcrypt
 
 
 port = int(os.environ.get("PORT", 5433))
 
 application = Flask(__name__) #instance of application
-
+bcrypt = Bcrypt(application)
 
 #  "postgresql://mananhora@localhost/messamis"
 
@@ -25,6 +25,8 @@ application.secret_key = "wahe guru"
 
 
 db = SQLAlchemy(application) #create instance of sql alchemy with application as parameter
+
+from models import User #import after creating the db
 
 
 
