@@ -67,19 +67,19 @@ def login():
     form = LoginForm(request.form)
     if request.method=='POST':
         #if the form is VALID
-        if form.validate_on_submit():
-            #QUERY THE DATABASE to check if the user exists
-            # user = User.query.filter_by(name=request.form['username']).first()
-            user = User.query.filter_by(name='Tarin').first()
+        #if form.validate_on_submit():
+        #QUERY THE DATABASE to check if the user exists
+        # user = User.query.filter_by(name=request.form['username']).first()
+        user = User.query.filter_by(name='Tarin').first()
 
-            #if user exists, check password
-            if user is not None and bcrypt.check_password_hash(user.password, 'hello_tarin'):
-                session['logged_in'] = True
-                flash('You were logged in. Go Crazy.')
-                return redirect(url_for('home.home'))
-            else:
-                error = 'Invalid username or password.'
-                flash('ERROR')
+        #if user exists, check password
+        if user is not None and bcrypt.check_password_hash(user.password, 'hello_tarin'):
+            session['logged_in'] = True
+            flash('You were logged in. Go Crazy.')
+            return redirect(url_for('home.home'))
+        else:
+            error = 'Invalid username or password.'
+            flash('ERROR')
     return render_template('login.html', error=error, form=form)
 
 
