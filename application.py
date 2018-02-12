@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, session, flash, g, redirect, 
 from functools import wraps
 from flask_sqlalchemy import SQLAlchemy
 from flask.ext.bcrypt import Bcrypt
-
+from form import *
 
 port = int(os.environ.get("PORT", 5433))
 
@@ -26,9 +26,7 @@ application.secret_key = "wahe guru"
 
 db = SQLAlchemy(application) #create instance of sql alchemy with application as parameter
 
-from models import User #import after creating the db
-
-
+from models import * #import after creating the db
 
 # login required decorator
 def login_required(f):
@@ -45,9 +43,9 @@ def login_required(f):
 @application.route('/')
 @login_required
 def home():
-	# g.db = connect_db() #connect to database
-	# #perform queries here..
-	# g.db.close() #close connection with database..
+    # g.db = connect_db() #connect to database
+    # #perform queries here..
+    # g.db.close() #close connection with database..
     return render_template('index.html')  # render a template
 
 
@@ -63,27 +61,34 @@ def welcome():
 
 @application.route('/login', methods=['GET', 'POST'])
 def login():
-	flash('in login')
-	error = None
-	if request.method=='POST':
-		if request.form['username']!='admin' or request.form['password']!='admin':
-			error = 'Invalid credentials. Please try again.'
-			flash('ERROR')
-		else:
-			session['logged_in'] = True
-			print ('logged in')
-			flash('you were just logged in ')
-			return redirect(url_for('home'))
-	return render_template('index.html', error=error)
+    flash('in login')
+    error = None
+    form = LoginForm(request.form)
+    if request.method=='POST':
+        #if the form is VALID
+        if form.validate_on_submit():
+            #QUERY THE DATABASE to check if the user exists
+            # user = User.query.filter_by(name=request.form['username']).first()
+            user = User.query.filter_by(name='Tarin').first()
+
+            #if user exists, check password
+            if user is not None and bcrypt.check_password_hash(user.password, 'hello_tarin'):
+                session['logged_in'] = True
+                flash('You were logged in. Go Crazy.')
+                return redirect(url_for('home.home'))
+            else:
+                error = 'Invalid username or password.'
+                flash('ERROR')
+    return render_template('login.html', error=error, form=form)
 
 
 @application.route('/logout', methods=['GET', 'POST'])
 def logout():
-	error = None
-	session.pop('logged_in', None)
-	print ('logged out')
-	flash('you were just logged out')
-	return redirect(url_for('welcome'))
+    error = None
+    session.pop('logged_in', None)
+    print ('logged out')
+    flash('you were just logged out')
+    return redirect(url_for('welcome'))
 
 
 
