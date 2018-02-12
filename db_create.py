@@ -1,2 +1,12 @@
 from application import db
-from application.models import Data
+
+from models import User
+db.create_all()
+
+
+#insert entries into users table
+db.session.add(User("Manan", "manan@gmail.com", "hello_manan"))
+db.session.add(User("Tarin", "tarin@gmail.com", "hello_tarin"))
+
+#commit changes
+db.session.commit()

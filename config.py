@@ -10,7 +10,7 @@ Heroku CLI: heroku pg:psql postgresql-angular-50915 --app mesamis
 
 """
 
-#HEROKU: 
+#HEROKU:
 """Connection information for default credential.
 Connection info string:
    "dbname=d1d5c4sdakh9ip host=ec2-184-73-201-79.compute-1.amazonaws.com port=5432 user=kabpjhzvtsincy password=da9b7e11e66d93cb77f054465b4c399742e87555c4129b038a56eda6626014e9 sslmode=require"
@@ -54,4 +54,4 @@ class Config(object):
 
 
 
-    
+
