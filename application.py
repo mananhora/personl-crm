@@ -73,7 +73,7 @@ def login():
         user = User.query.filter_by(name='Tarin').first()
         pw = user.password
         #if user exists, check password
-        if user is not None and pw=='hello_tarin':
+        if user is not None and pw=='hello_tarin--':
             session['logged_in'] = True
             flash('You were logged in. Go Crazy.')
             return redirect(url_for('home'))
