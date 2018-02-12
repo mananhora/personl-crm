@@ -9,7 +9,7 @@ from form import *
 port = int(os.environ.get("PORT", 5433))
 
 application = Flask(__name__) #instance of application
-bcrypt = Bcrypt(application)
+# bcrypt = Bcrypt(application)
 
 #  "postgresql://mananhora@localhost/messamis"
 
@@ -71,12 +71,9 @@ def login():
         #QUERY THE DATABASE to check if the user exists
         # user = User.query.filter_by(name=request.form['username']).first()
         user = User.query.filter_by(name='Tarin').first()
-        print ('SAT SRI AKAAL')
-        print(user.password)
-        print (bcrypt.check_password_hash(user.password, 'hello_tarin'))
-        flash('helllooo')
+        pw = user.password
         #if user exists, check password
-        if user is not None and bcrypt.check_password_hash(user.password, 'hello_tarin'.encode('utf-8')):
+        if user is not None and pw=='hello_tarin':
             session['logged_in'] = True
             flash('You were logged in. Go Crazy.')
             return redirect(url_for('home.home'))
