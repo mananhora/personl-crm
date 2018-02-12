@@ -71,6 +71,7 @@ def login():
         #QUERY THE DATABASE to check if the user exists
         # user = User.query.filter_by(name=request.form['username']).first()
         user = User.query.filter_by(name='Tarin').first()
+        print(user.password)
         flash('helllooo')
         #if user exists, check password
         if user is not None and bcrypt.check_password_hash(user.password, 'hello_tarin'):
