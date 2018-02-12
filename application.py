@@ -73,6 +73,7 @@ def login():
         user = User.query.filter_by(name='Tarin').first()
         print ('SAT SRI AKAAL')
         print(user.password)
+        print (bcrypt.check_password_hash(user.password, 'hello_tarin'))
         flash('helllooo')
         #if user exists, check password
         if user is not None and bcrypt.check_password_hash(user.password, 'hello_tarin'):
