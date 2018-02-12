@@ -71,7 +71,7 @@ def login():
         #QUERY THE DATABASE to check if the user exists
         # user = User.query.filter_by(name=request.form['username']).first()
         user = User.query.filter_by(name='Tarin').first()
-        print 'SAT SRI AKAAL'
+        print ('SAT SRI AKAAL')
         print(user.password)
         flash('helllooo')
         #if user exists, check password
