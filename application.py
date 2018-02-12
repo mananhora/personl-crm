@@ -65,7 +65,7 @@ def login():
     flash('in login')
     error = None
     form = LoginForm(request.form)
-    if request.method=='POST' | request.method=='GET':
+    if request.method=='POST' or request.method=='GET':
         #if the form is VALID
         #if form.validate_on_submit():
         #QUERY THE DATABASE to check if the user exists
