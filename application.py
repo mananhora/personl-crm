@@ -27,7 +27,7 @@ application.config['DEBUG'] = True
 db = SQLAlchemy(application) #create instance of sql alchemy with application as parameter
 
 from models import * #import after creating the db
-db.create_all()
+# db.create_all()
 
 # login required decorator
 def login_required(f):
