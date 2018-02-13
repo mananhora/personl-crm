@@ -1,6 +1,6 @@
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy import ForeignKey
-from application import db
+from app import db
 
 
 #User class corresponding to user table
