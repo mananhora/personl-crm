@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask.ext.bcrypt import Bcrypt
 from form import *
 
-port = int(os.environ.get("PORT", 5433))
+# port = int(os.environ.get("PORT", 5433))
 
 app = Flask(__name__) #instance of application
 
@@ -95,5 +95,11 @@ def logout():
 
 
 if __name__ == '__main__':
-    # port = int(os.environ.get("PORT", 5433))
-    app.run(debug=True, host='0.0.0.0', port=port)
+    port = int(os.environ.get("PORT", 5433))
+    print ("HELLO")
+    print(os.environ)
+    host = '0.0.0.0'
+    if(os.environ['APP_SETTINGS']=='config.BaseConfig'):
+        app.run(debug=True, host=host)
+    else:
+        app.run(debug=False, host =host, port=port)
