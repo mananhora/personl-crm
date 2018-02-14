@@ -5,14 +5,17 @@ from functools import wraps
 from flask_sqlalchemy import SQLAlchemy
 from flask.ext.bcrypt import Bcrypt
 from form import *
+from flask.ext.login import login_user, logout_user, LoginManager
+debug = False
 
-# port = int(os.environ.get("PORT", 5433))
+login_manager = LoginManager()
 
 app = Flask(__name__) #instance of application
+login_manager.init_app(app)
 
 
 # bcrypt = Bcrypt(application)
-#"postgresql://mananhora@localhost/messamis"
+#"postgresql://mananhora@localhost/mesamis"
 
 
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -28,7 +31,6 @@ app.secret_key = "wahe guru"
 db = SQLAlchemy(app) #create instance of sql alchemy with application as parameter
 
 from models import * #import after creating the db
-# db.create_all()
 
 # login required decorator
 def login_required(f):
@@ -63,25 +65,43 @@ def welcome():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    flash('in login')
+    if(debug):
+        flash('in login')
     error = None
     form = LoginForm(request.form)
     if request.method=='POST':
-        #if the form is VALID
-        if form.validate_on_submit():
+        if form.validate_on_submit(): #if the form is VALID
             #QUERY THE DATABASE to check if the user exists
             user = User.query.filter_by(name=request.form['username']).first()
-            pw = user.password
-            #if user exists, check password
-            if user is not None and pw==request.form['password']:
-                session['logged_in'] = True
-                flash('You were logged in. Go Crazy.')
-                return redirect(url_for('home'))
+            if user is not None: #if user exists, check password
+                pw = user.password
+                if user is not None and pw==request.form['password']:
+                    session['logged_in'] = True
+                    flash('You were logged in. Go Crazy.')
+                    return redirect(url_for('home'))
+                else:
+                    flash('ERROR')
+                    error = 'Invalid username or password.'
             else:
-                flash('ERROR')
                 error = 'Invalid username or password.'
                 flash('ERROR')
     return render_template('login.html', error=error, form=form)
+
+
+@app.route('/register/', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(
+            name=form.username.data,
+            email=form.email.data,
+            password=form.password.data
+        )
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        return redirect(url_for('home'))
+    return render_template('register.html', form=form)
 
 
 @app.route('/logout', methods=['GET', 'POST'])
@@ -93,13 +113,16 @@ def logout():
     return redirect(url_for('welcome'))
 
 
+login_manager.login_view = "users.login"
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.filter(User.id == int(user_id)).first()
+
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5433))
-    print ("HELLO")
-    print(os.environ)
     host = '0.0.0.0'
     if(os.environ['APP_SETTINGS']=='config.BaseConfig'):
-        app.run(debug=True, host=host)
+        app.run(debug=debug, host=host)
     else:
-        app.run(debug=False, host =host, port=port)
+        app.run(debug=debug, host =host, port=port)
