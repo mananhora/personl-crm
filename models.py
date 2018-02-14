@@ -18,9 +18,20 @@ class User(db.Model):
         self.email = email
         self.password = password
 
-    #how we want the object to be represented when it's printed
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return unicode(self.id)
+
     def __repr__(self):
-        return '<email {}>'.format(self.email)
+        return '<name - {}>'.format(self.name)
 
 
 class Circle(db.Model):
