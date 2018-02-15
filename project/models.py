@@ -1,6 +1,7 @@
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy import ForeignKey
-from app import db
+from project import db
+from project import bcrypt
 
 
 #User class corresponding to user table

@@ -1,6 +1,6 @@
 from app import db
 
-from models import User
+from project.models import User
 db.create_all()
 
 
