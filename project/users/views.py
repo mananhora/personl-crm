@@ -35,7 +35,7 @@ def login_required(f):
             return f(*args, **kwargs)
         else:
             flash('You need to login first.')
-            return redirect(url_for('login'))
+            return redirect(url_for('users.login'))
     return wrap
 
 
@@ -52,7 +52,7 @@ def login():
                 if user is not None and pw==request.form['password']:
                     session['logged_in'] = True
                     flash('You were logged in. Go Crazy.')
-                    return redirect(url_for('home'))
+                    return redirect(url_for('home.home'))
                 else:
                     flash('ERROR')
                     error = 'Invalid username or password.'
@@ -85,4 +85,4 @@ def logout():
     session.pop('logged_in', None)
     print ('logged out')
     flash('you were just logged out')
-    return redirect(url_for('welcome'))
+    return redirect(url_for('home.welcome'))
