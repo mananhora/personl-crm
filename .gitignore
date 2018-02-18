@@ -4,3 +4,6 @@
 *.iml
 
 *.xml
+
+node_modules/
+venv/

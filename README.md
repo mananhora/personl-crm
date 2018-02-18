@@ -1,6 +1,11 @@
 static- css, js files
 templates- HTML files
 
+Installing Angular Material
+<https://material.angular.io/guide/getting-started>
+1. $ npm install --save @angular/material @angular/cdk
+2. $ npm install --save @angular/animations
+* Run Angular CLI: ng serve
 
 Running instructions:
 on local:
