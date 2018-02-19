@@ -5,9 +5,7 @@
 from flask import flash, redirect, render_template, request, \
     session, url_for, Blueprint
 from flask.ext.bcrypt import Bcrypt
-from app import app
 from .forms import LoginForm, RegistrationForm   # pragma: no cover
-bcrypt = Bcrypt(app)
 from functools import wraps
 from flask.ext.login import login_user
 from project.models import User
