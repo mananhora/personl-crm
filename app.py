@@ -7,16 +7,16 @@ debug = False
 
 login_manager = LoginManager()
 
-app = Flask(__name__) #instance of application
-login_manager.init_app(app)
+# app = Flask(__name__) #instance of application
+# login_manager.init_app(app)
 
 
 # bcrypt = Bcrypt(application)
 #"postgresql://mananhora@localhost/mesamis"
 
 
-app.config.from_object(os.environ['APP_SETTINGS'])
-app.secret_key = "wahe guru"
+# app.config.from_object(os.environ['APP_SETTINGS'])
+# app.secret_key = "wahe guru"
 
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://mananhora@localhost/mesamis"
