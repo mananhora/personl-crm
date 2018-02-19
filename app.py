@@ -43,25 +43,25 @@ def login_required(f):
             return redirect(url_for('login'))
     return wrap
 
-
-@app.route('/')
-@login_required
-def home():
-    # g.db = connect_db() #connect to database
-    # #perform queries here..
-    # g.db.close() #close connection with database..
-    return render_template('index.html')  # render a template
-
-
-@app.route('/<name>')
-def hello_name(name):
-    return "Hello {}!".format(name)
-
-
-@app.route('/welcome')
-def welcome():
-    return render_template('welcome.html')  # render a template
-
+#
+# @app.route('/')
+# @login_required
+# def home():
+#     # g.db = connect_db() #connect to database
+#     # #perform queries here..
+#     # g.db.close() #close connection with database..
+#     return render_template('index.html')  # render a template
+#
+#
+# @app.route('/<name>')
+# def hello_name(name):
+#     return "Hello {}!".format(name)
+#
+#
+# @app.route('/welcome')
+# def welcome():
+#     return render_template('welcome.html')  # render a template
+#
 
 
 # login_manager.login_view = "users.login"
