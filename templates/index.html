@@ -1,60 +1,14 @@
-<!-- @todo Angular templating -->
-<!-- <!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Mesamis</title>
-  <base href="/">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
-</html> -->
-
-<!DOCTYPE html>
-<html>
   <head>
-    <title>#WORKING TITLE</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <style>
-      .container {
-        max-width: 1000px;
-      }
-    </style>
+    <meta charset="utf-8">
+    <title>MesAmis</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
   <body>
-    <div class="container">
-      <h1>Mes Amis</h1>
-
-      {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-
-      <form role="form" method='POST' action='/'>
-        <div class="form-group">
-          <input type="text" name="url" class="form-control" id="url-box" placeholder="Enter email..." style="max-width: 300px;" autofocus required>
-        </div>
-        <div class="form-group">
-          <input type="text" name="url" class="form-control" id="url-box" placeholder="Enter password..." style="max-width: 300px;" autofocus required>
-        </div>
-        <button type="submit" class="btn btn-default">login</button>
-      </form>
-      <br>
-      {% for error in errors %}
-        <h4>{{ error }}</h4>
-      {% endfor %}
-    </div>
-    <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <app-root></app-root>
   </body>
 </html>
