@@ -4,12 +4,14 @@ import { MaterialModule } from './material.module';
 
 import { AppComponent } from './app.component';
 import { NodesComponent } from './nodes/nodes.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NodesComponent
+    NodesComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -18,7 +20,8 @@ import { NodesComponent } from './nodes/nodes.component';
   providers: [],
   bootstrap: [
     AppComponent,
-    NodesComponent
+    NodesComponent,
+    ProfileComponent
   ]
 })
 export class AppModule { }
