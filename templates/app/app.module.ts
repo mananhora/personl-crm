@@ -8,13 +8,17 @@ import { NodesComponent } from './nodes/nodes.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NodesComponent
   ],
   imports: [
     BrowserModule,
     MaterialModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+    NodesComponent
+  ]
 })
 export class AppModule { }
