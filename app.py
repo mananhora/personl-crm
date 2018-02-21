@@ -5,7 +5,7 @@ from functools import wraps
 from flask_sqlalchemy import SQLAlchemy
 from flask.ext.bcrypt import Bcrypt
 from form import *
-from flask.ext.login import login_user, logout_user, LoginManager
+from flask.ext.login import login_user, logout_user, LoginManager, current_user
 debug = False
 
 login_manager = LoginManager()
@@ -88,6 +88,9 @@ def login():
     return render_template('login.html', error=error, form=form)
 
 
+
+user = None
+
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -104,6 +107,7 @@ def register():
     return render_template('register.html', form=form)
 
 
+
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     error = None
@@ -116,7 +120,31 @@ def logout():
 login_manager.login_view = "users.login"
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.filter(User.id == int(user_id)).first()
+    user = User.query.filter(User.id == int(user_id)).first()
+    flash('hello')
+    if user is not None:
+      flash(user.id)
+    return user
+
+
+
+@app.route('/addfriend/', methods = ['GET', 'POST'])
+def add_friend():
+  form = FriendCreationForm()
+  if form.validate_on_submit():
+    friend = Friend(
+      name = form.name.data,
+      email = form.email.data,
+      user_id=current_user.id,
+    location = form.location.data)
+    db.session.add(friend)
+    db.session.commit()
+    flash('friend successfully added!')
+    return redirect(url_for('home'))
+  return render_template('addfriend.html', form=form)
+
+
+
 
 
 if __name__ == '__main__':
