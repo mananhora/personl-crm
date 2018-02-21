@@ -49,5 +49,23 @@ class Friend(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
     email = db.Column(db.String())
+    user_id = db.Column(db.Integer, ForeignKey('users.id'))
+    location = db.Column(db.String())
+
+    # constructor
+    def __init__(self, name, email, user_id, location):
+      self.name = name
+      self.email = email
+      self.user_id = user_id
+      self.location = location
+
+    def is_anonymous(self):
+      return False
+
+    def get_id(self):
+      return unicode(self.id)
+
+    def __repr__(self):
+      return '<name - {}>'.format(self.name)
 
 
