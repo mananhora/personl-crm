@@ -7,6 +7,7 @@ from flask.ext.bcrypt import Bcrypt
 from form import *
 from flask.ext.login import login_user, logout_user, LoginManager, current_user
 debug = False
+from flask import jsonify
 
 login_manager = LoginManager()
 
@@ -127,7 +128,7 @@ def load_user(user_id):
     return user
 
 
-
+@login_required
 @app.route('/addfriend/', methods = ['GET', 'POST'])
 def add_friend():
   form = FriendCreationForm()
@@ -142,6 +143,19 @@ def add_friend():
     flash('friend successfully added!')
     return redirect(url_for('home'))
   return render_template('addfriend.html', form=form)
+
+
+@login_required
+@app.route('/showallfriends/', methods = ['GET'])
+def get_friends():
+    user_id = current_user.id
+    friends = Friend.query.filter_by(user_id=user_id).all()
+    # for i in range(0, len(friends)):
+    #   print(friends[i].name)
+    # flash(str(friends.name))
+    return render_template('index.html')
+
+
 
 
 
