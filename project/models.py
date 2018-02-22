@@ -63,7 +63,7 @@ class Friend(db.Model):
       return False
 
     def get_id(self):
-      return unicode(self.id)
+      return str(self.id)
 
     def __repr__(self):
       return '<name - {}>'.format(self.name)
