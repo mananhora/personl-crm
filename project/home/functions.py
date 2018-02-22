@@ -31,7 +31,6 @@ def get_friends():
     return render_template('index.html')
 
 
-
 @home_blueprint.route('/')
 @login_required
 def home():
