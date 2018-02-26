@@ -36,7 +36,7 @@ def register():
         db.session.commit()
         login_user(user)
         return redirect(url_for('home.home'))
-    return users_blueprint.send_static_file('index.html')
+    return app.send_static_file('index.html')
 
 
 
