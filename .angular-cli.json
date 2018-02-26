@@ -5,7 +5,7 @@
   },
   "apps": [
     {
-      "root": "static",
+      "root": "project/static/",
       "outDir": "dist",
       "assets": [
         "assets",
@@ -38,11 +38,11 @@
   },
   "lint": [
     {
-      "project": "static/tsconfig.app.json",
+      "project": "project/static/tsconfig.app.json",
       "exclude": "**/node_modules/**"
     },
     {
-      "project": "static/tsconfig.spec.json",
+      "project": "project/static/tsconfig.spec.json",
       "exclude": "**/node_modules/**"
     },
     {
