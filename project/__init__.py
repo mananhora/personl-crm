@@ -16,7 +16,7 @@ app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.config.from_object(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
-app.static_folder=os.path.join(os.curdir, 'static/dist')
+# app.static_folder=os.path.join(os.curdir, 'static/dist')
 
 from project.users.functions import users_blueprint
 from project.home.functions import home_blueprint

@@ -44,7 +44,7 @@ def register():
         login_user(user)
         print (app.static_folder)
         return redirect(url_for('home.home'))
-    return app.send_static_file('index.html')
+    return app.send_static_file('dist/index.html')
 
 
 
