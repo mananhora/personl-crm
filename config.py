@@ -29,7 +29,7 @@ class BaseConfig(object):
     CSRF_ENABLED = True
     SECRET_KEY = 'Wahe Guru'
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
-
+    STATIC_FOLDER = os.path.join(os.pardir, 'static/dist')
 
 class ProductionConfig():
     DEBUG = False

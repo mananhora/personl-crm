@@ -22,6 +22,12 @@ users_blueprint = Blueprint(
 debug = False
 
 
+default = Blueprint('cast', __name__, static_folder=Config.STATIC_FOLDER, static_url_path='')
+
+
+
+
+
 @users_blueprint.route('/register/', methods=['GET', 'POST'])
 def register():
     print ("in register")
