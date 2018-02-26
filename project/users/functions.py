@@ -24,6 +24,7 @@ debug = False
 
 @users_blueprint.route('/register/', methods=['GET', 'POST'])
 def register():
+    print ("in register")
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(
@@ -35,7 +36,7 @@ def register():
         db.session.commit()
         login_user(user)
         return redirect(url_for('home.home'))
-    return render_template('register.html', form=form)
+    return users_blueprint.send_static_file('index.html')
 
 
 
