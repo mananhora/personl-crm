@@ -22,7 +22,7 @@ users_blueprint = Blueprint(
 debug = False
 
 
-default = Blueprint('cast', __name__, static_folder=Config.STATIC_FOLDER, static_url_path='')
+# default = Blueprint('cast', __name__, static_folder=Config.STATIC_FOLDER, static_url_path='')
 
 
 
@@ -42,7 +42,7 @@ def register():
         db.session.commit()
         login_user(user)
         return redirect(url_for('home.home'))
-    return app.send_static_file('index.html')
+    return app.send_static_file('dist/index.html')
 
 
 
