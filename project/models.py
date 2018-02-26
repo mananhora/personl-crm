@@ -69,3 +69,21 @@ class Friend(db.Model):
       return '<name - {}>'.format(self.name)
 
 
+class Tag(db.Model):
+    __tablename__ = 'tags'
+    id = db.Column(db.Integer, primary_key=True)
+    friend_id = db.Column(db.Integer, ForeignKey('friends.id'))
+    name = db.Column(db.String())
+
+    # constructor
+    def __init__(self, name):
+      self.name = name
+
+    def is_anonymous(self):
+      return False
+
+    def get_id(self):
+      return str(self.id)
+
+    def __repr__(self):
+      return '<name - {}>'.format(self.name)

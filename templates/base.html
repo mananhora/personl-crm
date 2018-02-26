@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>#</title>
+    <title>MezAmis</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> -->
   </head>
-  <body>
 
+  <style>
+    @font-face {
+      font-family: "abegnale";
+      src: url("fonts/Abegnale.otf") format("opentype");
+    }
+    .brand, h1 {
+      font-family: 'abegnale', monospace;
+    }
+  </style>
+
+  <body class="cyan lighten-5">
     <div class="container">
 
       <!-- child template -->
@@ -21,7 +33,9 @@
       {% for message in get_flashed_messages() %}
         {{ message }}
       {% endfor %}
-    </div>
 
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   </body>
 </html>
