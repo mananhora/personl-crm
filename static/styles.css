@@ -1,32 +1,16 @@
-/* @import "./theme.scss"; */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 body {
   background: url("images/bkg.png");
 }
 
-.brand {
-  font-family: 'abegnale';
+.brand, h1 {
+  font-family: 'abegnale', monospace;
 }
 
-.secondary-font {
-  font-family: 'sayless';
-}
-.secondary-font span {
-  font-family: 'sayless';
+.secondary-font, h2 {
+  font-family: 'sayless', sans-serif;
 }
 
-.body-font {
-  font-family: 'san-francisco';
-}
-
-/***********/
-/* nav bar */
-/***********/
-
-.example-icon {
-  padding: 0 14px;
-}
-.example-spacer {
-  flex: 1 1 auto;
+.body-font, p, li, a {
+  font-family: 'san-francisco', sans-serif;
 }

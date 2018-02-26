@@ -1,7 +1,10 @@
+<!-- is this file ever used ?? -->
+
 <!DOCTYPE HTML>
 <html lang="en">
   <head>
     <meta charset="utf-8">
+<<<<<<< HEAD
     <title>MesAmis</title>
 
 
@@ -27,12 +30,43 @@
    }(document, 'script', 'facebook-jssdk'));
 </script>
 
+=======
+    <title>MezAmis</title>
+>>>>>>> origin/master
     <base href="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
-    <app-root></app-root>
+    <div class="container">
+
+      <div class="row">
+        <h1 style="text align: center;">Welcome</h1>
+      </div>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class=flashes>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
+      {% for error in errors %}
+        <h4>{{ error }}</h4>
+      {% endfor %}
+
+      <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large waves-effect waves-light teal lighten-2" href="{{ url_for('contacts.add_friend') }}">
+          <i class="material-icons">add</i>
+        </a>
+      </div>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   </body>
 </html>
