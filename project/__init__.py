@@ -4,8 +4,10 @@ from flask.ext.bcrypt import Bcrypt
 from flask.ext.login import LoginManager
 import os
 from functools import wraps
+from flask_security import SQLAlchemyUserDatastore, Security
 from flask import Flask, render_template, request, session, flash, redirect, url_for
-
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy import create_engine
 
 
 ################
@@ -16,7 +18,19 @@ app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.config.from_object(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
-# app.static_folder=os.path.join(os.curdir, 'static/dist')
+
+from sqlalchemy.ext.declarative import declarative_base
+
+
+app.config['SECURITY_POST_LOGIN'] = '/profile'
+engine = create_engine('postgresql://mananhora@localhost/mesamis', convert_unicode=True)
+
+
+db_session = scoped_session(sessionmaker(autocommit=False,
+                                         autoflush=False,
+                                         bind=engine))
+Base = declarative_base()
+Base.query = db_session.query_property()
 
 from project.users.functions import users_blueprint
 from project.home.functions import home_blueprint
@@ -35,6 +49,15 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 login_manager.login_view = "users.login"
+
+# user_datastore = SQLAlchemyUserDatastore(db, User, None)
+# security = Security(app, user_datastore)
+
+app.config['SOCIAL_FACEBOOK'] = {
+    'consumer_key': '2110167129228190',
+    'consumer_secret': 'd4507ca7ee29238e632c9a646162aac5'
+}
+
 
 
 # @login_manager.user_loader
