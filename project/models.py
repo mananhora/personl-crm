@@ -2,6 +2,12 @@ from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy import ForeignKey
 from project import db
 
+from flask_security import UserMixin, RoleMixin
+from sqlalchemy import create_engine
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy import Boolean, DateTime, Column, Integer, \
+                       String
+
 
 #User class corresponding to user table
 class User(db.Model):
@@ -11,12 +17,14 @@ class User(db.Model):
     name = db.Column(db.String(), nullable=False)
     email = db.Column(db.String(), nullable=False)
     password = db.Column(db.String(), nullable=False) # NEED TO ADD ENCRYPTION
+    profile_url = db.Column(db.String(512), nullable=True)
 
     #constructor
-    def __init__(self, name, email, password):
+    def __init__(self, name, email, password, profile_url):
         self.name = name
         self.email = email
         self.password = password
+        self.profile_url = profile_url
 
     def is_authenticated(self):
         return True
