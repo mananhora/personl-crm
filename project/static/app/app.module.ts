@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { MaterialModule } from './material.module';
 
 import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
 import { NodesComponent } from './nodes/nodes.component';
 import { ProfileComponent } from './profile/profile.component';
 
@@ -12,6 +13,7 @@ import { AppService } from './app.service';
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
     NodesComponent,
     ProfileComponent
   ],
@@ -24,6 +26,7 @@ import { AppService } from './app.service';
   ],
   bootstrap: [
     AppComponent,
+    LoginComponent,
     NodesComponent,
     ProfileComponent
   ]
