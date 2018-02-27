@@ -8,7 +8,7 @@ from flask.ext.login import login_user, login_required, logout_user
 from project.models import User
 from project.form import *
 from project import *
-from flask.ext.social import Social
+# from flask.ext.social import Social
 
 user = None
 
@@ -88,12 +88,12 @@ def login():
     return render_template('login.html', error=error, form=form)
 
 
-social = Social(app, db)
+# social = Social(app, db)
 
-@app.route('/profile')
-@login_required
-def profile():
-    return render_template(
-        'profile.html',
-        content='Profile Page',
-        facebook_conn=social.facebook.get_connection())
+# @app.route('/profile')
+# @login_required
+# def profile():
+#     return render_template(
+#         'profile.html',
+#         content='Profile Page',
+#         facebook_conn=social.facebook.get_connection())
