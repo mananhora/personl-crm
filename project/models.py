@@ -36,11 +36,42 @@ class User(db.Model):
 
 class Circle(db.Model):
     #describe circle table here
+    #each circle has id, parent_id, circle name
+    #each circle has at most one parent, but can have multiple children
     __tablename__ = 'circles'
 
     id = db.Column(db.Integer, primary_key=True)
-    parent_id = db.Column(db.Integer, ForeignKey('circles.id'))
+    user_id = db.Column(db.Integer, ForeignKey('users.id'))
+    parent_id = db.Column(db.Integer, ForeignKey('circles.id'), nullable=True)
     circle_name = db.Column(db.String(), nullable=False)
+
+    # constructor
+    def __init__(self, circle_name, user_id, parent_id):
+      self.circle_name = circle_name
+      self.user_id = user_id
+      self.parent_id = parent_id
+
+    def is_anonymous(self):
+      return False
+
+    def get_id(self):
+      return str(self.id)
+
+    def __repr__(self):
+      return '<name - {}>'.format(self.circle_name)
+
+
+
+
+
+#JUNCTION TABLE FOR friends and circles
+#one friend can be in many circles
+#one circle can have many friends
+friends_circles = db.Table('friends_circles',
+                            db.Column('circle_id', db.Integer,db.ForeignKey('circles.id'), nullable=False),
+                            db.Column('friend_id',db.Integer,db.ForeignKey('friends.id'),nullable=False),
+                            db.PrimaryKeyConstraint('circle_id', 'friend_id') )
+
 
 
 class Friend(db.Model):
