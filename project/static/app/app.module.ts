@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { NodesComponent } from './nodes/nodes.component';
 import { ProfileComponent } from './profile/profile.component';
 
+import { AppService } from './app.service';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { ProfileComponent } from './profile/profile.component';
     BrowserModule,
     MaterialModule,
   ],
-  providers: [],
+  providers: [
+    AppService
+  ],
   bootstrap: [
     AppComponent,
     NodesComponent,
