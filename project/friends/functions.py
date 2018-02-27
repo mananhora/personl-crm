@@ -14,15 +14,16 @@ from project.users.functions import user
 #### config ####
 ################
 
-contacts_blueprint = Blueprint(
-    'contacts', __name__,
+friends_blueprint = Blueprint(
+    'friends'
+  , __name__,
     template_folder='../../templates'
 )
 
 
 
 @login_required
-@contacts_blueprint.route('/addfriend/', methods = ['GET', 'POST'])
+@friends_blueprint.route('/addfriend/', methods = ['GET', 'POST'])
 def add_friend():
   form = FriendCreationForm()
   hello = current_user.is_authenticated
@@ -47,3 +48,5 @@ def add_friend():
     print ('current user is none')
 
   return render_template('addfriend.html', form=form)
+
+

@@ -28,6 +28,7 @@ def add_circle(circle_name, user_id, parent_id):
 
 #add a friend to a circle, given that the friend already exists in the user's friend_list
 def add_member_to_circle(circle_id, friend_id):
+  friends_circle = friends_circles()
   db.session.commit()
 
 

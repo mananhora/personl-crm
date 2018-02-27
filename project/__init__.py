@@ -19,7 +19,7 @@ db = SQLAlchemy(app)
 
 from project.users.functions import users_blueprint
 from project.home.functions import home_blueprint
-from project.contacts.functions import contacts_blueprint
+from project.friends.functions import friends_blueprint
 
 
 # register our blueprints
@@ -27,7 +27,7 @@ from project.models import *
 
 app.register_blueprint(users_blueprint)
 app.register_blueprint(home_blueprint)
-app.register_blueprint(contacts_blueprint)
+app.register_blueprint(friends_blueprint)
 
 #LOGIN MANAGER
 login_manager = LoginManager()

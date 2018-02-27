@@ -11,6 +11,9 @@ class User(db.Model):
     name = db.Column(db.String(), nullable=False)
     email = db.Column(db.String(), nullable=False)
     password = db.Column(db.String(), nullable=False) # NEED TO ADD ENCRYPTION
+    circles = db.relationship('Circle', backref='user', lazy='dynamic')
+    friends = db.relationship('Friend', backref='user', lazy='dynamic')
+
 
     #constructor
     def __init__(self, name, email, password):
