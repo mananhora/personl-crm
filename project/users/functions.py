@@ -8,6 +8,8 @@ from flask.ext.login import login_user, login_required, logout_user
 from project.models import User
 from project.form import *
 from project import *
+from flask.ext.social import Social
+
 user = None
 
 ################
@@ -59,8 +61,6 @@ def logout():
 
 
 
-
-
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     if(debug):
@@ -86,3 +86,14 @@ def login():
                 error = 'Invalid username or password.'
                 flash('ERROR')
     return render_template('login.html', error=error, form=form)
+
+
+social = Social(app, db)
+
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template(
+        'profile.html',
+        content='Profile Page',
+        facebook_conn=social.facebook.get_connection())
