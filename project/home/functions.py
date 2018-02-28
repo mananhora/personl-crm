@@ -24,9 +24,13 @@ def get_friends():
     if current_user is not None:
       if current_user.id is not None:
         user_id = current_user.id
-        friends = Friend.query.filter_by(user_id=user_id).all()
-        for i in range(0, len(friends)):
-          print(friends[i].name)
+        user = User.query.get(user_id)
+        print (user.id)
+        friends = user.friends.all()
+        print(friends)
+        # friends = Friend.query.filter_by(user_id=user_id).all()
+        # for i in range(0, len(friends)):
+        #   print(friends[i].name)
     # flash(str(friends.name))
     return render_template('index.html')
 

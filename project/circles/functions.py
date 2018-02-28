@@ -35,7 +35,10 @@ def add_member_to_circle(circle_id, friend_id):
 
 #for a given circle, get all friends in that circle, and in child circles..
 def get_all_friends_in_circle(circle_id):
-  list_of_friends = []
+  circle = Circle.query.get(circle_id)
+  friends = circle.friends.all()
+  print(friends)
+
 
 
 
