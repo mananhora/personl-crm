@@ -30,24 +30,33 @@ debug = False
 
 
 
-@users_blueprint.route('/register/', methods=['GET', 'POST'])
+@users_blueprint.route('/register/', methods=['POST'])
 def register():
     print("HELLOOO")
     print (request)
     print (app.static_folder)
     print(request.json)
-    json_data = request.json
-    # user = User(
-    #   name = json_data['name'],
-    #   email=json_data['email'],
-    #   password=json_data['password']
-    # )
+    json_data = request.get_data()
+    
+    user = User(
+      name = json_data['name'],
+      email=json_data['email'],
+      password=json_data['password']
+    )
     # db.session.add(user)
     # db.session.commit()
     # login_user(user)
     print (app.static_folder)
+
+    try:
+      db.session.add(user)
+      db.session.commit()
+      status = 'success'
+    except:
+      status = 'this user is already registered'
     # return redirect(url_for('home.home'))
-    return app.send_static_file('dist/index.html')
+    return jsonify({'result': status})
+
 
 
 
