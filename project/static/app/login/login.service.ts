@@ -15,7 +15,7 @@ export class LoginService {
   };
 
   submitForm (object: Object): Observable<Object> {
-    return this.http.post<Object>('/api/login', object, this.httpOptions);
+    return this.http.post<Object>('/login', object, this.httpOptions);
       // .pipe(
       //   catchError(alert('Errrrror'));
       // );
