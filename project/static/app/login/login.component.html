@@ -4,30 +4,41 @@
   </div>
 
   <div class="row">
-    <form class="col s8 offset-s2 card-panel form-signin" role="form" method="post" action="">
+    <form class="col s8 offset-s2 card-panel form-signin"
+          (ngSubmit)="onSubmit()" #loginForm="ngForm">
 
       <div class="section">
         <div class="row">
           <div class="input-field col s12">
-            <input id="username" type="text" class="validate">
+            <input type="text" class="validate" id="username" required
+                    [(ngModel)]="username" name="username">
+                    TODO: remove this: {{username}}
             <label for="username">Username</label>
           </div>
         </div>
 
         <div class="row">
           <div class="input-field col s12">
-            <input id="password" type="password" class="validate">
+            <input type="password" class="validate" id="password" required
+                    [(ngModel)]="password" name="password">
+                    TODO: remove this: {{password}}
             <label for="password">Password</label>
           </div>
         </div>
 
-        <button class="btn waves-effect waves-light" type="submit" name="action">Sign in
-          <i class="material-icons right">send</i>
+        <button type="submit" class="btn waves-effect waves-light" name="action"
+                [disabled]="!loginForm.form.valid">
+          Sign in <i class="material-icons right">send</i>
         </button>
+        TODO: remove this: {{submitted}}
       </div>
+
       <div class="divider"></div>
+      
       <div class="section">
         <a href="/register">Register a new account</a>
       </div>
+
     </form>
+
   </div>

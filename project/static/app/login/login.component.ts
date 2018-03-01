@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from './login.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private loginService: LoginService) { }
 
-  ngOnInit() {
+  username = '';
+  password = '';
+  submitted = false;
+
+  onSubmit() {
+    this.loginService.submitForm({
+        username: this.username,
+        password: this.password,
+      })
+      .subscribe(
+        alert('Success!!')
+      );
   }
+
+  ngOnInit() { }
 
 }
