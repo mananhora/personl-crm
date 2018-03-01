@@ -7,7 +7,7 @@ export class LoginService {
 
   constructor (private http: HttpClient) { }
 
-  const httpOptions = {
+  httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
       'Authorization': 'my-auth-token'

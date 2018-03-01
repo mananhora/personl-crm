@@ -19,10 +19,7 @@ export class LoginComponent implements OnInit {
     this.loginService.submitForm({
         username: this.username,
         password: this.password,
-      })
-      .subscribe(
-        alert('Success!!')
-      );
+      }).subscribe();
   }
 
   ngOnInit() { }

@@ -37,14 +37,14 @@ def register():
     print (app.static_folder)
     print(request.json)
     json_data = request.json
-    user = User(
-      name = json_data['name'],
-      email=json_data['email'],
-      password=json_data['password']
-    )
-    db.session.add(user)
-    db.session.commit()
-    login_user(user)
+    # user = User(
+    #   name = json_data['name'],
+    #   email=json_data['email'],
+    #   password=json_data['password']
+    # )
+    # db.session.add(user)
+    # db.session.commit()
+    # login_user(user)
     print (app.static_folder)
     # return redirect(url_for('home.home'))
     return app.send_static_file('dist/index.html')
