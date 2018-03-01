@@ -9,7 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { NodesComponent } from './nodes/nodes.component';
+import { CirclesComponent } from './circles/circles.component';
 import { ProfileComponent } from './profile/profile.component';
 
 import { AppService } from './app.service';
@@ -19,7 +19,7 @@ import { RegisterService } from './register/register.service';
 const appRoutes: Routes = [
   { path: 'app/login', component: LoginComponent },
   { path: 'app/register', component: RegisterComponent },
-  { path: 'app/home', component: NodesComponent },
+  { path: 'app/home', component: CirclesComponent },
 ];
 
 @NgModule({
@@ -27,7 +27,7 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    NodesComponent,
+    CirclesComponent,
     ProfileComponent
   ],
   imports: [
@@ -49,7 +49,7 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    NodesComponent,
+    CirclesComponent,
     ProfileComponent
   ]
 })
