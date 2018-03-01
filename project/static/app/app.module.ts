@@ -17,9 +17,9 @@ import { LoginService } from './login/login.service';
 import { RegisterService } from './register/register.service';
 
 const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'home', component: NodesComponent },
+  { path: 'app/login', component: LoginComponent },
+  { path: 'app/register', component: RegisterComponent },
+  { path: 'app/home', component: NodesComponent },
 ];
 
 @NgModule({

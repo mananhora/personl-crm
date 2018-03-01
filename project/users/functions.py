@@ -33,11 +33,14 @@ debug = False
 @users_blueprint.route('/register/', methods=['POST'])
 def register():
     print("HELLOOO")
+    print ("request")
     print (request)
+    print("app static_folder")
     print (app.static_folder)
+    print("request json")
     print(request.json)
     json_data = request.get_data()
-    
+
     user = User(
       name = json_data['name'],
       email=json_data['email'],
@@ -73,10 +76,15 @@ def logout():
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
+  print("in login")
   if (debug):
     flash('in login')
   json_data = request.json
-  user = User.query.filter_by(email=json_data['email']).first()
+  user = User.query.filter_by(email=json_data['username']).first()
+  print (user)
+  print(json_data)
+  print(request.get_data())
+  print(request.get_json())
   pw = user.password
   if user is not None and pw == json_data['password']:
     session['logged_in'] = True

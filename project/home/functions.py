@@ -32,9 +32,8 @@ def get_friends():
 
 
 @home_blueprint.route('/')
-@login_required
 def home():
     # g.db = connect_db() #connect to database
     # #perform queries here..
     # g.db.close() #close connection with database..
-    return app.send_static_file('index.html')  # render a template
+    return app.send_static_file('dist/index.html')  # render a template
