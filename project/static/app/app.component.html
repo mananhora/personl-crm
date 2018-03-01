@@ -1,18 +1,14 @@
 
-<!-- if not logged in -->
-  <div class="container">
-    <app-login></app-login>
-  </div>
-
-<!-- else -->
-  <!-- <mat-toolbar color="primary">
+  <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <span class="brand">Hi, {{ name }}</span>
+      <span class="brand">MezAmis</span>
       <span class="example-spacer"></span>
-      <mat-icon class="example-icon">notifications</mat-icon>
-      <mat-icon class="example-icon">person</mat-icon>
-      <mat-icon class="example-icon">settings</mat-icon>
+      <a routerLink="/login" routerLinkActive="active">Login</a>
+      <span class="example-spacer"></span>
+      <a routerLink="/register" routerLinkActive="active">Register</a>
     </mat-toolbar-row>
-  </mat-toolbar> -->
-  <!-- <app-nodes></app-nodes> -->
-  <!-- <app-profile></app-profile> -->
+  </mat-toolbar>
+
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
