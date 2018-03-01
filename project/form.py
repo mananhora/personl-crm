@@ -19,3 +19,7 @@ class FriendCreationForm(Form):
     name = TextField('name', validators=[DataRequired()])
     email = TextField('email', validators=[Email(message=None), Length(min=6, max=40)])  # datarequired validator ensures that the form is not empty
     location = TextField('location')
+
+
+class CircleCreationForm(Form):
+    circle_name = TextField('circle_name', validators=[DataRequired()])

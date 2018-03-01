@@ -36,6 +36,11 @@ class User(db.Model):
     def __repr__(self):
         return '<name - {}>'.format(self.name)
 
+friends_circles = db.Table('friends_circles',
+                            db.Column('circle_id', db.Integer,db.ForeignKey('circles.id'), nullable=False),
+                            db.Column('friend_id',db.Integer,db.ForeignKey('friends.id'),nullable=False),
+                            db.PrimaryKeyConstraint('circle_id', 'friend_id') )
+
 
 class Circle(db.Model):
     #describe circle table here
@@ -47,6 +52,7 @@ class Circle(db.Model):
     user_id = db.Column(db.Integer, ForeignKey('users.id'))
     parent_id = db.Column(db.Integer, ForeignKey('circles.id'), nullable=True)
     circle_name = db.Column(db.String(), nullable=False)
+    friends = db.relationship("Friend", secondary=friends_circles, backref='friends')
 
     # constructor
     def __init__(self, circle_name, user_id, parent_id):
@@ -63,19 +69,9 @@ class Circle(db.Model):
     def __repr__(self):
       return '<name - {}>'.format(self.circle_name)
 
-
-
-
-
 #JUNCTION TABLE FOR friends and circles
 #one friend can be in many circles
 #one circle can have many friends
-friends_circles = db.Table('friends_circles',
-                            db.Column('circle_id', db.Integer,db.ForeignKey('circles.id'), nullable=False),
-                            db.Column('friend_id',db.Integer,db.ForeignKey('friends.id'),nullable=False),
-                            db.PrimaryKeyConstraint('circle_id', 'friend_id') )
-
-
 
 class Friend(db.Model):
     #describe friend table here
@@ -85,6 +81,8 @@ class Friend(db.Model):
     email = db.Column(db.String())
     user_id = db.Column(db.Integer, ForeignKey('users.id'))
     location = db.Column(db.String())
+    circles = db.relationship("Circle",
+                    secondary=friends_circles, backref='circles')
 
     # constructor
     def __init__(self, name, email, user_id, location):

@@ -26,10 +26,7 @@ friends_blueprint = Blueprint(
 @friends_blueprint.route('/addfriend/', methods = ['GET', 'POST'])
 def add_friend():
   form = FriendCreationForm()
-  hello = current_user.is_authenticated
-  print (hello)
   if current_user is not None :
-    print (current_user)
     print ('current user is not none!!')
     if current_user.id is not None :
       if form.validate_on_submit():
