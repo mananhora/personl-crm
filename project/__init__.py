@@ -22,7 +22,7 @@ db = SQLAlchemy(app)
 from sqlalchemy.ext.declarative import declarative_base
 
 
-app.config['SECURITY_POST_LOGIN'] = '/profile'
+# app.config['SECURITY_POST_LOGIN'] = '/profile'
 engine = create_engine('postgresql://mananhora@localhost/mesamis', convert_unicode=True)
 
 
@@ -53,10 +53,10 @@ login_manager.login_view = "users.login"
 # user_datastore = SQLAlchemyUserDatastore(db, User, None)
 # security = Security(app, user_datastore)
 
-app.config['SOCIAL_FACEBOOK'] = {
-    'consumer_key': '2110167129228190',
-    'consumer_secret': 'd4507ca7ee29238e632c9a646162aac5'
-}
+# app.config['SOCIAL_FACEBOOK'] = {
+#     'consumer_key': '2110167129228190',
+#     'consumer_secret': 'd4507ca7ee29238e632c9a646162aac5'
+# }
 
 
 

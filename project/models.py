@@ -17,14 +17,12 @@ class User(db.Model):
     name = db.Column(db.String(), nullable=False)
     email = db.Column(db.String(), nullable=False)
     password = db.Column(db.String(), nullable=False) # NEED TO ADD ENCRYPTION
-    profile_url = db.Column(db.String(512), nullable=True)
 
     #constructor
     def __init__(self, name, email, password, profile_url):
         self.name = name
         self.email = email
         self.password = password
-        self.profile_url = profile_url
 
     def is_authenticated(self):
         return True

@@ -32,6 +32,10 @@ debug = False
 
 @users_blueprint.route('/register/', methods=['GET', 'POST'])
 def register():
+    print("HELLOOO")
+    print (request)
+    print (app.static_folder)
+    print(request.json)
     json_data = request.json
     user = User(
       name = json_data['name'],
