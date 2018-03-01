@@ -1,5 +1,5 @@
 from flask import flash, redirect, render_template, request, \
-    session, url_for, Blueprint
+    session, url_for, Blueprint, jsonify
 from flask.ext.bcrypt import Bcrypt
 # from project import app
 # bcrypt = Bcrypt(app)
@@ -32,20 +32,17 @@ debug = False
 
 @users_blueprint.route('/register/', methods=['GET', 'POST'])
 def register():
+    json_data = request.json
+    user = User(
+      name = json_data['name'],
+      email=json_data['email'],
+      password=json_data['password']
+    )
+    db.session.add(user)
+    db.session.commit()
+    login_user(user)
     print (app.static_folder)
-    print ("in register")
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(
-            name=form.username.data,
-            email=form.email.data,
-            password=form.password.data
-        )
-        db.session.add(user)
-        db.session.commit()
-        login_user(user)
-        print (app.static_folder)
-        return redirect(url_for('home.home'))
+    # return redirect(url_for('home.home'))
     return app.send_static_file('dist/index.html')
 
 
@@ -63,29 +60,20 @@ def logout():
 
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
-    if(debug):
-        flash('in login')
-    error = None
-    form = LoginForm(request.form)
-    if request.method=='POST':
-        if form.validate_on_submit(): #if the form is VALID
-            #QUERY THE DATABASE to check if the user exists
-            user = User.query.filter_by(name=request.form['username']).first()
-            if user is not None: #if user exists, check password
-                pw = user.password
-                if user is not None and pw==request.form['password']:
-                    session['logged_in'] = True
-                    flash('You were logged in. Go Crazy.')
-                    login_user(user)
-                    next = request.args.get('next')
-                    return redirect(url_for('home.home'))
-                else:
-                    flash('ERROR')
-                    error = 'Invalid username or password.'
-            else:
-                error = 'Invalid username or password.'
-                flash('ERROR')
-    return render_template('login.html', error=error, form=form)
+  if (debug):
+    flash('in login')
+  json_data = request.json
+  user = User.query.filter_by(email=json_data['email']).first()
+  pw = user.password
+  if user is not None and pw == json_data['password']:
+    session['logged_in'] = True
+    flash('You were logged in. Go Crazy.')
+    login_user(user)
+    session['logged_in'] = True
+    status = True
+  else:
+    status = False
+  return jsonify({'result': status})
 
 
 # social = Social(app, db)
