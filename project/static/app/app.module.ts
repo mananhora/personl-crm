@@ -8,11 +8,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 import { NodesComponent } from './nodes/nodes.component';
 import { ProfileComponent } from './profile/profile.component';
 
 import { AppService } from './app.service';
 import { LoginService } from './login/login.service';
+import { RegisterService } from './register/register.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,6 +26,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
+    RegisterComponent,
     NodesComponent,
     ProfileComponent
   ],
@@ -40,10 +43,12 @@ const appRoutes: Routes = [
   providers: [
     AppService,
     LoginService,
+    RegisterService,
   ],
   bootstrap: [
     AppComponent,
     LoginComponent,
+    RegisterComponent,
     NodesComponent,
     ProfileComponent
   ]
