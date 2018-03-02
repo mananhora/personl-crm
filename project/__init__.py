@@ -34,7 +34,7 @@ Base.query = db_session.query_property()
 
 from project.users.functions import users_blueprint
 from project.home.functions import home_blueprint
-from project.contacts.functions import friends_blueprint
+from project.contacts.functions import contacts_blueprint
 from project.circles.functions import circles_blueprint
 
 
@@ -44,7 +44,7 @@ from project.models import *
 
 app.register_blueprint(users_blueprint)
 app.register_blueprint(home_blueprint)
-app.register_blueprint(friends_blueprint)
+app.register_blueprint(contacts_blueprint)
 app.register_blueprint(circles_blueprint)
 
 

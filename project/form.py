@@ -26,5 +26,5 @@ class CircleCreationForm(Form):
 
 
 
-class FriendCircleForm(Form):
+# class FriendCircleForm(Form):
 
