@@ -8,6 +8,8 @@ export class CirclesService {
 
   constructor (private http: HttpClient) { }
 
+  circles = [];
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -21,5 +23,21 @@ export class CirclesService {
   getCircles() {
     return [this.circleA, this.circleB];
   }
+
+  // getCircles() {
+  //   objects = this.http.get<Object>('/showallcircles', this.httpOptions);
+  //   /*
+  //       {
+  //         id: '',
+  //         parentCircle: '',
+  //         contacts: [''],
+  //       }
+  //   */
+  //   for obj in objects {
+  //     // id = id, parentCircle = parentCircle, etc.
+  //     this.circles.push(obj);
+  //   }
+  //   return this.circles;
+  // }
 
 }
