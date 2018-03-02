@@ -22,4 +22,9 @@ class FriendCreationForm(Form):
 
 
 class CircleCreationForm(Form):
-    circle_name = TextField('circle_name', validators=[DataRequired()])
+  circle_name = TextField('circle_name', validators=[DataRequired()])
+
+
+
+class FriendCircleForm(Form):
+

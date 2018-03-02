@@ -50,8 +50,6 @@ def logout():
 
 
 
-
-
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     if(debug):
