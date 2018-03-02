@@ -15,7 +15,8 @@ from project.users.functions import user
 ################
 
 contacts_blueprint = Blueprint(
-    'contacts', __name__,
+    'contacts'
+  , __name__,
     template_folder='../../templates'
 )
 
@@ -25,10 +26,7 @@ contacts_blueprint = Blueprint(
 @contacts_blueprint.route('/addfriend', methods = ['GET', 'POST'])
 def add_friend():
   form = FriendCreationForm()
-  hello = current_user.is_authenticated
-  print (hello)
   if current_user is not None :
-    print (current_user)
     print ('current user is not none!!')
     if current_user.id is not None :
       if form.validate_on_submit():
@@ -47,3 +45,5 @@ def add_friend():
     print ('current user is none')
 
   return render_template('addfriend.html', form=form)
+
+
