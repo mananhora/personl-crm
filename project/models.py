@@ -19,7 +19,7 @@ class User(db.Model):
     password = db.Column(db.String(), nullable=False) # NEED TO ADD ENCRYPTION
 
     #constructor
-    def __init__(self, name, email, password, profile_url):
+    def __init__(self, name, email, password):
         self.name = name
         self.email = email
         self.password = password
