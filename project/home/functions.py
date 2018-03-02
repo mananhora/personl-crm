@@ -18,7 +18,7 @@ home_blueprint = Blueprint(
     template_folder='../../templates'
 )
 
-@home_blueprint.route('/showallfriends/', methods = ['GET'])
+@home_blueprint.route('/showallfriends', methods = ['GET'])
 @login_required
 def get_friends():
     if current_user is not None:
