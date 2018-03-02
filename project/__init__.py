@@ -19,7 +19,7 @@ db = SQLAlchemy(app)
 
 from project.users.functions import users_blueprint
 from project.home.functions import home_blueprint
-from project.friends.functions import friends_blueprint
+from project.contacts.functions import friends_blueprint
 from project.circles.functions import circles_blueprint
 
 

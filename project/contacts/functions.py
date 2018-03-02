@@ -14,8 +14,8 @@ from project.users.functions import user
 #### config ####
 ################
 
-friends_blueprint = Blueprint(
-    'friends'
+contacts_blueprint = Blueprint(
+    'contacts'
   , __name__,
     template_folder='../../templates'
 )
@@ -23,7 +23,7 @@ friends_blueprint = Blueprint(
 
 
 @login_required
-@friends_blueprint.route('/addfriend/', methods = ['GET', 'POST'])
+@contacts_blueprint.route('/addfriend/', methods = ['GET', 'POST'])
 def add_friend():
   form = FriendCreationForm()
   if current_user is not None :
