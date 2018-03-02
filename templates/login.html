@@ -2,6 +2,70 @@
 
 {% block content %}
 
+  <div class="row">
+    <h1 style="text-align: center;">Login</h1>
+  </div>
+
+  <div class="row">
+    <form class="col s8 offset-s2 card-panel form-signin" role="form" method="post" action="">
+      {{ form.csrf_token }}
+
+      <div class="section">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="username" type="text" class="validate">
+            <label for="username">Username</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate">
+            <label for="password">Password</label>
+          </div>
+        </div>
+
+      <!-- <p>
+        {{ form.username(placeholder="username") }}
+        <span class="error">
+          {% if form.username.errors %}
+            {% for error in form.username.errors %}
+              {{ error }}
+            {% endfor %}
+          {% endif %}
+        </span>
+      </p>
+
+      <p>
+      {{ form.password(placeholder="password") }}
+        <span class="error">
+          {% if form.password.errors %}
+            {% for error in form.password.errors %}
+              {{ error }}
+            {% endfor %}
+          {% endif %}
+        </span>
+      </p> -->
+
+
+        <button class="btn waves-effect waves-light" type="submit" name="action">Sign in
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+      <div class="divider"></div>
+      <div class="section">
+        <a href="{{ url_for('.register') }}">Register a new account</a>
+      </div>
+    </form>
+
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a class="btn-floating btn-large waves-effect waves-light teal lighten-2" href="{{ url_for('contacts.add_friend') }}">
+        <i class="material-icons">add</i>
+      </a>
+    </div>
+
+  </div>
+
 <h1>Please login</h1>
 <br>
 <form class="form-signin" role="form" method="post" action="">

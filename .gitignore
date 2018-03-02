@@ -11,6 +11,7 @@
 
 # compiled output
 /dist
+/project/static/dist
 /dist-server
 /tmp
 /out-tsc

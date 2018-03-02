@@ -1,0 +1,55 @@
+
+  <div class="row">
+    <h1>Register</h1>
+  </div>
+
+  <div class="row">
+    <form class="col s8 offset-s2 card-panel form-signin"
+          (ngSubmit)="onSubmit()" #registerForm="ngForm">
+
+      <div class="section">
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" class="validate" id="username" required
+                    [(ngModel)]="username" name="username">
+                    TODO: remove this: {{username}}
+            <label for="username">Username</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="email" class="validate" id="email" required
+                    [(ngModel)]="email" name="email">
+                    TODO: remove this: {{email}}
+            <label for="email">Email</label>
+          </div>
+        </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input type="password" class="validate" id="password" required
+                      [(ngModel)]="password" name="password">
+                      TODO: remove this: {{password}}
+              <label for="password">Password</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input type="password" class="validate" id="confirmPassword" required
+                      [(ngModel)]="confirmPassword" name="confirmPassword">
+                      TODO: remove this: {{confirmPassword}}
+              <label for="confirmPassword">Confirm Password</label>
+            </div>
+          </div>
+
+        <button type="submit" class="btn waves-effect waves-light" name="action"
+                [disabled]="!registerForm.form.valid">
+          Sign up <i class="material-icons right">send</i>
+        </button>
+      </div>
+
+    </form>
+
+  </div>
