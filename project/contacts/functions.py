@@ -22,7 +22,7 @@ contacts_blueprint = Blueprint(
 
 
 @login_required
-@contacts_blueprint.route('/addfriend/', methods = ['GET', 'POST'])
+@contacts_blueprint.route('/addfriend', methods = ['GET', 'POST'])
 def add_friend():
   form = FriendCreationForm()
   hello = current_user.is_authenticated
