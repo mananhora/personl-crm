@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
+import { Circle } from './circle';
 
 @Injectable()
 export class CirclesService {
@@ -14,11 +15,11 @@ export class CirclesService {
     })
   };
 
+  circleA = new Circle('Chuck Overstreet');
+  circleB = new Circle('Nobody Anybody', ['Mary', 'Susan']);
+
   getCircles() {
-    return this.http.get('/circles');
-      // .pipe(
-      //   catchError(alert('Errrrror'));
-      // );
+    return [this.circleA, this.circleB];
   }
 
 }

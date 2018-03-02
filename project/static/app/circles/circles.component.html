@@ -1,17 +1,14 @@
-<!-- circles -->
-<mat-card class="circles">
-  <!-- <button mat-raised-button class="secondary-font"
-          *ngFor="let circle of circles$|async">{{circle.name}}</button> -->
-          <!-- note the ngFor directive and the {{}} data binding syntax. ngFor will let you loop
-                 through items while the data binding will be used to display them in html-->
-  <button mat-raised-button class="secondary-font">{{circle1}}</button>
-  <button mat-raised-button color="primary" class="secondary-font">{{circle2}}</button>
-  <button mat-raised-button color="accent" class="secondary-font">{{circle3}}</button>
-  <button mat-raised-button color="primary" class="secondary-font">{{circle4}}</button>
-</mat-card>
 
-<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-  <a class="btn-floating btn-large waves-effect waves-light teal lighten-2" href="{{ url_for('contacts.add_friend') }}">
-    <i class="material-icons">add</i>
-  </a>
-</div>
+  <mat-card class="circles" *ngFor="let circle of circles">
+    <mat-card-title>{{circle.name}}</mat-card-title>
+    <ul>
+      <li *ngFor="let contact of circle.contacts">
+        {{contact}}</li>
+    </ul>
+  </mat-card>
+
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large waves-effect waves-light teal lighten-2">
+      <i class="material-icons">add</i>
+    </a>
+  </div>
