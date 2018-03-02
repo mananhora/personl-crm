@@ -1,6 +1,6 @@
 export class Circle {
   constructor(
-    public name: string,
+    public id: string,
     public contacts?: string[],
     public parentCircle?: Circle,
   ) { }

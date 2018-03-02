@@ -17,7 +17,7 @@ export class CirclesComponent implements OnInit {
   // getCircles() {
   //   this.circlesService.getCircles()
   //   .subscribe(data => this.circles = {
-  //       name: data['name'],
+  //       id: data['id'],
   //       textfile:  data['textfile']
   //   });
   // }
