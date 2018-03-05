@@ -1,20 +1,43 @@
 
-  <span class="back">
-    <button mat-fab class="secondary-font">back</button>
-  </span>
+  <!-- <div class="fixed-action-btn" style="top: 70px; left: 24px;">
+    <a class="btn-floating btn-large waves-effect waves-light teal lighten-2"
+        routerLink="/app/home">
+      <i class="material-icons">arrow_back</i>
+    </a>
+  </div> -->
 
-  <h1 class="brand">First Last</h1>
-  <h2 class="secondary-font">met @ university of rochester</h2>
-  <mat-card class="body-font">
-    <span class="">Last contact</span>
-    <span>2 months ago</span>
-  </mat-card>
-  <p class="body-font">reminder set for every 3 months</p>
-  <mat-card class="body-font">
-    <mat-card-header>
-      Important Dates
-    </mat-card-header>
-    <span class="">Last contact</span>
-    <span>2 months ago</span>
-  </mat-card>
-  
+  <div class="row">
+    <div class="col s4">
+      <div class="card body-font">
+        <div class="card-image">
+          <img src="{{model.img}}">
+        </div>
+        <div class="card-content">
+          <div class="chip" *ngFor="let circle of model.circles">{{circle}}</div>
+        </div>
+        <div class="card-action">
+          <a *ngIf="model.email" href="mailto:{{model.email}}"><i class="material-icons">email</i></a>
+          <a *ngIf="model.phone" href="{{model.phone}}"><i class="material-icons">phone</i></a>
+          <a *ngIf="model.extra" href="{{model.extra}}"><i class="material-icons">explicit</i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s1"></div>
+
+    <div class="col s7">
+      <h1 class="brand">{{model.name}}</h1>
+      <h2 class="secondary-font">{{model.location}}</h2>
+      <mat-card class="body-font">
+        <span class="">Last contact</span>
+        <span>2 months ago</span>
+      </mat-card>
+      <p class="body-font">reminder set for every 3 months</p>
+    </div>
+  </div>
+
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large waves-effect waves-light teal lighten-2">
+      <i class="material-icons">edit</i>
+    </a>
+  </div>
