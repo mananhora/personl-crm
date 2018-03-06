@@ -8,12 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class ProfileComponent implements OnInit {
 
   model = {
-    name: 'first last',
-    location: 'university of rochester',
     img: 'https://pbs.twimg.com/profile_images/684222363907551232/54R_VAhv_400x400.jpg',
     circles: ['circle a', 'circle b', 'third circle name'],
     email: 'name@name.com',
     phone: '+15555551234',
+    name: 'first last',
+    location: 'los angeles, ca',
+    reminder: '3 months',
+    notes: ['lorem ipsum dolor set amet', 'nunc varius facilisis eros'],
   };
 
   constructor() { }

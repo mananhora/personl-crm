@@ -12,6 +12,9 @@
 # compiled output
 /dist
 /project/static/dist
+project/static/dist
+project/static/dist/main.bundle.js
+project/static/dist/main.bundle.js.map
 /dist-server
 /tmp
 /out-tsc
