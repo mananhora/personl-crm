@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>add circle</h1>
+<br>
+<form class="form-signin" role="form" method="post" action="">
+  {{ form.csrf_token }}
+  <p>
+    {{ form.circle_id(placeholder="circle_id") }}
+    <span class="error">
+      {% if form.circle_id.errors %}
+        {% for error in form.circle_id.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+
+  <button class="btn btn-sm btn-success" type="submit">see all friends</button>
+</form>
+
+{% endblock %}

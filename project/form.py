@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import TextField, PasswordField
+from wtforms import TextField, PasswordField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 
@@ -25,6 +25,13 @@ class CircleCreationForm(Form):
   circle_name = TextField('circle_name', validators=[DataRequired()])
 
 
+class FriendCircleForm(Form):
+  friend_id = IntegerField('friend_id', validators=[DataRequired()])
+  circle_id = IntegerField('circle_id', validators=[DataRequired()])
 
-# class FriendCircleForm(Form):
+class FriendsInCircleForm(Form):
+  circle_id = IntegerField('circle_id', validators=[DataRequired()])
 
+
+class CirclesForFriendForm(Form):
+  friend_id = IntegerField('friend_id', validators=[DataRequired()])
