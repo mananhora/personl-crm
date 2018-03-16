@@ -35,3 +35,9 @@ class FriendsInCircleForm(Form):
 
 class CirclesForFriendForm(Form):
   friend_id = IntegerField('friend_id', validators=[DataRequired()])
+
+class TagAddForm(Form):
+  friend_id = IntegerField('friend_id', validators=[DataRequired()])
+
+class SearchByLocationForm(Form):
+  location = TextField('location', validators=[DataRequired()])

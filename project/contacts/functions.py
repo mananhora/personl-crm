@@ -47,3 +47,17 @@ def add_friend():
   return render_template('addfriend.html', form=form)
 
 
+@login_required
+@contacts_blueprint.route('/searchbylocation/', methods = ['GET', 'POST'])
+def search_by_location():
+  form = SearchByLocationForm()
+  if current_user is not None :
+      if form.validate_on_submit():
+        location = form.location.data
+        friends = Friend.query.filter_by(location=location).all()
+        for i in range(0, len(friends)):
+          print(friends[i].name)
+  return render_template('searchbylocation.html', form=form)
+
+
+

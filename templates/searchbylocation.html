@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>SEARCH FRIENDS BY LOCATION</h1>
+<br>
+<form class="form-signin" role="form" method="post" action="">
+  {{ form.csrf_token }}
+  <p>
+    {{ form.location(placeholder="location") }}
+    <span class="error">
+      {% if form.location.errors %}
+        {% for error in form.location.errors %}
+          {{ error }}
+        {% endfor %}
+      {% endif %}
+    </span>
+  </p>
+  <button class="btn btn-sm btn-success" type="submit">search friends</button>
+</form>
+
+{% endblock %}
