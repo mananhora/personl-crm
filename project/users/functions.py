@@ -21,6 +21,14 @@ users_blueprint = Blueprint(
     template_folder='../../templates'
 )
 
+
+FB_APP_ID='2110167129228190'
+FB_APP_NAME = 'mes_amis'
+FB_APP_SECRET = 'd4507ca7ee29238e632c9a646162aac5'
+
+
+
+
 debug = False
 
 
