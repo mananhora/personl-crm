@@ -15,17 +15,21 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
-    email = db.Column(db.String(), nullable=False)
-    password = db.Column(db.String(), nullable=False) # NEED TO ADD ENCRYPTION
+    email = db.Column(db.String(), nullable=True)
+    password = db.Column(db.String(), nullable=True) # NEED TO ADD ENCRYPTION
     circles = db.relationship('Circle', backref='user', lazy='dynamic')
     friends = db.relationship('Friend', backref='user', lazy='dynamic')
+    profile_url = db.Column(db.String(), nullable=True)
+    access_token = db.Column(db.String, nullable=True)
 
 
     #constructor
-    def __init__(self, name, email, password):
+    def __init__(self, name, email=None, password=None, profile_url=None, access_token=None):
         self.name = name
         self.email = email
         self.password = password
+        self.profile_url = profile_url
+        self.access_token = access_token
 
     def is_authenticated(self):
         return True
