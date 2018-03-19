@@ -4,11 +4,13 @@ from flask.ext.bcrypt import Bcrypt
 # from project import app
 # bcrypt = Bcrypt(app)
 from functools import wraps
-from flask.ext.login import login_user, login_required, logout_user
+from flask.ext.login import login_user, login_required, logout_user, current_user
 from project.models import User
 from project.form import *
 from project import *
 # from flask.ext.social import Social
+from facebook import get_user_from_cookie, GraphAPI
+
 
 user = None
 
@@ -33,8 +35,6 @@ debug = False
 
 
 # default = Blueprint('cast', __name__, static_folder=Config.STATIC_FOLDER, static_url_path='')
-
-
 
 
 
@@ -94,9 +94,24 @@ def login():
   return jsonify({'result': status})
 
 
+
 @users_blueprint.route('/loginwithfb', methods=['POST'])
 def login_with_fb():
   return None
+
+
+@app.route('/')
+def index():
+  print("in index")
+  # If a user was set in the get_current_user function before the request,
+  # the user is logged in.
+  if current_user.is_authenticated is True:
+    print("current user exists")
+    print(current_user.__str__)
+    return render_template('index.html', app_id=FB_APP_ID,
+                         app_name=FB_APP_NAME, user=current_user)
+# Otherwise, a user is not logged in.
+  return render_template('fb_login.html', app_id=FB_APP_ID, name=FB_APP_NAME)
 
 # social = Social(app, db)
 
@@ -107,3 +122,73 @@ def login_with_fb():
 #         'profile.html',
 #         content='Profile Page',
 #         facebook_conn=social.facebook.get_connection())
+
+
+
+@app.before_request
+def get_current_user():
+    """Set g.user to the currently logged in user.
+    Called before each request, get_current_user sets the global g.user
+    variable to the currently logged in user.  A currently logged in user is
+    determined by seeing if it exists in Flask's session dictionary.
+    If it is the first time the user is logging into this application it will
+    create the user and insert it into the database.  If the user is not logged
+    in, None will be set to g.user.
+    """
+    print("before request, get current user")
+    # Set the user in the session dictionary as a global g.user and bail out
+    # of this function early.
+    if session.get('user'):
+        print("if session gets user")
+        user = session.get('user')
+        print("user")
+        print(user)
+        return
+
+    # Attempt to get the short term access token for the current user.
+    result = get_user_from_cookie(cookies=request.cookies, app_id=FB_APP_ID,
+                                  app_secret=FB_APP_SECRET)
+
+    print("result")
+    print(result)
+
+    # If there is no result, we assume the user is not logged in.
+    if result:
+        print("in if result")
+        # Check to see if this user is already in our database.
+        # user = User.query.filter(User.id == result['uid']).first()
+        user = None
+
+        if not user or user is None:
+            print("user is none or doesnt exist")
+            # Not an existing user so get info
+            graph = GraphAPI(result['access_token'])
+            profile = graph.get_object('me')
+            print("profile")
+            print(profile)
+            if 'link' not in profile:
+                profile['link'] = ""
+
+            # Create the user and insert it into the database
+            # user = User(id=(profile['id']), name=profile['name'],
+            #             profile_url=profile['link'],
+            #             access_token=result['access_token'])
+
+            user = User(name=profile['name'],
+                        profile_url=profile['link'],
+                        access_token=result['access_token'])
+
+            db.session.add(user)
+        elif user.access_token != result['access_token']:
+            print("user access token isnt the same")
+            # If an existing user, update the access token
+            user.access_token = result['access_token']
+
+        # Add the user to the current session
+        session['user'] = dict(name=user.name, profile_url=user.profile_url,
+                               id=user.id, access_token=user.access_token)
+
+    # Commit changes to the database and set the user as a global g.user
+    db.session.commit()
+    print("exited iff")
+    user = session.get('user', None)

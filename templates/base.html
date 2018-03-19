@@ -29,9 +29,14 @@
                 version    : 'v2.11',
                 xfbml      : true
             });
-            FB.Event.subscribe('auth.login', function(response) {
+            var res = FB.Event.subscribe('auth.login', function(response) {
                 window.location = window.location;
+                console.log("just called auth login and got a response..");
+                console.log(response);
             });
+            console.log("res");
+            console.log(JSON.stringify(res));
+            console.log("hello")
         };
         // Load the SDK Asynchronously
         (function(d, s, id) {
@@ -40,6 +45,9 @@
             js = d.createElement(s); js.id = id;
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
+            console.log("in the function(d, s, id)");
+            console.log("js\n", js);
+            console.log("fjs\n", fjs)
         }(document, 'script', 'facebook-jssdk'));
     </script>
 
