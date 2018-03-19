@@ -61,12 +61,12 @@ def register():
 
 @users_blueprint.route('/logout', methods=['GET', 'POST'])
 def logout():
-    error = None
-    session.pop('logged_in', None)
-    print ('logged out')
-    logout_user()
-    flash('you were just logged out')
-    return redirect(url_for('home.home'))
+  error = None
+  session.pop('logged_in', None)
+  print ('logged out')
+  logout_user()
+  flash('you were just logged out')
+  return redirect(url_for('home.home'))
 
 
 
@@ -93,6 +93,10 @@ def login():
     status = False
   return jsonify({'result': status})
 
+
+@users_blueprint.route('/loginwithfb', methods=['POST'])
+def login_with_fb():
+  return None
 
 # social = Social(app, db)
 
