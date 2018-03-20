@@ -88,19 +88,18 @@ def get_all_circles_for_friend():
 
 
 #for a given user, get all circles they have
+@login_required
 @circles_blueprint.route('/showallcircles/', methods = ['GET'])
 def get_all_circles_for_user():
+  print ("in show all circles")
   user_id = current_user.id
   user = User.query.get(user_id)
   circles = user.circles.all()
-  print (circles)
-  return render_template('index.html')
+  circles_to_friends_map_list = []
+  # response = make_response(200)
+  # response.headers['circles'] = circles
 
-
-
-
-
-
+  return jsonify(json_list=[i.serialize for i in circles])
 
 
 
