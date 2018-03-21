@@ -1,7 +1,24 @@
 export class Circle {
   constructor(
-    public id: string,
-    public contacts?: string[],
+    public name: string,
+    private _id: number,
+    private _friends?: string[],
     public parentCircle?: Circle,
   ) { }
+
+  get id(): number {
+    return this._id;
+  }
+
+  set id (id: number) {
+    this._id = id;
+  }
+
+  get friends(): string[] {
+    return this._friends;
+  }
+  set friends (friends: string[]) {
+    this._friends = friends;
+  }
+
 }

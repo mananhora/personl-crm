@@ -1,9 +1,10 @@
 
   <mat-card class="circles" *ngFor="let circle of circles">
-    <mat-card-title>{{circle.id}}</mat-card-title>
+    <mat-card-title>{{circle.name}}</mat-card-title>
     <ul>
-      <li *ngFor="let contact of circle.contacts">
-        {{contact}}</li>
+      <li *ngFor="let friend of circle.friends">
+        {{friend}}
+      </li>
     </ul>
   </mat-card>
 
