@@ -85,9 +85,11 @@ def get_current_user():
     # If there is no result, we assume the user is not logged in.
     if result:
         # Check to see if this user is already in our database.
-        user = User.query.filter(User.id == result['uid']).first()
+        # user = User.query.filter(User.id == result['uid']).first()
 
-        if not user:
+        user = None
+
+        if not user or user is None:
             # Not an existing user so get info
             graph = GraphAPI(result['access_token'])
             profile = graph.get_object('me')
