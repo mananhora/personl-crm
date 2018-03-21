@@ -100,7 +100,7 @@ def login_with_fb():
   return None
 
 
-@app.route('/')
+@app.route('fblogin/')
 def index():
   print("in index")
   # If a user was set in the get_current_user function before the request,
