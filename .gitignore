@@ -52,6 +52,4 @@ testem.log
 .DS_Store
 Thumbs.db
 
-*.py
-
-*.py
+project/static/dist/main.bundle.js

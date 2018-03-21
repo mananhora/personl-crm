@@ -9,7 +9,7 @@ from project.models import User
 from project.form import *
 from project import *
 # from flask.ext.social import Social
-from facebook import get_user_from_cookie, GraphAPI
+# from facebook import get_user_from_cookie, GraphAPI
 
 
 user = None

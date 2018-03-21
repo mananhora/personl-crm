@@ -2,7 +2,7 @@ from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy import ForeignKey
 from project import db
 
-from flask_security import UserMixin, RoleMixin
+# from flask_security import UserMixin, RoleMixin
 from sqlalchemy import create_engine
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import Boolean, DateTime, Column, Integer, \
@@ -30,6 +30,18 @@ class User(db.Model):
         self.password = password
         self.profile_url = profile_url
         self.access_token = access_token
+
+    @property
+    def serialize(self):
+      """Return object data in easily serializeable format"""
+      return {
+        'id': self.id,
+        'name': self.name,
+        'email': self.email
+      }
+
+
+
 
     def is_authenticated(self):
         return True
@@ -70,6 +82,16 @@ class Circle(db.Model):
       self.user_id = user_id
       self.parent_id = parent_id
 
+    @property
+    def serialize(self):
+      """Return object data in easily serializeable format"""
+      return {
+        'id': self.id,
+        'circle_name': self.circle_name,
+        'user_id': self.user_id,
+        'parent_id': self.parent_id,
+      }
+
     def is_anonymous(self):
       return False
 
@@ -100,6 +122,17 @@ class Friend(db.Model):
       self.email = email
       self.user_id = user_id
       self.location = location
+
+    @property
+    def serialize(self):
+      """Return object data in easily serializeable format"""
+      return {
+        'id': self.id,
+        'name': self.name,
+        'user_id': self.user_id,
+        'location': self.location,
+        'email': self.email
+      }
 
     def is_anonymous(self):
       return False

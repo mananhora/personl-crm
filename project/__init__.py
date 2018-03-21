@@ -4,7 +4,7 @@ from flask.ext.bcrypt import Bcrypt
 from flask.ext.login import LoginManager
 import os
 from functools import wraps
-from flask_security import SQLAlchemyUserDatastore, Security
+# from flask_security import SQLAlchemyUserDatastore, Security
 from flask import Flask, render_template, request, session, flash, redirect, url_for
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy import create_engine
