@@ -16,6 +16,7 @@ import { AppService } from './app.service';
 import { LoginService } from './login/login.service';
 import { RegisterService } from './register/register.service';
 import { CirclesService } from './circles/circles.service';
+import { ProfileService } from './profile/profile.service';
 
 const appRoutes: Routes = [
   { path: 'app/login', component: LoginComponent },
@@ -47,6 +48,7 @@ const appRoutes: Routes = [
     LoginService,
     RegisterService,
     CirclesService,
+    ProfileService,
   ],
   bootstrap: [
     AppComponent,
