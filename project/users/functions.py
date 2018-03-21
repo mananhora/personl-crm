@@ -124,6 +124,13 @@ def index():
 #         facebook_conn=social.facebook.get_connection())
 
 
+@login_required
+@users_blueprint.route('/userinfo', methods = ['GET'] )
+def get_user_info():
+  #send info about user
+  return jsonify(current_user.serialize)
+
+
 
 @app.before_request
 def get_current_user():
