@@ -1,26 +1,30 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>MezAmis</title>
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
+<head>
+    <!-- Meta content -->
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> -->
-  </head>
+    <meta name="description" content="Example Facebook app using Flask and Python Facebook SDK">
+    <meta name="author" content="github.com/mylsb">
 
-  <style>
-    @font-face {
-      font-family: "abegnale";
-      src: url("fonts/Abegnale.otf") format("opentype");
-    }
-    .brand, h1 {
-      font-family: 'abegnale', monospace;
-    }
-  </style>
+    <!-- These are Open Graph tags.-->
+    <meta property="fb:app_id" content="{{ app_id }}" />
 
-  <body class="cyan lighten-5">
+    <title>{{ app_name }}</title>
 
-  <script type="text/javascript">
+    <!-- Style -->
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+
+    <!--[if IE]>
+      <script type="text/javascript">
+        var tags = ['header', 'section'];
+        while(tags.length)
+          document.createElement(tags.pop());
+      </script>
+    <![endif]-->
+</head>
+<body>
+    <script type="text/javascript">
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '{{ app_id }}',
@@ -29,15 +33,12 @@
                 version    : 'v2.11',
                 xfbml      : true
             });
-            var res = FB.Event.subscribe('auth.login', function(response) {
+
+            FB.Event.subscribe('auth.login', function(response) {
                 window.location = window.location;
-                console.log("just called auth login and got a response..");
-                console.log(response);
             });
-            console.log("res");
-            console.log(JSON.stringify(res));
-            console.log("hello")
         };
+
         // Load the SDK Asynchronously
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
@@ -45,30 +46,12 @@
             js = d.createElement(s); js.id = id;
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
-            console.log("in the function(d, s, id)");
-            console.log("js\n", js);
-            console.log("fjs\n", fjs)
         }(document, 'script', 'facebook-jssdk'));
     </script>
 
-
     <div class="container">
-
-      <!-- child template -->
-      {% block content %}{% endblock %}
-
-      <!-- errors -->
-      {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}</p>
-      {% endif %}
-
-      <!-- messages -->
-      {% for message in get_flashed_messages() %}
-        {{ message }}
-      {% endfor %}
-
+        {% block content %} {% endblock %}
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-  </body>
+
+</body>
 </html>
