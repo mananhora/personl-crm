@@ -30,13 +30,23 @@
                 appId      : '{{ app_id }}',
                 status     : true,
                 cookie     : true,
-                version    : 'v2.11',
+                version    : 'v2.12',
                 xfbml      : true
             });
 
             FB.Event.subscribe('auth.login', function(response) {
                 window.location = window.location;
             });
+            FB.getLoginStatus(function(response) {
+          if (response.status === 'connected') {
+            console.log('Logged in.');
+            console.log(response);
+          }
+          else {
+            console.log("in else");
+            FB.login();
+          }
+        });
         };
 
         // Load the SDK Asynchronously
@@ -47,7 +57,11 @@
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
+
+
+
     </script>
+
 
     <div class="container">
         {% block content %} {% endblock %}
