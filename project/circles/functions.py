@@ -1,5 +1,5 @@
 from flask import flash, redirect, render_template, request, \
-    session, url_for, Blueprint
+    session, url_for, Blueprint, jsonify
 from flask.ext.bcrypt import Bcrypt
 # from project import app
 # bcrypt = Bcrypt(app)
@@ -58,16 +58,25 @@ def add_member_to_circle():
 @login_required
 @circles_blueprint.route('/friendsincircle/', methods = ['GET', 'POST'])
 #for a given circle, get all friends in that circle, and in child circles..
-def get_all_friends_in_circle():
-  form = FriendsInCircleForm()
+def get_all_friends_in_circle(circle_id=None):
+  """if circle id is not passed in, takes data from request json
+  if it is passed in, takes that.."""
+  json_data = request.get_json()
+
+  if circle_id is None:
+    circle_id = json_data['id']
+  print(circle_id)
+
   if current_user is not None:
-    if form.validate_on_submit():
-      circle = Circle.query.get(form.circle_id.data)
-      friends = circle.friends
-      for i in range(0, len(friends)):
-          print(friends[i].name)
-      db.session.commit()
-  return render_template('friendsincircle.html', form=form)
+    circle = Circle.query.get(circle_id)
+    friends = circle.friends
+    for i in range(0, len(friends)):
+        print(friends[i].name)
+    db.session.commit()
+    return jsonify(json_list=[i.serialize for i in friends])
+
+
+
 
 
 
