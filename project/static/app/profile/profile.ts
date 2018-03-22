@@ -4,6 +4,7 @@ export class Profile {
   constructor(
     private _name: string,
     private _email: string,
+    private _id: number,
     private _img?: string,
     private _circles?: Circle[],
     private _phone?: string,
@@ -24,6 +25,13 @@ export class Profile {
   }
   set email (email: string) {
     this._email = email;
+  }
+
+  get id(): number {
+    return this._id;
+  }
+  set id (id: number) {
+    this._id = id;
   }
 
 }
