@@ -41,7 +41,7 @@ def add_circle():
     return jsonify({'result': status})
   else:
     print('current user is None')
-    return jsonify("ERROR, NOT LOGGED IN", error=True)
+    return jsonify({'message':"ERROR, NOT LOGGED IN", 'error':True})
 
 
 @login_required
