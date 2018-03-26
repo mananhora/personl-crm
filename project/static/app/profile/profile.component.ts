@@ -11,9 +11,9 @@ import { Circle } from '../circles/circle';
 export class ProfileComponent implements OnInit {
 
   model = new Profile(
-    'beep boop',
-    'name@name.com',
-    123,
+    '', //name
+    '', //email
+    555, //id
     // 'https://pbs.twimg.com/profile_images/684222363907551232/54R_VAhv_400x400.jpg',
     // [new Circle('circle a', 12345)],
     // '+15555551234',
