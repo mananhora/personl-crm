@@ -37,6 +37,13 @@ debug = False
 # default = Blueprint('cast', __name__, static_folder=Config.STATIC_FOLDER, static_url_path='')
 
 
+@users_blueprint.route('/isloggedin', methods=['GET'])
+def is_logged_in():
+  if current_user and current_user is not None and current_user.is_anonymous==False:
+    return True
+  else:
+    return False
+
 
 @users_blueprint.route('/register', methods=['POST'])
 def register():
