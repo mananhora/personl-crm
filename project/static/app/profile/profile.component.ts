@@ -14,12 +14,6 @@ export class ProfileComponent implements OnInit {
     '', //name
     '', //email
     555, //id
-    // 'https://pbs.twimg.com/profile_images/684222363907551232/54R_VAhv_400x400.jpg',
-    // [new Circle('circle a', 12345)],
-    // '+15555551234',
-    // 'los angeles, ca',
-    // '3 months',
-    // ['lorem ipsum dolor set amet', 'nunc varius facilisis eros'],
   );
 
   constructor(private profileService: ProfileService) { }
@@ -34,7 +28,6 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log(this.model);
     this.getMyProfile();
   }
 

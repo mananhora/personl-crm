@@ -7,9 +7,13 @@
       <span class="example-spacer"></span>
       <a routerLink="/app/profile" routerLinkActive="active">Profile</a>
       <span class="example-spacer"></span>
-      <a routerLink="/app/login" routerLinkActive="active">Login</a>
+
+      <a *ngIf="loggedIn == true" href='/logout'>Logout</a>
+      <!-- <ng-template #loggedOut> -->
+      <a *ngIf="loggedIn == false" routerLink="/app/login" routerLinkActive="active">Login</a>
+      <!-- </ng-template> -->
       <span class="example-spacer"></span>
-      <a routerLink="/app/register" routerLinkActive="active">Register</a>
+      <!-- <a routerLink="/app/register" routerLinkActive="active">Register</a> -->
     </mat-toolbar-row>
   </mat-toolbar>
 

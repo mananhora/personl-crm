@@ -8,23 +8,21 @@ import { AppService } from './app.service';
 })
 
 export class AppComponent implements OnInit {
-  name = '. . .';
+  loggedIn = false;
 
   constructor(private appService: AppService) { }
 
-  // getName(): void {
-  //   // * assign from an object *
-  //   this.name = this.appService.name;
-  //   // * assign from an external function *
-  //  this.name = this.appService.getName();
-  // }
+  isLoggedIn() {
+    this.appService.isLoggedIn()
+      .subscribe(data => {
+        console.log('yo: GET request data was ', data['is_logged_in']);
+        this.loggedIn = data['is_logged_in'];
+        console.log('yo: after GET request, ', this.loggedIn);
+    })
+  }
 
   ngOnInit() {
-    // * assign from an object *
-    // this.name = this.appService.name;
-    // * assign from an external function *
-    // this.getName();
-    // * assign from an internal function *
-    this.name = this.appService.getName();
+    this.isLoggedIn();
+    console.log('yo: ', this.loggedIn);
   }
 }

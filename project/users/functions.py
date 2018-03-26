@@ -42,7 +42,7 @@ def is_logged_in():
   if current_user and current_user is not None and current_user.is_anonymous==False:
     return jsonify({'is_logged_in':True})
   else:
-    return jsonify({'is_logged_in':True})
+    return jsonify({'is_logged_in':False})
 
 
 @users_blueprint.route('/register', methods=['POST'])
