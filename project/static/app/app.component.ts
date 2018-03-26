@@ -15,14 +15,11 @@ export class AppComponent implements OnInit {
   isLoggedIn() {
     this.appService.isLoggedIn()
       .subscribe(data => {
-        console.log('yo: GET request data was ', data['is_logged_in']);
         this.loggedIn = data['is_logged_in'];
-        console.log('yo: after GET request, ', this.loggedIn);
     })
   }
 
   ngOnInit() {
     this.isLoggedIn();
-    console.log('yo: ', this.loggedIn);
   }
 }
