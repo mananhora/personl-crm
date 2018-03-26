@@ -26,9 +26,13 @@ circles_blueprint = Blueprint(
 #add a circle for the user..parent_id can be passed in as null
 def add_circle():
   json_data = request.get_json()
-  if current_user is not None and current_user.is_anonymous==False:
+  print(current_user)
+  a = (current_user.is_anonymous==True)
+
+  if current_user is not None and a==False:
     print ('current user is not none!!')
     try:
+      print("in add circle")
       user_id = current_user.id,
       circle = Circle(circle_name=json_data['circle_name'], user_id=user_id, parent_id=1)
       db.session.add(circle)
@@ -36,6 +40,7 @@ def add_circle():
       db.session.add(circle)
       db.session.commit()
       status = True
+      print("done...")
     except:
       status = False
     return jsonify({'result': status})
