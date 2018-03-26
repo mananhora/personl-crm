@@ -25,19 +25,23 @@ circles_blueprint = Blueprint(
 @circles_blueprint.route('/addcircle/', methods = ['GET', 'POST'])
 #add a circle for the user..parent_id can be passed in as null
 def add_circle():
-  form = CircleCreationForm()
-  if current_user is not None:
+  json_data = request.get_json()
+  if current_user is not None and current_user.is_anonymous==False:
     print ('current user is not none!!')
-    user_id = current_user.id,
-    print("hello")
-    if form.validate_on_submit():
-      circle = Circle(circle_name=form.circle_name.data, user_id=user_id, parent_id=1)
+    try:
+      user_id = current_user.id,
+      circle = Circle(circle_name=json_data['circle_name'], user_id=user_id, parent_id=1)
       db.session.add(circle)
-      print("what is the problem")
       db.session.commit()
+      db.session.add(circle)
+      db.session.commit()
+      status = True
+    except:
+      status = False
+    return jsonify({'result': status})
   else:
     print('current user is None')
-  return render_template('add_circle.html', form=form)
+    return jsonify("ERROR, NOT LOGGED IN", error=True)
 
 
 @login_required
