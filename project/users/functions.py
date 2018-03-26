@@ -39,8 +39,16 @@ debug = False
 
 @users_blueprint.route('/isloggedin', methods=['GET'])
 def is_logged_in():
-  if current_user and current_user is not None and current_user.is_anonymous==False:
-    return jsonify({'is_logged_in':True})
+  a = current_user.is_anonymous
+  print(a)
+  if current_user:
+    if current_user is not None:
+      if a is not True:
+        return jsonify({'is_logged_in':True})
+      else:
+        return jsonify({'is_logged_in': False})
+    else:
+      return jsonify({'is_logged_in': False})
   else:
     return jsonify({'is_logged_in':False})
 
