@@ -10,7 +10,9 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CirclesComponent } from './circles/circles.component';
+import { CirclesAddComponent } from './circles/add/circles.add.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ProfileEditComponent } from './profile/edit/profile.edit.component';
 
 import { AppService } from './app.service';
 import { LoginService } from './login/login.service';
@@ -22,7 +24,9 @@ const appRoutes: Routes = [
   { path: 'app/login', component: LoginComponent },
   { path: 'app/register', component: RegisterComponent },
   { path: 'app/home', component: CirclesComponent },
+  { path: 'app/home/add', component: CirclesAddComponent },
   { path: 'app/profile', component: ProfileComponent },
+  { path: 'app/profile/edit', component: ProfileEditComponent },
 ];
 
 @NgModule({
@@ -31,7 +35,9 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     CirclesComponent,
-    ProfileComponent
+    CirclesAddComponent,
+    ProfileComponent,
+    ProfileEditComponent
   ],
   imports: [
     HttpClientModule,
@@ -55,7 +61,9 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     CirclesComponent,
-    ProfileComponent
+    CirclesAddComponent,
+    ProfileComponent,
+    ProfileEditComponent
   ]
 })
 export class AppModule { }

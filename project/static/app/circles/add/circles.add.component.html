@@ -1,0 +1,26 @@
+
+  <div class="row">
+    <h1>Add Circle</h1>
+  </div>
+
+  <div class="row">
+    <form class="col s8 offset-s2 card-panel"
+          (ngSubmit)="addCircle()" #addCircleForm="ngForm">
+
+      <div class="section">
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" class="validate" id="circle.name" required
+                    [(ngModel)]="circle.name" name="circle.name">
+            <label for="circle.name">Circle Name</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn waves-effect waves-light" name="action"
+                [disabled]="!addCircleForm.form.valid">
+          Add Circle <i class="material-icons right">send</i>
+        </button>
+      </div>
+
+    </form>
+  </div>

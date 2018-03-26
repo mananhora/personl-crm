@@ -24,4 +24,8 @@ export class CirclesService {
     return this.http.post<Object>('/friendsincircle/', id_object, this.httpOptions);
   }
 
+  addCircle (object: Object): Observable<Object> {
+    return this.http.post<Object>('/addcircle/', object, this.httpOptions);
+  }
+
 }
