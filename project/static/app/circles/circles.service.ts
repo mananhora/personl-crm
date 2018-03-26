@@ -8,7 +8,9 @@ export class CirclesService {
 
   constructor (private http: HttpClient) { }
 
-  circles = [];
+  getCircles() {
+    return this.http.get('/showallcircles/');
+  }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -17,27 +19,9 @@ export class CirclesService {
     })
   };
 
-  circleA = new Circle('Chuck Overstreet');
-  circleB = new Circle('Nobody Anybody', ['Mary', 'Susan']);
-
-  getCircles() {
-    return [this.circleA, this.circleB];
+  getFriends (id: number): Observable<Object> {
+    let id_object = { id: id }; // create JSON object
+    return this.http.post<Object>('/friendsincircle/', id_object, this.httpOptions);
   }
-
-  // getCircles() {
-  //   objects = this.http.get<Object>('/showallcircles', this.httpOptions);
-  //   /*
-  //       {
-  //         id: '',
-  //         parentCircle: '',
-  //         contacts: [''],
-  //       }
-  //   */
-  //   for obj in objects {
-  //     // id = id, parentCircle = parentCircle, etc.
-  //     this.circles.push(obj);
-  //   }
-  //   return this.circles;
-  // }
 
 }

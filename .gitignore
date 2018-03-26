@@ -6,6 +6,7 @@
 *.xml
 
 /venv
+/src
 
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
@@ -18,6 +19,7 @@
 
 # dependencies
 /node_modules
+/facebookenv
 
 # IDEs and editors
 /.idea
@@ -53,3 +55,5 @@ testem.log
 Thumbs.db
 
 project/static/dist/main.bundle.js
+
+*.map

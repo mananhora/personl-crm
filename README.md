@@ -11,6 +11,8 @@ on local:
   
 2. Run the command: `ng build --dev --watch && python run.py`
 
+c. ACTIVATE VIRTUAL ENVIRONEMNT: Run source venv/bin/activate
+
 ###############################################################################
 
 ## Heroku DB Set Up:

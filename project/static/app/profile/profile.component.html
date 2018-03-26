@@ -10,15 +10,15 @@
     <div class="col s4">
       <div class="card body-font">
         <div class="card-image">
-          <img src="{{model.img}}">
+          <img src="{{model._img}}">
         </div>
         <div class="card-content">
-          <div class="chip" *ngFor="let circle of model.circles">{{circle}}</div>
+          <div class="chip" *ngFor="let circle of model._circles">{{circle.name}}</div>
         </div>
         <div class="card-action">
-          <a *ngIf="model.email" href="mailto:{{model.email}}"><i class="material-icons">email</i></a>
-          <a *ngIf="model.phone" href="{{model.phone}}"><i class="material-icons">phone</i></a>
-          <a *ngIf="model.extra" href="{{model.extra}}"><i class="material-icons">explicit</i></a>
+          <a *ngIf="model._email" href="mailto:{{model._email}}"><i class="material-icons">email</i></a>
+          <a *ngIf="model._phone" href="{{model._phone}}"><i class="material-icons">phone</i></a>
+          <a *ngIf="model._extra" href="{{model._extra}}"><i class="material-icons">explicit</i></a>
         </div>
       </div>
     </div>
@@ -26,9 +26,9 @@
     <div class="col s1"></div>
 
     <div class="col s7">
-      <h1 class="brand">{{model.name}}</h1>
-      <h2 class="secondary-font">{{model.location}}</h2>
-      <p *ngIf="model.reminder" class="body-font">reminder set for every {{model.reminder}}</p>
+      <h1 class="brand">{{model._name}}</h1>
+      <h2 class="secondary-font">{{model._location}}</h2>
+      <p *ngIf="model._reminder" class="body-font">reminder set for every {{model._reminder}}</p>
 
       <!-- dates -->
       <div class="card body-font">
@@ -36,8 +36,8 @@
           <span class="card-title">important dates
             <span class="badge"><a><i class="material-icons">add</i></a></span>
           </span>
-          <div *ngIf="model.dates">
-            <ul *ngFor="let date of model.dates" class="collection">
+          <div *ngIf="model._dates">
+            <ul *ngFor="let date of model._dates" class="collection">
               <li class="collection-item">{{date}}</li>
             </ul>
           </div>
@@ -50,8 +50,8 @@
           <span class="card-title">important names
             <span class="badge"><a><i class="material-icons">add</i></a></span>
           </span>
-          <div *ngIf="model.names">
-            <ul *ngFor="let name of model.names" class="collection">
+          <div *ngIf="model._names">
+            <ul *ngFor="let name of model._names" class="collection">
               <li class="collection-item">{{name}}</li>
             </ul>
           </div>
@@ -64,8 +64,8 @@
           <span class="card-title">notes
             <span class="badge"><a><i class="material-icons">add</i></a></span>
           </span>
-          <div *ngIf="model.notes">
-            <ul *ngFor="let note of model.notes" class="collection">
+          <div *ngIf="model._notes">
+            <ul *ngFor="let note of model._notes" class="collection">
               <li class="collection-item">{{note}}</li>
             </ul>
           </div>
