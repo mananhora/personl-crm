@@ -23,6 +23,7 @@ import { CirclesService } from './circles/circles.service';
 import { ProfileService } from './profile/profile.service';
 
 const appRoutes: Routes = [
+  { path: '', redirectTo: '/app/home', pathMatch: 'full' },
   { path: 'app/login', component: LoginComponent },
   { path: 'app/register', component: RegisterComponent },
   { path: 'app/home', component: CirclesComponent },

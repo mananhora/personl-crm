@@ -1,17 +1,25 @@
 
   <mat-toolbar color="primary">
     <mat-toolbar-row>
-      <span class="brand">MezAmis</span>
+      <span class="brand" routerLink="/app/home" routerLinkActive="active">MezAmis</span>
       <span class="example-spacer"></span>
-      <a routerLink="/app/home" routerLinkActive="active">Home</a>
-      <span class="example-spacer"></span>
-      <a routerLink="/app/profile" routerLinkActive="active">Profile</a>
-      <span class="example-spacer"></span>
-      <a *ngIf="loggedIn == true" href='/logout'>Logout</a>
-      <a *ngIf="loggedIn == false" routerLink="/app/login" routerLinkActive="active">Login</a>
-      <span class="example-spacer"></span>
+      <div *ngIf="loggedIn == true">
+        <a routerLink="/app/profile" routerLinkActive="active"><i class="material-icons">person</i></a>
+        <span class="example-spacer"></span>
+        <a href='/logout'><i class="material-icons">power_settings_new</i></a>
+        <span class="example-spacer"></span>
+      </div>
     </mat-toolbar-row>
   </mat-toolbar>
+
+  <div *ngIf="loggedIn == false" id="splash">
+    <mat-card>
+      <mat-card-title routerLink="/app/login">login</mat-card-title>
+    </mat-card>
+    <mat-card>
+      <mat-card-title routerLink="/app/register">register</mat-card-title>
+    </mat-card>
+  </div>
 
   <div class="container">
     <router-outlet></router-outlet>
