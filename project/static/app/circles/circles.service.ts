@@ -28,4 +28,12 @@ export class CirclesService {
     return this.http.post<Object>('/addcircle/', object, this.httpOptions);
   }
 
+  addFriendToCircle (object: Object): Observable<Object> {
+    return this.http.post<Object>('/addtocircle/', object, this.httpOptions);
+  }
+
+  getFriendsList() {
+    return this.http.get('/showallfriends/');
+  }
+
 }

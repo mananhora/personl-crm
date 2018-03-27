@@ -8,6 +8,8 @@ import {
   MatCardModule,
   MatInputModule,
   MatFormFieldModule,
+  MatSelectModule,
+  MatOptionModule,
   MatDividerModule
 } from '@angular/material';
 
@@ -20,6 +22,8 @@ import {
     MatCardModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
     MatDividerModule
   ],
   exports: [
@@ -30,6 +34,8 @@ import {
     MatCardModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
     MatDividerModule
   ]
 })

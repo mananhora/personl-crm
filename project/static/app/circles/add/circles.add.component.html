@@ -16,6 +16,16 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col s12">
+            <mat-form-field>
+              <mat-select placeholder="Add friends to your circle" multiple [(value)]="selectedFriends">
+                <mat-option *ngFor="let friend of friends" [value]="friend">{{friend}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
         <button type="submit" class="btn waves-effect waves-light" name="action"
                 [disabled]="!addCircleForm.form.valid">
           Add Circle <i class="material-icons right">send</i>
