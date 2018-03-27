@@ -10,6 +10,7 @@ import {
   MatFormFieldModule,
   MatSelectModule,
   MatOptionModule,
+  MatDialogModule,
   MatDividerModule
 } from '@angular/material';
 
@@ -24,6 +25,7 @@ import {
     MatFormFieldModule,
     MatSelectModule,
     MatOptionModule,
+    MatDialogModule,
     MatDividerModule
   ],
   exports: [
@@ -36,6 +38,7 @@ import {
     MatFormFieldModule,
     MatSelectModule,
     MatOptionModule,
+    MatDialogModule,
     MatDividerModule
   ]
 })

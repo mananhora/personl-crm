@@ -34,4 +34,11 @@ export class Profile {
     this._id = id;
   }
 
+  get notes(): string[] {
+    return this._notes;
+  }
+  set notes (notes: string[]) {
+    this._notes = notes;
+  }
+
 }

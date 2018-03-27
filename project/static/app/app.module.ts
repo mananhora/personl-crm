@@ -13,6 +13,7 @@ import { RegisterComponent } from './register/register.component';
 import { CirclesComponent } from './circles/circles.component';
 import { CirclesAddComponent } from './circles/add/circles.add.component';
 import { ProfileComponent } from './profile/profile.component';
+import { DialogOverviewExampleDialog } from './profile/profile.component';
 import { ProfileEditComponent } from './profile/edit/profile.edit.component';
 
 import { AppService } from './app.service';
@@ -38,6 +39,7 @@ const appRoutes: Routes = [
     CirclesComponent,
     CirclesAddComponent,
     ProfileComponent,
+    DialogOverviewExampleDialog,
     ProfileEditComponent
   ],
   imports: [
@@ -50,6 +52,9 @@ const appRoutes: Routes = [
       appRoutes,
       // { enableTracing: true } // <-- debugging purposes only
     )
+  ],
+  entryComponents: [
+    DialogOverviewExampleDialog
   ],
   providers: [
     AppService,

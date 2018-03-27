@@ -62,7 +62,7 @@
       <div class="card body-font">
         <div class="card-content">
           <span class="card-title">notes
-            <span class="badge"><a><i class="material-icons">add</i></a></span>
+            <span class="badge"><a (click)="openDialog()"><i class="material-icons">add</i></a></span>
           </span>
           <div *ngIf="model._notes">
             <ul *ngFor="let note of model._notes" class="collection">
