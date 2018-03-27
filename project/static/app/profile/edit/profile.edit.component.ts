@@ -25,6 +25,10 @@ export class ProfileEditComponent implements OnInit {
     })
   }
 
+  editProfile() {
+    console.log('edited');
+  }
+
   ngOnInit() {
     // console.log(this.model);
     this.getMyProfile();

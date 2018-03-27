@@ -10,14 +10,39 @@
       <div class="section">
         <div class="row">
           <div class="input-field col s12">
-            <input type="text" class="validate" id="model.name" required
+            <input type="text" class="validate" id="model.name"
                     [(ngModel)]="model.name" name="model.name">
             <label for="model.name">Name</label>
           </div>
         </div>
 
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="email" class="validate" id="model.email"
+                    [(ngModel)]="model.email" name="model.email">
+            <label for="model.email">Email</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="tel" class="validate" id="model.phone"
+                    [(ngModel)]="model.phone" name="model.phone">
+            <label for="model.phone">Phone</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" class="validate" id="model.location"
+                    [(ngModel)]="model.location" name="model.location">
+            <label for="model.location">Location</label>
+          </div>
+        </div>
+
         <button type="submit" class="btn waves-effect waves-light" name="action"
-                [disabled]="!editProfileForm.form.valid">
+                [disabled]="!editProfileForm.form.valid"
+                routerLink="/app/profile">
           Finish Editing <i class="material-icons right">send</i>
         </button>
       </div>
