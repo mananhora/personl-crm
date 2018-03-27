@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
       }).subscribe(data => {
         console.log(data['result']);
         console.log('logged in!');
+        location.href = 'http://0.0.0.0:5000/';
     });
   }
 
