@@ -1,5 +1,5 @@
 from flask import flash, redirect, render_template, request, \
-    session, url_for, Blueprint
+    session, url_for, Blueprint, jsonify
 from flask.ext.bcrypt import Bcrypt
 from project import app
 # bcrypt = Bcrypt(app)
@@ -22,13 +22,17 @@ home_blueprint = Blueprint(
 @login_required
 def get_friends():
     if current_user is not None:
-      if current_user.id is not None:
+      a = current_user.is_anonymous()
+      print (a)
+      if current_user.id is not None and a==False:
         user_id = current_user.id
         friends = Friend.query.filter_by(user_id=user_id).all()
         for i in range(0, len(friends)):
           print(friends[i].name)
+        return jsonify(json_list=[i.serialize for i in friends])
+    return jsonify({'error':True})
     # flash(str(friends.name))
-    return render_template('index.html')
+
 
 
 @home_blueprint.route('/')
