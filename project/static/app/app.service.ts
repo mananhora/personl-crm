@@ -7,6 +7,9 @@ export class AppService {
 
   constructor (private http: HttpClient) { }
 
+  // loggedIn: boolean;
+  // currentCircle: Circle;
+
   isLoggedIn() {
     return this.http.get('/isloggedin');
   }

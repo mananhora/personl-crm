@@ -3,7 +3,8 @@ export class Circle {
     public name: string,
     private _id: number,
     private _friends?: string[],
-    public parentCircle?: Circle,
+    public parentCircles?: Circle[],
+    public childCircles?: Circle[],
   ) { }
 
   get id(): number {

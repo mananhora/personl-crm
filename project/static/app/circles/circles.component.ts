@@ -10,6 +10,7 @@ import { Circle } from './circle';
 export class CirclesComponent implements OnInit {
 
   circles: Circle[];
+  friends: string[];
 
   constructor(private circlesService: CirclesService) { }
 
@@ -30,6 +31,17 @@ export class CirclesComponent implements OnInit {
           }
         }
       });
+  }
+
+  onClick(id: number) {
+    let circle = this.getCircleById(id);
+    console.log('clicked ', id);
+    if (circle.childCircles) {
+      this.circles = circle.childCircles;
+    } else {
+      // this.circles = friends;
+      // this.friends = circle.friends;
+    }
   }
 
   showFriends(id: number) {
