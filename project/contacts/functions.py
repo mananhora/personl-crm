@@ -26,25 +26,24 @@ contacts_blueprint = Blueprint(
 @contacts_blueprint.route('/addfriend/', methods = ['GET', 'POST'])
 def add_friend():
   form = FriendCreationForm()
+  json_data = request.get_json()
   if current_user is not None :
-    print ('current user is not none!!')
-    if current_user.id is not None :
-      if form.validate_on_submit():
+    a = current_user.is_anonymous()
+    if current_user.id is not None and a == False:
         friend = Friend(
-          name = form.name.data,
-          email = form.email.data,
-          user_id=current_user.id,
-        location = form.location.data)
-        db.session.add(friend)
-        db.session.commit()
-        flash('friend successfully added!')
-        return redirect(url_for('home.home'))
-    else:
-      print('user not none but user id none?..')
-  else:
-    print ('current user is none')
-
-  return render_template('addfriend.html', form=form)
+          name = json_data['name'],
+          email = json_data['email'],
+          user_id= json_data['user_id'],
+        location = json_data['location'])
+        try:
+          db.session.add(friend)
+          db.session.commit()
+          status = True
+        except:
+          status = False
+        return jsonify({'result': status})
+  status = False
+  return jsonify({'result': status})
 
 
 @login_required
