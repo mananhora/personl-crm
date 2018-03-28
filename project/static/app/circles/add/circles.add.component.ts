@@ -29,17 +29,18 @@ export class CirclesAddComponent implements OnInit {
     // }
   }
 
-  getFriendsList() {
-    console.log('yo: gettin friends');
-    this.circlesService.getFriendsList()
+  getAllFriends() {
+    console.log('yo: gettin all friends');
+    this.circlesService.getAllFriends()
       .subscribe(data => {
         console.log('yo: ', data);
-        this.friends = data['friends'];
+        // console.log('yo: ', data['json_list']);
     })
   }
 
   ngOnInit() {
     this.circle = new Circle('', 123);
+    this.getAllFriends();
     this.friends = ['Manan', 'Tarin'];
   }
 

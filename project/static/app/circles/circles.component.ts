@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CirclesService } from './circles.service';
 import { Circle } from './circle';
+import { Profile } from '../profile/profile';
 
 @Component({
   selector: 'app-circles',
@@ -10,7 +11,7 @@ import { Circle } from './circle';
 export class CirclesComponent implements OnInit {
 
   circles: Circle[];
-  friends: string[];
+  friends: Profile[];
 
   constructor(private circlesService: CirclesService) { }
 

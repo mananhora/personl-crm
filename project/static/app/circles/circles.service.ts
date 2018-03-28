@@ -32,7 +32,7 @@ export class CirclesService {
     return this.http.post<Object>('/addtocircle/', object, this.httpOptions);
   }
 
-  getFriendsList() {
+  getAllFriends() {
     return this.http.get('/showallfriends/');
   }
 
