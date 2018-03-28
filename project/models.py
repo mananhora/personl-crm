@@ -111,10 +111,11 @@ class Friend(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
     email = db.Column(db.String())
-    user_id = db.Column(db.Integer, ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
     location = db.Column(db.String())
     circles = db.relationship("Circle",
                     secondary=friends_circles, backref='circles')
+
 
     # constructor
     def __init__(self, name, email, user_id, location):
