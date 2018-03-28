@@ -53,15 +53,23 @@ def add_circle():
 @circles_blueprint.route('/addtocircle/', methods = ['GET', 'POST'])
 #add a friend to a circle, given that the friend already exists in the user's friend_list
 def add_member_to_circle():
-  form = FriendCircleForm()
+  json_data = request.get_json()
   if current_user is not None:
-    if form.validate_on_submit():
-      friend = Friend.query.get(form.friend_id.data)
-      circle = Circle.query.get(form.circle_id.data)
+    a = current_user.is_anonymous()
+    if current_user.id is not None and a == False:
+      friend = Friend.query.get(json_data['friend_id'])
+      circle = Circle.query.get(json_data['circle_id'])
       circle.friends.append(friend)
       friend.circles.append(circle)
-      db.session.commit()
-  return render_template('addtocircle.html', form=form)
+      try:
+        db.session.add(friend)
+        db.session.commit()
+        status = True
+      except:
+        status = False
+      return jsonify({'result': status})
+  status = False
+  return jsonify({'result': status})
 
 
 @login_required
