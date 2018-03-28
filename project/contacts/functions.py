@@ -1,5 +1,5 @@
 from flask import flash, redirect, render_template, request, \
-    session, url_for, Blueprint
+    session, url_for, Blueprint, jsonify
 from flask.ext.bcrypt import Bcrypt
 # from project import app
 # bcrypt = Bcrypt(app)
@@ -59,5 +59,19 @@ def search_by_location():
           print(friends[i].name)
   return render_template('searchbylocation.html', form=form)
 
+
+
+
+@login_required
+@contacts_blueprint.route('/friendinfo/', methods = ['GET', 'POST'])
+def get_friend_info():
+  if current_user is not None:
+    json_data = request.get_json()
+    friend_id = json_data['friend_id']
+    a = current_user.is_anonymous()
+    if current_user.id is not None and a == False:
+        friend = Friend.query.get(friend_id)
+        return jsonify(friend.serialize)
+    return jsonify({'error':True})
 
 

@@ -23,7 +23,6 @@ home_blueprint = Blueprint(
 def get_friends():
     if current_user is not None:
       a = current_user.is_anonymous()
-      print (a)
       if current_user.id is not None and a==False:
         user_id = current_user.id
         friends = Friend.query.filter_by(user_id=user_id).all()
