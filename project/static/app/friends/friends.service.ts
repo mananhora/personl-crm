@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
-import { Circle } from '../circle';
+import { Circle } from '../circles/circle';
 
 @Injectable()
 export class FriendsService {

@@ -12,7 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CirclesComponent } from './circles/circles.component';
 import { CirclesAddComponent } from './circles/add/circles.add.component';
-import { FriendsComponent } from './circles/friends/friends.component';
+import { FriendsComponent } from './friends/friends.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DialogOverviewExampleDialog } from './profile/profile.component';
 import { ProfileEditComponent } from './profile/edit/profile.edit.component';
@@ -21,7 +21,7 @@ import { AppService } from './app.service';
 import { LoginService } from './login/login.service';
 import { RegisterService } from './register/register.service';
 import { CirclesService } from './circles/circles.service';
-import { FriendsService } from './circles/friends/friends.service';
+import { FriendsService } from './friends/friends.service';
 import { ProfileService } from './profile/profile.service';
 
 const appRoutes: Routes = [

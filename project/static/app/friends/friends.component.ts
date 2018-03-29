@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CirclesService } from '../circles.service';
-import { Circle } from '../circle';
-import { Profile } from '../../profile/profile';
+import { CirclesService } from '../circles/circles.service';
+import { Circle } from '../circles/circle';
+import { Profile } from '../profile/profile';
 
 @Component({
   selector: 'app-friends',
