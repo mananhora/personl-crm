@@ -35,7 +35,7 @@ const appRoutes: Routes = [
   { path: 'app/friends/add', component: FriendsAddComponent },
   { path: 'app/profile', component: ProfileComponent },
   { path: 'app/profile/:id', component: ProfileComponent },
-  { path: 'app/profile/edit', component: ProfileEditComponent },
+  { path: 'app/profile/:id/edit', component: ProfileEditComponent },
 ];
 
 @NgModule({

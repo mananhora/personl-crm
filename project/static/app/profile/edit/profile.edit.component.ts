@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ProfileService } from '../profile.service';
 import { Profile } from '../profile';
 import { Circle } from '../../circles/circle';
@@ -10,11 +11,15 @@ import { Circle } from '../../circles/circle';
 })
 export class ProfileEditComponent implements OnInit {
 
-  model = new Profile(
-    '', '', 123,
-  );
+  id: number;
+  model = new Profile('', '', 555,);
 
-  constructor(private profileService: ProfileService) { }
+  constructor(private profileService: ProfileService,
+    private route: ActivatedRoute, ) { }
+
+  getProfile() {
+    this.id = +this.route.snapshot.paramMap.get('id');
+  }
 
   getMyProfile() {
     this.profileService.getMyProfile()
@@ -25,13 +30,27 @@ export class ProfileEditComponent implements OnInit {
     })
   }
 
+  getFriendProfile(id: number) {
+    this.profileService.getFriendProfile(id)
+      .subscribe(data => {
+        this.model.name = data['name'];
+        this.model.email = data['email'];
+        this.model.id = data['id'];
+      })
+  }
+
   editProfile() {
     console.log('edited');
   }
 
   ngOnInit() {
-    // console.log(this.model);
-    this.getMyProfile();
+    this.getProfile();
+
+    if (this.id > 0) {
+      this.getFriendProfile(this.id);
+    } else {
+      this.getMyProfile();
+    }
   }
 
 }

@@ -11,27 +11,21 @@ import { Circle } from '../circles/circle';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  // @Input() id: any;
 
   id: number;
-  model = new Profile(
-    '', //name
-    '', //email
-    555, //id
-  );
+  model = new Profile('', '', 555,);
 
   constructor(private profileService: ProfileService,
     private route: ActivatedRoute, public dialog: MatDialog) { }
 
-  getHero(): void {
+  getProfile(): void {
     this.id = +this.route.snapshot.paramMap.get('id');
     // this.heroService.getHero(id)
     //   .subscribe(hero => this.hero = hero);
   }
 
   ngOnInit() {
-    this.getHero();
-    console.log('ayyyy: ', this.id);
+    this.getProfile();
 
     if (this.id > 0) {
       this.getFriendProfile(this.id);
