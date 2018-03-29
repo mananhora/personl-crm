@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.appService.currentProfileID = 0;
     this.isLoggedIn();
   }
 }

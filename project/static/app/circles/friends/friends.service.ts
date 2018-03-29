@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
-import { Profile } from './profile';
+import { Circle } from '../circle';
 
 @Injectable()
-export class ProfileService {
+export class FriendsService {
 
   constructor (private http: HttpClient) { }
 
@@ -15,13 +15,8 @@ export class ProfileService {
     })
   };
 
-  getMyProfile() {
-    return this.http.get('/userinfo');
-  }
-
-  getFriendProfile(id: number): Observable<Object> {
-    let id_object = { friend_id: id }; //create JSON object
-    return this.http.post<Object>('/friendinfo/', id_object, this.httpOptions);
-  }
+  // getAllFriends() {
+  //   return this.http.get('/showallfriends/');
+  // }
 
 }

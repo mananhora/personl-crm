@@ -1,0 +1,11 @@
+.friends {
+  width: 23em;
+  margin-top: 1em;
+  margin-left: 1em;
+}
+
+.add {
+  position: absolute;
+  bottom: 5vh;
+  right: 5vw;
+}

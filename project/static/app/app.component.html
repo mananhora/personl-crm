@@ -4,6 +4,8 @@
       <span class="brand" routerLink="/app/home" routerLinkActive="active">MyVillage</span>
       <span class="example-spacer"></span>
       <div *ngIf="loggedIn == true">
+        <a routerLink="/app/friends" routerLinkActive="active"><i class="material-icons">contacts</i></a>
+        <span class="example-spacer"></span>
         <a routerLink="/app/profile" routerLinkActive="active"><i class="material-icons">person</i></a>
         <span class="example-spacer"></span>
         <a href='/logout'><i class="material-icons">power_settings_new</i></a>
