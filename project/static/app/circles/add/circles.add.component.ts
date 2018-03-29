@@ -4,7 +4,7 @@ import { CirclesService } from '../circles.service';
 import { Circle } from '../circle';
 
 @Component({
-  selector: 'app-circles',
+  selector: 'app-circles-add',
   templateUrl: './circles.add.component.html',
   styleUrls: ['./circles.add.component.css']
 })

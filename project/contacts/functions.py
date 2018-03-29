@@ -33,7 +33,7 @@ def add_friend():
         friend = Friend(
           name = json_data['name'],
           email = json_data['email'],
-          user_id= json_data['user_id'],
+          user_id= current_user.id,
         location = json_data['location'])
         try:
           db.session.add(friend)
@@ -72,5 +72,3 @@ def get_friend_info():
         friend = Friend.query.get(friend_id)
         return jsonify(friend.serialize)
     return jsonify({'error':True})
-
-

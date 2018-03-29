@@ -15,8 +15,17 @@ export class FriendsService {
     })
   };
 
-  // getAllFriends() {
-  //   return this.http.get('/showallfriends/');
-  // }
+  getAllFriends() {
+    return this.http.get('/showallfriends/');
+  }
+
+  getFriends (id: number): Observable<Object> {
+    let id_object = { id: id }; // create JSON object
+    return this.http.post<Object>('/friendsincircle/', id_object, this.httpOptions);
+  }
+
+  addFriend (object: Object): Observable<Object> {
+    return this.http.post<Object>('/addfriend/', object, this.httpOptions);
+  }
 
 }

@@ -13,6 +13,7 @@ import { RegisterComponent } from './register/register.component';
 import { CirclesComponent } from './circles/circles.component';
 import { CirclesAddComponent } from './circles/add/circles.add.component';
 import { FriendsComponent } from './friends/friends.component';
+import { FriendsAddComponent } from './friends/add/friends.add.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DialogOverviewExampleDialog } from './profile/profile.component';
 import { ProfileEditComponent } from './profile/edit/profile.edit.component';
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
   { path: 'app/home', component: CirclesComponent },
   { path: 'app/home/add', component: CirclesAddComponent },
   { path: 'app/friends', component: FriendsComponent },
+  { path: 'app/friends/add', component: FriendsAddComponent },
   { path: 'app/profile', component: ProfileComponent },
   { path: 'app/profile/:id', component: ProfileComponent },
   { path: 'app/profile/edit', component: ProfileEditComponent },
@@ -44,6 +46,7 @@ const appRoutes: Routes = [
     CirclesComponent,
     CirclesAddComponent,
     FriendsComponent,
+    FriendsAddComponent,
     ProfileComponent,
     DialogOverviewExampleDialog,
     ProfileEditComponent
@@ -77,6 +80,7 @@ const appRoutes: Routes = [
     CirclesComponent,
     CirclesAddComponent,
     FriendsComponent,
+    FriendsAddComponent,
     ProfileComponent,
     ProfileEditComponent
   ]
