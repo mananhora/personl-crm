@@ -1,4 +1,12 @@
 /************/
+/* JustBeCool */
+/************/
+@font-face {
+  font-family: "justbecool";
+  src: url("fonts/justbecool.otf") format("opentype");
+}
+
+/************/
 /* Abegnale */
 /************/
 @font-face {
