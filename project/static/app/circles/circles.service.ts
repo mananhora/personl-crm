@@ -19,11 +19,18 @@ export class CirclesService {
     return this.http.get('/showallcircles/');
   }
 
-  addCircle (object: Object): Observable<Object> {
+  addCircle (name: string): Observable<Object> {
+    let object = {
+      circle_name: name,
+    };
     return this.http.post<Object>('/addcircle/', object, this.httpOptions);
   }
 
-  addFriendToCircle (object: Object): Observable<Object> {
+  addFriendToCircle (friend_id: number, circle_id: number): Observable<Object> {
+    let object = {
+      friend_id: friend_id,
+      circle_id: circle_id,
+    }
     return this.http.post<Object>('/addtocircle/', object, this.httpOptions);
   }
 

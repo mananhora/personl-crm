@@ -50,7 +50,6 @@ export class CirclesComponent implements OnInit {
   showFriends(id: number) {
     this.friendsService.getFriends(id)
       .subscribe(data => {
-
         let friends: string[];
         let circle = this.getCircleById(id);
 

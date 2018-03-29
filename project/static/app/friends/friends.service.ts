@@ -20,12 +20,26 @@ export class FriendsService {
   }
 
   getFriends (id: number): Observable<Object> {
-    let id_object = { id: id }; // create JSON object
-    return this.http.post<Object>('/friendsincircle/', id_object, this.httpOptions);
+    let object = {
+      id: id
+    };
+    return this.http.post<Object>('/friendsincircle/', object, this.httpOptions);
   }
 
-  addFriend (object: Object): Observable<Object> {
+  addFriend (name: string, email: string, location: string): Observable<Object> {
+    let object = {
+      name: name,
+      email: email,
+      location: location,
+    };
     return this.http.post<Object>('/addfriend/', object, this.httpOptions);
+  }
+
+  addToCircle (circle: string): Observable<Object> {
+    let object = {
+      circle_name: circle,
+    }
+    return this.http.post<Object>('/addtocircle/', object, this.httpOptions);
   }
 
 }

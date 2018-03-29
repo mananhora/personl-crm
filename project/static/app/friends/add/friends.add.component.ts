@@ -19,11 +19,8 @@ export class FriendsAddComponent implements OnInit {
     private friendsService: FriendsService) { }
 
   addFriend() {
-    this.friendsService.addFriend({
-        name: this.friend.name,
-        email: this.friend.email,
-        location: '',
-      }).subscribe();
+    this.friendsService.addFriend(this.friend.name, this.friend.email, '')
+      .subscribe();
   }
 
   getAllCircles() {

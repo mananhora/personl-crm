@@ -20,9 +20,8 @@ export class CirclesAddComponent implements OnInit {
     private friendsService: FriendsService,) { }
 
   addCircle() {
-    this.circlesService.addCircle({
-        circle_name: this.circle.name,
-      }).subscribe();
+    this.circlesService.addCircle(this.circle.name)
+      .subscribe();
 
     // for (friend in selectedFriends) {
     //   this.circlesService.addFriendToCircle({
