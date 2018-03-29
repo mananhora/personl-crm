@@ -40,7 +40,6 @@ export class FriendsAddComponent implements OnInit {
             this.circles = [circle];
           }
         }
-        console.log(this.circles);
       });
   }
 
