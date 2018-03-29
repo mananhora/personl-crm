@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProfileService } from './profile.service';
 import { Profile } from './profile';
@@ -10,14 +11,34 @@ import { Circle } from '../circles/circle';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  // @Input() id: any;
 
+  id: number;
   model = new Profile(
     '', //name
     '', //email
     555, //id
   );
 
-  constructor(private profileService: ProfileService, public dialog: MatDialog) { }
+  constructor(private profileService: ProfileService,
+    private route: ActivatedRoute, public dialog: MatDialog) { }
+
+  getHero(): void {
+    this.id = +this.route.snapshot.paramMap.get('id');
+    // this.heroService.getHero(id)
+    //   .subscribe(hero => this.hero = hero);
+  }
+
+  ngOnInit() {
+    this.getHero();
+    console.log('ayyyy: ', this.id);
+
+    if (this.id > 0) {
+      this.getFriendProfile(this.id);
+    } else {
+      this.getMyProfile();
+    }
+  }
 
   getMyProfile() {
     this.profileService.getMyProfile()
@@ -26,6 +47,15 @@ export class ProfileComponent implements OnInit {
         this.model.email = data['email'];
         this.model.id = data['id'];
     })
+  }
+
+  getFriendProfile(id: number) {
+    this.profileService.getFriendProfile(id)
+      .subscribe(data => {
+        this.model.name = data['name'];
+        this.model.email = data['email'];
+        this.model.id = data['id'];
+      })
   }
 
   openDialog(): void {
@@ -43,10 +73,6 @@ export class ProfileComponent implements OnInit {
         this.model.notes = [result];
       }
     });
-  }
-
-  ngOnInit() {
-    this.getMyProfile();
   }
 
 }

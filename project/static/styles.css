@@ -1,16 +1,16 @@
-
+/*
 body {
   background: url("images/bkg.png");
 }
 
-.brand, h1 {
+.brand {
   font-family: 'abegnale', monospace;
 }
 
-.secondary-font, h2 {
-  font-family: 'sayless', sans-serif;
+.secondary, h1, h2 {
+  font-family: 'justbecool', sans-serif;
 }
 
 .body-font, p, li, a {
   font-family: 'san-francisco', sans-serif;
-}
+} */

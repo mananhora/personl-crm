@@ -1,0 +1,10 @@
+
+  <mat-card  *ngFor="let friend of friends" class="friends" (click)=onClick(friend) routerLink="/app/profile/{{friend.id}}">
+    <mat-card-title>{{friend.name}}</mat-card-title>
+  </mat-card>
+
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a routerLink="/app/home/add" class="btn-floating btn-large waves-effect waves-light teal lighten-2">
+      <i class="material-icons">add</i>
+    </a>
+  </div>

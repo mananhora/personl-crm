@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx'
+import { Profile } from './profile/profile';
 
 @Injectable()
 export class AppService {
@@ -9,6 +10,7 @@ export class AppService {
 
   // loggedIn: boolean;
   // currentCircle: Circle;
+  currentProfileID: number;
 
   isLoggedIn() {
     return this.http.get('/isloggedin');

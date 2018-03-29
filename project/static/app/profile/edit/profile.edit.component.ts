@@ -4,7 +4,7 @@ import { Profile } from '../profile';
 import { Circle } from '../../circles/circle';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-profile-edit',
   templateUrl: './profile.edit.component.html',
   styleUrls: ['./profile.edit.component.css']
 })
