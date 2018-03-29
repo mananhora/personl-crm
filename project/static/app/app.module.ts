@@ -32,6 +32,7 @@ const appRoutes: Routes = [
   { path: 'app/home/add', component: CirclesAddComponent },
   { path: 'app/friends', component: FriendsComponent },
   { path: 'app/profile', component: ProfileComponent },
+  { path: 'app/profile/:id', component: ProfileComponent },
   { path: 'app/profile/edit', component: ProfileEditComponent },
 ];
 

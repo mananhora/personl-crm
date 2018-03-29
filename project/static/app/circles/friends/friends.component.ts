@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import { ProfileComponent } from '../../profile/profile.component';
 import { CirclesService } from '../circles.service';
 import { Circle } from '../circle';
 import { Profile } from '../../profile/profile';
@@ -12,8 +11,6 @@ import { Profile } from '../../profile/profile';
 export class FriendsComponent implements OnInit {
 
   friends: Profile[];
-
-  // @ViewChild(ProfileDirective) profileHost: ProfileDirective;
 
   constructor(private circlesService: CirclesService) { }
 
@@ -38,25 +35,11 @@ export class FriendsComponent implements OnInit {
   }
 
   onClick(friend: Profile) {
-    alert('okkk');
+    // alert('okkk');
   }
-
-  // loadComponent() {
-  //   let componentFactory = this.componentFactoryResolver.resolveComponentFactory(adItem.component);
-  //   let viewContainerRef = this.profileHost.viewContainerRef;
-  //   viewContainerRef.clear();
-  //
-  //   let componentRef = viewContainerRef.createComponent(componentFactory);
-  //   (<ProfileComponent>componentRef.instance).data = 1;
-  // }
 
   ngOnInit() {
-    // this.loadComponent();
     this.showAllFriends();
   }
-
-  // ngOnDestroy() {
-  //   clearInterval(this.interval);
-  // }
 
 }

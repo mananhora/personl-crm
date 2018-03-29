@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProfileService } from './profile.service';
-import { AppService } from '../app.service';
 import { Profile } from './profile';
 import { Circle } from '../circles/circle';
 
@@ -11,14 +11,34 @@ import { Circle } from '../circles/circle';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  // @Input() id: any;
 
+  id: number;
   model = new Profile(
     '', //name
     '', //email
     555, //id
   );
 
-  constructor(private profileService: ProfileService, public appService: AppService, public dialog: MatDialog) { }
+  constructor(private profileService: ProfileService,
+    private route: ActivatedRoute, public dialog: MatDialog) { }
+
+  getHero(): void {
+    this.id = +this.route.snapshot.paramMap.get('id');
+    // this.heroService.getHero(id)
+    //   .subscribe(hero => this.hero = hero);
+  }
+
+  ngOnInit() {
+    this.getHero();
+    console.log('ayyyy: ', this.id);
+
+    if (this.id > 0) {
+      this.getFriendProfile(this.id);
+    } else {
+      this.getMyProfile();
+    }
+  }
 
   getMyProfile() {
     this.profileService.getMyProfile()
@@ -53,16 +73,6 @@ export class ProfileComponent implements OnInit {
         this.model.notes = [result];
       }
     });
-    this.appService.currentProfileID = 1;
-  }
-
-  ngOnInit() {
-    console.log('yo: ', this.appService.currentProfileID);
-    if (this.appService.currentProfileID == 0) {
-      this.getMyProfile();
-    } else {
-      this.getFriendProfile(this.appService.currentProfileID);
-    }
   }
 
 }
