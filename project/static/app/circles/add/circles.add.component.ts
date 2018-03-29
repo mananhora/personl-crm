@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CirclesService } from '../circles.service';
+import { FriendsService } from '../../friends/friends.service';
 import { Circle } from '../circle';
 
 @Component({
@@ -14,7 +15,8 @@ export class CirclesAddComponent implements OnInit {
   friends: string[];
   selectedFriends: string[];
 
-  constructor(private circlesService: CirclesService) { }
+  constructor(private circlesService: CirclesService,
+    private friendsService: FriendsService,) { }
 
   addCircle() {
     this.circlesService.addCircle({
@@ -31,7 +33,7 @@ export class CirclesAddComponent implements OnInit {
 
   getAllFriends() {
     console.log('yo: gettin all friends');
-    this.circlesService.getAllFriends()
+    this.friendsService.getAllFriends()
       .subscribe(data => {
         console.log('yo: ', data);
         // console.log('yo: ', data['json_list']);

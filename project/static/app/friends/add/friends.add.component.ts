@@ -15,7 +15,8 @@ export class FriendsAddComponent implements OnInit {
   friend: Profile;
   circles: Circle[];
 
-  constructor(private friendsService: FriendsService, private circlesService: CirclesService) { }
+  constructor(private circlesService: CirclesService,
+    private friendsService: FriendsService) { }
 
   addFriend() {
     this.friendsService.addFriend({

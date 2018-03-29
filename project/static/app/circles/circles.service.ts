@@ -8,10 +8,6 @@ export class CirclesService {
 
   constructor (private http: HttpClient) { }
 
-  getCircles() {
-    return this.http.get('/showallcircles/');
-  }
-
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -19,9 +15,8 @@ export class CirclesService {
     })
   };
 
-  getFriends (id: number): Observable<Object> {
-    let id_object = { id: id }; // create JSON object
-    return this.http.post<Object>('/friendsincircle/', id_object, this.httpOptions);
+  getCircles() {
+    return this.http.get('/showallcircles/');
   }
 
   addCircle (object: Object): Observable<Object> {
@@ -30,10 +25,6 @@ export class CirclesService {
 
   addFriendToCircle (object: Object): Observable<Object> {
     return this.http.post<Object>('/addtocircle/', object, this.httpOptions);
-  }
-
-  getAllFriends() {
-    return this.http.get('/showallfriends/');
   }
 
 }
