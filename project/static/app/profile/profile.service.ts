@@ -24,4 +24,9 @@ export class ProfileService {
     return this.http.post<Object>('/friendinfo/', id_object, this.httpOptions);
   }
 
+  getCirclesForFriend(id: number): Observable<Object> {
+    let id_object = { friend_id: id }; //create JSON object
+    return this.http.post<Object>('/circlesforfriend/', id_object, this.httpOptions);
+  }
+
 }

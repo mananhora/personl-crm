@@ -52,6 +52,13 @@ export class ProfileComponent implements OnInit {
       })
   }
 
+  getCirclesForFriend(id: number) {
+    this.profileService.getCirclesForFriend(id)
+      .subscribe(data => {
+        console.log(data);
+      })
+  }
+
   openDialog(): void {
     let dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '250px',
