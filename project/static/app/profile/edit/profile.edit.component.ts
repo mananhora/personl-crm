@@ -43,6 +43,10 @@ export class ProfileEditComponent implements OnInit {
     console.log('edited');
   }
 
+  deleteProfile() {
+    console.log('deleted');
+  }
+
   ngOnInit() {
     this.getProfile();
 
