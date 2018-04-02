@@ -12,14 +12,14 @@ import { Circle } from '../circles/circle';
 })
 export class ProfileComponent implements OnInit {
 
-  id: number;
-  model = new Profile('', '', 555,);
+  routeId: number;
+  model = new Profile('', '', 0,);
 
   constructor(private profileService: ProfileService,
     private route: ActivatedRoute, public dialog: MatDialog) { }
 
   getProfile(): void {
-    this.id = +this.route.snapshot.paramMap.get('id');
+    this.routeId = +this.route.snapshot.paramMap.get('id');
     // this.heroService.getHero(id)
     //   .subscribe(hero => this.hero = hero);
   }
@@ -27,10 +27,10 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.getProfile();
 
-    if (this.id > 0) {
-      this.getFriendProfile(this.id);
-    } else {
+    if (this.routeId == 0) {
       this.getMyProfile();
+    } else {
+      this.getFriendProfile(this.routeId);
     }
   }
 
@@ -40,7 +40,10 @@ export class ProfileComponent implements OnInit {
         this.model.name = data['name'];
         this.model.email = data['email'];
         this.model.id = data['id'];
+        console.log('yo data id is ', data['id']);
     })
+    console.log(this.model.id);
+    // idk figure out what's up with ID and how it differs from friend IDs
   }
 
   getFriendProfile(id: number) {
@@ -50,6 +53,7 @@ export class ProfileComponent implements OnInit {
         this.model.email = data['email'];
         this.model.id = data['id'];
       })
+    this.getCirclesForFriend(id);
   }
 
   getCirclesForFriend(id: number) {

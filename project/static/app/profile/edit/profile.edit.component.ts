@@ -11,14 +11,14 @@ import { Circle } from '../../circles/circle';
 })
 export class ProfileEditComponent implements OnInit {
 
-  id: number;
+  routeId: number;
   model = new Profile('', '', 555,);
 
   constructor(private profileService: ProfileService,
     private route: ActivatedRoute, ) { }
 
   getProfile() {
-    this.id = +this.route.snapshot.paramMap.get('id');
+    this.routeId = +this.route.snapshot.paramMap.get('id');
   }
 
   getMyProfile() {
@@ -46,10 +46,10 @@ export class ProfileEditComponent implements OnInit {
   ngOnInit() {
     this.getProfile();
 
-    if (this.id > 0) {
-      this.getFriendProfile(this.id);
-    } else {
+    if (this.routeId == 0) {
       this.getMyProfile();
+    } else {
+      this.getFriendProfile(this.routeId);
     }
   }
 
