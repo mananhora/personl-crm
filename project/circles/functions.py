@@ -66,18 +66,11 @@ def add_member_to_circle(json=False, friend_id=None, circle_id=None):
       friend = Friend.query.get(friend_id)
       circle = Circle.query.get(circle_id)
       print("got the friend and the circle")
-      try:
-          circle.friends.append(friend)
-          friend.circles.append(circle)
-          db.session.commit()
-      except:
-          status = False
-      try:
-        db.session.commit()
-        status = True
-        print("added member to circle successfully")
-      except:
-        status = False
+      circle.friends.append(friend)
+      friend.circles.append(circle)
+      db.session.commit()
+      status = True
+      print("added member to circle successfully")
   if(json==True):
       return jsonify({'result': status})
   else :
