@@ -4,11 +4,14 @@ from flask.ext.bcrypt import Bcrypt
 # from project import app
 # bcrypt = Bcrypt(app)
 from functools import wraps
+
+from project.circles.functions import add_member_to_circle
 from project.models import *
 from project import *
 from project.form import *
 from flask.ext.login import login_user, LoginManager, current_user, login_required
 from project.users.functions import user
+
 
 ################
 #### config ####
@@ -25,14 +28,19 @@ contacts_blueprint = Blueprint(
 @login_required
 @contacts_blueprint.route('/addfriend/', methods = ['GET', 'POST'])
 def add_friend():
-  form = FriendCreationForm()
   json_data = request.get_json()
+  call_add_to_circle = json_data(['addToCircle']) #if the user is adding the friend to a circle
+
+  #Check if user is logged in..
   if current_user is not None :
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
+        #check if location is specified..
         location = None
         if(json_data['location']):
           location = json_data['location']
+
+        #create friend object
         friend = Friend(
           name = json_data['name'],
           email = json_data['email'],
@@ -40,8 +48,15 @@ def add_friend():
           location = location)
         try:
           db.session.add(friend)
-          db.session.commit()
           status = True
+          if(call_add_to_circle):
+            circles = json_data['circles']
+            for i in circles:
+              status = add_member_to_circle(False, friend.id, i)
+              if status == False:
+                print("error")
+                break
+            db.session.commit()
         except:
           status = False
         return jsonify({'result': status, 'friend_id':friend.id})

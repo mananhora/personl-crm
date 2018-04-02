@@ -52,13 +52,18 @@ def add_circle():
 @login_required
 @circles_blueprint.route('/addtocircle/', methods = ['GET', 'POST'])
 #add a friend to a circle, given that the friend already exists in the user's friend_list
-def add_member_to_circle():
-  json_data = request.get_json()
+def add_member_to_circle(json=False, friend_id=None, circle_id=None):
+  status = False
+  if(json==True):
+    json_data = request.get_json()
+    circle_id = json_data['circle_id']
+    friend_id = json_data['friend_id']
+
   if current_user is not None:
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
-      friend = Friend.query.get(json_data['friend_id'])
-      circle = Circle.query.get(json_data['circle_id'])
+      friend = Friend.query.get(friend_id)
+      circle = Circle.query.get(circle_id)
       circle.friends.append(friend)
       friend.circles.append(circle)
       try:
@@ -67,9 +72,11 @@ def add_member_to_circle():
         status = True
       except:
         status = False
+  if(json==True):
       return jsonify({'result': status})
-  status = False
-  return jsonify({'result': status})
+  else :
+    return status
+
 
 
 @login_required
