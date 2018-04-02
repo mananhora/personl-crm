@@ -52,7 +52,6 @@ def add_friend():
           db.session.add(friend)
           db.session.commit()
           status = True
-          print("added friend successfully")
           if(call_add_to_circle):
             circles = json_data['circles']
             for i in circles:
@@ -60,11 +59,11 @@ def add_friend():
               if status == False:
                 print("error")
                 break
-              print("added to circle successfully")
+
             db.session.commit()
         except:
           status = False
-        return jsonify({'result': status, 'friend_id':friend.id})
+        return jsonify({'result': status})
   status = False
   return jsonify({'result': status})
 

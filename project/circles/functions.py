@@ -73,7 +73,6 @@ def add_member_to_circle(json=False, friend_id=None, circle_id=None):
       except:
           status = False
       try:
-        db.session.add(friend)
         db.session.commit()
         status = True
         print("added member to circle successfully")
