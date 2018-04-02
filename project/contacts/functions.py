@@ -30,7 +30,8 @@ contacts_blueprint = Blueprint(
 @contacts_blueprint.route('/addfriend/', methods = ['GET', 'POST'])
 def add_friend():
   json_data = request.get_json()
-  call_add_to_circle = json_data(['addToCircle']) #if the user is adding the friend to a circle
+  print(json_data)
+  call_add_to_circle = json_data['addToCircle'] #if the user is adding the friend to a circle
 
   #Check if user is logged in..
   if current_user is not None :
@@ -38,7 +39,7 @@ def add_friend():
     if current_user.id is not None and a == False:
         #check if location is specified..
         location = None
-        if(json_data['location']):
+        if 'location' in json_data:
           location = json_data['location']
 
         #create friend object
@@ -49,6 +50,7 @@ def add_friend():
           location = location)
         try:
           db.session.add(friend)
+          db.session.commit()
           status = True
           if(call_add_to_circle):
             circles = json_data['circles']
