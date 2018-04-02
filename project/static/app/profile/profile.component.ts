@@ -59,7 +59,17 @@ export class ProfileComponent implements OnInit {
   getCirclesForFriend(id: number) {
     this.profileService.getCirclesForFriend(id)
       .subscribe(data => {
-        console.log(data);
+        for (let i = 0; i < data['json_list'].length; i++) {
+          if (this.model.circles) {
+            this.model.circles.push(new Circle(
+              data['json_list'][i].circle_name,
+              data['json_list'][i].id));
+          } else {
+            this.model.circles = [new Circle(
+              data['json_list'][i].circle_name,
+              data['json_list'][i].id)];
+          }
+        }
       })
   }
 
