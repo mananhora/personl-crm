@@ -48,20 +48,20 @@ def add_friend():
           email = json_data['email'],
           user_id= current_user.id,
           location = location)
-        try:
-          db.session.add(friend)
-          db.session.commit()
-          status = True
-          if(call_add_to_circle):
-            circles = json_data['circles']
-            for i in circles:
-              status = add_member_to_circle(False, friend.id, i)
-              if status == False:
-                print("error")
-                break
 
-            db.session.commit()
-        except:
+        db.session.add(friend)
+        db.session.commit()
+
+        status = True
+        if(call_add_to_circle):
+          circles = json_data['circles']
+          for i in circles:
+            status = add_member_to_circle(False, friend.id, i)
+            if status == False:
+              print("error")
+              break
+          db.session.commit()
+
           status = False
         return jsonify({'result': status})
   status = False
