@@ -149,7 +149,12 @@ class Friend(db.Model):
       return '<name - {}>'.format(self.name)
 
 #
-# class Dates(db.Model):
+class Dates(db.Model):
+  __tablename__ = 'dates'
+  id = db.Column(db.Integer, primary_key=True)
+  friend_id = db.Column(db.Integer, ForeignKey('friends.id'), nullable=False)
+  key = db.Column(db.String())
+  #value = db.Date()
 
 
 
