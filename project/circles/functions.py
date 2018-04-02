@@ -62,14 +62,21 @@ def add_member_to_circle(json=False, friend_id=None, circle_id=None):
   if current_user is not None:
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
+      print("adding to circle..")
       friend = Friend.query.get(friend_id)
       circle = Circle.query.get(circle_id)
-      circle.friends.append(friend)
-      friend.circles.append(circle)
+      print("got the friend and the circle")
+      try:
+          circle.friends.append(friend)
+          friend.circles.append(circle)
+          db.session.commit()
+      except:
+          status = False
       try:
         db.session.add(friend)
         db.session.commit()
         status = True
+        print("added member to circle successfully")
       except:
         status = False
   if(json==True):
@@ -133,11 +140,3 @@ def get_all_circles_for_user():
   # response.headers['circles'] = circles
 
   return jsonify(json_list=[i.serialize for i in circles])
-
-
-
-
-
-
-
-
