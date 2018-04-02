@@ -101,15 +101,15 @@ def get_all_friends_in_circle(circle_id=None):
 @circles_blueprint.route('/circlesforfriend/', methods = ['GET', 'POST'])
 #for a given friend, get all circles that they are in
 def get_all_circles_for_friend():
-  form = CirclesForFriendForm()
+  json_data = request.get_json()
+  friend_id = json_data['friend_id']
+
   if current_user is not None:
-    if form.validate_on_submit():
-      friend = Friend.query.get(form.friend_id.data)
-      circles = friend.circles
-      for i in range(0, len(circles)):
-        print(circles[i].circle_name)
-      db.session.commit()
-  return render_template('circlesforfriend.html', form=form)
+    friend = Friend.query.get(friend_id)
+    circles = friend.circles
+    db.session.commit()
+    return jsonify(json_list=[i.serialize for i in circles])
+
 
 
 

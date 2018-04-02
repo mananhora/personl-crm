@@ -30,18 +30,21 @@ def add_friend():
   if current_user is not None :
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
+        location = None
+        if(json_data['location']):
+          location = json_data['location']
         friend = Friend(
           name = json_data['name'],
           email = json_data['email'],
           user_id= current_user.id,
-        location = json_data['location'])
+          location = location)
         try:
           db.session.add(friend)
           db.session.commit()
           status = True
         except:
           status = False
-        return jsonify({'result': status})
+        return jsonify({'result': status, 'friend_id':friend.id})
   status = False
   return jsonify({'result': status})
 
