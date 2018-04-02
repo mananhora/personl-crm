@@ -7,7 +7,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import Boolean, DateTime, Column, Integer, \
                        String
-
+import datetime
+from sqlalchemy import Column, Integer, DateTime
 
 #User class corresponding to user table
 class User(db.Model):
@@ -154,7 +155,7 @@ class Dates(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   friend_id = db.Column(db.Integer, ForeignKey('friends.id'), nullable=False)
   key = db.Column(db.String())
-  #value = db.Date()
+  value = db.Column(DateTime, default=datetime.datetime.utcnow)
 
 
 
