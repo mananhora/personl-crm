@@ -105,6 +105,7 @@ class Circle(db.Model):
 #one friend can be in many circles
 #one circle can have many friends
 
+
 class Friend(db.Model):
     #describe friend table here
     __tablename__ = 'friends'
@@ -115,6 +116,9 @@ class Friend(db.Model):
     location = db.Column(db.String())
     circles = db.relationship("Circle",
                     secondary=friends_circles, backref='circles')
+
+    """ [dates: (key, value), profile_pic, location, phone, email, birthday, job,
+     notes, fb_profile, twitter_profile, linkedin_profile, insta_profile ]"""
 
 
     # constructor
@@ -143,6 +147,13 @@ class Friend(db.Model):
 
     def __repr__(self):
       return '<name - {}>'.format(self.name)
+
+#
+# class Dates(db.Model):
+
+
+
+
 
 
 class Tag(db.Model):
