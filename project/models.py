@@ -117,6 +117,15 @@ class Friend(db.Model):
     location = db.Column(db.String())
     circles = db.relationship("Circle",
                     secondary=friends_circles, backref='circles')
+    phone_number = db.Column(db.Integer)
+    birthday =  db.Column(DateTime)
+    notes = db.Column(db.String())
+    fb_profile = db.Column(db.String())
+    twitter_profile = db.Column(db.String())
+    linkedin_profile = db.Column(db.String())
+    insta_profile = db.Column(db.String())
+
+
 
     """ [dates: (key, value), profile_pic, location, phone, email, birthday, job,
      notes, fb_profile, twitter_profile, linkedin_profile, insta_profile ]"""
@@ -149,7 +158,8 @@ class Friend(db.Model):
     def __repr__(self):
       return '<name - {}>'.format(self.name)
 
-#
+
+
 class Dates(db.Model):
   __tablename__ = 'dates'
   id = db.Column(db.Integer, primary_key=True)
