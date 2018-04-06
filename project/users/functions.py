@@ -93,7 +93,7 @@ def login():
   json_data = request.get_json()
   print (json_data)
   print(json_data['username'])
-  user = User.query.filter_by(name=json_data['username']).first()
+  user = User.query.filter_by(email=json_data['username']).first()
   # print("user")
   print (user)
   pw = user.password
