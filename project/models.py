@@ -132,11 +132,12 @@ class Friend(db.Model):
 
 
     # constructor
-    def __init__(self, name, email, user_id, location):
+    def __init__(self, name, email, user_id, location=None, phone_number=None):
       self.name = name
       self.email = email
       self.user_id = user_id
       self.location = location
+      self.phone_number = phone_number
 
     @property
     def serialize(self):
