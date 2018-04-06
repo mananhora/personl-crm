@@ -54,8 +54,12 @@
 
             FB.Event.subscribe('auth.login', function(response) {
                 window.location = window.location;
+                console.log("called fb.event. subscribe..auth login...heres the response");
+                console.log(response)
             });
-            /*
+
+
+          /*
             FB.getLoginStatus(function(response) {
           if (response.status === 'connected') {
             console.log('Logged in.');
@@ -71,13 +75,24 @@
 
 
             FB.login(function(response) {
-           // handle the response
+              console.log('called fb login..heres the response...');
               console.log(response);
+              //FB.api('/me/feed', 'post', {message: 'Hello, world!'});
+              console.log("calling the graph api");
 
-              FB.api('/me/feed', 'post', {message: 'Hello, world!'});
-        }, {scope: 'public_profile,email, publish_actions'});
+              {#var resppp = FB.api('/me', 'get', {fields: 'id,name, email, about,birthday'});#}
+              {#console.log(JSON.stringify(resppp));#}
+              {##}
+              FB.api('/me', {fields:'id, name, email, about'}, function(response) {
+                console.log('Good to see you, ' + response.name + '.' +response.email +'. '+ JSON.stringify(response));
+              });
 
-            var finished_rendering = function() {
+
+
+
+              }, {scope: 'public_profile,email, about', return_scopes: true});
+
+          var finished_rendering = function() {
             console.log("finished rendering plugins");
             var spinner = document.getElementById("spinner");
             spinner.removeAttribute("style");
@@ -88,6 +103,7 @@
 
         // Load the SDK Asynchronously
         (function(d, s, id) {
+            console.log('loading the fb sdk');
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
