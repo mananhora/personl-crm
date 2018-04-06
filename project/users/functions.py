@@ -189,11 +189,14 @@ def index():
 @users_blueprint.route('/userinfo', methods = ['GET'] )
 def get_user_info():
   #send info about user
-  if current_user and current_user is not None and current_user.is_anonymous==False:
+
+  a = current_user.is_anonymous()
+
+  if a is not True:
     return jsonify(current_user.serialize)
   else:
-    flash("not logged in!")
     print("not logged in!")
+    return jsonify({"error":"true"})
 
 
 
