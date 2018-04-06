@@ -55,3 +55,7 @@ testem.log
 Thumbs.db
 
 project/static/dist/main.bundle.js
+
+*.map
+
+*.map

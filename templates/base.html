@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>MezAmis</title>
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
+<head>
+    <!-- Meta content -->
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> -->
-  </head>
 
   <style>
     @font-face {
@@ -18,57 +18,116 @@
     }
   </style>
 
-  <body class="cyan lighten-5">
 
-  <script type="text/javascript">
+    <meta name="description" content="Example Facebook app using Flask and Python Facebook SDK">
+    <meta name="author" content="github.com/mylsb">
+
+    <!-- These are Open Graph tags.-->
+    <meta property="fb:app_id" content= "{{ app_id }}" />
+    <title> {{ app_name }} </title>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+
+    <!--[if IE]>
+      <script type="text/javascript">
+        var tags = ['header', 'section'];
+        while(tags.length)
+          document.createElement(tags.pop());
+      </script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div id="spinner"
+    style="
+        background: #4267b2;
+        border-radius: 5px;
+        color: white;
+        height: 40px;
+        text-align: center;
+        width: 250px;">
+    Loading
+    <div
+    class="fb-login-button"
+    data-max-rows="1"
+    data-size="large"
+    data-button-type="continue_with"
+    data-use-continue-as="true"
+    ></div>
+</div>
+    <script type="text/javascript">
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '{{ app_id }}',
                 status     : true,
                 cookie     : true,
-                version    : 'v2.11',
+                version    : 'v2.12',
                 xfbml      : true
             });
-            var res = FB.Event.subscribe('auth.login', function(response) {
+
+            FB.Event.subscribe('auth.login', function(response) {
                 window.location = window.location;
-                console.log("just called auth login and got a response..");
-                console.log(response);
+                console.log("called fb.event. subscribe..auth login...heres the response");
+                console.log(response)
             });
-            console.log("res");
-            console.log(JSON.stringify(res));
-            console.log("hello")
+
+
+          /*
+            FB.getLoginStatus(function(response) {
+          if (response.status === 'connected') {
+            console.log('Logged in.');
+            console.log(response);
+          }
+          else {
+            console.log("in else");
+            FB.login(function(response) {
+           // handle the response
+        }, {scope: 'public_profile,email'});
+          }
+        });*/
+
+
+           FB.login(function(response) {
+              console.log('called fb login..heres the response...');
+              console.log(response);
+              //FB.api('/me/feed', 'post', {message: 'Hello, world!'});
+              console.log("calling the graph api");
+              {#var resppp = FB.api('/me', 'get', {fields: 'id,name, email, about,birthday'});#}
+              {#console.log(JSON.stringify(resppp));#}
+              {##}
+              FB.api('/me', {fields:'id, name, email, about'}, function(response) {
+                console.log('Good to see you, ' + response.name + '.' +response.email +'. '+ JSON.stringify(response));
+              });
+              }, {scope: 'public_profile,email, about', return_scopes: true});
+          var finished_rendering = function() {
+            console.log("finished rendering plugins");
+            var spinner = document.getElementById("spinner");
+            spinner.removeAttribute("style");
+            spinner.removeChild(spinner.childNodes[0]);
+          };
+          FB.Event.subscribe('xfbml.render', finished_rendering);
         };
         // Load the SDK Asynchronously
         (function(d, s, id) {
+            console.log('loading the fb sdk');
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
-            console.log("in the function(d, s, id)");
-            console.log("js\n", js);
-            console.log("fjs\n", fjs)
         }(document, 'script', 'facebook-jssdk'));
     </script>
 
 
+
+
+
+
+
     <div class="container">
-
-      <!-- child template -->
-      {% block content %}{% endblock %}
-
-      <!-- errors -->
-      {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}</p>
-      {% endif %}
-
-      <!-- messages -->
-      {% for message in get_flashed_messages() %}
-        {{ message }}
-      {% endfor %}
-
+        {% block content %} {% endblock %}
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-  </body>
+
+</body>
 </html>
