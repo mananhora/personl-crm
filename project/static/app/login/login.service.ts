@@ -14,7 +14,11 @@ export class LoginService {
     })
   };
 
-  submitForm (object: Object): Observable<Object> {
+  submitForm (username: string, password: string): Observable<Object> {
+    let object = {
+      username: username,
+      password: password,
+    }
     return this.http.post<Object>('/login', object, this.httpOptions);
       // .pipe(
       //   catchError(alert('Errrrror'));

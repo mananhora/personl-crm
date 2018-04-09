@@ -34,6 +34,13 @@ export class Profile {
     this._id = id;
   }
 
+  get circles(): Circle[] {
+    return this._circles;
+  }
+  set circles (circles: Circle[]) {
+    this._circles = circles;
+  }
+
   get notes(): string[] {
     return this._notes;
   }

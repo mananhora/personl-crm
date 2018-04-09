@@ -7,7 +7,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import Boolean, DateTime, Column, Integer, \
                        String
-
+import datetime
+from sqlalchemy import Column, Integer, DateTime
 
 #User class corresponding to user table
 class User(db.Model):
@@ -105,16 +106,21 @@ class Circle(db.Model):
 #one friend can be in many circles
 #one circle can have many friends
 
+
 class Friend(db.Model):
     #describe friend table here
     __tablename__ = 'friends'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
     email = db.Column(db.String())
-    user_id = db.Column(db.Integer, ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
     location = db.Column(db.String())
     circles = db.relationship("Circle",
                     secondary=friends_circles, backref='circles')
+
+    """ [dates: (key, value), profile_pic, location, phone, email, birthday, job,
+     notes, fb_profile, twitter_profile, linkedin_profile, insta_profile ]"""
+
 
     # constructor
     def __init__(self, name, email, user_id, location):
@@ -142,6 +148,18 @@ class Friend(db.Model):
 
     def __repr__(self):
       return '<name - {}>'.format(self.name)
+
+#
+class Dates(db.Model):
+  __tablename__ = 'dates'
+  id = db.Column(db.Integer, primary_key=True)
+  friend_id = db.Column(db.Integer, ForeignKey('friends.id'), nullable=False)
+  key = db.Column(db.String())
+  value = db.Column(DateTime, default=datetime.datetime.utcnow)
+
+
+
+
 
 
 class Tag(db.Model):

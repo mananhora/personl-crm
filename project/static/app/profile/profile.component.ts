@@ -11,32 +11,26 @@ import { Circle } from '../circles/circle';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  // @Input() id: any;
 
-  id: number;
-  model = new Profile(
-    '', //name
-    '', //email
-    555, //id
-  );
+  routeId: number;
+  model = new Profile('', '', 0,);
 
   constructor(private profileService: ProfileService,
     private route: ActivatedRoute, public dialog: MatDialog) { }
 
-  getHero(): void {
-    this.id = +this.route.snapshot.paramMap.get('id');
+  getProfile(): void {
+    this.routeId = +this.route.snapshot.paramMap.get('id');
     // this.heroService.getHero(id)
     //   .subscribe(hero => this.hero = hero);
   }
 
   ngOnInit() {
-    this.getHero();
-    console.log('ayyyy: ', this.id);
+    this.getProfile();
 
-    if (this.id > 0) {
-      this.getFriendProfile(this.id);
-    } else {
+    if (this.routeId == 0) {
       this.getMyProfile();
+    } else {
+      this.getFriendProfile(this.routeId);
     }
   }
 
@@ -46,7 +40,10 @@ export class ProfileComponent implements OnInit {
         this.model.name = data['name'];
         this.model.email = data['email'];
         this.model.id = data['id'];
+        console.log('yo data id is ', data['id']);
     })
+    console.log(this.model.id);
+    // idk figure out what's up with ID and how it differs from friend IDs
   }
 
   getFriendProfile(id: number) {
@@ -55,6 +52,24 @@ export class ProfileComponent implements OnInit {
         this.model.name = data['name'];
         this.model.email = data['email'];
         this.model.id = data['id'];
+      })
+    this.getCirclesForFriend(id);
+  }
+
+  getCirclesForFriend(id: number) {
+    this.profileService.getCirclesForFriend(id)
+      .subscribe(data => {
+        for (let i = 0; i < data['json_list'].length; i++) {
+          if (this.model.circles) {
+            this.model.circles.push(new Circle(
+              data['json_list'][i].circle_name,
+              data['json_list'][i].id));
+          } else {
+            this.model.circles = [new Circle(
+              data['json_list'][i].circle_name,
+              data['json_list'][i].id)];
+          }
+        }
       })
   }
 

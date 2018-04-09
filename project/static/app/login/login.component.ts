@@ -16,10 +16,8 @@ export class LoginComponent implements OnInit {
   submitted = false;
 
   onSubmit() {
-    this.loginService.submitForm({
-        username: this.username,
-        password: this.password,
-      }).subscribe(data => {
+    this.loginService.submitForm(this.username, this.password)
+      .subscribe(data => {
         console.log(data['result']);
         console.log('logged in!');
         location.href = 'http://0.0.0.0:5000/';

@@ -1,25 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CirclesService } from '../circles.service';
+import { FriendsService } from '../../friends/friends.service';
 import { Circle } from '../circle';
+import { Profile } from '../../profile/profile';
 
 @Component({
-  selector: 'app-circles',
+  selector: 'app-circles-add',
   templateUrl: './circles.add.component.html',
   styleUrls: ['./circles.add.component.css']
 })
 export class CirclesAddComponent implements OnInit {
 
   circle: Circle;
-  friends: string[];
+  friends: Profile[];
   selectedFriends: string[];
 
-  constructor(private circlesService: CirclesService) { }
+  constructor(private circlesService: CirclesService,
+    private friendsService: FriendsService,) { }
 
   addCircle() {
-    this.circlesService.addCircle({
-        circle_name: this.circle.name,
-      }).subscribe();
+    this.circlesService.addCircle(this.circle.name)
+      .subscribe();
 
     // for (friend in selectedFriends) {
     //   this.circlesService.addFriendToCircle({
@@ -30,18 +32,26 @@ export class CirclesAddComponent implements OnInit {
   }
 
   getAllFriends() {
-    console.log('yo: gettin all friends');
-    this.circlesService.getAllFriends()
+    this.friendsService.getAllFriends()
       .subscribe(data => {
-        console.log('yo: ', data);
-        // console.log('yo: ', data['json_list']);
+        for (let i = 0; i < data['json_list'].length; i++) {
+          let name = data['json_list'][i]['name'];
+          let email = data['json_list'][i]['email'];
+          let id = data['json_list'][i]['id'];
+          let profile = new Profile(name, id, email);
+
+          if (this.friends) {
+            this.friends.push(profile);
+          } else {
+            this.friends = [profile];
+          }
+        }
     })
   }
 
   ngOnInit() {
     this.circle = new Circle('', 123);
     this.getAllFriends();
-    this.friends = ['Manan', 'Tarin'];
   }
 
 }

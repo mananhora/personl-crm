@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CirclesService } from './circles.service';
+import { FriendsService } from '../friends/friends.service';
 import { Circle } from './circle';
 import { Profile } from '../profile/profile';
 
@@ -13,7 +14,8 @@ export class CirclesComponent implements OnInit {
   circles: Circle[];
   friends: Profile[];
 
-  constructor(private circlesService: CirclesService) { }
+  constructor(private circlesService: CirclesService,
+    private friendsService: FriendsService) { }
 
   showAllCircles() {
     this.circlesService.getCircles()
@@ -46,9 +48,8 @@ export class CirclesComponent implements OnInit {
   }
 
   showFriends(id: number) {
-    this.circlesService.getFriends(id)
+    this.friendsService.getFriends(id)
       .subscribe(data => {
-
         let friends: string[];
         let circle = this.getCircleById(id);
 
@@ -70,21 +71,6 @@ export class CirclesComponent implements OnInit {
       return circle.id === id;
     });
   }
-
-  // getFriends(circle: Circle): string[] {
-  //   let friends: string[];
-  //   this.circlesService.getFriends(circle.id())
-  //     .subscribe(data => {
-  //       for (let i = 0; i < data['json_list'].length; i++) {
-  //         if (friends) {
-  //           friends.push(data['json_list'][i]['name']);
-  //         } else {
-  //           friends = [ data['json_list'][i]['name'] ];
-  //         }
-  //       }
-  //     });
-  //   return friends;
-  // }
 
   ngOnInit() {
     this.showAllCircles();

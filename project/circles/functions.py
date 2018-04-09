@@ -52,16 +52,30 @@ def add_circle():
 @login_required
 @circles_blueprint.route('/addtocircle/', methods = ['GET', 'POST'])
 #add a friend to a circle, given that the friend already exists in the user's friend_list
-def add_member_to_circle():
-  form = FriendCircleForm()
+def add_member_to_circle(json=False, friend_id=None, circle_id=None):
+  status = False
+  if(json==True):
+    json_data = request.get_json()
+    circle_id = json_data['circle_id']
+    friend_id = json_data['friend_id']
+
   if current_user is not None:
-    if form.validate_on_submit():
-      friend = Friend.query.get(form.friend_id.data)
-      circle = Circle.query.get(form.circle_id.data)
+    a = current_user.is_anonymous()
+    if current_user.id is not None and a == False:
+      print("adding to circle..")
+      friend = Friend.query.get(friend_id)
+      circle = Circle.query.get(circle_id)
+      print("got the friend and the circle")
       circle.friends.append(friend)
       friend.circles.append(circle)
       db.session.commit()
-  return render_template('addtocircle.html', form=form)
+      status = True
+      print("added member to circle successfully")
+  if(json==True):
+      return jsonify({'result': status})
+  else :
+    return status
+
 
 
 @login_required
@@ -93,15 +107,15 @@ def get_all_friends_in_circle(circle_id=None):
 @circles_blueprint.route('/circlesforfriend/', methods = ['GET', 'POST'])
 #for a given friend, get all circles that they are in
 def get_all_circles_for_friend():
-  form = CirclesForFriendForm()
+  json_data = request.get_json()
+  friend_id = json_data['friend_id']
+
   if current_user is not None:
-    if form.validate_on_submit():
-      friend = Friend.query.get(form.friend_id.data)
-      circles = friend.circles
-      for i in range(0, len(circles)):
-        print(circles[i].circle_name)
-      db.session.commit()
-  return render_template('circlesforfriend.html', form=form)
+    friend = Friend.query.get(friend_id)
+    circles = friend.circles
+    db.session.commit()
+    return jsonify(json_list=[i.serialize for i in circles])
+
 
 
 
@@ -118,11 +132,3 @@ def get_all_circles_for_user():
   # response.headers['circles'] = circles
 
   return jsonify(json_list=[i.serialize for i in circles])
-
-
-
-
-
-
-
-
