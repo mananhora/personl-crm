@@ -81,8 +81,6 @@ def search_by_location():
   return render_template('searchbylocation.html', form=form)
 
 
-
-
 @login_required
 @contacts_blueprint.route('/friendinfo/', methods = ['GET', 'POST'])
 def get_friend_info():
@@ -94,3 +92,21 @@ def get_friend_info():
         friend = Friend.query.get(friend_id)
         return jsonify(friend.serialize)
     return jsonify({'error':True})
+
+
+@login_required
+@contacts_blueprint.route('/addnote', methods = ['POST'])
+def add_note_to_friend():
+  if current_user is not None:
+    json_data = request.get_json()
+    friend_id = json_data['friend_id']
+    note = json_data['note']
+    a = current_user.is_anonymous()
+    if current_user.id is not None and a == False:
+      friend = Friend.query.get(friend_id)
+      friend.note = note
+      db.session.commit()
+      return jsonify({'result':True})
+    return jsonify({'error': True})
+
+
