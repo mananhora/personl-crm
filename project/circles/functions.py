@@ -127,8 +127,4 @@ def get_all_circles_for_user():
   user_id = current_user.id
   user = User.query.get(user_id)
   circles = user.circles.all()
-  circles_to_friends_map_list = []
-  # response = make_response(200)
-  # response.headers['circles'] = circles
-
   return jsonify(json_list=[i.serialize for i in circles])
