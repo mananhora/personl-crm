@@ -108,14 +108,14 @@ def login():
 def index():
     # If a user was set in the get_current_user function before the request,
     # the user is logged in.
-    g.user = None
-    if g.user:
-      print("g. user")
-      print(g.user)
-      return render_template('index.html', app_id=FB_APP_ID,
-                               app_name=FB_APP_NAME, user=g.user)
+    # g.user = None
+    # if g.user:
+    #   print("g. user")
+    #   print(g.user)
+    #   return render_template('index.html', app_id=FB_APP_ID,
+    #                            app_name=FB_APP_NAME, user=g.user)
     # Otherwise, a user is not logged in.
-    print("i guess there was no g.user..")
+    # print("i guess there was no g.user..")
     print("redirecting to login.html..")
     return render_template('login.html', app_id=FB_APP_ID, name=FB_APP_NAME)
 

@@ -65,7 +65,7 @@
                 version    : 'v2.12',
                 xfbml      : true
             });
-
+            console.log("fb init called");
             FB.Event.subscribe('auth.login', function(response) {
                 window.location = window.location;
                 console.log("called fb.event. subscribe..auth login...heres the response");
@@ -87,19 +87,42 @@
           }
         });*/
 
+          var user_id = 0;
 
            FB.login(function(response) {
               console.log('called fb login..heres the response...');
               console.log(response);
               //FB.api('/me/feed', 'post', {message: 'Hello, world!'});
               console.log("calling the graph api");
-              {#var resppp = FB.api('/me', 'get', {fields: 'id,name, email, about,birthday'});#}
-              {#console.log(JSON.stringify(resppp));#}
-              {##}
-              FB.api('/me', {fields:'id, name, email, about'}, function(response) {
-                console.log('Good to see you, ' + response.name + '.' +response.email +'. '+ JSON.stringify(response));
+
+
+              FB.api('/me', 'GET', {"fields":'id, friend-list-id, name, email, about, friendlists,friends{first_name}'}, function(fbresult) {
+                console.log('Good to see you, ' + fbresult.name + '.' +fbresult.email +'. '+ JSON.stringify(fbresult));
+                console.log(fbresult);
+                user_id = fbresult.id;
+                console.log(user_id);
+                var url = '/' + user_id.toString() + '/friends';
+                console.log(url);
+
+                FB.api(
+                  url,
+                  'GET',
+                  {},
+               function(respp) {
+                  // Insert your code here
+                 console.log(JSON.stringify(respp));
+                }
+              );
+
               });
-              }, {scope: 'public_profile,email, about', return_scopes: true});
+              }, {scope: 'read_custom_friendlists, public_profile,email, about, friends, friendlists, user_friends', return_scopes: true});
+
+
+
+
+
+
+
           var finished_rendering = function() {
             console.log("finished rendering plugins");
             var spinner = document.getElementById("spinner");
