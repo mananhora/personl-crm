@@ -15,37 +15,47 @@
   </mat-toolbar>
 
   <div *ngIf="loggedIn == false">
-    <div class="container">
+    <div class="container" id="splash">
+      <h1>Welcome to myVillage!</h1>
+      <h2>get started with your community</h2>
       <mat-tab-group>
-        <mat-tab label="login">
-          <form class="col s8 offset-s2 card-panel form-signin"
-                (ngSubmit)="login()" #loginForm="ngForm">
-            <div class="section">
-              <div class="row">
-                <div class="input-field col s12">
-                  <input type="text" class="validate" id="username" required
-                          [(ngModel)]="username" name="username">
-                  <label for="username">Username</label>
+        <div class="label">
+          <mat-tab label="login">
+            <ng-template mat-tab-label>
+              <span class="mylabel">login</span>
+            </ng-template>
+            <form class="col s8 offset-s2 card-panel form-signin"
+                  (ngSubmit)="login()" #loginForm="ngForm">
+              <div class="section">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input type="text" class="validate" id="username" required
+                            [(ngModel)]="username" name="username">
+                    <label for="username">Username</label>
+                  </div>
                 </div>
-              </div>
 
-              <div class="row">
-                <div class="input-field col s12">
-                  <input type="password" class="validate" id="password" required
-                          [(ngModel)]="password" name="password">
-                  <label for="password">Password</label>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input type="password" class="validate" id="password" required
+                            [(ngModel)]="password" name="password">
+                    <label for="password">Password</label>
+                  </div>
                 </div>
+
+                <button type="submit" class="btn waves-effect waves-light" name="action"
+                        [disabled]="!loginForm.form.valid" >
+                  Sign in <i class="material-icons right">send</i>
+                </button>
               </div>
+            </form>
+          </mat-tab>
+        </div>
 
-              <button type="submit" class="btn waves-effect waves-light" name="action"
-                      [disabled]="!loginForm.form.valid" >
-                Sign in <i class="material-icons right">send</i>
-              </button>
-            </div>
-          </form>
-        </mat-tab>
-
-        <mat-tab label="register">
+        <mat-tab  label="register">
+          <ng-template mat-tab-label>
+            <span class="mylabel">register</span>
+          </ng-template>
           <form class="col s8 offset-s2 card-panel form-signin"
                 (ngSubmit)="register()" #registerForm="ngForm">
             <div class="section">
