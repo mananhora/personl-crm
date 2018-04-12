@@ -69,7 +69,6 @@ def register():
 
 
 
-
 @users_blueprint.route('/logout', methods=['GET', 'POST'])
 def logout():
   error = None
@@ -199,6 +198,18 @@ def get_user_info():
     return jsonify({"error":"true"})
 
 
+@login_required
+@users_blueprint.route('/update_user_info', methods = ['POST'])
+def update_user_info():
+  a = current_user.is_anonymous()
+
+  if a is not True:
+    json_data = request.get_json()
+    location = json_data['location']
+    user = User.get(current_user.id)
+    user.location = location
+    return jsonify({'result': True})
+  return jsonify({'error': True})
 
 # @app.before_request
 # def get_current_user():

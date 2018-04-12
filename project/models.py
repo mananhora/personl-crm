@@ -22,6 +22,7 @@ class User(db.Model):
     friends = db.relationship('Friend', backref='user', lazy='dynamic')
     profile_url = db.Column(db.String(), nullable=True)
     access_token = db.Column(db.String, nullable=True)
+    location = db.Columb(db.String, nullable=True)
 
 
     #constructor
@@ -38,7 +39,8 @@ class User(db.Model):
       return {
         'id': self.id,
         'name': self.name,
-        'email': self.email
+        'email': self.email,
+        'location' : self.location
       }
 
 
@@ -162,17 +164,12 @@ class Friend(db.Model):
       return '<name - {}>'.format(self.name)
 
 
-
 class Dates(db.Model):
   __tablename__ = 'dates'
   id = db.Column(db.Integer, primary_key=True)
   friend_id = db.Column(db.Integer, ForeignKey('friends.id'), nullable=False)
   key = db.Column(db.String())
   value = db.Column(DateTime, default=datetime.datetime.utcnow)
-
-
-
-
 
 
 class Tag(db.Model):
