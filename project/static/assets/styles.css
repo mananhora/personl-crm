@@ -2,7 +2,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 body {
-  background: url("images/bkg.png");
+  background-color: #D8FAF6;
 }
 
 .brand {
