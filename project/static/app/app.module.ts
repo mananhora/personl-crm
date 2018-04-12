@@ -8,8 +8,8 @@ import { FormsModule }   from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+// import { LoginComponent } from './login.component';
+// import { RegisterComponent } from './register.component';
 import { CirclesComponent } from './circles/circles.component';
 import { CirclesAddComponent } from './circles/add/circles.add.component';
 import { FriendsComponent } from './friends/friends.component';
@@ -19,16 +19,12 @@ import { DialogOverviewExampleDialog } from './profile/profile.component';
 import { ProfileEditComponent } from './profile/edit/profile.edit.component';
 
 import { AppService } from './app.service';
-import { LoginService } from './login/login.service';
-import { RegisterService } from './register/register.service';
 import { CirclesService } from './circles/circles.service';
 import { FriendsService } from './friends/friends.service';
 import { ProfileService } from './profile/profile.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/app/home', pathMatch: 'full' },
-  { path: 'app/login', component: LoginComponent },
-  { path: 'app/register', component: RegisterComponent },
   { path: 'app/home', component: CirclesComponent },
   { path: 'app/home/add', component: CirclesAddComponent },
   { path: 'app/friends', component: FriendsComponent },
@@ -41,8 +37,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
     CirclesComponent,
     CirclesAddComponent,
     FriendsComponent,
@@ -67,16 +61,12 @@ const appRoutes: Routes = [
   ],
   providers: [
     AppService,
-    LoginService,
-    RegisterService,
     CirclesService,
     FriendsService,
     ProfileService,
   ],
   bootstrap: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
     CirclesComponent,
     CirclesAddComponent,
     FriendsComponent,
