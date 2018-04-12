@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
-// import { LoginService } from './login/login.service';
-// import { RegisterService } from './register/register.service';
 
 @Component({
   selector: 'app-root',

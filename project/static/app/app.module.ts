@@ -8,8 +8,6 @@ import { FormsModule }   from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-// import { LoginComponent } from './login.component';
-// import { RegisterComponent } from './register.component';
 import { CirclesComponent } from './circles/circles.component';
 import { CirclesAddComponent } from './circles/add/circles.add.component';
 import { FriendsComponent } from './friends/friends.component';
