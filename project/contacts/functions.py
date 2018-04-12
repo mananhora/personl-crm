@@ -96,7 +96,7 @@ def get_friend_info():
 
 @login_required
 @contacts_blueprint.route('/addnote', methods = ['POST'])
-def add_note_to_friend():
+def add_note_for_friend():
   if current_user is not None:
     json_data = request.get_json()
     friend_id = json_data['friend_id']
@@ -110,3 +110,23 @@ def add_note_to_friend():
     return jsonify({'error': True})
 
 
+@login_required
+@contacts_blueprint.route('/updateinfo', methods = ['POST'])
+def update_info():
+  if current_user is not None:
+    json_data = request.get_json()
+    friend_id = json_data['friend_id']
+    note = json_data['note']
+    location = json_data['location']
+    notes = json_data['notes']
+    phone_number = json_data['phone_number']
+    a = current_user.is_anonymous()
+    if current_user.id is not None and a == False:
+      friend = Friend.query.get(friend_id)
+      friend.note = note
+      friend.location = location
+      friend.notes = notes
+      friend.phone_number = phone_number
+      db.session.commit()
+      return jsonify({'result': True})
+    return jsonify({'error': True})
