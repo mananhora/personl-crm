@@ -22,7 +22,7 @@ class User(db.Model):
     friends = db.relationship('Friend', backref='user', lazy='dynamic')
     profile_url = db.Column(db.String(), nullable=True)
     access_token = db.Column(db.String, nullable=True)
-    location = db.Columb(db.String, nullable=True)
+    location = db.Column(db.String, nullable=True)
 
 
     #constructor
