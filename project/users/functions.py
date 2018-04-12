@@ -54,7 +54,7 @@ def register():
     print("in register")
     json_data = request.get_json()
     user = User(
-      name = json_data['username'],
+      name = json_data['name'],
       email=json_data['email'],
       password=json_data['password']
     )
