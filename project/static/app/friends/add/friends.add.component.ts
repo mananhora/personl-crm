@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FriendsService } from '../friends.service';
 import { CirclesService } from '../../circles/circles.service';
 import { Profile } from '../../profile/profile';
@@ -16,11 +17,14 @@ export class FriendsAddComponent implements OnInit {
   circles: Circle[];
 
   constructor(private circlesService: CirclesService,
-    private friendsService: FriendsService) { }
+    private friendsService: FriendsService,
+    private router: Router) { }
 
   addFriend() {
     this.friendsService.addFriend(this.friend.name, this.friend.email, this.friend.circles)
       .subscribe();
+    // @TODO: for some reason, causes a post error to add this nav into subsrcibe()
+    this.router.navigate(['/app/friends']);
   }
 
   getAllCircles() {

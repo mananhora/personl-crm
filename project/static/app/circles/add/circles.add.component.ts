@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CirclesService } from '../circles.service';
 import { FriendsService } from '../../friends/friends.service';
 import { Circle } from '../circle';
@@ -17,11 +18,15 @@ export class CirclesAddComponent implements OnInit {
   selectedFriends: string[];
 
   constructor(private circlesService: CirclesService,
-    private friendsService: FriendsService,) { }
+    private friendsService: FriendsService,
+    private router: Router) { }
 
   addCircle() {
     this.circlesService.addCircle(this.circle.name)
-      .subscribe();
+      .subscribe(data => {
+        // if successful,
+        this.router.navigate(['/app/home']);
+      });
 
     // for (friend in selectedFriends) {
     //   this.circlesService.addFriendToCircle({
