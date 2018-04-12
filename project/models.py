@@ -147,7 +147,9 @@ class Friend(db.Model):
         'name': self.name,
         'user_id': self.user_id,
         'location': self.location,
-        'email': self.email
+        'email': self.email,
+        'notes':self.notes,
+        'phone_number' : self.phone_number
       }
 
     def is_anonymous(self):
