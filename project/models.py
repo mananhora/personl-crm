@@ -25,6 +25,7 @@ class User(db.Model):
     location = db.Column(db.String, nullable=True)
 
 
+
     #constructor
     def __init__(self, name, email=None, password=None, profile_url=None, access_token=None):
         self.name = name
@@ -40,7 +41,7 @@ class User(db.Model):
         'id': self.id,
         'name': self.name,
         'email': self.email,
-        'location' : self.location
+        'location' : self.location,
       }
 
 
@@ -126,6 +127,7 @@ class Friend(db.Model):
     twitter_profile = db.Column(db.String())
     linkedin_profile = db.Column(db.String())
     insta_profile = db.Column(db.String())
+    job = db.Column(db.String, nullable=True)
 
 
 
@@ -151,7 +153,8 @@ class Friend(db.Model):
         'location': self.location,
         'email': self.email,
         'notes':self.notes,
-        'phone_number' : self.phone_number
+        'phone_number' : self.phone_number,
+        'job' : self.job
       }
 
     def is_anonymous(self):
