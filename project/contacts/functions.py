@@ -1,5 +1,5 @@
 from flask import flash, redirect, render_template, request, \
-    session, url_for, Blueprint, jsonify
+    session, url_for, Blueprint, jsonify, make_response
 from flask.ext.bcrypt import Bcrypt
 # from project import app
 # bcrypt = Bcrypt(app)
@@ -119,12 +119,39 @@ def update_info():
     location = json_data['location']
     notes = json_data['notes']
     phone_number = json_data['phone_number']
+    job =json_data['job']
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
       friend = Friend.query.get(friend_id)
       friend.location = location
       friend.notes = notes
       friend.phone_number = phone_number
+      friend.job = job
       db.session.commit()
       return jsonify({'result': True})
     return jsonify({'error': True})
+
+
+@login_required
+@contacts_blueprint.route('/searchbykeyword', methods = ['GET'])
+def search_by_keyword():
+  json_data = request.get_json()
+  search_word = json_data['keyword']
+  if current_user is not None:
+    print("not none")
+    a = current_user.is_anonymous()
+    if current_user.id is not None and a == False:
+      friends = current_user.friends
+      result = []
+      for friend in friends:
+        "in for loop"
+        if friend.location == search_word:
+          result.append((friend.serialize))
+        if friend.job == search_word:
+          result.append(((friend.serialize)))
+        for circle in friend.circles:
+          if circle.circle_name == search_word:
+            result.append((friend.serialize))
+      print(result)
+      return make_response(jsonify(result))
+  return None
