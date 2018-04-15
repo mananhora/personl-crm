@@ -138,13 +138,11 @@ def search_by_keyword():
   json_data = request.get_json()
   search_word = json_data['keyword']
   if current_user is not None:
-    print("not none")
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
       friends = current_user.friends
       result = []
       for friend in friends:
-        "in for loop"
         if friend.location == search_word:
           result.append((friend.serialize))
         if friend.job == search_word:
