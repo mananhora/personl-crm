@@ -56,24 +56,29 @@
           <ng-template mat-tab-label>
             <span class="mylabel">register</span>
           </ng-template>
-          <form class="col s8 offset-s2 card-panel form-signin"
-                (ngSubmit)="register()" #registerForm="ngForm">
-            <div class="section">
-              <div class="row">
-                <div class="input-field col s12">
-                  <input type="text" class="validate" id="username" required
-                          [(ngModel)]="username" name="username">
-                  <label for="username">Username</label>
+          <mat-horizontal-stepper #stepper="matHorizontalStepper">
+            <ng-template matStepperIcon="edit">
+              <mat-icon>done</mat-icon>
+            </ng-template>
+            <mat-step label="Login Details">
+              <!-- Login info: email, password -->
+              <p>First, please enter your basic login information.</p>
+              <div class="section">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input type="text" class="validate" id="username" required
+                            [(ngModel)]="username" name="username">
+                    <label for="username">Username</label>
+                  </div>
                 </div>
-              </div>
 
-              <div class="row">
-                <div class="input-field col s12">
-                  <input type="email" class="validate" id="email" required
-                          [(ngModel)]="email" name="email">
-                  <label for="email">Email</label>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input type="email" class="validate" id="email" required
+                            [(ngModel)]="email" name="email">
+                    <label for="email">Email</label>
+                  </div>
                 </div>
-              </div>
 
                 <div class="row">
                   <div class="input-field col s12">
@@ -82,21 +87,67 @@
                     <label for="password">Password</label>
                   </div>
                 </div>
-
+              </div>
+              <div>
+                <button mat-button matStepperNext class="right">Next</button>
+              </div>
+            </mat-step>
+            <mat-step label="Personal Info">
+              <p>Tell us a little more about yourself</p>
+              <div class="section">
                 <div class="row">
                   <div class="input-field col s12">
-                    <input type="password" class="validate" id="confirmPassword" required
-                            [(ngModel)]="confirmPassword" name="confirmPassword">
-                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="text" id="hometown"
+                            [(ngModel)]="hometown.name" name="hometown">
+                    <label for="hometown">Where's your hometown?</label>
                   </div>
                 </div>
 
-              <button type="submit" class="btn waves-effect waves-light" name="action"
-                      [disabled]="!registerForm.form.valid">
-                Sign up <i class="material-icons right">send</i>
-              </button>
-            </div>
-          </form>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input type="text" id="school"
+                            [(ngModel)]="school.name" name="school">
+                    <label for="school">Where did you go to school?</label>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button mat-button matStepperNext class="right">Next</button>
+                <button mat-button matStepperPrevious class="right">Back</button>
+              </div>
+            </mat-step>
+            <mat-step label="Circles">
+              <div *ngFor="let circle of circles">
+                <p>Who are you closest friends from <strong>{{circle.name}}</strong>?</p>
+                <mat-form-field class="myChipList">
+                  <mat-chip-list #friendList>
+                    <mat-chip *ngFor="let friend of circle.friends" [selectable]="selectable"
+                             [removable]="removable" (remove)="removeFriend(friend, circle)">
+                      {{friend}}
+                      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input [matChipInputFor]="friendList"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      [matChipInputAddOnBlur]="addOnBlur"
+                      (matChipInputTokenEnd)="addFriend($event, circle)">
+                  </mat-chip-list>
+                </mat-form-field>
+              </div>
+
+              <div>
+                <button id="finish" mat-button matStepperNext class="right btn waves-effect waves-light">Finish</button>
+                <button mat-button matStepperPrevious class="right">Back</button>
+              </div>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Done</ng-template>
+              <div id="done" class="row">
+                  <h4>Congratulations! You're all set up.</h4>
+                  <a class="btn waves-effect waves-light" href="http://0.0.0.0:5000/">Go to Dashboard</a>
+              </div>
+            </mat-step>
+          </mat-horizontal-stepper>
+
         </mat-tab>
       </mat-tab-group>
     </div>
