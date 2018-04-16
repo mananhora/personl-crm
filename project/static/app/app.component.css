@@ -31,7 +31,7 @@ p {
 }
 .myChipList input {
   border-bottom: none;
-  margin-left: 0.5rem;
+  margin-right: 0.75rem;
 }
 .myChipList input:focus {
   box-shadow: none;
@@ -48,8 +48,4 @@ p {
 #finish:hover {
   color: #fff;
   background-color: #2bbbad; /* #80cbc4 */
-}
-
-#done {
-  text-align: center;
 }

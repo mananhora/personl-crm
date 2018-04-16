@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
-// import { CircleService } from './circles/circles.service';
+import { CirclesService } from './circles/circles.service';
 import { Circle } from './circles/circle';
 import { Profile } from './profile/profile';
 import { MatChipInputEvent } from '@angular/material';
@@ -18,14 +18,14 @@ export class AppComponent implements OnInit {
   email = '';
   password = '';
   confirmPassword = '';
-  school = new Circle('', 1);
-  hometown = new Circle('', 2);
-  circles = [this.hometown, this.school];
-  submitted = false;
+  school: Circle;
+  hometown: Circle;
+  circles: Circle[];
   removable = true;
   separatorKeysCodes = [ENTER, COMMA];
 
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService,
+    private circlesService: CirclesService) { }
 
   isLoggedIn() {
     this.appService.isLoggedIn()
@@ -69,22 +69,25 @@ export class AppComponent implements OnInit {
   }
 
   register() {
-    this.appService.register({
-        username: this.username,
-        email: this.email,
-        password: this.password,
-        confirmPassword: this.confirmPassword,
-      }).subscribe(data => {
-        // @TODO if successful, add circles
-        // for (circle in this.circles) {
-        //   this.circlesService.addCircle(circle.name)
-        // }
-        this.login();
+    this.appService.register(this.username, this.email, this.password, this.confirmPassword)
+      .subscribe(data => {
+        this.appService.login(this.username, this.password)
+          .subscribe(data => {
+            for (let i = 0; i < this.circles.length; i++) {
+              this.circlesService.addCircle(this.circles[i].name).subscribe();
+              // for (let i = 0; i < this.circles[i].friends.length; i++) {
+              //   this.circlesService.addFriendToCircle(this.circles[i].friends[i], this.circles[i]);
+              // }
+            }
+        });
       });
   }
 
   ngOnInit() {
     this.appService.currentProfileID = 0;
     this.isLoggedIn();
+    this.school = new Circle('', 1);
+    this.hometown = new Circle('', 2);
+    this.circles = [this.hometown, this.school];
   }
 }

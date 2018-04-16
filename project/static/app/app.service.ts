@@ -8,8 +8,6 @@ export class AppService {
 
   constructor (private http: HttpClient) { }
 
-  // loggedIn: boolean;
-  // currentCircle: Circle;
   currentProfileID: number;
 
   isLoggedIn() {
@@ -34,7 +32,13 @@ export class AppService {
       // );
   }
 
-  register (object: Object): Observable<Object> {
+  register (username: string, email: string, password: string, confirmPassword: string): Observable<Object> {
+    let object = {
+      username: username,
+      email: email,
+      password: password,
+      confirmPassword: confirmPassword,
+    }
     return this.http.post<Object>('/register', object, this.httpOptions);
       // .pipe(
       //   catchError(alert('Errrrror'));

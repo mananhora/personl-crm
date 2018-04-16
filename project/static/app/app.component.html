@@ -18,6 +18,7 @@
     <div class="container" id="splash">
       <h1>Welcome to myVillage!</h1>
       <h2>get started with your community</h2>
+
       <mat-tab-group>
         <div class="label">
           <mat-tab label="login">
@@ -60,8 +61,8 @@
             <ng-template matStepperIcon="edit">
               <mat-icon>done</mat-icon>
             </ng-template>
+            <!-- @TODO figure out formgroup to make registration linear & required -->
             <mat-step label="Login Details">
-              <!-- Login info: email, password -->
               <p>First, please enter your basic login information.</p>
               <div class="section">
                 <div class="row">
@@ -85,6 +86,13 @@
                     <input type="password" class="validate" id="password" required
                             [(ngModel)]="password" name="password">
                     <label for="password">Password</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input type="password" class="validate" id="confirmPassword" required
+                            [(ngModel)]="confirmPassword" name="confirmPassword">
+                    <label for="confirmPassword">Confirm Password</label>
                   </div>
                 </div>
               </div>
@@ -121,29 +129,30 @@
                 <p>Who are you closest friends from <strong>{{circle.name}}</strong>?</p>
                 <mat-form-field class="myChipList">
                   <mat-chip-list #friendList>
-                    <mat-chip *ngFor="let friend of circle.friends" [selectable]="selectable"
-                             [removable]="removable" (remove)="removeFriend(friend, circle)">
-                      {{friend}}
+                    <mat-chip *ngFor="let friend of circle.friends" [removable]="removable"
+                      (remove)="removeFriend(friend, circle)">
+                        {{friend}}
                       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
                     <input [matChipInputFor]="friendList"
                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                      [matChipInputAddOnBlur]="addOnBlur"
                       (matChipInputTokenEnd)="addFriend($event, circle)">
                   </mat-chip-list>
                 </mat-form-field>
               </div>
 
               <div>
-                <button id="finish" mat-button matStepperNext class="right btn waves-effect waves-light">Finish</button>
+                <button id="finish" mat-button matStepperNext class="right btn waves-effect waves-light"
+                  (click)="register()">Finish</button>
                 <button mat-button matStepperPrevious class="right">Back</button>
               </div>
             </mat-step>
             <mat-step>
               <ng-template matStepLabel>Done</ng-template>
-              <div id="done" class="row">
-                  <h4>Congratulations! You're all set up.</h4>
-                  <a class="btn waves-effect waves-light" href="http://0.0.0.0:5000/">Go to Dashboard</a>
+              <!-- <mat-spinner></mat-spinner> -->
+              <div class="row center-align">
+                <h4>Congratulations! You're all set up.</h4>
+                <a class="btn waves-effect waves-light" (click)="login()">Go to Dashboard</a>
               </div>
             </mat-step>
           </mat-horizontal-stepper>
