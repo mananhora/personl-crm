@@ -128,6 +128,8 @@ class Friend(db.Model):
     linkedin_profile = db.Column(db.String())
     insta_profile = db.Column(db.String())
     job = db.Column(db.String, nullable=True)
+    num_weeks_reminder = db.Column(db.Integer)
+    last_contacted = db.Column(DateTime)
 
 
 
