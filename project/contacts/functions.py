@@ -115,6 +115,7 @@ def add_note_for_friend():
 def update_info():
   if current_user is not None:
     json_data = request.get_json()
+    print (json_data)
     friend_id = json_data['friend_id']
     location = json_data['location']
     notes = json_data['notes']
@@ -128,6 +129,7 @@ def update_info():
       friend.phone_number = phone_number
       friend.job = job
       db.session.commit()
+      print("success")
       return jsonify({'result': True})
     return jsonify({'error': True})
 
