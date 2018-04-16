@@ -120,7 +120,7 @@ class Friend(db.Model):
     location = db.Column(db.String())
     circles = db.relationship("Circle",
                     secondary=friends_circles, backref='circles')
-    phone_number = db.Column(db.Integer)
+    phone_number = db.Column(db.String())
     birthday =  db.Column(DateTime)
     notes = db.Column(db.String())
     fb_profile = db.Column(db.String())

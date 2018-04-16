@@ -30,7 +30,6 @@ FB_APP_SECRET = 'd4507ca7ee29238e632c9a646162aac5'
 
 
 
-from facebook import get_user_from_cookie, GraphAPI
 from flask import g, render_template, redirect, request, session, url_for
 
 @users_blueprint.route('/isloggedin', methods=['GET'])
