@@ -27,7 +27,8 @@
 
     <div class="col s7">
       <h1 class="secondary">{{model._name}}</h1>
-      <h2 class="secondary-font">{{model._location}}</h2>
+      <h5>{{model._job}}</h5>
+      <h4><i class="material-icons">location_on</i> {{model._location}}</h4>
       <p *ngIf="model._reminder" class="body-font">reminder set for every {{model._reminder}}</p>
 
       <!-- dates -->

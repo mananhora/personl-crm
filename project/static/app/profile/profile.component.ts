@@ -37,22 +37,34 @@ export class ProfileComponent implements OnInit {
   getMyProfile() {
     this.profileService.getMyProfile()
       .subscribe(data => {
-        this.model.name = data['name'];
-        this.model.email = data['email'];
-        this.model.id = data['id'];
-        console.log('yo data id is ', data['id']);
+        if (data['name']) this.model.name = data['name'];
+        if (data['email']) this.model.email = data['email'];
+        if (data['id']) this.model.id = data['id'];
+        if (data['img']) this.model.img = data['img'];
+        if (data['circles']) this.model.circles = data['circles'];
+        if (data['phone_number']) this.model.phone = data['phone_number'];
+        if (data['location']) this.model.location = data['location'];
+        if (data['job']) this.model.job = data['job'];
     })
-    console.log(this.model.id);
+    // console.log(this.model.id);
     // idk figure out what's up with ID and how it differs from friend IDs
   }
 
   getFriendProfile(id: number) {
     this.profileService.getFriendProfile(id)
       .subscribe(data => {
-        this.model.name = data['name'];
-        this.model.email = data['email'];
-        this.model.id = data['id'];
-      })
+        console.log('yo data: ', data);
+        if (data['name']) this.model.name = data['name'];
+        if (data['email']) this.model.email = data['email'];
+        if (data['id']) this.model.id = data['id'];
+        (data['img']) ? this.model.img = data['img'] :
+          this.model.img = 'assets/images/profile.png';
+        if (data['circles']) this.model.circles = data['circles'];
+        if (data['phone_number']) this.model.phone = data['phone_number'];
+        if (data['location']) this.model.location = data['location'];
+        if (data['notes']) this.model.notes = data['notes'];
+        if (data['job']) this.model.job = data['job'];
+      });
     this.getCirclesForFriend(id);
   }
 

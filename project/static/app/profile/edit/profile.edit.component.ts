@@ -13,7 +13,7 @@ import { Circle } from '../../circles/circle';
 export class ProfileEditComponent implements OnInit {
 
   routeId: number;
-  model = new Profile('', '', 555,);
+  model = new Profile('', '', 555);
 
   constructor(private profileService: ProfileService,
     private route: ActivatedRoute,
@@ -26,18 +26,32 @@ export class ProfileEditComponent implements OnInit {
   getMyProfile() {
     this.profileService.getMyProfile()
       .subscribe(data => {
-        this.model.name = data['name'];
-        this.model.email = data['email'];
-        this.model.id = data['id'];
+        if (data['name']) this.model.name = data['name'];
+        if (data['email']) this.model.email = data['email'];
+        if (data['id']) this.model.id = data['id'];
+        (data['img']) ? this.model.img = data['img'] :
+          this.model.img = 'assets/images/profile.png';
+        if (data['circles']) this.model.circles = data['circles'];
+        if (data['phone_number']) this.model.phone = data['phone_number'];
+        if (data['location']) this.model.location = data['location'];
+        if (data['notes']) this.model.notes = data['notes'];
+        if (data['job']) this.model.job = data['job'];
     })
   }
 
   getFriendProfile(id: number) {
     this.profileService.getFriendProfile(id)
       .subscribe(data => {
-        this.model.name = data['name'];
-        this.model.email = data['email'];
-        this.model.id = data['id'];
+        if (data['name']) this.model.name = data['name'];
+        if (data['email']) this.model.email = data['email'];
+        if (data['id']) this.model.id = data['id'];
+        (data['img']) ? this.model.img = data['img'] :
+          this.model.img = 'assets/images/profile.png';
+        if (data['circles']) this.model.circles = data['circles'];
+        if (data['phone_number']) this.model.phone = data['phone_number'];
+        if (data['location']) this.model.location = data['location'];
+        if (data['notes']) this.model.notes = data['notes'];
+        if (data['job']) this.model.job = data['job'];
       })
   }
 
@@ -52,15 +66,16 @@ export class ProfileEditComponent implements OnInit {
     if (!this.model.job) {
       this.model.job = '';
     }
+    if (!this.model.notes) {
+      this.model.notes = [];
+    }
     this.profileService.updateProfile(
       this.model.id,
       this.model.location,
-      ['hello', 'notes'],
+      this.model.notes,
       this.model.phone,
       this.model.job
-    ).subscribe(data => {
-      console.log('yo: ', data);
-    });
+    ).subscribe();
     this.router.navigate(['/app/profile/', this.routeId]);
   }
 
