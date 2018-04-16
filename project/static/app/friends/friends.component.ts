@@ -34,10 +34,6 @@ export class FriendsComponent implements OnInit {
       })
   }
 
-  onClick(friend: Profile) {
-    // alert('okkk');
-  }
-
   ngOnInit() {
     this.showAllFriends();
   }

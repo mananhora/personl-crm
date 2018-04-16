@@ -1,6 +1,10 @@
 
-  <mat-card  *ngFor="let friend of friends" class="friends" (click)=onClick(friend) routerLink="/app/profile/{{friend.id}}">
-    <mat-card-title>{{friend.name}}</mat-card-title>
+  <mat-card  *ngFor="let friend of friends" class="friends" routerLink="/app/profile/{{friend.id}}">
+    <mat-card-title-group>
+      <img mat-card-sm-image *ngIf="friend.img" src="{{friend.img}}" alt="Photo of {{friend.name}}">
+      <mat-card-title>{{friend.name}}</mat-card-title>
+      <!-- <mat-card-subtitle>{{friend.email}}</mat-card-subtitle> -->
+    </mat-card-title-group>
   </mat-card>
 
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">

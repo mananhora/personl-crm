@@ -12,7 +12,9 @@ export class Profile {
     private _reminder?: string, // < an object?
     private _notes?: string[],
     private _job?: string,
-  ) { }
+  ) {
+    this.img = 'assets/images/profile.png';
+  }
 
   get name(): string {
     return this._name;
@@ -33,6 +35,13 @@ export class Profile {
   }
   set id (id: number) {
     this._id = id;
+  }
+
+  get img(): string {
+    return this._img;
+  }
+  set img (img: string) {
+    this._img = img;
   }
 
   get circles(): Circle[] {
