@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProfileService } from '../profile.service';
 import { Profile } from '../profile';
 import { Circle } from '../../circles/circle';
@@ -15,7 +16,8 @@ export class ProfileEditComponent implements OnInit {
   model = new Profile('', '', 555,);
 
   constructor(private profileService: ProfileService,
-    private route: ActivatedRoute, ) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   getProfile() {
     this.routeId = +this.route.snapshot.paramMap.get('id');
@@ -50,6 +52,7 @@ export class ProfileEditComponent implements OnInit {
     ).subscribe(data => {
       console.log('yo: ', data);
     });
+    this.router.navigate(['/app/profile/', this.routeId]);
   }
 
   deleteProfile() {
