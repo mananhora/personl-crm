@@ -21,9 +21,9 @@ export class AppService {
     })
   };
 
-  login (username: string, password: string): Observable<Object> {
+  login (email: string, password: string): Observable<Object> {
     let object = {
-      username: username,
+      username: email,
       password: password,
     }
     return this.http.post<Object>('/login', object, this.httpOptions);
@@ -32,9 +32,9 @@ export class AppService {
       // );
   }
 
-  register (username: string, email: string, password: string, confirmPassword: string): Observable<Object> {
+  register (name: string, email: string, password: string, confirmPassword: string): Observable<Object> {
     let object = {
-      username: username,
+      name: name,
       email: email,
       password: password,
       confirmPassword: confirmPassword,

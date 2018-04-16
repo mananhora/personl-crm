@@ -14,7 +14,7 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
 
 export class AppComponent implements OnInit {
   loggedIn = false;
-  username = '';
+  name = '';
   email = '';
   password = '';
   confirmPassword = '';
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
   }
 
   login() {
-    this.appService.login(this.username, this.password)
+    this.appService.login(this.email, this.password)
       .subscribe(data => {
         location.href = 'http://0.0.0.0:5000/';
     });
@@ -69,9 +69,9 @@ export class AppComponent implements OnInit {
   }
 
   register() {
-    this.appService.register(this.username, this.email, this.password, this.confirmPassword)
+    this.appService.register(this.name, this.email, this.password, this.confirmPassword)
       .subscribe(data => {
-        this.appService.login(this.username, this.password)
+        this.appService.login(this.email, this.password)
           .subscribe(data => {
             for (let i = 0; i < this.circles.length; i++) {
               this.circlesService.addCircle(this.circles[i].name).subscribe();
