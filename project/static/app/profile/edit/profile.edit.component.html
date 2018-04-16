@@ -40,9 +40,16 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" class="validate" id="model.job"
+                    [(ngModel)]="model.job" name="model.job">
+            <label for="model.job">Job</label>
+          </div>
+        </div>
+
         <button type="submit" class="btn waves-effect waves-light" name="action"
-                [disabled]="!editProfileForm.form.valid"
-                routerLink="/app/profile">
+                [disabled]="!editProfileForm.form.valid">
           Finish Editing <i class="material-icons right">send</i>
         </button>
       </div>

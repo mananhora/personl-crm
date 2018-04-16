@@ -11,6 +11,7 @@ export class Profile {
     private _location?: string,
     private _reminder?: string, // < an object?
     private _notes?: string[],
+    private _job?: string,
   ) { }
 
   get name(): string {
@@ -41,11 +42,32 @@ export class Profile {
     this._circles = circles;
   }
 
+  get phone(): string {
+    return this._phone;
+  }
+  set phone (phone: string) {
+    this._phone = phone;
+  }
+
+  get location(): string {
+    return this._location;
+  }
+  set location (location: string) {
+    this._location = location;
+  }
+
   get notes(): string[] {
     return this._notes;
   }
   set notes (notes: string[]) {
     this._notes = notes;
+  }
+
+  get job(): string {
+    return this._job;
+  }
+  set job (job: string) {
+    this._job = job;
   }
 
 }

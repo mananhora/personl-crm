@@ -40,7 +40,16 @@ export class ProfileEditComponent implements OnInit {
   }
 
   editProfile() {
-    console.log('edited');
+    console.log('yo: yay edit !!!');
+    this.profileService.updateProfile(
+      this.model.id,
+      this.model.location,
+      ['hello', 'notes'],
+      this.model.phone,
+      this.model.job
+    ).subscribe(data => {
+      console.log('yo: ', data);
+    });
   }
 
   deleteProfile() {
