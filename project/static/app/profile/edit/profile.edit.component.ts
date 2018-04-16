@@ -43,6 +43,15 @@ export class ProfileEditComponent implements OnInit {
 
   editProfile() {
     console.log('yo: yay edit !!!');
+    if (!this.model.location) {
+      this.model.location = '';
+    }
+    if (!this.model.phone) {
+      this.model.phone = '';
+    }
+    if (!this.model.job) {
+      this.model.job = '';
+    }
     this.profileService.updateProfile(
       this.model.id,
       this.model.location,
