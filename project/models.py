@@ -1,6 +1,7 @@
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy import ForeignKey
 from project import db
+from project import bcrypt
 
 # from flask_security import UserMixin, RoleMixin
 from sqlalchemy import create_engine
@@ -30,7 +31,7 @@ class User(db.Model):
     def __init__(self, name, email=None, password=None, profile_url=None, access_token=None):
         self.name = name
         self.email = email
-        self.password = password
+        self.password = bcrypt.generate_password_hash(password)
         self.profile_url = profile_url
         self.access_token = access_token
 
