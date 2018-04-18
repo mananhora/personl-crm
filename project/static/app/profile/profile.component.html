@@ -12,13 +12,17 @@
         <div class="card-image">
           <img src="{{model._img}}">
         </div>
-        <div class="card-content">
-          <div class="chip" *ngFor="let circle of model._circles">{{circle.name}}</div>
-        </div>
-        <div class="card-action">
-          <a *ngIf="model._email" href="mailto:{{model._email}}"><i class="material-icons">email</i></a>
-          <a *ngIf="model._phone" href="{{model._phone}}"><i class="material-icons">phone</i></a>
-          <a *ngIf="model._extra" href="{{model._extra}}"><i class="material-icons">explicit</i></a>
+        <div id="sidebar-content">
+          <div class="card-content">
+            <div class="chip" *ngFor="let circle of model._circles">
+              <a routerLink="/app/friends/{{circle.id}}">{{circle.name}}</a>
+            </div>
+          </div>
+          <div class="card-action">
+            <a *ngIf="model._email" href="mailto:{{model._email}}"><i class="material-icons">email</i></a>
+            <a *ngIf="model._phone" href="tel:{{model._phone}}"><i class="material-icons">phone</i></a>
+            <a *ngIf="model._extra" href="{{model._extra}}"><i class="material-icons">explicit</i></a>
+          </div>
         </div>
       </div>
     </div>
@@ -27,8 +31,8 @@
 
     <div class="col s7">
       <h1 class="secondary">{{model._name}}</h1>
-      <h5>{{model._job}}</h5>
-      <h4><i class="material-icons">location_on</i> {{model._location}}</h4>
+      <h5 *ngIf="model._job">{{model._job}}</h5>
+      <h4 *ngIf="model._location"><i class="material-icons">location_on</i> {{model._location}}</h4>
       <p *ngIf="model._reminder" class="body-font">reminder set for every {{model._reminder}}</p>
 
       <!-- dates -->

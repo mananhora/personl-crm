@@ -9,7 +9,10 @@ h5 {
   margin: 0rem 0 1.6rem 0;
   color: #526165;
 }
-.card-action {
+#sidebar-content>div {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+}
+.card-action>a {
+  margin-right: 0!important;
 }
