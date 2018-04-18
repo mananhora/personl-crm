@@ -27,50 +27,32 @@ export class CirclesComponent implements OnInit {
 
           if (this.circles) {
             this.circles.push(circle);
-            this.showFriends(id);
           } else {
             this.circles = [circle];
-            this.showFriends(id);
           }
         }
-      });
-  }
-
-  onClick(id: number) {
-    let circle = this.getCircleById(id);
-    console.log('clicked ', id);
-    if (circle.childCircles) {
-      this.circles = circle.childCircles;
-    } else {
-      // this.circles = friends;
-      // this.friends = circle.friends;
-    }
-  }
-
-  showFriends(id: number) {
-    this.friendsService.getFriends(id)
-      .subscribe(data => {
-        let friends: string[];
-        let circle = this.getCircleById(id);
-
-        for (let i = 0; i < data['json_list'].length; i++) {
-          if (friends) {
-            friends.push(data['json_list'][i]['name']);
-          } else {
-            friends = [ data['json_list'][i]['name'] ];
-            console.log('friends is now ', friends);
-          }
-        }
-
-        circle.friends = friends;
-      });
-  }
-
-  getCircleById(id: number): Circle {
-    return this.circles.find(function (circle) {
-      return circle.id === id;
     });
   }
+
+  // getFriends(id: number) {
+  //   console.log('yo: tryna get friends');
+  //   this.friendsService.getFriends(id)
+  //     .subscribe(data => {
+  //       console.log('yo: found ', data['json_list']);
+  //       for (let i = 0; i < data['json_list'].length; i++) {
+  //         if (this.friends) {
+  //           this.friends.push(data['json_list'][i]['name']);
+  //         } else {
+  //           this.friends = [ data['json_list'][i]['name'] ];
+  //         }
+  //       }
+  //       if (this.friends) {
+  //         this.friends.push('example name');
+  //       } else {
+  //         this.friends = [ 'example name' ];
+  //       }
+  //   });
+  // }
 
   ngOnInit() {
     this.showAllCircles();

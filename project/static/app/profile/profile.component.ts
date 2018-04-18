@@ -18,19 +18,13 @@ export class ProfileComponent implements OnInit {
   constructor(private profileService: ProfileService,
     private route: ActivatedRoute, public dialog: MatDialog) { }
 
-  getProfile(): void {
-    this.routeId = +this.route.snapshot.paramMap.get('id');
-    // this.heroService.getHero(id)
-    //   .subscribe(hero => this.hero = hero);
-  }
-
   ngOnInit() {
-    this.getProfile();
+    this.routeId = +this.route.snapshot.paramMap.get('id');
 
-    if (this.routeId == 0) {
-      this.getMyProfile();
-    } else {
+    if (this.routeId) {
       this.getFriendProfile(this.routeId);
+    } else {
+      this.getMyProfile();
     }
   }
 
@@ -46,8 +40,6 @@ export class ProfileComponent implements OnInit {
         if (data['location']) this.model.location = data['location'];
         if (data['job']) this.model.job = data['job'];
     })
-    // console.log(this.model.id);
-    // idk figure out what's up with ID and how it differs from friend IDs
   }
 
   getFriendProfile(id: number) {

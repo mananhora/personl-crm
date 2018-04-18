@@ -25,6 +25,7 @@ export class CirclesAddComponent implements OnInit {
     this.circlesService.addCircle(this.circle.name)
       .subscribe(data => {
         // if successful,
+        // @TODO should return ID of the circle
         this.router.navigate(['/app/home']);
       });
 

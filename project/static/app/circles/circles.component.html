@@ -1,11 +1,7 @@
 
-  <mat-card  *ngFor="let circle of circles" class="circles" (click)="onClick(circle.id)">
+  <mat-card  *ngFor="let circle of circles" class="circles" routerLink="/app/friends/{{circle.id}}">
     <mat-card-title>{{circle.name}}</mat-card-title>
-    <ul>
-      <li *ngFor="let friend of circle.friends">
-        {{friend}}
-      </li>
-    </ul>
+    <!-- <span class="badge" data-badge-caption="friends">4</span> -->
   </mat-card>
 
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
@@ -13,9 +9,3 @@
       <i class="material-icons">add</i>
     </a>
   </div>
-
-  <script>
-    $(document).ready(function() {
-      $('#splash').show();
-    });
-  </script>
