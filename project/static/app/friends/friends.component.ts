@@ -20,8 +20,6 @@ export class FriendsComponent implements OnInit {
   showAllFriends() {
     this.friendsService.getAllFriends()
       .subscribe(data => {
-        console.log(data);
-
         for (let i = 0; i < data['json_list'].length; i++) {
           let id = data['json_list'][i]['id'];
           let name = data['json_list'][i]['name'];

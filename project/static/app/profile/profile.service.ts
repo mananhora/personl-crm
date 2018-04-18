@@ -8,6 +8,9 @@ export class ProfileService {
 
   constructor (private http: HttpClient) { }
 
+  /**
+   * @ignore
+   */
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -15,21 +18,56 @@ export class ProfileService {
     })
   };
 
+  /**
+   * @function getMyProfile
+   * gets profile info for logged in user
+   */
   getMyProfile() {
     return this.http.get('/userinfo');
   }
 
+  /**
+   * @function getFriendProfile
+   * @param {number} id - friend ID
+   * @example
+   * {
+       friend_id: id
+     }
+   */
   getFriendProfile(id: number): Observable<Object> {
     let id_object = { friend_id: id }; //create JSON object
     return this.http.post<Object>('/friendinfo/', id_object, this.httpOptions);
   }
 
+  /**
+   * @function getCirclesForFriend
+   * @param {number} id - friend ID
+   * @example
+   * {
+      friend_id: id
+    }
+   */
   getCirclesForFriend(id: number): Observable<Object> {
     let id_object = { friend_id: id }; //create JSON object
     return this.http.post<Object>('/circlesforfriend/', id_object, this.httpOptions);
   }
 
-  // why can't this just be a key-value pair to edit specific changes instead of re-assigning every variable?
+  /**
+   * @function updateProfile
+   * @param {number} id - ID of profile being edited
+   * @param {string} [location=''] - new location value
+   * @param {string[]} [notes=[]] - new notes value
+   * @param {string} [phone=''] - new phone value
+   * @param {string} [job=''] - new job value
+   * @example
+   * {
+       friend_id: id,
+       location: location,
+       notes: notes,
+       phone_number: phone,
+       job: job
+     }
+   */
   updateProfile(id: number, location: string, notes: string[], phone: string, job: string): Observable<Object> {
     let id_object = {
       friend_id: id,
@@ -38,7 +76,6 @@ export class ProfileService {
       phone_number: phone,
       job: job
     };
-    console.log('yo: ', id_object);
     return this.http.post<Object>('/updatefriendinfo', id_object, this.httpOptions);
   }
 

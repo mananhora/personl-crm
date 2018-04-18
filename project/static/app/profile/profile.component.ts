@@ -45,7 +45,6 @@ export class ProfileComponent implements OnInit {
   getFriendProfile(id: number) {
     this.profileService.getFriendProfile(id)
       .subscribe(data => {
-        console.log('yo data: ', data);
         if (data['name']) this.model.name = data['name'];
         if (data['email']) this.model.email = data['email'];
         if (data['id']) this.model.id = data['id'];
@@ -84,8 +83,6 @@ export class ProfileComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
       if (this.model.notes) {
         this.model.notes.push(result);
       } else if (result) {

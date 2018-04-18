@@ -55,8 +55,15 @@ export class ProfileEditComponent implements OnInit {
       })
   }
 
+  /**
+   * @function updateProfile
+   * @param {number} id - ID of profile being edited
+   * @param {string} [location=''] - new location value
+   * @param {string[]} [notes=[]] - new notes value
+   * @param {string} [phone=''] - new phone value
+   * @param {string} [job=''] - new job value
+   */
   editProfile() {
-    console.log('yo: yay edit !!!');
     if (!this.model.location) {
       this.model.location = '';
     }
@@ -80,7 +87,7 @@ export class ProfileEditComponent implements OnInit {
   }
 
   deleteProfile() {
-    console.log('deleted');
+    alert('deleted');
   }
 
   ngOnInit() {

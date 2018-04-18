@@ -8,10 +8,9 @@ export class AppService {
 
   constructor (private http: HttpClient) { }
 
-  isLoggedIn() {
-    return this.http.get('/isloggedin');
-  }
-
+  /**
+   * @ignore
+   */
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -19,17 +18,48 @@ export class AppService {
     })
   };
 
+  /**
+   * @function isLoggedIn
+   * Gets /isloggedin
+   */
+  isLoggedIn() {
+    return this.http.get('/isloggedin');
+  }
+
+  /**
+   * @function login
+   * @param {string} email - user inputted email
+   * @param {string} password - user inputted password
+   *
+   * @example
+   * {
+      username: email,
+      password: password
+    }
+   */
   login (email: string, password: string): Observable<Object> {
     let object = {
       username: email,
       password: password,
     }
     return this.http.post<Object>('/login', object, this.httpOptions);
-      // .pipe(
-      //   catchError(alert('Errrrror'));
-      // );
   }
 
+  /**
+   * @function register
+   * @param {string} name - user inputted (full) name
+   * @param {string} email - user inputted email
+   * @param {string} password - user inputted password
+   * @param {string} confirmPassword - user inputted password confirmation
+   *
+   * @example
+   * {
+       name: name,
+       email: email,
+       password: password,
+       confirmPassword: confirmPassword,
+     }
+   */
   register (name: string, email: string, password: string, confirmPassword: string): Observable<Object> {
     let object = {
       name: name,
@@ -38,9 +68,6 @@ export class AppService {
       confirmPassword: confirmPassword,
     }
     return this.http.post<Object>('/register', object, this.httpOptions);
-      // .pipe(
-      //   catchError(alert('Errrrror'));
-      // );
   }
 
 }

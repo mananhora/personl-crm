@@ -37,6 +37,7 @@
 ***
 
 ## Documentation
+@ http://127.0.0.1:8080/index.html
   `compodoc -p project/static/tsconfig.app.json -s`
 
 ***

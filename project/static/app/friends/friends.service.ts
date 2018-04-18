@@ -8,6 +8,9 @@ export class FriendsService {
 
   constructor (private http: HttpClient) { }
 
+  /**
+   * @ignore
+   */
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
@@ -15,10 +18,22 @@ export class FriendsService {
     })
   };
 
+  /**
+   * @function getAllFriends
+   * get ALL friends
+   */
   getAllFriends() {
     return this.http.get('/showallfriends/');
   }
 
+  /**
+   * @function getFriends
+   * @param {number} id - get friends for this circle ID
+   * @example
+   * {
+     id: id
+   }
+   */
   getFriends (id: number): Observable<Object> {
     let object = {
       id: id
@@ -26,6 +41,19 @@ export class FriendsService {
     return this.http.post<Object>('/friendsincircle/', object, this.httpOptions);
   }
 
+  /**
+   * @function addFriend
+   * @param {string} name - friend's (full) name
+   * @param {string} email - friend's email
+   * @param {Circle[]} circles - circles to add friend to
+   * @example
+   * {
+       name: name,
+       email: email,
+       addToCircle: addToCircle,
+       circles: backendCircles,
+     }
+   */
   addFriend (name: string, email: string, circles: Circle[]): Observable<Object> {
     let addToCircle = 0;
     let backendCircles = [];
@@ -44,6 +72,14 @@ export class FriendsService {
     return this.http.post<Object>('/addfriend/', object, this.httpOptions);
   }
 
+  /**
+   * @function addToCircle
+   * @param {string} circle
+   * @example
+   * {
+       circle_name: circle,
+     }
+   */
   addToCircle (circle: string): Observable<Object> {
     let object = {
       circle_name: circle,
