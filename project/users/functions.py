@@ -82,12 +82,16 @@ def login():
   print("in login")
   json_data = request.get_json()
   print (json_data)
-  print(json_data['username'])
+  print("username", json_data['username'])
+  print("password", json_data['password'])
+
   user = User.query.filter_by(email=json_data['username']).first()
   # print("user")
   print (user)
   pw = user.password
-  if user is not None and pw == json_data['password']:
+  pw_hash = bcrypt.generate_password_hash(pw)
+  password_match = bcrypt.check_password_hash(pw_hash, pw)
+  if user is not None and password_match is True:
     session['logged_in'] = True
     # flash('You were logged in. Go Crazy.')
     login_user(user)
