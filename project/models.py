@@ -63,6 +63,10 @@ class User(db.Model):
     def __repr__(self):
         return '<name - {}>'.format(self.name)
 
+
+#JUNCTION TABLE FOR friends and circles
+#one friend can be in many circles
+#one circle can have many friends
 friends_circles = db.Table('friends_circles',
                             db.Column('circle_id', db.Integer,db.ForeignKey('circles.id'), nullable=False),
                             db.Column('friend_id',db.Integer,db.ForeignKey('friends.id'),nullable=False),
@@ -80,9 +84,12 @@ class Circle(db.Model):
     parent_id = db.Column(db.Integer, ForeignKey('circles.id'), nullable=True)
     circle_name = db.Column(db.String(), nullable=False)
     friends = db.relationship("Friend", secondary=friends_circles, backref='friends')
+    child_circles = relationship("Circle",
+                            backref=backref('parent', remote_side=[id])
+                            )
 
     # constructor
-    def __init__(self, circle_name, user_id, parent_id):
+    def __init__(self, circle_name, user_id, parent_id=None):
       self.circle_name = circle_name
       self.user_id = user_id
       self.parent_id = parent_id
@@ -106,9 +113,7 @@ class Circle(db.Model):
     def __repr__(self):
       return '<name - {}>'.format(self.circle_name)
 
-#JUNCTION TABLE FOR friends and circles
-#one friend can be in many circles
-#one circle can have many friends
+
 
 
 class Friend(db.Model):

@@ -26,7 +26,6 @@ circles_blueprint = Blueprint(
 #add a circle for the user..parent_id can be passed in as null
 def add_circle():
   json_data = request.get_json()
-  print(current_user)
   a = (current_user.is_anonymous==True)
 
   if current_user is not None and a==False:
@@ -34,9 +33,7 @@ def add_circle():
     try:
       print("in add circle")
       user_id = current_user.id,
-      circle = Circle(circle_name=json_data['circle_name'], user_id=user_id, parent_id=1)
-      db.session.add(circle)
-      db.session.commit()
+      circle = Circle(circle_name=json_data['circle_name'], user_id=user_id)
       db.session.add(circle)
       db.session.commit()
       status = True
@@ -47,6 +44,52 @@ def add_circle():
   else:
     print('current user is None')
     return jsonify({'message':"ERROR, NOT LOGGED IN", 'error':True})
+
+
+
+@login_required
+@circles_blueprint.route('/addchildcircle/', methods = ['GET', 'POST'])
+#add a child circle
+def add_child_circle():
+  json_data = request.get_json()
+  a = (current_user.is_anonymous==True)
+
+  if current_user is not None and a==False:
+    print ('current user is not none!!')
+    try:
+      print("in add circle")
+      user_id = current_user.id,
+      circle = Circle(circle_name=json_data['circle_name'], user_id=user_id, parent_id=json_data['parent_id'])
+      db.session.add(circle)
+      db.session.commit()
+      status = True
+      print("done...")
+    except:
+      status = False
+    return jsonify({'result': status})
+  else:
+    print('current user is None')
+    return jsonify({'message':"ERROR, NOT LOGGED IN", 'error':True})
+
+
+
+@login_required
+@circles_blueprint.route('/getchildcircles', methods = ['GET'])
+def get_child_circles():
+  if current_user is not None:
+    a = current_user.is_anonymous()
+    if current_user.id is not None and a == False:
+      # json_data = request.get_json()
+      # parent_id = json_data['circle_id']
+      parent_id = 1
+      circle = Circle.query.get(parent_id)
+      child_circles = circle.child_circles
+      return jsonify(json_list=[i.serialize for i in child_circles])
+    return jsonify("NOT LOGGED IN")
+  return jsonify("NOT LOGGED IN")
+
+
+
 
 
 @login_required
