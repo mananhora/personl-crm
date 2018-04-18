@@ -8,8 +8,6 @@ export class AppService {
 
   constructor (private http: HttpClient) { }
 
-  currentProfileID: number;
-
   isLoggedIn() {
     return this.http.get('/isloggedin');
   }

@@ -27,6 +27,10 @@ export class AppComponent implements OnInit {
   constructor(private appService: AppService,
     private circlesService: CirclesService) { }
 
+  /**
+   * @function isLoggedIn
+   * sets loggedIn variable
+   */
   isLoggedIn() {
     this.appService.isLoggedIn()
       .subscribe(data => {
@@ -34,6 +38,10 @@ export class AppComponent implements OnInit {
     })
   }
 
+  /**
+   * @function login
+   * login user from email and password. redirect to homepage
+   */
   login() {
     this.appService.login(this.email, this.password)
       .subscribe(data => {
@@ -41,33 +49,10 @@ export class AppComponent implements OnInit {
     });
   }
 
-  addFriend(event: MatChipInputEvent, circle: Circle): void {
-    let input = event.input;
-    let value = event.value;
-
-    // Add friend
-    if ((value || '').trim()) {
-      if (circle.friends) {
-        circle.friends.push(value.trim());
-      } else {
-        circle.friends = [value.trim()];
-      }
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-  }
-
-  removeFriend(friend: any, circle: Circle): void {
-    let index = circle.friends.indexOf(friend);
-
-    if (index >= 0) {
-      circle.friends.splice(index, 1);
-    }
-  }
-
+  /**
+   * @function register
+   * registers a new user account
+   */
   register() {
     this.appService.register(this.name, this.email, this.password, this.confirmPassword)
       .subscribe(data => {
@@ -83,8 +68,40 @@ export class AppComponent implements OnInit {
       });
   }
 
+  /**
+   * @function addFriend
+   * @param {MatChipInputEvent} event - event triggered at chip input
+   * @param {Circle} circle - circle to which chip data (friends) will be added
+   */
+  addFriend(event: MatChipInputEvent, circle: Circle): void {
+    let input = event.input;
+    let value = event.value;
+    if ((value || '').trim()) {
+      if (circle.friends) {
+        circle.friends.push(value.trim());
+      } else {
+        circle.friends = [value.trim()];
+      }
+    }
+    if (input) input.value = '';
+  }
+
+  /**
+   * @function removeFriend
+   * @param {any} friend - friend we would like to remove
+   * @TODO change from any to Profile for more consistent
+   * @param {Circle} circle - circle we are removing the friend from
+   */
+  removeFriend(friend: any, circle: Circle): void {
+    let index = circle.friends.indexOf(friend);
+    if (index >= 0) circle.friends.splice(index, 1);
+  }
+
+  /**
+   * @function ngOnInit
+   * checks if logged in. sets empty values for circles
+   */
   ngOnInit() {
-    this.appService.currentProfileID = 0;
     this.isLoggedIn();
     this.school = new Circle('', 1);
     this.hometown = new Circle('', 2);
