@@ -124,7 +124,13 @@ def get_all_circles_for_friend():
 @circles_blueprint.route('/showallcircles/', methods = ['GET'])
 def get_all_circles_for_user():
   print ("in show all circles")
-  user_id = current_user.id
-  user = User.query.get(user_id)
-  circles = user.circles.all()
-  return jsonify(json_list=[i.serialize for i in circles])
+  if current_user is not None:
+    a = current_user.is_anonymous()
+    if a is False and current_user.id is not None:
+      print("current user id not none")
+      user_id = current_user.id
+      user = User.query.get(user_id)
+      circles = user.circles.all()
+      return jsonify(json_list=[i.serialize for i in circles])
+    return jsonify("NOT LOGGED IN")
+  return jsonify("NOT LOGGED IN")
