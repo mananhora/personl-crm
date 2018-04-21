@@ -1,6 +1,6 @@
 
   <div class="row">
-    <h1>add circle</h1>
+    <h2 class="center">add circle</h2>
   </div>
 
   <div class="row">
@@ -29,10 +29,14 @@
           </div>
         </div>
 
-        <button type="submit" class="btn waves-effect waves-light" name="action"
-                [disabled]="!addCircleForm.form.valid">
-          Add Circle <i class="material-icons right">send</i>
-        </button>
+        <div class="row">
+          <div class="col s4 offset-s4">
+            <button type="submit" class="btn waves-effect waves-light" name="action"
+                    [disabled]="!addCircleForm.form.valid">
+              Add Circle <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </div>
       </div>
 
     </form>

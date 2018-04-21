@@ -32,15 +32,10 @@ module.exports = "\n  <mat-toolbar color=\"primary\">\n    <mat-toolbar-row>\n  
 /***/ }),
 
 /***/ "./project/static/app/app.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_service__ = __webpack_require__("./project/static/app/app.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__circles_circles_service__ = __webpack_require__("./project/static/app/circles/circles.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__circles_circle__ = __webpack_require__("./project/static/app/circles/circle.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_cdk_keycodes__ = __webpack_require__("./node_modules/@angular/cdk/esm5/keycodes.es5.js");
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -50,11 +45,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
-
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var app_service_1 = __webpack_require__("./project/static/app/app.service.ts");
+var circles_service_1 = __webpack_require__("./project/static/app/circles/circles.service.ts");
+var circle_1 = __webpack_require__("./project/static/app/circles/circle.ts");
+var keycodes_1 = __webpack_require__("./node_modules/@angular/cdk/esm5/keycodes.es5.js");
 var AppComponent = /** @class */ (function () {
     function AppComponent(appService, circlesService) {
         this.appService = appService;
@@ -65,7 +61,7 @@ var AppComponent = /** @class */ (function () {
         this.password = '';
         this.confirmPassword = '';
         this.removable = true;
-        this.separatorKeysCodes = [__WEBPACK_IMPORTED_MODULE_4__angular_cdk_keycodes__["g" /* ENTER */], __WEBPACK_IMPORTED_MODULE_4__angular_cdk_keycodes__["c" /* COMMA */]];
+        this.separatorKeysCodes = [keycodes_1.ENTER, keycodes_1.COMMA];
     }
     /**
      * @function isLoggedIn
@@ -143,143 +139,124 @@ var AppComponent = /** @class */ (function () {
      */
     AppComponent.prototype.ngOnInit = function () {
         this.isLoggedIn();
-        this.school = new __WEBPACK_IMPORTED_MODULE_3__circles_circle__["a" /* Circle */]('', 1);
-        this.hometown = new __WEBPACK_IMPORTED_MODULE_3__circles_circle__["a" /* Circle */]('', 2);
+        this.school = new circle_1.Circle('', 1);
+        this.hometown = new circle_1.Circle('', 2);
         this.circles = [this.hometown, this.school];
     };
     AppComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        core_1.Component({
             selector: 'app-root',
             template: __webpack_require__("./project/static/app/app.component.html"),
             styles: [__webpack_require__("./project/static/app/app.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__app_service__["a" /* AppService */],
-            __WEBPACK_IMPORTED_MODULE_2__circles_circles_service__["a" /* CirclesService */]])
+        __metadata("design:paramtypes", [app_service_1.AppService,
+            circles_service_1.CirclesService])
     ], AppComponent);
     return AppComponent;
 }());
-
+exports.AppComponent = AppComponent;
 
 
 /***/ }),
 
 /***/ "./project/static/app/app.module.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__("./node_modules/@angular/platform-browser/esm5/platform-browser.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser_animations__ = __webpack_require__("./node_modules/@angular/platform-browser/esm5/animations.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__material_module__ = __webpack_require__("./project/static/app/material.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__("./project/static/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__circles_circles_component__ = __webpack_require__("./project/static/app/circles/circles.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__circles_add_circles_add_component__ = __webpack_require__("./project/static/app/circles/add/circles.add.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__friends_friends_component__ = __webpack_require__("./project/static/app/friends/friends.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__friends_add_friends_add_component__ = __webpack_require__("./project/static/app/friends/add/friends.add.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__profile_profile_component__ = __webpack_require__("./project/static/app/profile/profile.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__profile_edit_profile_edit_component__ = __webpack_require__("./project/static/app/profile/edit/profile.edit.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__app_service__ = __webpack_require__("./project/static/app/app.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__circles_circles_service__ = __webpack_require__("./project/static/app/circles/circles.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__friends_friends_service__ = __webpack_require__("./project/static/app/friends/friends.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__profile_profile_service__ = __webpack_require__("./project/static/app/profile/profile.service.ts");
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var http_1 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var platform_browser_1 = __webpack_require__("./node_modules/@angular/platform-browser/esm5/platform-browser.js");
+var animations_1 = __webpack_require__("./node_modules/@angular/platform-browser/esm5/animations.js");
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var material_module_1 = __webpack_require__("./project/static/app/material.module.ts");
+var forms_1 = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var app_component_1 = __webpack_require__("./project/static/app/app.component.ts");
+var circles_component_1 = __webpack_require__("./project/static/app/circles/circles.component.ts");
+var circles_add_component_1 = __webpack_require__("./project/static/app/circles/add/circles.add.component.ts");
+var friends_component_1 = __webpack_require__("./project/static/app/friends/friends.component.ts");
+var friends_add_component_1 = __webpack_require__("./project/static/app/friends/add/friends.add.component.ts");
+var profile_component_1 = __webpack_require__("./project/static/app/profile/profile.component.ts");
+var profile_component_2 = __webpack_require__("./project/static/app/profile/profile.component.ts");
+var profile_edit_component_1 = __webpack_require__("./project/static/app/profile/edit/profile.edit.component.ts");
+var app_service_1 = __webpack_require__("./project/static/app/app.service.ts");
+var circles_service_1 = __webpack_require__("./project/static/app/circles/circles.service.ts");
+var friends_service_1 = __webpack_require__("./project/static/app/friends/friends.service.ts");
+var profile_service_1 = __webpack_require__("./project/static/app/profile/profile.service.ts");
 var appRoutes = [
     { path: '', redirectTo: '/app/home', pathMatch: 'full' },
-    { path: 'app/home', component: __WEBPACK_IMPORTED_MODULE_8__circles_circles_component__["a" /* CirclesComponent */] },
-    { path: 'app/home/add', component: __WEBPACK_IMPORTED_MODULE_9__circles_add_circles_add_component__["a" /* CirclesAddComponent */] },
-    { path: 'app/home/:id', component: __WEBPACK_IMPORTED_MODULE_8__circles_circles_component__["a" /* CirclesComponent */] },
-    { path: 'app/friends', component: __WEBPACK_IMPORTED_MODULE_10__friends_friends_component__["a" /* FriendsComponent */] },
-    { path: 'app/friends/add', component: __WEBPACK_IMPORTED_MODULE_11__friends_add_friends_add_component__["a" /* FriendsAddComponent */] },
-    { path: 'app/friends/:id', component: __WEBPACK_IMPORTED_MODULE_10__friends_friends_component__["a" /* FriendsComponent */] },
-    { path: 'app/profile', component: __WEBPACK_IMPORTED_MODULE_12__profile_profile_component__["b" /* ProfileComponent */] },
-    { path: 'app/profile/:id', component: __WEBPACK_IMPORTED_MODULE_12__profile_profile_component__["b" /* ProfileComponent */] },
-    { path: 'app/profile/:id/edit', component: __WEBPACK_IMPORTED_MODULE_13__profile_edit_profile_edit_component__["a" /* ProfileEditComponent */] },
+    { path: 'app/home', component: circles_component_1.CirclesComponent },
+    { path: 'app/home/add', component: circles_add_component_1.CirclesAddComponent },
+    { path: 'app/home/:id', component: circles_component_1.CirclesComponent },
+    { path: 'app/friends', component: friends_component_1.FriendsComponent },
+    { path: 'app/friends/add', component: friends_add_component_1.FriendsAddComponent },
+    { path: 'app/friends/:id', component: friends_component_1.FriendsComponent },
+    { path: 'app/profile', component: profile_component_1.ProfileComponent },
+    { path: 'app/profile/:id', component: profile_component_1.ProfileComponent },
+    { path: 'app/profile/:id/edit', component: profile_edit_component_1.ProfileEditComponent },
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_3__angular_core__["K" /* NgModule */])({
+        core_1.NgModule({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_8__circles_circles_component__["a" /* CirclesComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__circles_add_circles_add_component__["a" /* CirclesAddComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__friends_friends_component__["a" /* FriendsComponent */],
-                __WEBPACK_IMPORTED_MODULE_11__friends_add_friends_add_component__["a" /* FriendsAddComponent */],
-                __WEBPACK_IMPORTED_MODULE_12__profile_profile_component__["b" /* ProfileComponent */],
-                __WEBPACK_IMPORTED_MODULE_12__profile_profile_component__["a" /* DialogOverviewExampleDialog */],
-                __WEBPACK_IMPORTED_MODULE_13__profile_edit_profile_edit_component__["a" /* ProfileEditComponent */]
+                app_component_1.AppComponent,
+                circles_component_1.CirclesComponent,
+                circles_add_component_1.CirclesAddComponent,
+                friends_component_1.FriendsComponent,
+                friends_add_component_1.FriendsAddComponent,
+                profile_component_1.ProfileComponent,
+                profile_component_2.DialogOverviewExampleDialog,
+                profile_edit_component_1.ProfileEditComponent
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClientModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
-                __WEBPACK_IMPORTED_MODULE_4__material_module__["a" /* MaterialModule */],
-                __WEBPACK_IMPORTED_MODULE_5__angular_forms__["c" /* FormsModule */],
-                __WEBPACK_IMPORTED_MODULE_6__angular_router__["c" /* RouterModule */].forRoot(appRoutes)
+                http_1.HttpClientModule,
+                platform_browser_1.BrowserModule,
+                animations_1.BrowserAnimationsModule,
+                material_module_1.MaterialModule,
+                forms_1.FormsModule,
+                router_1.RouterModule.forRoot(appRoutes)
             ],
             entryComponents: [
-                __WEBPACK_IMPORTED_MODULE_12__profile_profile_component__["a" /* DialogOverviewExampleDialog */]
+                profile_component_2.DialogOverviewExampleDialog
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_14__app_service__["a" /* AppService */],
-                __WEBPACK_IMPORTED_MODULE_15__circles_circles_service__["a" /* CirclesService */],
-                __WEBPACK_IMPORTED_MODULE_16__friends_friends_service__["a" /* FriendsService */],
-                __WEBPACK_IMPORTED_MODULE_17__profile_profile_service__["a" /* ProfileService */],
+                app_service_1.AppService,
+                circles_service_1.CirclesService,
+                friends_service_1.FriendsService,
+                profile_service_1.ProfileService,
             ],
             bootstrap: [
-                __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_8__circles_circles_component__["a" /* CirclesComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__circles_add_circles_add_component__["a" /* CirclesAddComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__friends_friends_component__["a" /* FriendsComponent */],
-                __WEBPACK_IMPORTED_MODULE_11__friends_add_friends_add_component__["a" /* FriendsAddComponent */],
-                __WEBPACK_IMPORTED_MODULE_12__profile_profile_component__["b" /* ProfileComponent */],
-                __WEBPACK_IMPORTED_MODULE_13__profile_edit_profile_edit_component__["a" /* ProfileEditComponent */]
+                app_component_1.AppComponent,
+                circles_component_1.CirclesComponent,
+                circles_add_component_1.CirclesAddComponent,
+                friends_component_1.FriendsComponent,
+                friends_add_component_1.FriendsAddComponent,
+                profile_component_1.ProfileComponent,
+                profile_edit_component_1.ProfileEditComponent
             ]
         })
     ], AppModule);
     return AppModule;
 }());
-
+exports.AppModule = AppModule;
 
 
 /***/ }),
 
 /***/ "./project/static/app/app.service.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -289,8 +266,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var http_1 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
 var AppService = /** @class */ (function () {
     function AppService(http) {
         this.http = http;
@@ -298,7 +276,7 @@ var AppService = /** @class */ (function () {
          * @ignore
          */
         this.httpOptions = {
-            headers: new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpHeaders */]({
+            headers: new http_1.HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'my-auth-token'
             })
@@ -354,12 +332,12 @@ var AppService = /** @class */ (function () {
         return this.http.post('/register', object, this.httpOptions);
     };
     AppService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.HttpClient])
     ], AppService);
     return AppService;
 }());
-
+exports.AppService = AppService;
 
 
 /***/ }),
@@ -374,21 +352,15 @@ module.exports = "/* .circles {\n  width: 23em;\n  margin-top: 1em;\n  margin-le
 /***/ "./project/static/app/circles/add/circles.add.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n  <div class=\"row\">\n    <h1>add circle</h1>\n  </div>\n\n  <div class=\"row\">\n    <form class=\"col s8 offset-s2 card-panel\"\n          (ngSubmit)=\"addCircle()\" #addCircleForm=\"ngForm\">\n\n      <div class=\"section\">\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"text\" class=\"validate\" id=\"circle.name\" required\n                    [(ngModel)]=\"circle.name\" name=\"circle.name\">\n            <label for=\"circle.name\">circle name</label>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col s12\">\n            <mat-form-field>\n              <mat-select placeholder=\"add friends to your circle\" multiple [(value)]=\"selectedFriends\">\n                <mat-option *ngFor=\"let friend of friends\" [value]=\"friend\">{{friend.name}}</mat-option>\n                <!-- <mat-option>\n                  <input matInput placeholder=\"Add a new friend\">\n                </mat-option> -->\n              </mat-select>\n            </mat-form-field>\n          </div>\n        </div>\n\n        <button type=\"submit\" class=\"btn waves-effect waves-light\" name=\"action\"\n                [disabled]=\"!addCircleForm.form.valid\">\n          Add Circle <i class=\"material-icons right\">send</i>\n        </button>\n      </div>\n\n    </form>\n  </div>\n"
+module.exports = "\n  <div class=\"row\">\n    <h2 class=\"center\">add circle</h2>\n  </div>\n\n  <div class=\"row\">\n    <form class=\"col s8 offset-s2 card-panel\"\n          (ngSubmit)=\"addCircle()\" #addCircleForm=\"ngForm\">\n\n      <div class=\"section\">\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"text\" class=\"validate\" id=\"circle.name\" required\n                    [(ngModel)]=\"circle.name\" name=\"circle.name\">\n            <label for=\"circle.name\">circle name</label>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col s12\">\n            <mat-form-field>\n              <mat-select placeholder=\"add friends to your circle\" multiple [(value)]=\"selectedFriends\">\n                <mat-option *ngFor=\"let friend of friends\" [value]=\"friend\">{{friend.name}}</mat-option>\n                <!-- <mat-option>\n                  <input matInput placeholder=\"Add a new friend\">\n                </mat-option> -->\n              </mat-select>\n            </mat-form-field>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col s4 offset-s4\">\n            <button type=\"submit\" class=\"btn waves-effect waves-light\" name=\"action\"\n                    [disabled]=\"!addCircleForm.form.valid\">\n              Add Circle <i class=\"material-icons right\">send</i>\n            </button>\n          </div>\n        </div>\n      </div>\n\n    </form>\n  </div>\n"
 
 /***/ }),
 
 /***/ "./project/static/app/circles/add/circles.add.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CirclesAddComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__circles_service__ = __webpack_require__("./project/static/app/circles/circles.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__friends_friends_service__ = __webpack_require__("./project/static/app/friends/friends.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__circle__ = __webpack_require__("./project/static/app/circles/circle.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__profile_profile__ = __webpack_require__("./project/static/app/profile/profile.ts");
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -398,12 +370,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
-
-
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var circles_service_1 = __webpack_require__("./project/static/app/circles/circles.service.ts");
+var friends_service_1 = __webpack_require__("./project/static/app/friends/friends.service.ts");
+var circle_1 = __webpack_require__("./project/static/app/circles/circle.ts");
+var profile_1 = __webpack_require__("./project/static/app/profile/profile.ts");
 var CirclesAddComponent = /** @class */ (function () {
     function CirclesAddComponent(circlesService, friendsService, router) {
         this.circlesService = circlesService;
@@ -433,7 +406,7 @@ var CirclesAddComponent = /** @class */ (function () {
                 var name_1 = data['json_list'][i]['name'];
                 var email = data['json_list'][i]['email'];
                 var id = data['json_list'][i]['id'];
-                var profile = new __WEBPACK_IMPORTED_MODULE_5__profile_profile__["a" /* Profile */](name_1, id, email);
+                var profile = new profile_1.Profile(name_1, id, email);
                 if (_this.friends) {
                     _this.friends.push(profile);
                 }
@@ -444,31 +417,32 @@ var CirclesAddComponent = /** @class */ (function () {
         });
     };
     CirclesAddComponent.prototype.ngOnInit = function () {
-        this.circle = new __WEBPACK_IMPORTED_MODULE_4__circle__["a" /* Circle */]('', 123);
+        this.circle = new circle_1.Circle('', 123);
         this.getAllFriends();
     };
     CirclesAddComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        core_1.Component({
             selector: 'app-circles-add',
             template: __webpack_require__("./project/static/app/circles/add/circles.add.component.html"),
             styles: [__webpack_require__("./project/static/app/circles/add/circles.add.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__circles_service__["a" /* CirclesService */],
-            __WEBPACK_IMPORTED_MODULE_3__friends_friends_service__["a" /* FriendsService */],
-            __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
+        __metadata("design:paramtypes", [circles_service_1.CirclesService,
+            friends_service_1.FriendsService,
+            router_1.Router])
     ], CirclesAddComponent);
     return CirclesAddComponent;
 }());
-
+exports.CirclesAddComponent = CirclesAddComponent;
 
 
 /***/ }),
 
 /***/ "./project/static/app/circles/circle.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Circle; });
+
+Object.defineProperty(exports, "__esModule", { value: true });
 var Circle = /** @class */ (function () {
     function Circle(name, _id, _friends, parentCircles, childCircles) {
         this.name = name;
@@ -499,7 +473,7 @@ var Circle = /** @class */ (function () {
     });
     return Circle;
 }());
-
+exports.Circle = Circle;
 
 
 /***/ }),
@@ -519,14 +493,10 @@ module.exports = "\n  <mat-card  *ngFor=\"let circle of circles\" class=\"circle
 /***/ }),
 
 /***/ "./project/static/app/circles/circles.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CirclesComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__circles_service__ = __webpack_require__("./project/static/app/circles/circles.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__friends_friends_service__ = __webpack_require__("./project/static/app/friends/friends.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__circle__ = __webpack_require__("./project/static/app/circles/circle.ts");
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -536,10 +506,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var circles_service_1 = __webpack_require__("./project/static/app/circles/circles.service.ts");
+var friends_service_1 = __webpack_require__("./project/static/app/friends/friends.service.ts");
+var circle_1 = __webpack_require__("./project/static/app/circles/circle.ts");
 var CirclesComponent = /** @class */ (function () {
     function CirclesComponent(circlesService, friendsService) {
         this.circlesService = circlesService;
@@ -552,7 +523,7 @@ var CirclesComponent = /** @class */ (function () {
             for (var i = 0; i < data['json_list'].length; i++) {
                 var name_1 = data['json_list'][i]['circle_name'];
                 var id = data['json_list'][i]['id'];
-                var circle = new __WEBPACK_IMPORTED_MODULE_3__circle__["a" /* Circle */](name_1, id);
+                var circle = new circle_1.Circle(name_1, id);
                 if (_this.circles) {
                     _this.circles.push(circle);
                 }
@@ -585,28 +556,26 @@ var CirclesComponent = /** @class */ (function () {
         this.showAllCircles();
     };
     CirclesComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        core_1.Component({
             selector: 'app-circles',
             template: __webpack_require__("./project/static/app/circles/circles.component.html"),
             styles: [__webpack_require__("./project/static/app/circles/circles.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__circles_service__["a" /* CirclesService */],
-            __WEBPACK_IMPORTED_MODULE_2__friends_friends_service__["a" /* FriendsService */]])
+        __metadata("design:paramtypes", [circles_service_1.CirclesService,
+            friends_service_1.FriendsService])
     ], CirclesComponent);
     return CirclesComponent;
 }());
-
+exports.CirclesComponent = CirclesComponent;
 
 
 /***/ }),
 
 /***/ "./project/static/app/circles/circles.service.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CirclesService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -616,8 +585,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var http_1 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
 var CirclesService = /** @class */ (function () {
     function CirclesService(http) {
         this.http = http;
@@ -625,7 +595,7 @@ var CirclesService = /** @class */ (function () {
          * @ignore
          */
         this.httpOptions = {
-            headers: new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpHeaders */]({
+            headers: new http_1.HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'my-auth-token'
             })
@@ -670,12 +640,12 @@ var CirclesService = /** @class */ (function () {
         return this.http.post('/addtocircle/', object, this.httpOptions);
     };
     CirclesService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.HttpClient])
     ], CirclesService);
     return CirclesService;
 }());
-
+exports.CirclesService = CirclesService;
 
 
 /***/ }),
@@ -690,21 +660,15 @@ module.exports = "/* .circles {\n  width: 23em;\n  margin-top: 1em;\n  margin-le
 /***/ "./project/static/app/friends/add/friends.add.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n  <div class=\"row\">\n    <h1>add friend</h1>\n  </div>\n\n  <div class=\"row\">\n    <form class=\"col s8 offset-s2 card-panel\"\n          (ngSubmit)=\"addFriend()\" #addFriendForm=\"ngForm\">\n\n      <div class=\"section\">\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"text\" class=\"validate\" id=\"friend.name\" required\n                    [(ngModel)]=\"friend.name\" name=\"friend.name\">\n            <label for=\"friend.name\">name</label>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"email\" class=\"validate\" id=\"friend.email\" required\n                    [(ngModel)]=\"friend.email\" name=\"friend.email\">\n            <label for=\"friend.email\">email</label>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col s12\">\n            <mat-form-field>\n              <mat-select placeholder=\"add to a circle\" multiple [(value)]=\"friend.circles\">\n                <mat-option *ngFor=\"let circle of circles\" [value]=\"circle\">{{circle.name}}</mat-option>\n                <!-- <mat-option>\n                  <input matInput placeholder=\"Add a new circle\">\n                </mat-option> -->\n              </mat-select>\n            </mat-form-field>\n          </div>\n        </div>\n\n        <button type=\"submit\" class=\"btn waves-effect waves-light\" name=\"action\"\n                [disabled]=\"!addFriendForm.form.valid\">\n          Add Friend <i class=\"material-icons right\">send</i>\n        </button>\n      </div>\n\n    </form>\n  </div>\n"
+module.exports = "\n  <div class=\"row\">\n    <h2 class=\"center\">add friend</h2>\n  </div>\n\n  <div class=\"row\">\n    <form class=\"col s8 offset-s2 card-panel\"\n          (ngSubmit)=\"addFriend()\" #addFriendForm=\"ngForm\">\n\n      <div class=\"section\">\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"text\" class=\"validate\" id=\"friend.name\" required\n                    [(ngModel)]=\"friend.name\" name=\"friend.name\">\n            <label for=\"friend.name\">name</label>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"email\" class=\"validate\" id=\"friend.email\" required\n                    [(ngModel)]=\"friend.email\" name=\"friend.email\">\n            <label for=\"friend.email\">email</label>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col s12\">\n            <mat-form-field>\n              <mat-select placeholder=\"add to a circle\" multiple [(value)]=\"friend.circles\">\n                <mat-option *ngFor=\"let circle of circles\" [value]=\"circle\">{{circle.name}}</mat-option>\n                <!-- <mat-option>\n                  <input matInput placeholder=\"Add a new circle\">\n                </mat-option> -->\n              </mat-select>\n            </mat-form-field>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col s4 offset-s4\">\n            <button type=\"submit\" class=\"btn waves-effect waves-light\" name=\"action\"\n                    [disabled]=\"!addFriendForm.form.valid\">\n              Add Friend <i class=\"material-icons right\">send</i>\n            </button>\n          </div>\n        </div>\n      </div>\n\n    </form>\n  </div>\n"
 
 /***/ }),
 
 /***/ "./project/static/app/friends/add/friends.add.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FriendsAddComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__friends_service__ = __webpack_require__("./project/static/app/friends/friends.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__circles_circles_service__ = __webpack_require__("./project/static/app/circles/circles.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__profile_profile__ = __webpack_require__("./project/static/app/profile/profile.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__circles_circle__ = __webpack_require__("./project/static/app/circles/circle.ts");
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -714,12 +678,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
-
-
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var friends_service_1 = __webpack_require__("./project/static/app/friends/friends.service.ts");
+var circles_service_1 = __webpack_require__("./project/static/app/circles/circles.service.ts");
+var profile_1 = __webpack_require__("./project/static/app/profile/profile.ts");
+var circle_1 = __webpack_require__("./project/static/app/circles/circle.ts");
 var FriendsAddComponent = /** @class */ (function () {
     function FriendsAddComponent(circlesService, friendsService, router) {
         this.circlesService = circlesService;
@@ -739,7 +704,7 @@ var FriendsAddComponent = /** @class */ (function () {
             for (var i = 0; i < data['json_list'].length; i++) {
                 var name_1 = data['json_list'][i]['circle_name'];
                 var id = data['json_list'][i]['id'];
-                var circle = new __WEBPACK_IMPORTED_MODULE_5__circles_circle__["a" /* Circle */](name_1, id);
+                var circle = new circle_1.Circle(name_1, id);
                 if (_this.circles) {
                     _this.circles.push(circle);
                 }
@@ -761,22 +726,22 @@ var FriendsAddComponent = /** @class */ (function () {
     //   }
     // }
     FriendsAddComponent.prototype.ngOnInit = function () {
-        this.friend = new __WEBPACK_IMPORTED_MODULE_4__profile_profile__["a" /* Profile */]('', '', 555);
+        this.friend = new profile_1.Profile('', '', 555);
         this.getAllCircles();
     };
     FriendsAddComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        core_1.Component({
             selector: 'app-friends-add',
             template: __webpack_require__("./project/static/app/friends/add/friends.add.component.html"),
             styles: [__webpack_require__("./project/static/app/friends/add/friends.add.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__circles_circles_service__["a" /* CirclesService */],
-            __WEBPACK_IMPORTED_MODULE_2__friends_service__["a" /* FriendsService */],
-            __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
+        __metadata("design:paramtypes", [circles_service_1.CirclesService,
+            friends_service_1.FriendsService,
+            router_1.Router])
     ], FriendsAddComponent);
     return FriendsAddComponent;
 }());
-
+exports.FriendsAddComponent = FriendsAddComponent;
 
 
 /***/ }),
@@ -796,14 +761,10 @@ module.exports = "\n  <mat-card  *ngFor=\"let friend of friends\" class=\"friend
 /***/ }),
 
 /***/ "./project/static/app/friends/friends.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FriendsComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__friends_service__ = __webpack_require__("./project/static/app/friends/friends.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__profile_profile__ = __webpack_require__("./project/static/app/profile/profile.ts");
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -813,10 +774,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var friends_service_1 = __webpack_require__("./project/static/app/friends/friends.service.ts");
+var profile_1 = __webpack_require__("./project/static/app/profile/profile.ts");
 var FriendsComponent = /** @class */ (function () {
     function FriendsComponent(friendsService, route) {
         this.friendsService = friendsService;
@@ -830,7 +792,7 @@ var FriendsComponent = /** @class */ (function () {
                 var id = data['json_list'][i]['id'];
                 var name_1 = data['json_list'][i]['name'];
                 var email = data['json_list'][i]['email'];
-                var friend = new __WEBPACK_IMPORTED_MODULE_3__profile_profile__["a" /* Profile */](name_1, email, id);
+                var friend = new profile_1.Profile(name_1, email, id);
                 if (_this.friends) {
                     _this.friends.push(friend);
                 }
@@ -848,7 +810,7 @@ var FriendsComponent = /** @class */ (function () {
                 var id_1 = data['json_list'][i]['id'];
                 var name_2 = data['json_list'][i]['name'];
                 var email = data['json_list'][i]['email'];
-                var friend = new __WEBPACK_IMPORTED_MODULE_3__profile_profile__["a" /* Profile */](name_2, email, id_1);
+                var friend = new profile_1.Profile(name_2, email, id_1);
                 if (_this.friends) {
                     _this.friends.push(friend);
                 }
@@ -868,28 +830,26 @@ var FriendsComponent = /** @class */ (function () {
         }
     };
     FriendsComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        core_1.Component({
             selector: 'app-friends',
             template: __webpack_require__("./project/static/app/friends/friends.component.html"),
             styles: [__webpack_require__("./project/static/app/friends/friends.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__friends_service__["a" /* FriendsService */],
-            __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]])
+        __metadata("design:paramtypes", [friends_service_1.FriendsService,
+            router_1.ActivatedRoute])
     ], FriendsComponent);
     return FriendsComponent;
 }());
-
+exports.FriendsComponent = FriendsComponent;
 
 
 /***/ }),
 
 /***/ "./project/static/app/friends/friends.service.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FriendsService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -899,8 +859,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var http_1 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
 var FriendsService = /** @class */ (function () {
     function FriendsService(http) {
         this.http = http;
@@ -908,7 +869,7 @@ var FriendsService = /** @class */ (function () {
          * @ignore
          */
         this.httpOptions = {
-            headers: new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpHeaders */]({
+            headers: new http_1.HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'my-auth-token'
             })
@@ -980,77 +941,76 @@ var FriendsService = /** @class */ (function () {
         return this.http.post('/addtocircle/', object, this.httpOptions);
     };
     FriendsService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.HttpClient])
     ], FriendsService);
     return FriendsService;
 }());
-
+exports.FriendsService = FriendsService;
 
 
 /***/ }),
 
 /***/ "./project/static/app/material.module.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MaterialModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var material_1 = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
 var MaterialModule = /** @class */ (function () {
     function MaterialModule() {
     }
     MaterialModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* NgModule */])({
+        core_1.NgModule({
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["b" /* MatButtonModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["m" /* MatMenuModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["s" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["k" /* MatIconModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["c" /* MatCardModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["l" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["j" /* MatFormFieldModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatSelectModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["n" /* MatOptionModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["f" /* MatDialogModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["h" /* MatDividerModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["r" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["i" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["q" /* MatStepperModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["d" /* MatChipsModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["o" /* MatProgressSpinnerModule */],
+                material_1.MatButtonModule,
+                material_1.MatMenuModule,
+                material_1.MatToolbarModule,
+                material_1.MatIconModule,
+                material_1.MatCardModule,
+                material_1.MatInputModule,
+                material_1.MatFormFieldModule,
+                material_1.MatSelectModule,
+                material_1.MatOptionModule,
+                material_1.MatDialogModule,
+                material_1.MatDividerModule,
+                material_1.MatTabsModule,
+                material_1.MatExpansionModule,
+                material_1.MatStepperModule,
+                material_1.MatChipsModule,
+                material_1.MatProgressSpinnerModule,
             ],
             exports: [
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["b" /* MatButtonModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["m" /* MatMenuModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["s" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["k" /* MatIconModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["c" /* MatCardModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["l" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["j" /* MatFormFieldModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatSelectModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["n" /* MatOptionModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["f" /* MatDialogModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["h" /* MatDividerModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["r" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["i" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["q" /* MatStepperModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["d" /* MatChipsModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["o" /* MatProgressSpinnerModule */],
+                material_1.MatButtonModule,
+                material_1.MatMenuModule,
+                material_1.MatToolbarModule,
+                material_1.MatIconModule,
+                material_1.MatCardModule,
+                material_1.MatInputModule,
+                material_1.MatFormFieldModule,
+                material_1.MatSelectModule,
+                material_1.MatOptionModule,
+                material_1.MatDialogModule,
+                material_1.MatDividerModule,
+                material_1.MatTabsModule,
+                material_1.MatExpansionModule,
+                material_1.MatStepperModule,
+                material_1.MatChipsModule,
+                material_1.MatProgressSpinnerModule,
             ]
         })
     ], MaterialModule);
     return MaterialModule;
 }());
-
+exports.MaterialModule = MaterialModule;
 
 
 /***/ }),
@@ -1065,19 +1025,15 @@ module.exports = "h1 {\n  text-align: center;\n  font-family: 'justbecool', mono
 /***/ "./project/static/app/profile/edit/profile.edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n  <div class=\"row\">\n    <h1>edit profile</h1>\n  </div>\n\n  <div class=\"row\">\n    <form class=\"col s8 offset-s2 card-panel\"\n          (ngSubmit)=\"editProfile()\" #editProfileForm=\"ngForm\">\n\n      <div class=\"section\">\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"text\" class=\"validate\" id=\"model.name\"\n                    [(ngModel)]=\"model.name\" name=\"model.name\">\n            <label for=\"model.name\">Name</label>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"email\" class=\"validate\" id=\"model.email\"\n                    [(ngModel)]=\"model.email\" name=\"model.email\">\n            <label for=\"model.email\">Email</label>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"tel\" class=\"validate\" id=\"model.phone\"\n                    [(ngModel)]=\"model.phone\" name=\"model.phone\">\n            <label for=\"model.phone\">Phone</label>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"text\" class=\"validate\" id=\"model.location\"\n                    [(ngModel)]=\"model.location\" name=\"model.location\">\n            <label for=\"model.location\">Location</label>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"text\" class=\"validate\" id=\"model.job\"\n                    [(ngModel)]=\"model.job\" name=\"model.job\">\n            <label for=\"model.job\">Job</label>\n          </div>\n        </div>\n\n        <button type=\"submit\" class=\"btn waves-effect waves-light\" name=\"action\"\n                [disabled]=\"!editProfileForm.form.valid\">\n          Finish Editing <i class=\"material-icons right\">send</i>\n        </button>\n      </div>\n\n      <div class=\"divider\"></div>\n\n      <div class=\"section\">\n        <a class=\"delete\" (click)=\"deleteProfile()\">Delete this profile</a>\n      </div>\n\n    </form>\n  </div>\n"
+module.exports = "\n  <div class=\"row\">\n    <h2 class=\"center\">edit profile</h2>\n  </div>\n\n  <div class=\"row\">\n    <form class=\"col s8 offset-s2 card-panel\"\n          (ngSubmit)=\"editProfile()\" #editProfileForm=\"ngForm\">\n\n      <div class=\"section\">\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"text\" class=\"validate\" id=\"model.name\"\n                    [(ngModel)]=\"model.name\" name=\"model.name\">\n            <label for=\"model.name\">Name</label>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"email\" class=\"validate\" id=\"model.email\"\n                    [(ngModel)]=\"model.email\" name=\"model.email\">\n            <label for=\"model.email\">Email</label>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"tel\" class=\"validate\" id=\"model.phone\"\n                    [(ngModel)]=\"model.phone\" name=\"model.phone\">\n            <label for=\"model.phone\">Phone</label>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"text\" class=\"validate\" id=\"model.location\"\n                    [(ngModel)]=\"model.location\" name=\"model.location\">\n            <label for=\"model.location\">Location</label>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"input-field col s12\">\n            <input type=\"text\" class=\"validate\" id=\"model.job\"\n                    [(ngModel)]=\"model.job\" name=\"model.job\">\n            <label for=\"model.job\">Job</label>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col s4 offset-s4\">\n            <button type=\"submit\" class=\"btn waves-effect waves-light\" name=\"action\"\n                    [disabled]=\"!editProfileForm.form.valid\">\n              Finish Editing <i class=\"material-icons right\">send</i>\n            </button>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"divider\"></div>\n\n      <div class=\"section\">\n        <a class=\"delete\" (click)=\"deleteProfile()\">Delete this profile</a>\n      </div>\n\n    </form>\n  </div>\n"
 
 /***/ }),
 
 /***/ "./project/static/app/profile/edit/profile.edit.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfileEditComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile_service__ = __webpack_require__("./project/static/app/profile/profile.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__profile__ = __webpack_require__("./project/static/app/profile/profile.ts");
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1087,17 +1043,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
-
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var router_2 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var profile_service_1 = __webpack_require__("./project/static/app/profile/profile.service.ts");
+var profile_1 = __webpack_require__("./project/static/app/profile/profile.ts");
 var ProfileEditComponent = /** @class */ (function () {
     function ProfileEditComponent(profileService, route, router) {
         this.profileService = profileService;
         this.route = route;
         this.router = router;
-        this.model = new __WEBPACK_IMPORTED_MODULE_3__profile__["a" /* Profile */]('', '', 555);
+        this.model = new profile_1.Profile('', '', 555);
     }
     ProfileEditComponent.prototype.getProfile = function () {
         this.routeId = +this.route.snapshot.paramMap.get('id');
@@ -1187,18 +1144,18 @@ var ProfileEditComponent = /** @class */ (function () {
         }
     };
     ProfileEditComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        core_1.Component({
             selector: 'app-profile-edit',
             template: __webpack_require__("./project/static/app/profile/edit/profile.edit.component.html"),
             styles: [__webpack_require__("./project/static/app/profile/edit/profile.edit.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__profile_service__["a" /* ProfileService */],
-            __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */],
-            __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
+        __metadata("design:paramtypes", [profile_service_1.ProfileService,
+            router_1.ActivatedRoute,
+            router_2.Router])
     ], ProfileEditComponent);
     return ProfileEditComponent;
 }());
-
+exports.ProfileEditComponent = ProfileEditComponent;
 
 
 /***/ }),
@@ -1218,17 +1175,10 @@ module.exports = "\n  <!-- <div class=\"fixed-action-btn\" style=\"top: 70px; le
 /***/ }),
 
 /***/ "./project/static/app/profile/profile.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ProfileComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DialogOverviewExampleDialog; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__profile_service__ = __webpack_require__("./project/static/app/profile/profile.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__profile__ = __webpack_require__("./project/static/app/profile/profile.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__circles_circle__ = __webpack_require__("./project/static/app/circles/circle.ts");
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1241,18 +1191,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-
-
-
-
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var router_1 = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+var material_1 = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
+var profile_service_1 = __webpack_require__("./project/static/app/profile/profile.service.ts");
+var profile_1 = __webpack_require__("./project/static/app/profile/profile.ts");
+var circle_1 = __webpack_require__("./project/static/app/circles/circle.ts");
 var ProfileComponent = /** @class */ (function () {
     function ProfileComponent(profileService, route, dialog) {
         this.profileService = profileService;
         this.route = route;
         this.dialog = dialog;
-        this.model = new __WEBPACK_IMPORTED_MODULE_4__profile__["a" /* Profile */]('', '', 0);
+        this.model = new profile_1.Profile('', '', 0);
     }
     ProfileComponent.prototype.ngOnInit = function () {
         this.routeId = +this.route.snapshot.paramMap.get('id');
@@ -1316,10 +1267,10 @@ var ProfileComponent = /** @class */ (function () {
             .subscribe(function (data) {
             for (var i = 0; i < data['json_list'].length; i++) {
                 if (_this.model.circles) {
-                    _this.model.circles.push(new __WEBPACK_IMPORTED_MODULE_5__circles_circle__["a" /* Circle */](data['json_list'][i].circle_name, data['json_list'][i].id));
+                    _this.model.circles.push(new circle_1.Circle(data['json_list'][i].circle_name, data['json_list'][i].id));
                 }
                 else {
-                    _this.model.circles = [new __WEBPACK_IMPORTED_MODULE_5__circles_circle__["a" /* Circle */](data['json_list'][i].circle_name, data['json_list'][i].id)];
+                    _this.model.circles = [new circle_1.Circle(data['json_list'][i].circle_name, data['json_list'][i].id)];
                 }
             }
         });
@@ -1340,17 +1291,17 @@ var ProfileComponent = /** @class */ (function () {
         });
     };
     ProfileComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        core_1.Component({
             selector: 'app-profile',
             template: __webpack_require__("./project/static/app/profile/profile.component.html"),
             styles: [__webpack_require__("./project/static/app/profile/profile.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__profile_service__["a" /* ProfileService */],
-            __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__angular_material__["e" /* MatDialog */]])
+        __metadata("design:paramtypes", [profile_service_1.ProfileService,
+            router_1.ActivatedRoute, material_1.MatDialog])
     ], ProfileComponent);
     return ProfileComponent;
 }());
-
+exports.ProfileComponent = ProfileComponent;
 var DialogOverviewExampleDialog = /** @class */ (function () {
     function DialogOverviewExampleDialog(dialogRef, data) {
         this.dialogRef = dialogRef;
@@ -1360,27 +1311,25 @@ var DialogOverviewExampleDialog = /** @class */ (function () {
         this.dialogRef.close();
     };
     DialogOverviewExampleDialog = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        core_1.Component({
             selector: 'dialog-overview-example-dialog',
             template: "\n    <h2 mat-dialog-title>Add a note</h2>\n    <mat-dialog-content>\n      <textarea id=\"data\" name=\"data\" [(ngModel)]=\"data\">{{data}}</textarea>\n    </mat-dialog-content>\n    <mat-dialog-actions>\n      <button mat-button (click)=onNoClick()>Cancel</button>\n      <button mat-button (click)=\"dialogRef.close(data)\">Done</button>\n    </mat-dialog-actions>\n  ",
         }),
-        __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Inject */])(__WEBPACK_IMPORTED_MODULE_2__angular_material__["a" /* MAT_DIALOG_DATA */])),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_material__["g" /* MatDialogRef */], Object])
+        __param(1, core_1.Inject(material_1.MAT_DIALOG_DATA)),
+        __metadata("design:paramtypes", [material_1.MatDialogRef, Object])
     ], DialogOverviewExampleDialog);
     return DialogOverviewExampleDialog;
 }());
-
+exports.DialogOverviewExampleDialog = DialogOverviewExampleDialog;
 
 
 /***/ }),
 
 /***/ "./project/static/app/profile/profile.service.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProfileService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1390,8 +1339,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var http_1 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
 var ProfileService = /** @class */ (function () {
     function ProfileService(http) {
         this.http = http;
@@ -1399,7 +1349,7 @@ var ProfileService = /** @class */ (function () {
          * @ignore
          */
         this.httpOptions = {
-            headers: new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpHeaders */]({
+            headers: new http_1.HttpHeaders({
                 'Content-Type': 'application/json',
                 'Authorization': 'my-auth-token'
             })
@@ -1463,21 +1413,22 @@ var ProfileService = /** @class */ (function () {
         return this.http.post('/updatefriendinfo', id_object, this.httpOptions);
     };
     ProfileService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.HttpClient])
     ], ProfileService);
     return ProfileService;
 }());
-
+exports.ProfileService = ProfileService;
 
 
 /***/ }),
 
 /***/ "./project/static/app/profile/profile.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Profile; });
+
+Object.defineProperty(exports, "__esModule", { value: true });
 var Profile = /** @class */ (function () {
     function Profile(_name, _email, _id, _img, _circles, _phone, _location, _reminder, // < an object?
         _notes, _job) {
@@ -1585,21 +1536,22 @@ var Profile = /** @class */ (function () {
     });
     return Profile;
 }());
-
+exports.Profile = Profile;
 
 
 /***/ }),
 
 /***/ "./project/static/environments/environment.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
+
 // The file contents for the current environment will overwrite these during build.
 // The build system defaults to the dev environment which uses `environment.ts`, but if you do
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
-var environment = {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.environment = {
     production: false
 };
 
@@ -1607,22 +1559,19 @@ var environment = {
 /***/ }),
 
 /***/ "./project/static/main.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__("./node_modules/@angular/platform-browser-dynamic/esm5/platform-browser-dynamic.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__("./project/static/app/app.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__("./project/static/environments/environment.ts");
 
-
-
-
-if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_17" /* enableProdMode */])();
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var platform_browser_dynamic_1 = __webpack_require__("./node_modules/@angular/platform-browser-dynamic/esm5/platform-browser-dynamic.js");
+var app_module_1 = __webpack_require__("./project/static/app/app.module.ts");
+var environment_1 = __webpack_require__("./project/static/environments/environment.ts");
+if (environment_1.environment.production) {
+    core_1.enableProdMode();
 }
-Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__app_app_module__["a" /* AppModule */])
+platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule)
     .catch(function (err) { return console.log(err); });
 
 
