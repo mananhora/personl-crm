@@ -37,6 +37,8 @@ from project.home.functions import home_blueprint
 from project.contacts.functions import contacts_blueprint
 from project.circles.functions import circles_blueprint
 from project.reminders.functions import reminders_blueprint
+from project.import_data.functions import import_data_blueprint
+
 
 
 
@@ -49,6 +51,7 @@ app.register_blueprint(home_blueprint)
 app.register_blueprint(contacts_blueprint)
 app.register_blueprint(circles_blueprint)
 app.register_blueprint(reminders_blueprint)
+app.register_blueprint(import_data_blueprint)
 
 
 #LOGIN MANAGER
