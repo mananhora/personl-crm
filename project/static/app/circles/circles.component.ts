@@ -39,7 +39,23 @@ export class CirclesComponent implements OnInit {
     private visNetworkService: VisNetworkService) { }
 
   getAllCircles() {
-    let myVillageNode = { id: 0, label: 'myVillage', color: '#80ccc5' };
+    let myVillageNode = {
+      id: 0,
+      label: 'myVillage',
+      color: '#80ccc5',
+      shape: 'circle',
+      shadow: {
+        enabled: true,
+        color: 'rgba(0,0,0,0.5)',
+        size: 10,
+        x: -3,
+        y: 3,
+      },
+      font: {
+        face: 'sayless',
+        size: 20,
+      },
+    };
     this.nodes.add(myVillageNode as VisNode);
 
     this.circlesService.getCircles()
@@ -48,7 +64,27 @@ export class CirclesComponent implements OnInit {
           let name = data['json_list'][i]['circle_name'];
           let id = data['json_list'][i]['id'];
 
-          let myNode = { id: id, label: name, color: '#80ccc5' };
+          let myNode = {
+            id: id,
+            label: name,
+            color: '#80ccc5',
+            shape: 'circle',
+            shadow: {
+              enabled: true,
+              color: 'rgba(0,0,0,0.2)',
+              size: 10,
+              x: -3,
+              y: 3,
+            },
+            font: {
+              face: 'Roboto',
+              size: 18,
+            },
+            widthConstraint: {
+              minimum: 5,
+              maximum: 26,
+            },
+          };
           this.nodes.add(myNode as VisNode);
           this.edges.add({ from: '0', to: id });
         }
