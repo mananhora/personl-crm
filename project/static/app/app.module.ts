@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { MaterialModule } from './material.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { VisModule } from '../../../node_modules/ng2-vis';
 
 import { AppComponent } from './app.component';
 import { CirclesComponent } from './circles/circles.component';
@@ -53,7 +54,8 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(
       appRoutes,
-    )
+    ),
+    VisModule,
   ],
   entryComponents: [
     DialogOverviewExampleDialog
