@@ -28,7 +28,7 @@ export class CirclesComponent implements OnInit {
   circles: Circle[];
   friends: Profile[];
 
-  public nodes = new VisNodes([ { id: '0', label: 'myVillage' } ]);
+  public nodes = new VisNodes([ ]);
   public edges = new VisEdges([ ]);
   public visNetwork: string = 'networkId1';
   public visNetworkData: ExampleNetworkData;
@@ -39,16 +39,20 @@ export class CirclesComponent implements OnInit {
     private visNetworkService: VisNetworkService) { }
 
   getAllCircles() {
+    let myVillageNode = { id: 0, label: 'myVillage', color: '#80ccc5' };
+    this.nodes.add(myVillageNode as VisNode);
+
     this.circlesService.getCircles()
       .subscribe(data => {
         for (let i = 0; i < data['json_list'].length; i++) {
           let name = data['json_list'][i]['circle_name'];
           let id = data['json_list'][i]['id'];
 
-          this.visNetworkData.nodes.add({ id: id, label: name });
-          this.visNetworkService.fit(this.visNetwork);
+          let myNode = { id: id, label: name, color: '#80ccc5' };
+          this.nodes.add(myNode as VisNode);
           this.edges.add({ from: '0', to: id });
         }
+        this.visNetworkService.fit(this.visNetwork);
     });
   }
 
