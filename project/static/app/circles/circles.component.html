@@ -1,8 +1,14 @@
 
-  <mat-card  *ngFor="let circle of circles" class="circles" routerLink="/app/friends/{{circle.id}}">
+  <!-- <mat-card  *ngFor="let circle of circles" class="circles" routerLink="/app/friends/{{circle.id}}">
     <mat-card-title>{{circle.name}}</mat-card-title>
-    <!-- <span class="badge" data-badge-caption="friends">4</span> -->
-  </mat-card>
+    <!- <span class="badge" data-badge-caption="friends">4</span> ->
+  </mat-card> -->
+
+  <div class="network-canvas"
+    [visNetwork]="visNetwork"
+    [visNetworkData]="visNetworkData"
+    [visNetworkOptions]="visNetworkOptions"
+    (initialized)="networkInitialized()"></div>
 
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
     <a routerLink="/app/home/add" class="btn-floating btn-large waves-effect waves-light teal lighten-2">
