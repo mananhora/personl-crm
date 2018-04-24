@@ -43,6 +43,7 @@ export class CirclesComponent implements OnInit {
       id: 0,
       label: 'myVillage',
       color: '#80ccc5',
+      mass: 1,
       shape: 'circle',
       shadow: {
         enabled: true,
@@ -68,6 +69,7 @@ export class CirclesComponent implements OnInit {
             id: id,
             label: name,
             color: '#80ccc5',
+            mass: 2,
             shape: 'circle',
             shadow: {
               enabled: true,
@@ -79,10 +81,6 @@ export class CirclesComponent implements OnInit {
             font: {
               face: 'Roboto',
               size: 18,
-            },
-            widthConstraint: {
-              minimum: 5,
-              maximum: 26,
             },
           };
           this.nodes.add(myNode as VisNode);
