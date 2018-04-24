@@ -1,4 +1,8 @@
 
+  <a (click)="goBack()" class="btn-floating btn-large waves-effect waves-light teal lighten-2" style="top: 14px; left: -135px;">
+    <i class="material-icons">navigate_before</i>
+  </a>
+
   <mat-card  *ngFor="let friend of friends" class="friends" routerLink="/app/profile/{{friend.id}}">
     <mat-card-title-group>
       <img mat-card-sm-image *ngIf="friend.img" src="{{friend.img}}" alt="Photo of {{friend.name}}">

@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProfileService } from './profile.service';
 import { Profile } from './profile';
@@ -16,7 +17,8 @@ export class ProfileComponent implements OnInit {
   model = new Profile('', '', 0,);
 
   constructor(private profileService: ProfileService,
-    private route: ActivatedRoute, public dialog: MatDialog) { }
+    private route: ActivatedRoute, public dialog: MatDialog,
+    private location: Location) { }
 
   ngOnInit() {
     this.routeId = +this.route.snapshot.paramMap.get('id');
@@ -26,6 +28,10 @@ export class ProfileComponent implements OnInit {
     } else {
       this.getMyProfile();
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   getMyProfile() {

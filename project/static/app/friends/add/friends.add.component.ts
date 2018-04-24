@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { FriendsService } from '../friends.service';
 import { CirclesService } from '../../circles/circles.service';
 import { Profile } from '../../profile/profile';
@@ -18,7 +19,7 @@ export class FriendsAddComponent implements OnInit {
 
   constructor(private circlesService: CirclesService,
     private friendsService: FriendsService,
-    private router: Router) { }
+    private router: Router, private location: Location) { }
 
   addFriend() {
     this.friendsService.addFriend(this.friend.name, this.friend.email, this.friend.circles)
@@ -55,6 +56,10 @@ export class FriendsAddComponent implements OnInit {
   //     console.log('yo: added for friend #', id);
   //   }
   // }
+
+  goBack() {
+    this.location.back();
+  }
 
   ngOnInit() {
     this.friend = new Profile('', '', 555);

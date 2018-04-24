@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { CirclesService } from '../circles.service';
 import { FriendsService } from '../../friends/friends.service';
 import { Circle } from '../circle';
@@ -19,7 +20,8 @@ export class CirclesAddComponent implements OnInit {
 
   constructor(private circlesService: CirclesService,
     private friendsService: FriendsService,
-    private router: Router) { }
+    private router: Router,
+    private location: Location) { }
 
   addCircle() {
     this.circlesService.addCircle(this.circle.name)
@@ -53,6 +55,10 @@ export class CirclesAddComponent implements OnInit {
           }
         }
     })
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   ngOnInit() {

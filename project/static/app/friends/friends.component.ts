@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { FriendsService } from './friends.service';
 import { Circle } from '../circles/circle';
 import { Profile } from '../profile/profile';
@@ -15,7 +16,8 @@ export class FriendsComponent implements OnInit {
   friends: Profile[];
 
   constructor(private friendsService: FriendsService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private location: Location) { }
 
   showAllFriends() {
     this.friendsService.getAllFriends()
@@ -51,6 +53,10 @@ export class FriendsComponent implements OnInit {
           }
         }
       });
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   ngOnInit() {

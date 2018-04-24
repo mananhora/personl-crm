@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { ProfileService } from '../profile.service';
 import { Profile } from '../profile';
 import { Circle } from '../../circles/circle';
@@ -16,11 +17,15 @@ export class ProfileEditComponent implements OnInit {
   model = new Profile('', '', 555);
 
   constructor(private profileService: ProfileService,
-    private route: ActivatedRoute,
-    private router: Router) { }
+    private route: ActivatedRoute, private router: Router,
+    private location: Location) { }
 
   getProfile() {
     this.routeId = +this.route.snapshot.paramMap.get('id');
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   getMyProfile() {
