@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CirclesService } from './circles.service';
 import { FriendsService } from '../friends/friends.service';
+import { Router } from '@angular/router';
 import { Circle } from './circle';
 import { Profile } from '../profile/profile';
 import {
@@ -36,7 +37,8 @@ export class CirclesComponent implements OnInit {
 
   constructor(private circlesService: CirclesService,
     private friendsService: FriendsService,
-    private visNetworkService: VisNetworkService) { }
+    private visNetworkService: VisNetworkService,
+    private router: Router) { }
 
   getAllCircles() {
     let myVillageNode = {
@@ -91,14 +93,12 @@ export class CirclesComponent implements OnInit {
   }
 
    public networkInitialized(): void {
-     // now we can use the service to register on events
      this.visNetworkService.on(this.visNetwork, 'click');
-
-     // open your console/dev tools to see the click params
      this.visNetworkService.click
        .subscribe((eventData: any[]) => {
            if (eventData[0] === this.visNetwork) {
-             console.log(eventData[1]);
+             let id = eventData[1].nodes[0];
+             this.router.navigate(['/app/friends/', id]);
            }
        });
    }
