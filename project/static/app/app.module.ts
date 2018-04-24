@@ -16,6 +16,7 @@ import { FriendsAddComponent } from './friends/add/friends.add.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DialogOverviewExampleDialog } from './profile/profile.component';
 import { ProfileEditComponent } from './profile/edit/profile.edit.component';
+import { PhotoDialog } from './profile/edit/profile.edit.component';
 
 import { AppService } from './app.service';
 import { CirclesService } from './circles/circles.service';
@@ -44,7 +45,8 @@ const appRoutes: Routes = [
     FriendsAddComponent,
     ProfileComponent,
     DialogOverviewExampleDialog,
-    ProfileEditComponent
+    ProfileEditComponent,
+    PhotoDialog
   ],
   imports: [
     HttpClientModule,
@@ -58,7 +60,8 @@ const appRoutes: Routes = [
     VisModule,
   ],
   entryComponents: [
-    DialogOverviewExampleDialog
+    DialogOverviewExampleDialog,
+    PhotoDialog
   ],
   providers: [
     AppService,
