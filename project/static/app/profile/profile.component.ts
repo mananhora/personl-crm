@@ -34,6 +34,17 @@ export class ProfileComponent implements OnInit {
     this.location.back();
   }
 
+  addNote(note: string) {
+    this.profileService.addNote(this.routeId, note)
+      .subscribe(data => {
+        if (this.model.notes) {
+          this.model.notes.push(note);
+        } else if (note) {
+          this.model.notes = [note];
+        }
+    });
+  }
+
   getMyProfile() {
     this.profileService.getMyProfile()
       .subscribe(data => {
@@ -59,9 +70,17 @@ export class ProfileComponent implements OnInit {
         if (data['circles']) this.model.circles = data['circles'];
         if (data['phone_number']) this.model.phone = data['phone_number'];
         if (data['location']) this.model.location = data['location'];
-        if (data['notes']) this.model.notes = data['notes'];
+        if (data['notes']) {
+          for (let note_index in data['notes']) {
+            if (this.model.notes) {
+              this.model.notes.push(data['notes'][note_index]);
+            } else {
+              this.model.notes = [data['notes'][note_index]];
+            }
+          }
+        }
         if (data['job']) this.model.job = data['job'];
-      });
+    });
     this.getCirclesForFriend(id);
   }
 
@@ -89,11 +108,7 @@ export class ProfileComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (this.model.notes) {
-        this.model.notes.push(result);
-      } else if (result) {
-        this.model.notes = [result];
-      }
+      this.addNote(result);
     });
   }
 
