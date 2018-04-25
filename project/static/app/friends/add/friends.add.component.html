@@ -13,18 +13,18 @@
 
       <div class="section">
         <div class="row">
-          <div class="input-field col s12">
-            <input type="text" class="validate" id="friend.name" required
-                    [(ngModel)]="friend.name" name="friend.name">
-            <label for="friend.name">name</label>
+          <div class="col s12">
+            <mat-form-field>
+              <input matInput placeholder="name" [(ngModel)]="friend.name" name="friend.name">
+            </mat-form-field>
           </div>
         </div>
 
         <div class="row">
-          <div class="input-field col s12">
-            <input type="email" class="validate" id="friend.email" required
-                    [(ngModel)]="friend.email" name="friend.email">
-            <label for="friend.email">email</label>
+          <div class="col s12">
+            <mat-form-field>
+              <input matInput type="email" placeholder="email" [(ngModel)]="friend.email" name="friend.email">
+            </mat-form-field>
           </div>
         </div>
 
