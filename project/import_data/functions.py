@@ -3,7 +3,7 @@ import sys
 import click
 from flask import Blueprint, jsonify, json
 from flask.ext.login import login_required
-from pyicloud import PyiCloudService
+# from pyicloud import PyiCloudService
 import csv
 import itertools
 import re
