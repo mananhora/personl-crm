@@ -49,6 +49,19 @@ a {
   margin: 1em
 }
 
+.card-panel h5 {
+  margin-left: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.card-panel table {
+  margin-left: .5em;
+}
+
+.card-panel table .mat-form-field {
+  margin: 0;
+}
+
 .mat-form-field {
   width: 100%;
 }

@@ -15,6 +15,9 @@ import { Profile } from '../../profile/profile';
 export class CirclesAddComponent implements OnInit {
 
   circle: Circle;
+  allCircles: Circle[];
+  selectedParentCircles: string[];
+  selectedChildCircles: string[];
   friends: Profile[];
   selectedFriends: string[];
 
@@ -26,17 +29,49 @@ export class CirclesAddComponent implements OnInit {
   addCircle() {
     this.circlesService.addCircle(this.circle.name)
       .subscribe(data => {
-        // if successful,
         // @TODO should return ID of the circle
+        // this.circle.id = data['id'];
         this.router.navigate(['/app/home']);
       });
 
     // for (friend in selectedFriends) {
     //   this.circlesService.addFriendToCircle({
     //     friend_id: friend,
-    //     circle_id: circle_id,
+    //     circle_id: this.circle.id,
     //   });
     // }
+    //
+    // for (circle in this.selectedParentCircles) {
+    //   this.circlesService.addChildCircle({
+    //     parent_id: circle.id,
+    //     cild_id: this.circle.id,
+    //   });
+    // }
+    //
+    // for (circle in this.selectedChildCircles) {
+    //   this.circlesService.addFriendToCircle({
+    //     parent_id: this.circle.id,
+    //     child_id: circle_id,
+    //   });
+    // }
+
+  }
+
+  getAllCircles() {
+    this.circlesService.getCircles()
+      .subscribe(data => {
+        for (let i = 0; i < data['json_list'].length; i++) {
+          let name = data['json_list'][i]['circle_name'];
+          let id = data['json_list'][i]['id'];
+          let circle = new Circle(name, id);
+
+          if (this.allCircles) {
+            this.allCircles.push(circle);
+          } else {
+            this.allCircles = [circle];
+          }
+        }
+    });
   }
 
   getAllFriends() {
@@ -63,6 +98,7 @@ export class CirclesAddComponent implements OnInit {
 
   ngOnInit() {
     this.circle = new Circle('', 123);
+    this.getAllCircles();
     this.getAllFriends();
   }
 
