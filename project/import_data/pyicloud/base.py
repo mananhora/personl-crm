@@ -20,7 +20,6 @@ from project.import_data.pyicloud.services import (
     FindMyiPhoneServiceManager,
     UbiquityService,
     ContactsService,
-    PhotosService,
     AccountService
 )
 from utils import get_password_from_keyring
@@ -293,16 +292,7 @@ class PyiCloudService(object):
             )
         return self._files
 
-    @property
-    def photos(self):
-        if not hasattr(self, '_photos'):
-            service_root = self.webservices['photos']['url']
-            self._photos = PhotosService(
-                service_root,
-                self.session,
-                self.params
-            )
-        return self._photos
+   
 
 
 
