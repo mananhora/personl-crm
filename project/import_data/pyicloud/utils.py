@@ -2,7 +2,7 @@ import getpass
 import keyring
 import sys
 
-from .exceptions import NoStoredPasswordAvailable
+from pyi_exceptions import NoStoredPasswordAvailable
 
 
 KEYRING_SYSTEM = 'pyicloud://icloud-password'

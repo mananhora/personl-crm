@@ -20,7 +20,7 @@ import_data_blueprint = Blueprint(
 @import_data_blueprint.route('/importiosdata', methods = ['GET', 'POST'])
 def get_ios_contacts():
   print("Import Contacts From iOS")
-  api = PyiCloudService('scooter796@yahoo.com')
+  api = PyiCloudService('tellmanan@yahoo.com')
 
   if api.requires_2fa:
       print ("Two-factor authentication required. Your trusted devices are:")
@@ -42,13 +42,13 @@ def get_ios_contacts():
           sys.exit(1)
 
   for c in api.contacts.all():
-    print (c.get("streetAddresses"))
+    #print (c.get("streetAddresses"))
     full_name = get_full_name(c)
     email = get_email(c)
     phone_number = get_phone_number(c)
     birthday = get_birthday(c)
     city = get_city(c)
-    #print(full_name, phone_number, email, birthday, city)
+    print(full_name, phone_number, email, birthday, city)
 
   return jsonify('Success')
 
@@ -82,7 +82,7 @@ def get_city(contact):
   if (contact.get('streetAddresses')) is not None:
     if(contact.get('streetAddresses')[0]) is not None:
       if('field' in contact.get('streetAddresses')[0].keys()):
-        print(contact.get("streetAddresses")[0]['field'])
+        return (contact.get("streetAddresses")[0]['field'])
 
       return None
     return None

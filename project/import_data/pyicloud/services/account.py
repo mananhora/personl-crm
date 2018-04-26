@@ -2,7 +2,7 @@ import sys
 
 import six
 
-from pyicloud.utils import underscore_to_camelcase
+from ..utils import underscore_to_camelcase
 
 
 class AccountService(object):

@@ -1,4 +1,4 @@
 import logging
-from pyicloud.base import PyiCloudService
+from base import PyiCloudService
 
 logging.getLogger(__name__).addHandler(logging.NullHandler())

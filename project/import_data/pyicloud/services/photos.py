@@ -5,7 +5,7 @@ import urllib
 from datetime import datetime
 from base64 import b64decode
 from bitstring import ConstBitStream
-from pyicloud.exceptions import (
+from ..pyi_exceptions  import (
     PyiCloudAPIResponseError,
     PyiCloudBinaryFeedParseError,
     PyiCloudPhotoLibraryNotActivatedErrror

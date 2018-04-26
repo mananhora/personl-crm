@@ -10,12 +10,13 @@ import tempfile
 import os
 from re import match
 
-from pyicloud.exceptions import (
+
+from pyi_exceptions import (
     PyiCloudFailedLoginException,
     PyiCloudAPIResponseError,
     PyiCloud2FARequiredError
 )
-from pyicloud.services import (
+from services import (
     FindMyiPhoneServiceManager,
     CalendarService,
     UbiquityService,
@@ -24,7 +25,7 @@ from pyicloud.services import (
     PhotosService,
     AccountService
 )
-from pyicloud.utils import get_password_from_keyring
+from utils import get_password_from_keyring
 
 if six.PY3:
     import http.cookiejar as cookielib
