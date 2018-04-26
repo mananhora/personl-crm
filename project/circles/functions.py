@@ -191,7 +191,25 @@ def remove_friend_from_circle():
   return jsonify("Not logged in")
 
 
-
+@login_required
+@circles_blueprint.route('/deletecircle', methods = ['GET','POST'])
+def delete_circle():
+  json_data = request.get_json()
+  if current_user is not None :
+    a = current_user.is_anonymous()
+    if current_user.id is not None and a == False:
+      circle_id = json_data['circle_id']
+      print("entering try")
+      try:
+        circle = Circle.query.get(circle_id)
+        db.session.delete(circle)
+        db.session.commit()
+        print("successfully deleted")
+      except:
+        return jsonify("Error")
+      return jsonify("successfully deleted circle")
+    return jsonify("not logged in")
+  return jsonify("not logged in")
 
 
 

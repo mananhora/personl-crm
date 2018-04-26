@@ -179,15 +179,10 @@ def delete_friend():
   if current_user is not None :
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
-      # friend_id = json_data['friend_id']
-      friend_id = 6
-      print("entering try")
+      friend_id = json_data['friend_id']
       try:
-        print("going to remove friend")
         friend = Friend.query.get(friend_id)
         db.session.delete(friend)
-        print(friend.name)
-        print(current_user.name)
         db.session.commit()
         print("successfully deleted")
       except:
