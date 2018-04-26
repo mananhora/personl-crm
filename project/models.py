@@ -114,8 +114,6 @@ class Circle(db.Model):
       return '<name - {}>'.format(self.circle_name)
 
 
-
-
 class Friend(db.Model):
     #describe friend table here
     __tablename__ = 'friends'

@@ -172,8 +172,23 @@ def get_all_circles_for_user():
 @login_required
 @circles_blueprint.route('/removefriendfromcircle', methods=['POST', 'GET'])
 def remove_friend_from_circle():
-  return None
-
+  json_data = request.get_json()
+  if current_user is not None:
+    a = current_user.is_anonymous()
+    if a is False and current_user.id is not None:
+      friend_id = json_data['friend_id']
+      circle_id = json_data['circle_id']
+      try:
+        circle = Circle.query.get(circle_id)
+        friend = Friend.query.get(friend_id)
+        circle.friends.remove(friend)
+        db.session.commit()
+        print("Successfully removed")
+      except:
+        return jsonify("error")
+      return jsonify("successfully removed friend from circle")
+    return jsonify("Not logged in")
+  return jsonify("Not logged in")
 
 
 
