@@ -36,20 +36,18 @@ def add_circle():
       circle = Circle(circle_name=json_data['circle_name'], user_id=user_id)
       db.session.add(circle)
       db.session.commit()
-      status = True
       print("done...")
+      return jsonify(circle.serialize)
     except:
-      status = False
-    return jsonify({'result': status})
+      return jsonify("error")
   else:
     print('current user is None')
     return jsonify({'message':"ERROR, NOT LOGGED IN", 'error':True})
 
 
-
+#add a child circle
 @login_required
 @circles_blueprint.route('/addchildcircle/', methods = ['GET', 'POST'])
-#add a child circle
 def add_child_circle():
   json_data = request.get_json()
   a = (current_user.is_anonymous==True)
@@ -72,7 +70,6 @@ def add_child_circle():
     return jsonify({'message':"ERROR, NOT LOGGED IN", 'error':True})
 
 
-
 @login_required
 @circles_blueprint.route('/getchildcircles', methods = ['GET'])
 def get_child_circles():
@@ -88,13 +85,9 @@ def get_child_circles():
     return jsonify("NOT LOGGED IN")
   return jsonify("NOT LOGGED IN")
 
-
-
-
-
+#add a friend to a circle, given that the friend already exists in the user's friend_list
 @login_required
 @circles_blueprint.route('/addtocircle/', methods = ['GET', 'POST'])
-#add a friend to a circle, given that the friend already exists in the user's friend_list
 def add_member_to_circle(json=False, friend_id=None, circle_id=None):
   status = False
   if(json==True):
@@ -121,9 +114,9 @@ def add_member_to_circle(json=False, friend_id=None, circle_id=None):
 
 
 
+#for a given circle, get all friends in that circle, and in child circles..
 @login_required
 @circles_blueprint.route('/friendsincircle/', methods = ['GET', 'POST'])
-#for a given circle, get all friends in that circle, and in child circles..
 def get_all_friends_in_circle(circle_id=None):
   """if circle id is not passed in, takes data from request json
   if it is passed in, takes that.."""
@@ -143,12 +136,9 @@ def get_all_friends_in_circle(circle_id=None):
 
 
 
-
-
-
+#for a given friend, get all circles that they are in
 @login_required
 @circles_blueprint.route('/circlesforfriend/', methods = ['GET', 'POST'])
-#for a given friend, get all circles that they are in
 def get_all_circles_for_friend():
   json_data = request.get_json()
   friend_id = json_data['friend_id']
@@ -158,7 +148,6 @@ def get_all_circles_for_friend():
     circles = friend.circles
     db.session.commit()
     return jsonify(json_list=[i.serialize for i in circles])
-
 
 
 
@@ -177,3 +166,5 @@ def get_all_circles_for_user():
       return jsonify(json_list=[i.serialize for i in circles])
     return jsonify("NOT LOGGED IN")
   return jsonify("NOT LOGGED IN")
+
+
