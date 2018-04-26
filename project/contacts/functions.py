@@ -30,7 +30,6 @@ contacts_blueprint = Blueprint(
 @contacts_blueprint.route('/addfriend/', methods = ['GET', 'POST'])
 def add_friend():
   json_data = request.get_json()
-  print(json_data)
   call_add_to_circle = json_data['addToCircle'] #if the user is adding the friend to a circle
 
   #Check if user is logged in..
@@ -171,3 +170,28 @@ def add_image_url():
       return jsonify("Success")
     return jsonify("error")
   return jsonify("error")
+
+
+@login_required
+@contacts_blueprint.route('/deletefriend', methods = ['GET','POST'])
+def delete_friend():
+  json_data = request.get_json()
+  if current_user is not None :
+    a = current_user.is_anonymous()
+    if current_user.id is not None and a == False:
+      # friend_id = json_data['friend_id']
+      friend_id = 6
+      print("entering try")
+      try:
+        print("going to remove friend")
+        friend = Friend.query.get(friend_id)
+        db.session.delete(friend)
+        print(friend.name)
+        print(current_user.name)
+        db.session.commit()
+        print("successfully deleted")
+      except:
+        return jsonify("Error")
+      return jsonify("successfully deleted friend")
+    return jsonify("not logged in")
+  return jsonify("not logged in")
