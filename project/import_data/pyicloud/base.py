@@ -11,12 +11,12 @@ import os
 from re import match
 
 
-from pyi_exceptions import (
+from project.import_data.pyicloud.pyi_exceptions import (
     PyiCloudFailedLoginException,
     PyiCloudAPIResponseError,
     PyiCloud2FARequiredError
 )
-from services import (
+from project.import_data.pyicloud.services import (
     FindMyiPhoneServiceManager,
     CalendarService,
     UbiquityService,
