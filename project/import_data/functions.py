@@ -1,29 +1,28 @@
-import codecs
-import sys
-import click
-from flask import Blueprint, jsonify, json
-from flask.ext.login import login_required
-# from pyicloud import PyiCloudService
-import csv
-import itertools
-import re
-
-
-# from project import app
-# bcrypt = Bcrypt(app)
-
-
-import_data_blueprint = Blueprint(
-    'import_data', __name__,
-    template_folder='../../templates'
-)
-
+# import codecs
+# import sys
+# import click
+# from flask import Blueprint, jsonify, json
+# from flask.ext.login import login_required
+# import csv
+# import itertools
+# import re
+# from project import *
+#
+#
+#
+#
+# import_data_blueprint = Blueprint(
+#     'import_data', __name__,
+#     template_folder='../../templates'
+# )
+#
 #
 # @login_required
 # @import_data_blueprint.route('/importiosdata', methods = ['GET', 'POST'])
 # def get_ios_contacts():
 #   print("Import Contacts From iOS")
 #   api = PyiCloudService('tellmanan@yahoo.com')
+#
 #
 #   if api.requires_2fa:
 #       print ("Two-factor authentication required. Your trusted devices are:")
@@ -45,24 +44,20 @@ import_data_blueprint = Blueprint(
 #           sys.exit(1)
 #
 #   for c in api.contacts.all():
-#     first_name = c.get('firstName')
-#     last_name = c.get('lastName')
-#     full_name = str(first_name)  +' '+str(last_name)
-#     phone_number = ''
-#     if(c.get('phones') is not  None):
-#       if(c.get('phones')[0] is not None):
-#         if('field' in c.get('phones')[0].keys()):
-#           phone_number = c.get('phones')[0]['field']
-#     print(full_name, phone_number)
-#
+#     #print (c.get("streetAddresses"))
+#     full_name = get_full_name(c)
+#     email = get_email(c)
+#     phone_number = get_phone_number(c)
+#     birthday = get_birthday(c)
+#     city = get_city(c)
+#     print(full_name, phone_number, email, birthday, city)
 #
 #   return jsonify('Success')
 #
 #
-#
 # @login_required
 # @import_data_blueprint.route('/importfromcsv', methods=['GET', 'POST'])
-# def create_contacts_from_csv():
+# def import_contacts_from_csv():
 #   file_name = '/Users/mananhora/Desktop/contacts.csv'
 #   """
 #   read file, parse input
@@ -70,6 +65,68 @@ import_data_blueprint = Blueprint(
 #   list, fields = read_data_from_csv(file_name)
 #   contact_objects = create_json_contact_objects(list, fields)
 #
+#   return None
+#
+#
+#
+# def get_email(contact):
+#   #returns the first email, if it exists
+#   if (contact.get('emailAddresses') is not None):
+#     if (contact.get('emailAddresses')[0] is not None):
+#       if ('field' in contact.get('emailAddresses')[0].keys()):
+#         email = contact.get('emailAddresses')[0]['field']
+#         return email
+#       return None
+#     return None
+#   return None
+#
+# def get_city(contact):
+#   if (contact.get('streetAddresses')) is not None:
+#     if(contact.get('streetAddresses')[0]) is not None:
+#       if('field' in contact.get('streetAddresses')[0].keys()):
+#         return (contact.get("streetAddresses")[0]['field'])
+#
+#       return None
+#     return None
+#   return None
+#
+#
+# def get_phone_number(contact):
+#   #returns the first phone number, if it exists
+#   if (contact.get('phones') is not None):
+#     if (contact.get('phones')[0] is not None):
+#       if ('field' in contact.get('phones')[0].keys()):
+#         phone_number = contact.get('phones')[0]['field']
+#         return phone_number
+#   return None
+#
+#
+# def get_full_name(contact):
+#   first_name = contact.get('firstName')
+#   last_name = contact.get('lastName')
+#   full_name = ''
+#   try:
+#     full_name = str(first_name)  +' '+str(last_name)
+#   except UnicodeEncodeError:
+#     pass
+#   if first_name is not None:
+#     for f in first_name:
+#       try:
+#         full_name+=f
+#       except UnicodeEncodeError:
+#         pass
+#   if last_name is not None:
+#     for l in last_name:
+#       try:
+#         full_name+=l
+#       except UnicodeEncodeError:
+#         pass
+#   return full_name
+#
+#
+# def get_birthday(contact):
+#   if(contact.get('birthday')) is not None:
+#     return contact.get('birthday')
 #   return None
 #
 #

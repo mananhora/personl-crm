@@ -155,3 +155,19 @@ def search_by_keyword():
       print(result)
       return make_response(jsonify(result))
   return None
+
+
+@login_required
+@contacts_blueprint.route('/addimageurl', methods = ['GET'])
+def add_image_url():
+  if current_user is not None:
+    a = current_user.is_anonymous()
+    if current_user.id is not None and a == False:
+      json_data = request.get_json()
+      image_url = json_data['image_url']
+      friend_id = json_data['friend_id']
+      friend = Friend.query.get(friend_id)
+      friend.image_url = image_url
+      return jsonify("Success")
+    return jsonify("error")
+  return jsonify("error")

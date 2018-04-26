@@ -136,6 +136,7 @@ class Friend(db.Model):
     job = db.Column(db.String, nullable=True)
     num_weeks_reminder = db.Column(db.Integer)
     last_contacted = db.Column(DateTime)
+    image_url = db.Column(db.String())
 
 
 
@@ -162,7 +163,8 @@ class Friend(db.Model):
         'email': self.email,
         'notes':self.notes,
         'phone_number' : self.phone_number,
-        'job' : self.job
+        'job' : self.job,
+        'image_url': self.image_url
       }
 
     def is_anonymous(self):
