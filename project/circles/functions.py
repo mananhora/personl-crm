@@ -85,6 +85,7 @@ def get_child_circles():
     return jsonify("NOT LOGGED IN")
   return jsonify("NOT LOGGED IN")
 
+
 #add a friend to a circle, given that the friend already exists in the user's friend_list
 @login_required
 @circles_blueprint.route('/addtocircle/', methods = ['GET', 'POST'])
@@ -166,5 +167,27 @@ def get_all_circles_for_user():
       return jsonify(json_list=[i.serialize for i in circles])
     return jsonify("NOT LOGGED IN")
   return jsonify("NOT LOGGED IN")
+
+
+@login_required
+@circles_blueprint.route('/removefriendfromcircle', methods=['POST', 'GET'])
+def remove_friend_from_circle():
+  return None
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
