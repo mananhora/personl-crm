@@ -13,3 +13,48 @@ h1 {
 .delete:hover {
   text-decoration: underline;
 }
+
+/* card panel UI */
+.card-panel .row {
+  margin-bottom: 0;
+}
+
+.card-panel .mat-form-field {
+  width: 90%;
+  margin: 1em
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.card-panel h5 {
+  margin-left: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.card-panel table {
+  margin-left: .5em;
+}
+
+.card-panel table .mat-form-field {
+  margin: 0;
+}
+
+/* card action UI */
+mat-icon {
+  margin-right: 0.5em;
+}
+input.mat-input-element {
+  border-bottom: none;
+  margin: -0.0625em 0 0 0;
+  height: 100%;
+}
+input.mat-input-element:focus,
+input[type=email].mat-input-element:focus,
+input[type=tel].mat-input-element:focus,
+input[type=date].mat-input-element:focus {
+  box-shadow: none;
+  border-bottom: none;
+  height: 100%;
+}

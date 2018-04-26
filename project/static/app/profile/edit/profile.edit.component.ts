@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProfileService } from '../profile.service';
 import { Profile } from '../profile';
 import { Circle } from '../../circles/circle';
@@ -16,11 +18,15 @@ export class ProfileEditComponent implements OnInit {
   model = new Profile('', '', 555);
 
   constructor(private profileService: ProfileService,
-    private route: ActivatedRoute,
-    private router: Router) { }
+    private route: ActivatedRoute, private router: Router,
+    private location: Location, public dialog: MatDialog) { }
 
   getProfile() {
     this.routeId = +this.route.snapshot.paramMap.get('id');
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   getMyProfile() {
@@ -98,6 +104,45 @@ export class ProfileEditComponent implements OnInit {
     } else {
       this.getFriendProfile(this.routeId);
     }
+  }
+
+  openPhotoDialog(): void {
+    console.log('yooo', this.model.img);
+    let dialogRef = this.dialog.open(PhotoDialog, {
+      width: '30em',
+      data: this.model.img
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.model.img = result;
+      }
+    });
+  }
+
+}
+
+  @Component({
+  selector: 'photo-dialog',
+  template: `
+    <h2 mat-dialog-title>Add or update profile photo</h2>
+    <mat-dialog-content>
+      <input matInput type="url" name="data" [(ngModel)]="data">
+    </mat-dialog-content>
+    <mat-dialog-actions class="right">
+      <button mat-button (click)=onNoClick()>Cancel</button>
+      <button mat-button (click)="dialogRef.close(data)">Done</button>
+    </mat-dialog-actions>
+  `,
+  })
+  export class PhotoDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<PhotoDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

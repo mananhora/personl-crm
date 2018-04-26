@@ -53,6 +53,20 @@ export class ProfileService {
   }
 
   /**
+   * @function addNote
+   * @param {string} note - new note
+   * @example
+   * {
+       friend_id: id,
+       note: note
+     }
+   */
+  addNote(id: number, note: string): Observable<Object> {
+    let id_object = { friend_id: id, note: note }; //create JSON object
+    return this.http.post<Object>('/addnote', id_object, this.httpOptions);
+  }
+
+  /**
    * @function updateProfile
    * @param {number} id - ID of profile being edited
    * @param {string} [location=''] - new location value

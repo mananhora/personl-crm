@@ -3,8 +3,8 @@ export class Circle {
     public name: string,
     private _id: number,
     private _friends?: string[],
-    public parentCircles?: Circle[],
-    public childCircles?: Circle[],
+    private _parentCircles?: Circle[],
+    private _childCircles?: Circle[],
   ) { }
 
   get id(): number {
@@ -20,6 +20,20 @@ export class Circle {
   }
   set friends (friends: string[]) {
     this._friends = friends;
+  }
+
+  get parentCircles(): Circle[] {
+    return this.parentCircles;
+  }
+  set parentCircles (parentCircles: Circle[]) {
+    this.parentCircles = parentCircles;
+  }
+
+  get childCircles(): Circle[] {
+    return this.childCircles;
+  }
+  set childCircles (childCircles: Circle[]) {
+    this.childCircles = childCircles;
   }
 
 }

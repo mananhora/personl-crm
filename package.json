@@ -25,10 +25,11 @@
     "@angular/router": "5.2.10",
     "build": "^0.1.4",
     "core-js": "^2.4.1",
-    "node-sass": "^4.8.3",
-    "npm": "^5.8.0",
-    "rxjs": "^5.5.10",
-    "zone.js": "^0.8.26"
+    "ng2-vis": "0.0.6",
+    "rxjs": "^5.5.6",
+    "vis": "^4.21.0",
+    "zone.js": "^0.8.19"
+
   },
   "devDependencies": {
     "@angular/cli": "^1.7.4",

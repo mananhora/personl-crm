@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { FriendsService } from './friends.service';
+import { CirclesService } from '../circles/circles.service';
 import { Circle } from '../circles/circle';
 import { Profile } from '../profile/profile';
 
@@ -15,7 +17,8 @@ export class FriendsComponent implements OnInit {
   friends: Profile[];
 
   constructor(private friendsService: FriendsService,
-    private route: ActivatedRoute) { }
+    private circlesService: CirclesService,
+    private route: ActivatedRoute, private location: Location) { }
 
   showAllFriends() {
     this.friendsService.getAllFriends()
@@ -53,10 +56,22 @@ export class FriendsComponent implements OnInit {
       });
   }
 
+  getCircleInfo(id: number) {
+    this.circlesService.getChildCircles(id)
+      .subscribe(data => {
+        console.log(data);
+    })
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
   ngOnInit() {
     this.routeId = +this.route.snapshot.paramMap.get('id');
     if (this.routeId) {
       this.getFriendsForCircle(this.routeId);
+      this.getCircleInfo(this.routeId);
     } else {
       this.showAllFriends();
     }

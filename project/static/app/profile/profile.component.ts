@@ -1,5 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProfileService } from './profile.service';
 import { Profile } from './profile';
@@ -16,7 +18,8 @@ export class ProfileComponent implements OnInit {
   model = new Profile('', '', 0,);
 
   constructor(private profileService: ProfileService,
-    private route: ActivatedRoute, public dialog: MatDialog) { }
+    private route: ActivatedRoute, private router: Router,
+    private location: Location, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.routeId = +this.route.snapshot.paramMap.get('id');
@@ -26,6 +29,21 @@ export class ProfileComponent implements OnInit {
     } else {
       this.getMyProfile();
     }
+  }
+
+  goBack() {
+    this.router.navigate(['/app/friends']);
+  }
+
+  addNote(note: string) {
+    this.profileService.addNote(this.routeId, note)
+      .subscribe(data => {
+        if (this.model.notes) {
+          this.model.notes.push(note);
+        } else if (note) {
+          this.model.notes = [note];
+        }
+    });
   }
 
   getMyProfile() {
@@ -53,9 +71,17 @@ export class ProfileComponent implements OnInit {
         if (data['circles']) this.model.circles = data['circles'];
         if (data['phone_number']) this.model.phone = data['phone_number'];
         if (data['location']) this.model.location = data['location'];
-        if (data['notes']) this.model.notes = data['notes'];
+        if (data['notes']) {
+          for (let note_index in data['notes']) {
+            if (this.model.notes) {
+              this.model.notes.push(data['notes'][note_index]);
+            } else {
+              this.model.notes = [data['notes'][note_index]];
+            }
+          }
+        }
         if (data['job']) this.model.job = data['job'];
-      });
+    });
     this.getCirclesForFriend(id);
   }
 
@@ -83,11 +109,7 @@ export class ProfileComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (this.model.notes) {
-        this.model.notes.push(result);
-      } else if (result) {
-        this.model.notes = [result];
-      }
+      this.addNote(result);
     });
   }
 

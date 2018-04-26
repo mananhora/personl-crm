@@ -1,68 +1,103 @@
 
-  <div class="row">
-    <h2 class="center">edit profile</h2>
-  </div>
+  <a (click)="editProfile()" class="btn-floating btn-large waves-effect waves-light teal lighten-2" style="top: 14px; left: -135px;" >
+    <i class="material-icons">navigate_before</i>
+  </a>
 
   <div class="row">
-    <form class="col s8 offset-s2 card-panel"
-          (ngSubmit)="editProfile()" #editProfileForm="ngForm">
-
-      <div class="section">
-        <div class="row">
-          <div class="input-field col s12">
-            <input type="text" class="validate" id="model.name"
-                    [(ngModel)]="model.name" name="model.name">
-            <label for="model.name">Name</label>
-          </div>
+    <div class="col s4">
+      <div class="card body-font">
+        <div class="card-image">
+          <img (click)='openPhotoDialog()' src="{{model._img}}">
         </div>
-
-        <div class="row">
-          <div class="input-field col s12">
-            <input type="email" class="validate" id="model.email"
-                    [(ngModel)]="model.email" name="model.email">
-            <label for="model.email">Email</label>
+        <div id="sidebar-content">
+          <div class="card-content">
+            <div class="chip" *ngFor="let circle of model._circles">
+              <a routerLink="/app/friends/{{circle.id}}">{{circle.name}}</a>
+            </div>
           </div>
-        </div>
+          <div class="card-action">
+            <div class="row">
+              <mat-form-field>
+                <mat-icon matPrefix>email</mat-icon>
+                <input type="email" matInput placeholder="Email" [(ngModel)]="model.email" name="email">
+              </mat-form-field>
+            </div>
 
-        <div class="row">
-          <div class="input-field col s12">
-            <input type="tel" class="validate" id="model.phone"
-                    [(ngModel)]="model.phone" name="model.phone">
-            <label for="model.phone">Phone</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s12">
-            <input type="text" class="validate" id="model.location"
-                    [(ngModel)]="model.location" name="model.location">
-            <label for="model.location">Location</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s12">
-            <input type="text" class="validate" id="model.job"
-                    [(ngModel)]="model.job" name="model.job">
-            <label for="model.job">Job</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col s4 offset-s4">
-            <button type="submit" class="btn waves-effect waves-light" name="action"
-                    [disabled]="!editProfileForm.form.valid">
-              Finish Editing <i class="material-icons right">send</i>
-            </button>
+            <div class="row">
+              <mat-form-field>
+                <mat-icon matPrefix>phone</mat-icon>
+                <input type="tel" matInput placeholder="Phone" [(ngModel)]="model.phone" name="phone">
+              </mat-form-field>
+            </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="divider"></div>
+    <div class="col s1"></div>
 
-      <div class="section">
-        <a class="delete" (click)="deleteProfile()">Delete this profile</a>
+    <div class="col s7">
+      <div class="card-panel">
+        <div class="row">
+          <mat-form-field>
+            <input matInput placeholder="Name" [(ngModel)]="model.name" name="name">
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field>
+            <input matInput placeholder="Job" [(ngModel)]="model.job" name="job">
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field>
+            <input matInput placeholder="Location" [(ngModel)]="model.location" name="location">
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <h5 class="body-font">
+            important dates <span class="badge"><a><i class="material-icons">add</i></a></span>
+          </h5>
+          <table cellspacing="0">
+            <tr>
+              <td><mat-form-field>
+                <input matInput placeholder="Date">
+              </mat-form-field></td>
+              <td><mat-form-field>
+                <input type="date" matInput>
+              </mat-form-field></td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="row">
+          <h5 class="body-font">
+            important names <span class="badge"><a><i class="material-icons">add</i></a></span>
+          </h5>
+          <table cellspacing="0">
+            <tr>
+              <td><mat-form-field>
+                <input matInput placeholder="Relationship">
+              </mat-form-field></td>
+              <td><mat-form-field>
+                <input matInput placeholder="Name">
+              </mat-form-field></td>
+            </tr>
+        </table>
+        </div>
+
+        <div class="row">
+          <h5 class="body-font">
+            notes <span class="badge"><a><i class="material-icons">add</i></a></span>
+          </h5>
+          <mat-form-field>
+            <textarea matInput placeholder="Add a note"></textarea>
+          </mat-form-field>
+        </div>
+
       </div>
+    </div>
 
-    </form>
   </div>

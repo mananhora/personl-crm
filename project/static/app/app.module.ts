@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { MaterialModule } from './material.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { VisModule } from '../../../node_modules/ng2-vis';
 
 import { AppComponent } from './app.component';
 import { CirclesComponent } from './circles/circles.component';
@@ -15,6 +16,7 @@ import { FriendsAddComponent } from './friends/add/friends.add.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DialogOverviewExampleDialog } from './profile/profile.component';
 import { ProfileEditComponent } from './profile/edit/profile.edit.component';
+import { PhotoDialog } from './profile/edit/profile.edit.component';
 
 import { AppService } from './app.service';
 import { CirclesService } from './circles/circles.service';
@@ -43,7 +45,8 @@ const appRoutes: Routes = [
     FriendsAddComponent,
     ProfileComponent,
     DialogOverviewExampleDialog,
-    ProfileEditComponent
+    ProfileEditComponent,
+    PhotoDialog
   ],
   imports: [
     HttpClientModule,
@@ -53,10 +56,12 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(
       appRoutes,
-    )
+    ),
+    VisModule,
   ],
   entryComponents: [
-    DialogOverviewExampleDialog
+    DialogOverviewExampleDialog,
+    PhotoDialog
   ],
   providers: [
     AppService,

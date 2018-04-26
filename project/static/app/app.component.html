@@ -6,8 +6,8 @@
       <div *ngIf="loggedIn == true">
         <a routerLink="/app/friends"><i class="material-icons">contacts</i></a>
         <span class="example-spacer"></span>
-        <a routerLink="/app/profile/0"><i class="material-icons">person</i></a>
-        <span class="example-spacer"></span>
+        <!-- <a routerLink="/app/profile/0"><i class="material-icons">person</i></a>
+        <span class="example-spacer"></span> -->
         <a href='/logout'><i class="material-icons">power_settings_new</i></a>
         <span class="example-spacer"></span>
       </div>
@@ -29,18 +29,20 @@
                   (ngSubmit)="login()" #loginForm="ngForm">
               <div class="section">
                 <div class="row">
-                  <div class="input-field col s12">
-                    <input type="text" class="validate" id="email" required
-                            [(ngModel)]="email" name="email">
-                    <label for="email">Email</label>
+                  <div class="col s12">
+                    <mat-form-field>
+                      <input matInput type="email" validate
+                        placeholder="email" [(ngModel)]="email" name="email">
+                    </mat-form-field>
                   </div>
                 </div>
 
                 <div class="row">
-                  <div class="input-field col s12">
-                    <input type="password" class="validate" id="password" required
-                            [(ngModel)]="password" name="password">
-                    <label for="password">Password</label>
+                  <div class="col s12">
+                    <mat-form-field>
+                      <input matInput type="password" placeholder="password"
+                        [(ngModel)]="password" name="password">
+                    </mat-form-field>
                   </div>
                 </div>
 
@@ -66,35 +68,38 @@
               <p>First, please enter your basic login information.</p>
               <div class="section">
                 <div class="row">
-                  <div class="input-field col s12">
-                    <input type="text" class="validate" id="name" required
-                            [(ngModel)]="name" name="name">
-                    <label for="name">Name</label>
+                  <div class="col s12">
+                    <mat-form-field>
+                      <input matInput placeholder="name" [(ngModel)]="name" name="name">
+                    </mat-form-field>
                   </div>
                 </div>
 
                 <div class="row">
-                  <div class="input-field col s12">
-                    <input type="email" class="validate" id="email" required
-                            [(ngModel)]="email" name="email">
-                    <label for="email">Email</label>
+                  <div class="col s12">
+                    <mat-form-field>
+                      <input matInput type="email" validate
+                        placeholder="email" [(ngModel)]="email" name="email">
+                    </mat-form-field>
                   </div>
                 </div>
 
                 <div class="row">
-                  <div class="input-field col s12">
-                    <input type="password" class="validate" id="password" required
-                            [(ngModel)]="password" name="password">
-                    <label for="password">Password</label>
+                  <div class="col s12">
+                    <mat-form-field>
+                      <input matInput type="password" placeholder="password"
+                        [(ngModel)]="password" name="password">
+                    </mat-form-field>
                   </div>
                 </div>
-                <div class="row">
+                <!-- @TODO confirm password functionality -->
+                <!-- <div class="row">
                   <div class="input-field col s12">
                     <input type="password" class="validate" id="confirmPassword" required
                             [(ngModel)]="confirmPassword" name="confirmPassword">
                     <label for="confirmPassword">Confirm Password</label>
                   </div>
-                </div>
+                </div> -->
               </div>
               <div>
                 <button mat-button matStepperNext class="right">Next</button>
@@ -104,22 +109,25 @@
               <p>Tell us a little more about yourself</p>
               <div class="section">
                 <div class="row">
-                  <div class="input-field col s12">
-                    <input type="text" id="hometown"
-                            [(ngModel)]="hometown.name" name="hometown">
-                    <label for="hometown">Where's your hometown?</label>
+                  <div class="col s12">
+                    <mat-form-field>
+                      <input matInput placeholder="Where's your hometown?"
+                        [(ngModel)]="hometown.name" name="hometown">
+                    </mat-form-field>
                   </div>
                 </div>
 
                 <div class="row">
-                  <div class="input-field col s12">
-                    <input type="text" id="school"
-                            [(ngModel)]="school.name" name="school">
-                    <label for="school">Where did you go to school?</label>
+                  <div class="col s12">
+                    <mat-form-field>
+                      <input matInput placeholder="Where did you go to school?"
+                        [(ngModel)]="school.name" name="school">
+                    </mat-form-field>
                   </div>
                 </div>
               </div>
               <div>
+                <!-- @TODO show 'skip' unless text is inputted -->
                 <button mat-button matStepperNext class="right">Next</button>
                 <button mat-button matStepperPrevious class="right">Back</button>
               </div>
