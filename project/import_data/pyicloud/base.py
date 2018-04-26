@@ -20,7 +20,6 @@ from project.import_data.pyicloud.services import (
     FindMyiPhoneServiceManager,
     UbiquityService,
     ContactsService,
-    RemindersService,
     PhotosService,
     AccountService
 )
@@ -305,20 +304,14 @@ class PyiCloudService(object):
             )
         return self._photos
 
-    @property
-    def calendar(self):
-        service_root = self.webservices['calendar']['url']
-        return CalendarService(service_root, self.session, self.params)
+
 
     @property
     def contacts(self):
         service_root = self.webservices['contacts']['url']
         return ContactsService(service_root, self.session, self.params)
 
-    @property
-    def reminders(self):
-        service_root = self.webservices['reminders']['url']
-        return RemindersService(service_root, self.session, self.params)
+
 
     def __unicode__(self):
         return 'iCloud API: %s' % self.user.get('apple_id')
