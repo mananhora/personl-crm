@@ -3,10 +3,10 @@ import sys
 import click
 from flask import Blueprint, jsonify, json
 from flask.ext.login import login_required
-from pyicloud import PyiCloudService
 import csv
 import itertools
 import re
+import pyicloud
 
 
 
@@ -20,7 +20,7 @@ import_data_blueprint = Blueprint(
 @import_data_blueprint.route('/importiosdata', methods = ['GET', 'POST'])
 def get_ios_contacts():
   print("Import Contacts From iOS")
-  api = PyiCloudService('tellmanan@yahoo.com')
+  api = pyicloud.PyiCloudService('tellmanan@yahoo.com')
 
   if api.requires_2fa:
       print ("Two-factor authentication required. Your trusted devices are:")
