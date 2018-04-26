@@ -18,7 +18,6 @@ from project.import_data.pyicloud.pyi_exceptions import (
 )
 from project.import_data.pyicloud.services import (
     FindMyiPhoneServiceManager,
-    CalendarService,
     UbiquityService,
     ContactsService,
     RemindersService,
