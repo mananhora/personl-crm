@@ -14,6 +14,7 @@ import { Profile } from '../profile/profile';
 export class FriendsComponent implements OnInit {
 
   routeId: number;
+  name: string;
   friends: Profile[];
   childCircles: Circle[];
 
@@ -58,9 +59,12 @@ export class FriendsComponent implements OnInit {
   }
 
   getCircleInfo(id: number) {
+    this.circlesService.getCircleInfo(id)
+      .subscribe(data => {
+        this.name = data['circle_name'];
+    });
     this.circlesService.getChildCircles(id)
       .subscribe(data => {
-        console.log(data);
         for (let i = 0; i < data['json_list'].length; i++) {
           let name = data['json_list'][i].circle_name;
           let id = data['json_list'][i].id;
@@ -84,6 +88,7 @@ export class FriendsComponent implements OnInit {
       this.getFriendsForCircle(this.routeId);
       this.getCircleInfo(this.routeId);
     } else {
+      this.name = "all friends";
       this.showAllFriends();
     }
 

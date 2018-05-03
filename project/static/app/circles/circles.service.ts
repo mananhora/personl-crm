@@ -42,6 +42,21 @@ export class CirclesService {
   }
 
   /**
+   * @function getCircleInfo
+   * @param {number} id - get name for this circle ID
+   * @example
+   * {
+     id: id
+   }
+   */
+  getCircleInfo (id: number): Observable<Object> {
+    let object = {
+      circle_id: id
+    };
+    return this.http.post<Object>('/getcircleinfo', object, this.httpOptions);
+  }
+
+  /**
    * @function addCircle
    * @param {string} name - name of circle to add
    * @example
@@ -56,6 +71,16 @@ export class CirclesService {
     return this.http.post<Object>('/addcircle/', object, this.httpOptions);
   }
 
+  /**
+   * @function addChildCircle
+   * @param {number} parent_id - parent circle
+   * @param {number} child_id - child circle
+   * @example
+   * {
+       parent_id: parent_id,
+       child_id: child_id,
+     }
+   */
   addChildCircle (parent_id: number, child_id: number) {
     let object = {
       parent_id: parent_id,
