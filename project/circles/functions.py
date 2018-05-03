@@ -71,14 +71,13 @@ def add_child_circle():
 
 
 @login_required
-@circles_blueprint.route('/getchildcircles', methods = ['GET'])
+@circles_blueprint.route('/getchildcircles', methods = ['GET', 'POST'])
 def get_child_circles():
   if current_user is not None:
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
-      # json_data = request.get_json()
-      # parent_id = json_data['circle_id']
-      parent_id = 1
+      json_data = request.get_json()
+      parent_id = json_data['circle_id']
       circle = Circle.query.get(parent_id)
       child_circles = circle.child_circles
       return jsonify(json_list=[i.serialize for i in child_circles])
@@ -210,17 +209,3 @@ def delete_circle():
       return jsonify("successfully deleted circle")
     return jsonify("not logged in")
   return jsonify("not logged in")
-
-
-
-
-
-
-
-
-
-
-
-
-
-

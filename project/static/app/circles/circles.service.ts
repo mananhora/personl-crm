@@ -36,7 +36,7 @@ export class CirclesService {
    */
   getChildCircles (id: number): Observable<Object> {
     let object = {
-      id: id
+      circle_id: id
     };
     return this.http.post<Object>('/getchildcircles', object, this.httpOptions);
   }

@@ -15,6 +15,7 @@ export class FriendsComponent implements OnInit {
 
   routeId: number;
   friends: Profile[];
+  childCircles: Circle[];
 
   constructor(private friendsService: FriendsService,
     private circlesService: CirclesService,
@@ -60,6 +61,16 @@ export class FriendsComponent implements OnInit {
     this.circlesService.getChildCircles(id)
       .subscribe(data => {
         console.log(data);
+        for (let i = 0; i < data['json_list'].length; i++) {
+          let name = data['json_list'][i].circle_name;
+          let id = data['json_list'][i].id;
+          let circle = new Circle(name, id);
+          if (this.childCircles) {
+            this.childCircles.push(circle);
+          } else {
+            this.childCircles = [circle];
+          }
+        }
     })
   }
 
