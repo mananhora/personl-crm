@@ -11,12 +11,37 @@
   </div>
 
   <div class="row" *ngIf="childCircles">
-    <!-- @TODO rerouting from within a template -->
-    <button mat-raised-button *ngFor="let child of childCircles" routerLink="/app/friends/{{child.id}}">
-      {{child.name}}</button>
+    <mat-tab-group>
+      <mat-tab label="all friends">
+        <mat-grid-list cols="2" rowHeight="2.5:1">
+          <mat-grid-tile  *ngFor="let friend of friends">
+            <mat-card class="friends" routerLink="/app/profile/{{friend.id}}">
+              <mat-card-title-group>
+                <img mat-card-sm-image *ngIf="friend.img" src="{{friend.img}}" alt="Photo of {{friend.name}}">
+                <mat-card-title>{{friend.name}}</mat-card-title>
+              </mat-card-title-group>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-tab>
+      <span *ngFor="let child of childCircles">
+        <mat-tab label="{{child.name}}">
+          <mat-grid-list cols="2" rowHeight="2.5:1">
+            <mat-grid-tile  *ngFor="let friend of child.friends">
+              <mat-card class="friends" routerLink="/app/profile/{{friend.id}}">
+                <mat-card-title-group>
+                  <img mat-card-sm-image *ngIf="friend.img" src="{{friend.img}}" alt="Photo of {{friend.name}}">
+                  <mat-card-title>{{friend.name}}</mat-card-title>
+                </mat-card-title-group>
+              </mat-card>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-tab>
+      </span>
+    </mat-tab-group>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="!childCircles">
     <mat-grid-list cols="2" rowHeight="2.5:1">
       <mat-grid-tile  *ngFor="let friend of friends">
         <mat-card class="friends" routerLink="/app/profile/{{friend.id}}">

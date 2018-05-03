@@ -63,6 +63,9 @@ export class FriendsComponent implements OnInit {
       .subscribe(data => {
         this.name = data['circle_name'];
     });
+  }
+
+  getChildCircles(id: number) {
     this.circlesService.getChildCircles(id)
       .subscribe(data => {
         for (let i = 0; i < data['json_list'].length; i++) {
@@ -85,8 +88,9 @@ export class FriendsComponent implements OnInit {
   ngOnInit() {
     this.routeId = +this.route.snapshot.paramMap.get('id');
     if (this.routeId) {
-      this.getFriendsForCircle(this.routeId);
       this.getCircleInfo(this.routeId);
+      this.getFriendsForCircle(this.routeId);
+      this.getChildCircles(this.routeId);
     } else {
       this.name = "all friends";
       this.showAllFriends();
