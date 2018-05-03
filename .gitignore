@@ -58,3 +58,25 @@ project/static/dist/main.bundle.js
 *.map
 
 *.map
+
+*.map
+
+*.map
+
+project/static/dist/inline.bundle.js.map
+
+project/static/dist/main.bundle.js.map
+
+project/static/dist/polyfills.bundle.js.map
+
+project/static/dist/styles.bundle.js
+
+project/static/dist/styles.bundle.js.map
+
+project/static/dist/vendor.bundle.js
+
+project/static/dist/vendor.bundle.js.map
+
+project/static/dist/polyfills.bundle.js
+
+project/static/dist/main.bundle.js

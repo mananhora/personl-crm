@@ -209,3 +209,22 @@ def delete_circle():
       return jsonify("successfully deleted circle")
     return jsonify("not logged in")
   return jsonify("not logged in")
+
+
+
+
+@login_required
+@circles_blueprint.route('/getcircleinfo', methods = ['GET','POST'])
+def get_circle_by_id():
+  json_data = request.get_json()
+  if current_user is not None:
+    a = current_user.is_anonymous()
+    if current_user.id is not None and a == False:
+      circle_id = json_data['circle_id']
+      print("entering try")
+      circle = Circle.query.get(circle_id)
+      return jsonify(circle.serialize)
+    return jsonify("not logged in")
+  return jsonify("not logged in")
+
+
