@@ -89,11 +89,9 @@
         </div>
 
         <div class="row">
-          <h5 class="body-font">
-            notes <span class="badge"><a><i class="material-icons">add</i></a></span>
-          </h5>
+          <h5 class="body-font">notes</h5>
           <mat-form-field>
-            <textarea matInput placeholder="Add a note"></textarea>
+            <textarea matInput [(ngModel)]="model.notes"></textarea>
           </mat-form-field>
         </div>
 

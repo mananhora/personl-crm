@@ -10,7 +10,7 @@ export class Profile {
     private _phone?: string,
     private _location?: string,
     private _reminder?: string, // < an object?
-    private _notes?: string[],
+    private _notes?: string,
     private _job?: string,
   ) {
     this.img = 'assets/images/profile.png';
@@ -65,10 +65,10 @@ export class Profile {
     this._location = location;
   }
 
-  get notes(): string[] {
+  get notes(): string {
     return this._notes;
   }
-  set notes (notes: string[]) {
+  set notes (notes: string) {
     this._notes = notes;
   }
 

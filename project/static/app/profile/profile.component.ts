@@ -35,17 +35,6 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/app/friends']);
   }
 
-  addNote(note: string) {
-    this.profileService.addNote(this.routeId, note)
-      .subscribe(data => {
-        if (this.model.notes) {
-          this.model.notes.push(note);
-        } else if (note) {
-          this.model.notes = [note];
-        }
-    });
-  }
-
   getMyProfile() {
     this.profileService.getMyProfile()
       .subscribe(data => {
@@ -71,15 +60,7 @@ export class ProfileComponent implements OnInit {
         if (data['circles']) this.model.circles = data['circles'];
         if (data['phone_number']) this.model.phone = data['phone_number'];
         if (data['location']) this.model.location = data['location'];
-        if (data['notes']) {
-          for (let note_index in data['notes']) {
-            if (this.model.notes) {
-              this.model.notes.push(data['notes'][note_index]);
-            } else {
-              this.model.notes = [data['notes'][note_index]];
-            }
-          }
-        }
+        if (data['notes']) this.model.notes = data['notes'];
         if (data['job']) this.model.job = data['job'];
     });
     this.getCirclesForFriend(id);
@@ -101,18 +82,6 @@ export class ProfileComponent implements OnInit {
         }
       })
   }
-
-  openDialog(): void {
-    let dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '250px',
-      data: 'boo'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.addNote(result);
-    });
-  }
-
 }
 
 @Component({

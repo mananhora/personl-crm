@@ -65,7 +65,7 @@ export class ProfileEditComponent implements OnInit {
    * @function updateProfile
    * @param {number} id - ID of profile being edited
    * @param {string} [location=''] - new location value
-   * @param {string[]} [notes=[]] - new notes value
+   * @param {string} [notes=''] - new notes value
    * @param {string} [phone=''] - new phone value
    * @param {string} [job=''] - new job value
    */
@@ -80,7 +80,7 @@ export class ProfileEditComponent implements OnInit {
       this.model.job = '';
     }
     if (!this.model.notes) {
-      this.model.notes = [];
+      this.model.notes = '';
     }
     this.profileService.updateProfile(
       this.model.id,
@@ -107,7 +107,6 @@ export class ProfileEditComponent implements OnInit {
   }
 
   openPhotoDialog(): void {
-    console.log('yooo', this.model.img);
     let dialogRef = this.dialog.open(PhotoDialog, {
       width: '30em',
       data: this.model.img

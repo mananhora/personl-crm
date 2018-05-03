@@ -36,7 +36,7 @@
       <div *ngIf="model._dates" class="card body-font">
         <div class="card-content">
           <span class="card-title">important dates
-            <span class="badge"><a><i class="material-icons">add</i></a></span>
+            <!-- <span class="badge"><a><i class="material-icons">add</i></a></span> -->
           </span>
           <ul *ngFor="let date of model._dates" class="collection">
             <li class="collection-item">{{date}}</li>
@@ -47,12 +47,11 @@
       <!-- notes -->
       <div *ngIf="model._notes" class="card body-font">
         <div class="card-content">
-          <span class="card-title">notes
-            <span class="badge"><a (click)="openDialog()"><i class="material-icons">add</i></a></span>
-          </span>
-          <ul *ngFor="let note of model._notes" class="collection">
-            <li class="collection-item">{{note}}</li>
-          </ul>
+          <span class="card-title">notes</span>
+          <p>{{model._notes}}</p>
+          <!-- <mat-form-field>
+            <textarea matInput>{{notes}}</textarea>
+          </mat-form-field> -->
         </div>
       </div>
 
