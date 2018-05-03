@@ -211,8 +211,6 @@ def delete_circle():
   return jsonify("not logged in")
 
 
-
-
 @login_required
 @circles_blueprint.route('/getcircleinfo', methods = ['GET','POST'])
 def get_circle_by_id():
