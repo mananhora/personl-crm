@@ -31,8 +31,8 @@ export class CirclesService {
    * @param {number} id - get children for this circle ID
    * @example
    * {
-     id: id
-   }
+      circle_id: id
+     }
    */
   getChildCircles (id: number): Observable<Object> {
     let object = {

@@ -12,7 +12,7 @@
 
   <div class="row" *ngIf="childCircles">
     <mat-tab-group>
-      <mat-tab label="all friends">
+      <mat-tab label="all {{name}} friends">
         <mat-grid-list cols="2" rowHeight="2.5:1">
           <mat-grid-tile  *ngFor="let friend of friends">
             <mat-card class="friends" routerLink="/app/profile/{{friend.id}}">
