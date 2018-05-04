@@ -226,3 +226,28 @@ def get_circle_by_id():
   return jsonify("not logged in")
 
 
+
+@login_required
+@circles_blueprint.route('/assignchildcircle', methods=['GET', 'POST'])
+def assign_child_circle():
+  json_data = request.get_json()
+  a = (current_user.is_anonymous == True)
+  if current_user is not None and a == False:
+    print ('current user is not none!!')
+    try:
+      print("in assign child circle")
+      parent_circle_id = json_data['parent_id']
+      child_circle_id = json_data['child_id']
+      parent_circle = Circle.query.get(parent_circle_id)
+      child_circle = Circle.query.get(child_circle_id)
+      child_circle.parent = parent_circle
+      db.session.commit()
+      status = True
+      print("done...")
+    except:
+      status = False
+    return jsonify({'result': status})
+  else:
+    print('current user is None')
+    return jsonify({'message': "ERROR, NOT LOGGED IN", 'error': True})
+
