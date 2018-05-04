@@ -11,6 +11,7 @@ import { VisModule } from '../../../node_modules/ng2-vis';
 import { AppComponent } from './app.component';
 import { CirclesComponent } from './circles/circles.component';
 import { CirclesAddComponent } from './circles/add/circles.add.component';
+import { CirclesEditComponent } from './circles/edit/circles.edit.component';
 import { FriendsComponent } from './friends/friends.component';
 import { FriendsAddComponent } from './friends/add/friends.add.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/app/home', pathMatch: 'full' },
   { path: 'app/home', component: CirclesComponent },
   { path: 'app/home/add', component: CirclesAddComponent },
+  { path: 'app/circles/:id/edit', component: CirclesEditComponent },
   { path: 'app/home/:id', component: CirclesComponent },
   { path: 'app/friends', component: FriendsComponent },
   { path: 'app/friends/add', component: FriendsAddComponent },
@@ -41,6 +43,7 @@ const appRoutes: Routes = [
     AppComponent,
     CirclesComponent,
     CirclesAddComponent,
+    CirclesEditComponent,
     FriendsComponent,
     FriendsAddComponent,
     ProfileComponent,
@@ -73,6 +76,7 @@ const appRoutes: Routes = [
     AppComponent,
     CirclesComponent,
     CirclesAddComponent,
+    CirclesEditComponent,
     FriendsComponent,
     FriendsAddComponent,
     ProfileComponent,

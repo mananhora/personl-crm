@@ -56,7 +56,7 @@
 
   <!-- @TODO circles/edit -->
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a *ngIf="routeId" routerLink="/app/circles/edit" class="btn-floating btn-large waves-effect waves-light teal lighten-2">
+    <a *ngIf="routeId" routerLink="/app/circles/{{routeId}}/edit" class="btn-floating btn-large waves-effect waves-light teal lighten-2">
       <i class="material-icons teal lighten-2">edit</i>
     </a>
     <a *ngIf="!routeId" routerLink="/app/friends/add" class="btn-floating btn-large waves-effect waves-light teal lighten-2">
