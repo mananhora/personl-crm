@@ -29,37 +29,20 @@ export class CirclesAddComponent implements OnInit {
   addCircle() {
     this.circlesService.addCircle(this.circle.name)
       .subscribe(data => {
-        // @TODO should return ID of the circle
-        // this.circle.id = data['id'];
-        this.router.navigate(['/app/home']);
+        this.circle.id = data['circle_id'];
+
+        for (let i = 0; i < this.selectedParentCircles.length; i++) {
+          this.circlesService.addChildCircle(this.selectedParentCircles[i].id, this.circle.id);
+        }
+
+        // this.router.navigate(['/app/friends/', this.circle.id]);
       });
-
-    // for (friend in selectedFriends) {
-    //   this.circlesService.addFriendToCircle({
-    //     friend_id: friend,
-    //     circle_id: this.circle.id,
-    //   });
-    // }
-    //
-    // for (circle in this.selectedParentCircles) {
-    //   this.circlesService.addChildCircle({
-    //     parent_id: circle.id,
-    //     cild_id: this.circle.id,
-    //   });
-    // }
-    //
-    // for (circle in this.selectedChildCircles) {
-    //   this.circlesService.addFriendToCircle({
-    //     parent_id: this.circle.id,
-    //     child_id: circle_id,
-    //   });
-    // }
-
   }
 
   getAllCircles() {
     this.circlesService.getCircles()
       .subscribe(data => {
+        console.log(data);
         for (let i = 0; i < data['json_list'].length; i++) {
           let name = data['json_list'][i]['circle_name'];
           let id = data['json_list'][i]['id'];

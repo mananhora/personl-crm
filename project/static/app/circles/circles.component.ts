@@ -66,6 +66,8 @@ export class CirclesComponent implements OnInit {
         for (let i = 0; i < data['json_list'].length; i++) {
           let name = data['json_list'][i]['circle_name'];
           let id = data['json_list'][i]['id'];
+          let parent_id = (data['json_list'][i]['parent_id']) ?
+            data['json_list'][i]['parent_id'] : 0;
 
           let myNode = {
             id: id,
@@ -86,7 +88,7 @@ export class CirclesComponent implements OnInit {
             },
           };
           this.nodes.add(myNode as VisNode);
-          this.edges.add({ from: '0', to: id });
+          this.edges.add({ from: parent_id, to: id });
         }
         this.visNetworkService.fit(this.visNetwork);
     });

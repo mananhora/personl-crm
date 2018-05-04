@@ -40,14 +40,19 @@ export class FriendsComponent implements OnInit {
       })
   }
 
-  getFriendsForCircle(id: number) {
-    this.friendsService.getFriends(id)
+  getFriendsForCircle(circle_id: number) {
+    this.friendsService.getFriends(circle_id)
       .subscribe(data => {
+        console.log(data);
         for (let i = 0; i < data['json_list'].length; i++) {
-          let id = data['json_list'][i]['id'];
+          let friend_id = data['json_list'][i]['id'];
           let name = data['json_list'][i]['name'];
           let email = data['json_list'][i]['email'];
-          let friend = new Profile(name, email, id);
+          let friend = new Profile(name, email, friend_id);
+
+          // if (i == 2) {
+          //   this.circlesService.addFriendToCircle(friend_id, 7);
+          // }
 
           if (this.friends) {
             this.friends.push(friend);
@@ -56,6 +61,27 @@ export class FriendsComponent implements OnInit {
           }
         }
       });
+  }
+
+  getFriendsForChildCircle(circle: Circle): Circle {
+    this.friendsService.getFriends(circle.id)
+      .subscribe(data => {
+        for (let i = 0; i < data['json_list'].length; i++) {
+          let id = data['json_list'][i]['id'];
+          if (this.friends.find(match => match.id === id)) {
+            let name = data['json_list'][i]['name'];
+            let email = data['json_list'][i]['email'];
+            let friend = new Profile(name, email, id);
+
+            if (circle.friends) {
+              circle.friends.push(friend);
+            } else {
+              circle.friends = [friend];
+            }
+          }
+        }
+      });
+    return circle;
   }
 
   getCircleInfo(id: number) {
@@ -72,6 +98,7 @@ export class FriendsComponent implements OnInit {
           let name = data['json_list'][i].circle_name;
           let id = data['json_list'][i].id;
           let circle = new Circle(name, id);
+          circle = this.getFriendsForChildCircle(circle);
           if (this.childCircles) {
             this.childCircles.push(circle);
           } else {
