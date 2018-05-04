@@ -16,10 +16,10 @@ export class CirclesAddComponent implements OnInit {
 
   circle: Circle;
   allCircles: Circle[];
-  selectedParentCircles: string[];
-  selectedChildCircles: string[];
+  selectedParentCircles: Circle[];
+  selectedChildCircles: Circle[];
   friends: Profile[];
-  selectedFriends: string[];
+  selectedFriends: Profile[];
 
   constructor(private circlesService: CirclesService,
     private friendsService: FriendsService,
@@ -81,7 +81,7 @@ export class CirclesAddComponent implements OnInit {
           let name = data['json_list'][i]['name'];
           let email = data['json_list'][i]['email'];
           let id = data['json_list'][i]['id'];
-          let profile = new Profile(name, id, email);
+          let profile = new Profile(name, email, id);
 
           if (this.friends) {
             this.friends.push(profile);

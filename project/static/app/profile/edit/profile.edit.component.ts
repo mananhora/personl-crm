@@ -15,7 +15,7 @@ import { Circle } from '../../circles/circle';
 export class ProfileEditComponent implements OnInit {
 
   routeId: number;
-  model = new Profile('', '', 555);
+  model = new Profile('', '', 0);
 
   constructor(private profileService: ProfileService,
     private route: ActivatedRoute, private router: Router,

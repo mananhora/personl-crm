@@ -77,10 +77,11 @@ export class AppComponent implements OnInit {
     let input = event.input;
     let value = event.value;
     if ((value || '').trim()) {
+      let friend = new Profile(value.trim(), '', 0);
       if (circle.friends) {
-        circle.friends.push(value.trim());
+        circle.friends.push(friend);
       } else {
-        circle.friends = [value.trim()];
+        circle.friends = [friend];
       }
     }
     if (input) input.value = '';

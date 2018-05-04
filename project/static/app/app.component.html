@@ -139,7 +139,7 @@
                   <mat-chip-list #friendList>
                     <mat-chip *ngFor="let friend of circle.friends" [removable]="removable"
                       (remove)="removeFriend(friend, circle)">
-                        {{friend}}
+                        {{friend.name}}
                       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
                     <input [matChipInputFor]="friendList"
