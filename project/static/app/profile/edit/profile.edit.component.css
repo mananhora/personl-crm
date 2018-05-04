@@ -58,3 +58,7 @@ input[type=date].mat-input-element:focus {
   border-bottom: none;
   height: 100%;
 }
+
+.card-action {
+  margin-bottom: 0;
+}

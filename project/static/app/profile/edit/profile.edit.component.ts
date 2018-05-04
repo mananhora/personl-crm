@@ -93,7 +93,10 @@ export class ProfileEditComponent implements OnInit {
   }
 
   deleteProfile() {
-    alert('deleted');
+    if (confirm('Are you sure you want to delete this profile?')) {
+      this.profileService.deleteProfile(this.routeId).subscribe();
+      this.router.navigate(['/app/friends']);
+    }
   }
 
   ngOnInit() {

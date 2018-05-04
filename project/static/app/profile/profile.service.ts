@@ -93,4 +93,19 @@ export class ProfileService {
     return this.http.post<Object>('/updatefriendinfo', id_object, this.httpOptions);
   }
 
+  /**
+   * @function deleteProfile
+   * @param {number} id - ID of profile to be deleted
+   * @example
+   * {
+       friend_id: id,
+     }
+   */
+  deleteProfile (id: number): Observable<Object> {
+    let object = {
+      friend_id: id,
+    }
+    return this.http.post<Object>('/deletefriend', object, this.httpOptions);
+  }
+
 }
