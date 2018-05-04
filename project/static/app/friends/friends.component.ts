@@ -50,10 +50,6 @@ export class FriendsComponent implements OnInit {
           let email = data['json_list'][i]['email'];
           let friend = new Profile(name, email, friend_id);
 
-          // if (i == 2) {
-          //   this.circlesService.addFriendToCircle(friend_id, 7);
-          // }
-
           if (this.friends) {
             this.friends.push(friend);
           } else {
