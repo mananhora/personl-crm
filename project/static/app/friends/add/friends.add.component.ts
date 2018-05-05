@@ -45,18 +45,6 @@ export class FriendsAddComponent implements OnInit {
       });
   }
 
-  // do i want this function to draw straight from the global friend object?
-  // or from parameters we're passing in?
-  // addToCircle(id: number, circles: Circle[]) {
-  //   for (let i = 0; i < circles.length; i++) {
-  //     let circle = circles[i];
-  //     console.log('yo: add to ', circle.name, ', #', circle.id);
-  //     this.circlesService.addFriendToCircle(id, circle.id)
-  //       .subscribe();
-  //     console.log('yo: added for friend #', id);
-  //   }
-  // }
-
   goBack() {
     this.location.back();
   }
