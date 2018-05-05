@@ -266,10 +266,8 @@ def remove_child_circle():
     print ('current user is not none!!')
     try:
       print("in remove child circle")
-      # parent_circle_id = json_data['parent_id']
-      # child_circle_id = json_data['child_id']
-      parent_circle_id = 1
-      child_circle_id=22
+      parent_circle_id = json_data['parent_id']
+      child_circle_id = json_data['child_id']
       parent_circle = Circle.query.get(parent_circle_id)
       child_circle = Circle.query.get(child_circle_id)
       parent_circle.child_circles.remove(child_circle)
