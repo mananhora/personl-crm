@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProfileService } from '../profile.service';
+import { CirclesService } from '../../circles/circles.service';
 import { Profile } from '../profile';
 import { Circle } from '../../circles/circle';
 
@@ -15,9 +16,11 @@ import { Circle } from '../../circles/circle';
 export class ProfileEditComponent implements OnInit {
 
   routeId: number;
+  selectedCircles: Circle[];
+  allCircles: Circle[];
   model = new Profile('', '', 0);
 
-  constructor(private profileService: ProfileService,
+  constructor(private profileService: ProfileService, private circlesService: CirclesService,
     private route: ActivatedRoute, private router: Router,
     private location: Location, public dialog: MatDialog) { }
 
@@ -59,6 +62,42 @@ export class ProfileEditComponent implements OnInit {
         if (data['notes']) this.model.notes = data['notes'];
         if (data['job']) this.model.job = data['job'];
       })
+    this.getCirclesForFriend(this.routeId);
+  }
+
+  getCirclesForFriend(id: number) {
+    this.profileService.getCirclesForFriend(id)
+      .subscribe(data => {
+        for (let i = 0; i < data['json_list'].length; i++) {
+          if (this.model.circles) {
+            this.model.circles.push(new Circle(
+              data['json_list'][i].circle_name,
+              data['json_list'][i].id));
+          } else {
+            this.model.circles = [new Circle(
+              data['json_list'][i].circle_name,
+              data['json_list'][i].id)];
+          }
+        }
+        this.selectedCircles = this.model.circles;
+      })
+  }
+
+  getAllCircles() {
+    this.circlesService.getCircles()
+      .subscribe(data => {
+        for (let i = 0; i < data['json_list'].length; i++) {
+          let name = data['json_list'][i]['circle_name'];
+          let id = data['json_list'][i]['id'];
+          let circle = new Circle(name, id);
+
+          if (this.allCircles) {
+            this.allCircles.push(circle);
+          } else {
+            this.allCircles = [circle];
+          }
+        }
+      });
   }
 
   /**
@@ -89,6 +128,13 @@ export class ProfileEditComponent implements OnInit {
       this.model.phone,
       this.model.job
     ).subscribe();
+
+    // @TODO UPDATING CIRCLES
+    for (let i = 0; i < this.selectedCircles.length; i++) {
+      console.log('yo add ', this.routeId, ' to ', this.selectedCircles[i].id);
+      this.circlesService.addFriendToCircle(this.routeId, this.selectedCircles[i].id);
+    }
+
     this.router.navigate(['/app/profile/', this.routeId]);
   }
 
@@ -106,6 +152,7 @@ export class ProfileEditComponent implements OnInit {
       this.getMyProfile();
     } else {
       this.getFriendProfile(this.routeId);
+      this.getAllCircles();
     }
   }
 

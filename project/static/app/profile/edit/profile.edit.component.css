@@ -3,6 +3,11 @@ h1 {
   font-family: 'justbecool', monospace;
 }
 
+.label {
+  font-size: .8rem;
+  color: rgba(0, 0, 0, 0.54)!important;
+}
+
 .full-width {
   width: 100%;
 }

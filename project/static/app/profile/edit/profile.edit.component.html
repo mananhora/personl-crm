@@ -11,9 +11,11 @@
         </div>
         <div id="sidebar-content">
           <div class="card-content">
-            <div class="chip" *ngFor="let circle of model._circles">
-              <a routerLink="/app/friends/{{circle.id}}">{{circle.name}}</a>
-            </div>
+            <mat-form-field>
+              <mat-select placeholder="Circles" multiple [(value)]="selectedCircles">
+                <mat-option *ngFor="let circle of allCircles" [value]="circle">{{circle.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
           <div class="card-action">
             <div class="row">
