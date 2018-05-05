@@ -4,6 +4,8 @@ from flask import Blueprint, jsonify
 from flask.ext.login import current_user, login_required
 
 from project import *
+from project.models import *
+
 
 ################
 #### config ####
@@ -23,7 +25,7 @@ def set_frequency():
       json_data = request.get_json()
       n = json_data['frequency']
       friend_id = json_data['friend_id']
-      friend = Friend.get(friend_id)
+      friend = Friend.query.get(friend_id)
       friend.num_weeks_reminder = n
       db.session.commit()
       return jsonify({'result': True})
