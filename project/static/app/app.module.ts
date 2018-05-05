@@ -20,11 +20,13 @@ import { DialogOverviewExampleDialog } from './profile/profile.component';
 import { ProfileEditComponent } from './profile/edit/profile.edit.component';
 import { PhotoDialog } from './profile/edit/profile.edit.component';
 import { CirclesDialog } from './profile/edit/profile.edit.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 import { AppService } from './app.service';
 import { CirclesService } from './circles/circles.service';
 import { FriendsService } from './friends/friends.service';
 import { ProfileService } from './profile/profile.service';
+import { NotificationsService } from './notifications/notifications.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/app/home', pathMatch: 'full' },
@@ -38,6 +40,7 @@ const appRoutes: Routes = [
   { path: 'app/profile', component: ProfileComponent },
   { path: 'app/profile/:id', component: ProfileComponent },
   { path: 'app/profile/:id/edit', component: ProfileEditComponent },
+  { path: 'app/notifications', component: NotificationsComponent },
 ];
 
 @NgModule({
@@ -53,7 +56,8 @@ const appRoutes: Routes = [
     ProfileEditComponent,
     PhotoDialog,
     AddDialog,
-    CirclesDialog
+    CirclesDialog,
+    NotificationsComponent,
   ],
   imports: [
     HttpClientModule,
@@ -77,6 +81,7 @@ const appRoutes: Routes = [
     CirclesService,
     FriendsService,
     ProfileService,
+    NotificationsService,
   ],
   bootstrap: [
     AppComponent,
@@ -86,7 +91,8 @@ const appRoutes: Routes = [
     FriendsComponent,
     FriendsAddComponent,
     ProfileComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    NotificationsComponent,
   ]
 })
 export class AppModule { }
