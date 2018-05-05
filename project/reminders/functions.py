@@ -42,7 +42,7 @@ def set_last_contacted():
       json_data = request.get_json()
       date = json_data['date']
       friend_id = json_data['friend_id']
-      friend = Friend.get(friend_id)
+      friend = Friend.query.get(friend_id)
       friend.last_contacted = date
       db.session.commit()
       return jsonify({'result': True})

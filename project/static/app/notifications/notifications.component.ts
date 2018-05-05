@@ -23,7 +23,7 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
-  setLastContact(date: number, id: number) {
+  setLastContact(date: Date, id: number) {
     this.notificationsService.setLastContact(date, id)
       .subscribe(data => {
         console.log(data);
@@ -34,6 +34,7 @@ export class NotificationsComponent implements OnInit {
     this.notificationsService.setReminder(frequency, id)
       .subscribe(data => {
         console.log(data);
+        this.getReminders();
     });
   }
 
@@ -43,8 +44,8 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.getReminders();
-    this.setReminder(4, 11);
-    this.getReminders();
+    this.setReminder(1, 11);
+    this.setLastContact(new Date(), 11);
   }
 
 }

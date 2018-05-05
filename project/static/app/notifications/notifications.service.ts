@@ -53,7 +53,7 @@ export class NotificationsService {
        friend_id: id
      }
    */
-  setLastContact(date: number, id: number): Observable<Object> {
+  setLastContact(date: Date, id: number): Observable<Object> {
     let id_object = {
       date: date,
       friend_id: id
