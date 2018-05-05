@@ -97,8 +97,6 @@ def add_member_to_circle(json=True, friend_id=None, circle_id=None):
     circle_id = json_data['circle_id']
     friend_id = json_data['friend_id']
 
-
-
   if current_user is not None:
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:

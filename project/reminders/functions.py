@@ -58,7 +58,7 @@ def get_reminders():
     reminders_list = []
     if current_user.id is not None and a == False:
       for friend in current_user.friends:
-        now = datetime.utcnow()
+        now = datetime.datetime.utcnow()
         if(friend.last_contacted is not None and friend.num_weeks_reminder is not None):
           reminder_date = get_next_contact_date(friend.last_contacted, friend.num_weeks_reminder)
           num_days_left = abs((reminder_date - now).days)
