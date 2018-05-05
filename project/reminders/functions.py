@@ -15,7 +15,7 @@ reminders_blueprint = Blueprint(
 )
 
 @login_required
-@reminders_blueprint.route('/setreminderfrequency', methods = ['POST'])
+@reminders_blueprint.route('/setreminderfrequency', methods = ['GET','POST'])
 def set_frequency():
   if current_user is not None:
     a = current_user.is_anonymous()
@@ -32,7 +32,7 @@ def set_frequency():
 
 
 @login_required
-@reminders_blueprint.route('/setlastcontacted', methods = ['POST'])
+@reminders_blueprint.route('/setlastcontacted', methods = ['GET','POST'])
 def set_last_contacted():
   if current_user is not None:
     a = current_user.is_anonymous()
@@ -49,7 +49,7 @@ def set_last_contacted():
 
 
 @login_required
-@reminders_blueprint.route('/getreminders', methods = ['GET'])
+@reminders_blueprint.route('/getreminders', methods = ['GET', 'POST'])
 def get_reminders():
   if current_user is not None:
     a = current_user.is_anonymous()
