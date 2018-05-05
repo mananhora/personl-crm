@@ -75,8 +75,8 @@ def get_next_contact_date(last_contacted_date, n):
 
 
 @login_required
-@reminders_blueprint.route('/remindersforfriend', methods=['GET', 'POST'])
-def get_reminders_for_friend():
+@reminders_blueprint.route('/upcomingreminderforfriend', methods=['GET', 'POST'])
+def get_upcoming_reminders_for_friend():
   json_data = request.get_json()
   if current_user is not None:
     a = current_user.is_anonymous()
@@ -93,5 +93,7 @@ def get_reminders_for_friend():
         reminders_list.append(friend.serialize, num_days_left)
       return (jsonify(reminders_list))
     return jsonify({"result":"error"})
+
+
 
 """ADD GMAIL API stuff here"""
