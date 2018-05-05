@@ -1,4 +1,16 @@
-h1 {
-  text-align: center;
-  font-family: 'justbecool', monospace;
+
+.full-width {
+  width: 100%;
+}
+
+.delete {
+  color: #9e9e9e;
+}
+.delete:hover {
+  text-decoration: underline;
+}
+
+/* card panel UI */
+.card-panel .row {
+  margin-bottom: 0;
 }

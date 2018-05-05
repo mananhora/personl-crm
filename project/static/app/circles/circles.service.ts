@@ -107,4 +107,19 @@ export class CirclesService {
     return this.http.post<Object>('/addtocircle/', object, this.httpOptions);
   }
 
+  /**
+   * @function deleteCircle
+   * @param {number} id - ID of circle to be deleted
+   * @example
+   * {
+       circle_id: id,
+     }
+   */
+  deleteCircle (id: number): Observable<Object> {
+    let object = {
+      circle_id: id,
+    }
+    return this.http.post<Object>('/deletecircle', object, this.httpOptions);
+  }
+
 }
