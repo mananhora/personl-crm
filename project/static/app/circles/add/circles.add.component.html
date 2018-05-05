@@ -48,9 +48,6 @@
             <mat-form-field>
               <mat-select placeholder="add friends to your circle" multiple [(value)]="selectedFriends">
                 <mat-option *ngFor="let friend of friends" [value]="friend">{{friend.name}}</mat-option>
-                <!-- <mat-option>
-                  <input matInput placeholder="Add a new friend">
-                </mat-option> -->
               </mat-select>
             </mat-form-field>
           </div>
