@@ -33,15 +33,15 @@ export class CirclesAddComponent implements OnInit {
 
         // add friends to circle
         for (let i = 0; i < this.selectedFriends.length; i++) {
-          this.circlesService.addFriendToCircle(this.selectedFriends.length[i].id, this.circle.id);
+          this.circlesService.addFriendToCircle(this.selectedFriends[i].id, this.circle.id).subscribe();
         }
         // add circle as a child
         for (let i = 0; i < this.selectedParentCircles.length; i++) {
-          this.circlesService.addChildCircle(this.selectedParentCircles[i].id, this.circle.id);
+          this.circlesService.assignChildCircle(this.selectedParentCircles[i].id, this.circle.id).subscribe();
         }
         // add children circles
         for (let i = 0; i < this.selectedChildCircles.length; i++) {
-          this.circlesService.addChildCircle(this.circle.id, this.selectedChildCircles[i].id);
+          this.circlesService.assignChildCircle(this.circle.id, this.selectedChildCircles[i].id).subscribe();
         }
 
         // this.router.navigate(['/app/friends/', this.circle.id]);
