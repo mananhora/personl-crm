@@ -90,6 +90,24 @@ export class CirclesService {
   }
 
   /**
+   * @function assignChildCircle
+   * @param {number} parent_id - parent circle
+   * @param {number} child_id - child circle
+   * @example
+   * {
+       parent_id: parent_id,
+       child_id: child_id,
+     }
+   */
+  assignChildCircle (parent_id: number, child_id: number) {
+    let object = {
+      parent_id: parent_id,
+      circle_name: child_id,
+    };
+    return this.http.post<Object>('/assignchildcircle', object, this.httpOptions);
+  }
+
+  /**
    * @function addFriendToCircle
    * @param {number} friend_id - ID of friend to add
    * @param {number} circle_id - ID of circle to add friend to
@@ -105,6 +123,24 @@ export class CirclesService {
       circle_id: circle_id,
     }
     return this.http.post<Object>('/addtocircle/', object, this.httpOptions);
+  }
+
+  /**
+   * @function removeFriendFromCircle
+   * @param {number} friend_id - ID of friend to remove
+   * @param {number} circle_id - ID of circle to remove friend from
+   * @example
+   * {
+       friend_id: friend_id,
+       circle_id: circle_id,
+     }
+   */
+  removeFriendFromCircle (friend_id: number, circle_id: number): Observable<Object> {
+    let object = {
+      friend_id: friend_id,
+      circle_id: circle_id,
+    }
+    return this.http.post<Object>('/removefriendfromcircle', object, this.httpOptions);
   }
 
   /**

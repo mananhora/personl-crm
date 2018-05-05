@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { CirclesComponent } from './circles/circles.component';
 import { CirclesAddComponent } from './circles/add/circles.add.component';
 import { CirclesEditComponent } from './circles/edit/circles.edit.component';
+import { AddDialog } from './circles/edit/circles.edit.component';
 import { FriendsComponent } from './friends/friends.component';
 import { FriendsAddComponent } from './friends/add/friends.add.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
     ProfileComponent,
     DialogOverviewExampleDialog,
     ProfileEditComponent,
-    PhotoDialog
+    PhotoDialog,
+    AddDialog
   ],
   imports: [
     HttpClientModule,
@@ -64,7 +66,8 @@ const appRoutes: Routes = [
   ],
   entryComponents: [
     DialogOverviewExampleDialog,
-    PhotoDialog
+    PhotoDialog,
+    AddDialog
   ],
   providers: [
     AppService,
