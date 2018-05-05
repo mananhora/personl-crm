@@ -102,7 +102,7 @@ export class CirclesService {
   assignChildCircle (parent_id: number, child_id: number) {
     let object = {
       parent_id: parent_id,
-      circle_name: child_id,
+      child_id: child_id,
     };
     return this.http.post<Object>('/assignchildcircle', object, this.httpOptions);
   }

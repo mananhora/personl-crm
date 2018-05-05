@@ -29,7 +29,7 @@ export class CirclesAddComponent implements OnInit {
   addCircle() {
     this.circlesService.addCircle(this.circle.name)
       .subscribe(data => {
-        this.circle.id = data['circle_id'];
+        this.circle.id = data['id'];
 
         // add friends to circle
         for (let i = 0; i < this.selectedFriends.length; i++) {
@@ -44,14 +44,13 @@ export class CirclesAddComponent implements OnInit {
           this.circlesService.assignChildCircle(this.circle.id, this.selectedChildCircles[i].id).subscribe();
         }
 
-        // this.router.navigate(['/app/friends/', this.circle.id]);
+        this.router.navigate(['/app/friends/', this.circle.id]);
       });
   }
 
   getAllCircles() {
     this.circlesService.getCircles()
       .subscribe(data => {
-        console.log(data);
         for (let i = 0; i < data['json_list'].length; i++) {
           let name = data['json_list'][i]['circle_name'];
           let id = data['json_list'][i]['id'];
@@ -90,6 +89,9 @@ export class CirclesAddComponent implements OnInit {
 
   ngOnInit() {
     this.circle = new Circle('', 123);
+    this.selectedParentCircles = [];
+    this.selectedChildCircles = [];
+    this.selectedFriends = [];
     this.getAllCircles();
     this.getAllFriends();
   }
