@@ -16,7 +16,6 @@ import { Circle } from '../../circles/circle';
 export class ProfileEditComponent implements OnInit {
 
   routeId: number;
-  selectedCircles: Circle[];
   allCircles: Circle[];
   model = new Profile('', '', 0);
 
@@ -68,6 +67,7 @@ export class ProfileEditComponent implements OnInit {
   getCirclesForFriend(id: number) {
     this.profileService.getCirclesForFriend(id)
       .subscribe(data => {
+        console.log(data);
         for (let i = 0; i < data['json_list'].length; i++) {
           if (this.model.circles) {
             this.model.circles.push(new Circle(
@@ -79,7 +79,7 @@ export class ProfileEditComponent implements OnInit {
               data['json_list'][i].id)];
           }
         }
-        this.selectedCircles = this.model.circles;
+        console.log(this.model.circles);
       })
   }
 
@@ -100,14 +100,6 @@ export class ProfileEditComponent implements OnInit {
       });
   }
 
-  /**
-   * @function updateProfile
-   * @param {number} id - ID of profile being edited
-   * @param {string} [location=''] - new location value
-   * @param {string} [notes=''] - new notes value
-   * @param {string} [phone=''] - new phone value
-   * @param {string} [job=''] - new job value
-   */
   editProfile() {
     if (!this.model.location) {
       this.model.location = '';
@@ -129,13 +121,13 @@ export class ProfileEditComponent implements OnInit {
       this.model.job
     ).subscribe();
 
-    // @TODO UPDATING CIRCLES
-    for (let i = 0; i < this.selectedCircles.length; i++) {
-      console.log('yo add ', this.routeId, ' to ', this.selectedCircles[i].id);
-      this.circlesService.addFriendToCircle(this.routeId, this.selectedCircles[i].id);
-    }
-
     this.router.navigate(['/app/profile/', this.routeId]);
+  }
+
+  removeCircle(circle: Circle) {
+    let index = this.model.circles.indexOf(circle);
+    if (index >= 0) this.model.circles.splice(index, 1);
+    this.circlesService.removeFriendFromCircle(this.routeId, circle.id).subscribe();
   }
 
   deleteProfile() {
@@ -169,6 +161,22 @@ export class ProfileEditComponent implements OnInit {
     });
   }
 
+  openCirclesDialog(): void {
+    let dialogRef = this.dialog.open(CirclesDialog, {
+      width: '30em',
+      data: { name: this.model.name, list: this.allCircles, selected: this.model.circles }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        for (let i = 0; i < result.selected.length; i++) {
+          // @TODO 500 error on this response?!
+          this.circlesService.addFriendToCircle(this.routeId, result.selected[i].id).subscribe();
+        }
+      }
+    });
+  }
+
 }
 
   @Component({
@@ -188,6 +196,35 @@ export class ProfileEditComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<PhotoDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
+
+  @Component({
+  selector: 'circles-dialog',
+  template: `
+    <h2 mat-dialog-title>Add {{name}} to new circles</h2>
+    <mat-dialog-content>
+      <mat-form-field>
+        <mat-select placeholder="Add to circles" multiple name="data.selected" [(value)]="data.selected">
+          <mat-option *ngFor="let x of data.list" [value]="x">{{x.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions class="right">
+      <button mat-button (click)=onNoClick()>Cancel</button>
+      <button mat-button (click)="dialogRef.close(data)">Done</button>
+    </mat-dialog-actions>
+  `,
+  })
+  export class CirclesDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<CirclesDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   onNoClick(): void {

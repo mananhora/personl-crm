@@ -11,11 +11,15 @@
         </div>
         <div id="sidebar-content">
           <div class="card-content">
-            <mat-form-field>
-              <mat-select placeholder="Circles" multiple [(value)]="selectedCircles">
-                <mat-option *ngFor="let circle of allCircles" [value]="circle">{{circle.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <h4>circles <span class="badge" (click)="openCirclesDialog()"><a><i class="material-icons">add</i></a></span></h4>
+            <div class="row chipListRow">
+              <mat-chip-list>
+                <mat-chip *ngFor="let circle of model.circles" (remove)="removeCircle(circle)">
+                    {{circle.name}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
           </div>
           <div class="card-action">
             <div class="row">
