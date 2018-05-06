@@ -114,12 +114,14 @@ export class CirclesComponent implements OnInit {
       edges,
     };
 
+    // @TODO manipulation options for visual circle editing?
     this.visNetworkOptions = {
       autoResize: true,
       physics: {
         enabled: true,
         minVelocity: 0.02,
         maxVelocity: 15,
+        solver: 'forceAtlas2Based',
       },
     };
   }
