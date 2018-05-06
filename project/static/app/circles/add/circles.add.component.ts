@@ -16,7 +16,7 @@ export class CirclesAddComponent implements OnInit {
 
   circle: Circle;
   allCircles: Circle[];
-  selectedParentCircles: Circle[];
+  parentCircle: Circle;
   selectedChildCircles: Circle[];
   friends: Profile[];
   selectedFriends: Profile[];
@@ -36,9 +36,8 @@ export class CirclesAddComponent implements OnInit {
           this.circlesService.addFriendToCircle(this.selectedFriends[i].id, this.circle.id).subscribe();
         }
         // add circle as a child
-        for (let i = 0; i < this.selectedParentCircles.length; i++) {
-          this.circlesService.assignChildCircle(this.selectedParentCircles[i].id, this.circle.id).subscribe();
-        }
+        this.circlesService.assignChildCircle(this.parentCircle.id, this.circle.id).subscribe();
+
         // add children circles
         for (let i = 0; i < this.selectedChildCircles.length; i++) {
           this.circlesService.assignChildCircle(this.circle.id, this.selectedChildCircles[i].id).subscribe();
@@ -88,8 +87,7 @@ export class CirclesAddComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.circle = new Circle('', 123);
-    this.selectedParentCircles = [];
+    this.circle = new Circle('', 0);
     this.selectedChildCircles = [];
     this.selectedFriends = [];
     this.getAllCircles();

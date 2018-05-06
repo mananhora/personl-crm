@@ -5,7 +5,7 @@ export class Circle {
     public name: string,
     private _id: number,
     private _friends?: Profile[],
-    private _parentCircles?: Circle[],
+    private _parentCircle?: Circle,
     private _childCircles?: Circle[],
   ) { }
 
@@ -24,11 +24,11 @@ export class Circle {
     this._friends = friends;
   }
 
-  get parentCircles(): Circle[] {
-    return this.parentCircles;
+  get parentCircle(): Circle {
+    return this.parentCircle;
   }
-  set parentCircles (parentCircles: Circle[]) {
-    this.parentCircles = parentCircles;
+  set parentCircle (parentCircle: Circle) {
+    this.parentCircle = parentCircle;
   }
 
   get childCircles(): Circle[] {

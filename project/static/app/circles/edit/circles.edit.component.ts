@@ -17,6 +17,7 @@ export class CirclesEditComponent implements OnInit {
 
   routeId: number;
   name: string;
+  circle: Circle;
   childCircles: Circle[];
   parentCircle: Circle;
   allCircles: Circle[];
@@ -30,11 +31,9 @@ export class CirclesEditComponent implements OnInit {
   getCircleInfo(id: number) {
     this.circlesService.getCircleInfo(id)
       .subscribe(data => {
-        this.name = data['circle_name'];
-        if (data['parent_id']) {
-          this.circlesService.getCircleInfo(data['parent_id']).subscribe(data => {
-            this.parentCircle = new Circle(data['circle_name'], data['id']);
-          });
+        this.circle = new Circle(data['circle_name'], data['id']);
+        if (data['parent_id'] > 0) {
+          this.parentCircle = this.allCircles.find(match => match.id === data['parent_id']);
         }
     });
   }
@@ -115,10 +114,7 @@ export class CirclesEditComponent implements OnInit {
   removeFriend(friend: Profile) {
     let index = this.friends.indexOf(friend);
     if (index >= 0) this.friends.splice(index, 1);
-    this.circlesService.removeFriendFromCircle(friend.id, this.routeId)
-      .subscribe(data => {
-        console.log(data);
-    });
+    this.circlesService.removeFriendFromCircle(friend.id, this.routeId).subscribe();
   }
 
   removeChildCircle(circle: Circle) {
@@ -138,21 +134,34 @@ export class CirclesEditComponent implements OnInit {
     }
   }
 
+  saveChanges() {
+    // parent circle
+    this.circlesService.assignChildCircle(this.parentCircle.id, this.routeId).subscribe();
+    // children
+    // for (let i = 0; i < this.childCircles.length; i++) {
+    //   if (this.circle.childCircles.indexOf(this.childCircles[i])) {
+    //     console.log(this.childCircles[i], ' does not match ');
+    //     console.log(this.circle.childCircles);
+    //   }
+    // }
+    this.router.navigate(['/app/friends/', this.routeId]);
+  }
+
   goBack() {
     this.location.back();
   }
 
   ngOnInit() {
-    this.name = 'this circle';
+    this.circle = new Circle('', 0);
     this.routeId = +this.route.snapshot.paramMap.get('id');
     this.childCircles = [];
     this.friends = [];
     if (this.routeId) {
-      this.getCircleInfo(this.routeId);
-      this.getFriendsForCircle(this.routeId);
-      this.getChildCircles(this.routeId);
       this.getAllCircles();
+      this.getCircleInfo(this.routeId);
+      this.getChildCircles(this.routeId);
       this.getAllFriends();
+      this.getFriendsForCircle(this.routeId);
     }
   }
 
@@ -197,7 +206,7 @@ template: `
   <mat-dialog-content>
     <mat-form-field>
       <mat-select placeholder="Add {{data.for}}" multiple name="data.selected" [(value)]="data.selected">
-        <mat-option *ngFor="let x of data.list" [value]="x">{{x.name}}</mat-option>
+        <mat-option *ngFor="let x of data.list" [value]="x">{{x}}</mat-option>
       </mat-select>
     </mat-form-field>
   </mat-dialog-content>

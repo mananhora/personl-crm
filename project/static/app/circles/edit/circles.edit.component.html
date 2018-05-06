@@ -13,7 +13,7 @@
       <div class="section">
         <div class="row">
           <mat-form-field>
-            <input matInput placeholder="circle name" [(ngModel)]="name" name="name">
+            <input matInput placeholder="circle name" [(ngModel)]="circle.name" name="circle.name">
           </mat-form-field>
 
           <mat-form-field>
@@ -52,7 +52,7 @@
 
         <div class="row">
           <div class="col s4 offset-s4">
-            <button routerLink="/app/friends/{{routeId}}" class="btn waves-effect waves-light" name="action">Done</button>
+            <button (click)="saveChanges()" class="btn waves-effect waves-light" name="action">Save Changes</button>
           </div>
         </div>
 
