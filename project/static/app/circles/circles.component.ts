@@ -114,7 +114,14 @@ export class CirclesComponent implements OnInit {
       edges,
     };
 
-    this.visNetworkOptions = {};
+    this.visNetworkOptions = {
+      autoResize: true,
+      physics: {
+        enabled: true,
+        minVelocity: 0.02,
+        maxVelocity: 15,
+      },
+    };
   }
 
 }
