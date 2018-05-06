@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
+import { MatChipInputEvent } from '@angular/material';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { CirclesService } from './circles/circles.service';
 import { FriendsService } from './friends/friends.service';
 import { Circle } from './circles/circle';
 import { Profile } from './profile/profile';
-import { MatChipInputEvent } from '@angular/material';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   school: Circle;
   hometown: Circle;
   circles: Circle[];
+  isLinear = true;
   removable = true;
   separatorKeysCodes = [ENTER, COMMA];
 
