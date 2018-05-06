@@ -46,6 +46,7 @@ export class ProfileComponent implements OnInit {
         if (data['circles']) this.model.circles = data['circles'];
         if (data['phone_number']) this.model.phone = data['phone_number'];
         if (data['location']) this.model.location = data['location'];
+        if (data['reminder_frequency']) this.model.reminder.frequency = data['reminder_frequency'];
         if (data['notes']) this.model.notes = data['notes'];
         if (data['job']) this.model.job = data['job'];
     });
