@@ -156,8 +156,7 @@
               </div>
 
               <div>
-                <button id="finish" mat-button matStepperNext class="right btn waves-effect waves-light"
-                  (click)="register()">Finish</button>
+                <button id="finish" mat-button matStepperNext class="right btn waves-effect waves-light">Done</button>
                 <button mat-button matStepperPrevious class="right">Back</button>
               </div>
             </mat-step>
@@ -165,7 +164,8 @@
               <ng-template matStepLabel>Done</ng-template>
               <div class="row center-align">
                 <h4>Congratulations! You're all set up.</h4>
-                <a class="btn waves-effect waves-light" (click)="login()">Go to Dashboard</a>
+                <h5>Ready to get started?</h5>
+                <a class="btn waves-effect waves-light" (click)="register()">Go to Dashboard</a>
               </div>
             </mat-step>
           </mat-horizontal-stepper>

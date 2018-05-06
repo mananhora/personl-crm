@@ -11,7 +11,7 @@
         </div>
         <div id="sidebar-content">
           <div class="card-content">
-            <h4>circles <span class="badge" (click)="openCirclesDialog()"><a><i class="material-icons">add</i></a></span></h4>
+            <h4>circles <span class="badge" *ngIf="allCircles" (click)="openCirclesDialog()"><a><i class="material-icons">add</i></a></span></h4>
             <div class="row chipListRow">
               <mat-chip-list>
                 <mat-chip *ngFor="let circle of model.circles" (remove)="removeCircle(circle)">
@@ -78,14 +78,16 @@
               <td><mat-form-field>
                 <input matInput type="number" [(ngModel)]="model.reminder.frequency" name="frequency">
               </mat-form-field></td>
-              <td> weeks</td>
+              <td> week(s)</td>
             </tr>
           </table>
           <table cellspacing="0">
             <tr>
               <td>last contacted </td>
               <td><mat-form-field>
-                <input type="date" matInput [(ngModel)]="model.reminder.lastContact" name="lastContact">
+                <input matInput [matDatepicker]="picker" [(ngModel)]="lastContactForForm.value">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
               </mat-form-field></td>
             </tr>
           </table>

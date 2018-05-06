@@ -28,9 +28,9 @@
 
     <div class="col s7">
       <h1 class="secondary">{{model._name}}</h1>
-      <h5 *ngIf="model._job">{{model._job}}</h5>
+      <h5 *ngIf="model.reminder.frequency">reminder set for every {{model.reminder.frequency}} week(s)</h5>
+      <h4 *ngIf="model._job"><i class="material-icons">work</i> {{model._job}}</h4>
       <h4 *ngIf="model._location"><i class="material-icons">location_on</i> {{model._location}}</h4>
-      <p *ngIf="model._reminder" class="body-font">reminder set for every {{model._reminder}}</p>
 
       <!-- dates -->
       <div *ngIf="model._dates" class="card body-font">
