@@ -63,13 +63,14 @@ export class AppComponent implements OnInit {
             for (let i = 0; i < this.circles.length; i++) {
               this.circlesService.addCircle(this.circles[i].name)
                 .subscribe(data => {
-                  this.circles[i].id = data['circle_id'];
-                  for (let i = 0; i < this.circles[i].friends.length; i++) {
-                    this.friendsService.addFriend(this.circles[i].friends[i].name, '', [this.circles[i]]);
+                  this.circles[i].id = data['id'];
+                  for (let j = 0; j < this.circles[i].friends.length; j++) {
+                    this.friendsService.addFriend(this.circles[i].friends[j].name, '', [this.circles[i]]).subscribe();
                   }
               });
             }
         });
+        location.href = 'http://0.0.0.0:5000/';
       });
   }
 
