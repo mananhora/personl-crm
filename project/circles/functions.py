@@ -35,6 +35,8 @@ def add_circle():
     try:
       print("in add circle")
       user_id = current_user.id,
+      if json_data['circle_name']=='' or json_data['circle_name']=="" or json_data['circle_name']==None:
+        return jsonify({'result': False, 'description': 'Whoops, something went wrong.'})
       circle = Circle(circle_name=json_data['circle_name'], user_id=user_id)
       db.session.add(circle)
       db.session.commit()
