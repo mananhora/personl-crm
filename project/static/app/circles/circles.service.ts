@@ -144,6 +144,24 @@ export class CirclesService {
   }
 
   /**
+   * @function removeChildCircle
+   * @param {number} parent_id - ID of parent
+   * @param {number} circle_id - ID of child to remove
+   * @example
+   * {
+       parent_id: parent_id,
+       child_id: child_id,
+     }
+   */
+  removeChildCircle (parent_id: number, child_id: number): Observable<Object> {
+    let object = {
+      parent_id: parent_id,
+      child_id: child_id,
+    }
+    return this.http.post<Object>('/removechildcircle', object, this.httpOptions);
+  }
+
+  /**
    * @function deleteCircle
    * @param {number} id - ID of circle to be deleted
    * @example
