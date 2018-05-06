@@ -11,7 +11,7 @@ import { Profile } from '../profile/profile';
 })
 export class NotificationsComponent implements OnInit {
 
-  notifications: string[];
+  reminders: Profile[];
 
   constructor(private notificationsService: NotificationsService,
     private route: ActivatedRoute, private location: Location) { }
@@ -19,8 +19,20 @@ export class NotificationsComponent implements OnInit {
   getReminders() {
     this.notificationsService.getReminders()
       .subscribe(data => {
-        console.log(data);
+        // @TODO this isn't a very adaptive JSON response object
+        for(let i = 0; i < data[0].length-1; i++) {
+          let profile = new Profile(data[i][0].name, data[i][0].email, data[i][0].id);
+          if (this.reminders) {
+            this.reminders.push(profile);
+          } else {
+            this.reminders = [profile];
+          }
+        }
     });
+  }
+
+  contacted(friend: Profile) {
+    this.setLastContact(new Date(), friend.id);
   }
 
   setLastContact(date: Date, id: number) {
@@ -44,8 +56,6 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.getReminders();
-    this.setReminder(1, 11);
-    this.setLastContact(new Date(), 11);
   }
 
 }

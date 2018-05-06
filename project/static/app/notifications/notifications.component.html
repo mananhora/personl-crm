@@ -1,19 +1,27 @@
 
   <div class="row">
-    <div class="col">
-      <a (click)="goBack()" class="btn-floating btn-large waves-effect waves-light teal lighten-2" style="top: 14px; left: -135px;">
-        <i class="material-icons">navigate_before</i>
-      </a>
-    </div>
-    <div class="col-1" *ngIf="name">
-      <h1 class="center">this week's notifications</h1>
-    </div>
+    <h2 class="center">this week</h2>
   </div>
 
-  <div class="row" *ngIf="notifications">
+  <div class="row">
+    <div class="col s8 offset-s2 card-panel">
+      <div class="section" *ngIf="reminders">
+        <div class="row">
+          <mat-list>
+            <mat-list-item *ngFor="let friend of reminders">
+              <mat-icon mat-list-icon (click)="contacted(friend)">crop_din</mat-icon>
+              <h4 mat-line>{{friend.name}}</h4>
+              <p mat-line>6 days</p>
+              <a *ngIf="friend._email" href="mailto:{{friend._email}}"><i class="material-icons right">email</i></a>
+              <a *ngIf="friend._phone" href="tel:{{friend._phone}}"><i class="material-icons right">phone</i></a>
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </div>
 
-  </div>
+      <div class="row" *ngIf="!reminders">
+        <h3 class="center">you're all caught up!</h3>
+      </div>
 
-  <div class="row" *ngIf="!notifications">
-
+    </div>
   </div>
