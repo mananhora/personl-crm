@@ -59,6 +59,8 @@ def add_child_circle():
     try:
       print("in add circle")
       user_id = current_user.id,
+      if json_data['circle_name']=='' or json_data['circle_name']=="" or json_data['circle_name']==None:
+        return jsonify({'result': False, 'description': 'Whoops, something went wrong.'})
       circle = Circle(circle_name=json_data['circle_name'], user_id=user_id, parent_id=json_data['parent_id'])
       db.session.add(circle)
       db.session.commit()
@@ -103,14 +105,18 @@ def add_member_to_circle(json=True, friend_id=None, circle_id=None):
     if current_user.id is not None and a == False:
       print("adding to circle..")
       print(friend_id)
-      friend = Friend.query.get(friend_id)
-      circle = Circle.query.get(circle_id)
-      print("got the friend and the circle")
-      circle.friends.append(friend)
-      friend.circles.append(circle)
-      db.session.commit()
-      status = True
-      print("added member to circle successfully")
+      try:
+        friend = Friend.query.get(friend_id)
+        circle = Circle.query.get(circle_id)
+        print("got the friend and the circle")
+        circle.friends.append(friend)
+        friend.circles.append(circle)
+        db.session.commit()
+        status = True
+        print("added member to circle successfully")
+        return jsonify({'result': status})
+      except:
+        return jsonify({'result': False, desc:something_wrong_message})
   if(json==True):
       return jsonify({'result': status})
   else :
