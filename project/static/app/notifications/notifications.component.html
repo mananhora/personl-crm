@@ -13,7 +13,7 @@
                 <span *ngIf="!evaluateDate(friend.reminder.lastContact)">crop_din</span>
                 <span *ngIf="evaluateDate(friend.reminder.lastContact)">done</span>
               </mat-icon>
-              <h4 mat-line>{{friend.name}}</h4>
+              <h4 mat-line routerLink="/app/profile/{{friend.id}}">{{friend.name}}</h4>
               <p mat-line>{{friend.reminder.daysLeft}} day(s) left</p>
               <a *ngIf="friend._email" href="mailto:{{friend._email}}"><i class="material-icons right">email</i></a>
               <a *ngIf="friend._phone" href="tel:{{friend._phone}}"><i class="material-icons right">phone</i></a>
