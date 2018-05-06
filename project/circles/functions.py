@@ -37,7 +37,7 @@ def add_circle():
       db.session.add(circle)
       db.session.commit()
       print("done...")
-      return jsonify(circle.serialize)
+      return jsonify({'result':True, 'circle':circle.serialize})
     except:
       return jsonify("error")
   else:
