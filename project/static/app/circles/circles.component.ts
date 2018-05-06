@@ -44,8 +44,7 @@ export class CirclesComponent implements OnInit {
     let myVillageNode = {
       id: 0,
       label: 'myVillage',
-      color: '#80ccc5',
-      mass: 1,
+      color: '#5BB9AF',
       shape: 'circle',
       shadow: {
         enabled: true,
@@ -68,12 +67,12 @@ export class CirclesComponent implements OnInit {
           let id = data['json_list'][i]['id'];
           let parent_id = (data['json_list'][i]['parent_id']) ?
             data['json_list'][i]['parent_id'] : 0;
+          let color = parent_id ? '#B2E7E1' : '#80CCC5';
 
           let myNode = {
             id: id,
             label: name,
-            color: '#80ccc5',
-            mass: 2,
+            color: color,
             shape: 'circle',
             shadow: {
               enabled: true,
