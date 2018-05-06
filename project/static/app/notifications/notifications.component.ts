@@ -23,6 +23,7 @@ export class NotificationsComponent implements OnInit {
       .subscribe(data => {
         for(let i = 0; i < data['reminders'].length; i++) {
           let profile = new Profile(data['reminders'][i][0].name, data['reminders'][i][0].email, data['reminders'][i][0].id);
+          profile.reminder.lastContact = data['reminders'][i][0].last_contacted_date;
           profile.reminder.daysLeft = data['reminders'][i][1];
           if (this.reminders) {
             this.reminders.push(profile);
@@ -47,8 +48,9 @@ export class NotificationsComponent implements OnInit {
   }
 
   evaluateDate(date: Date): boolean {
-    // @TODO evaluate so empty if in future but checked if today (contacted already)
-    return false;
+    let now = new Date();
+    let lastContacted = new Date(date);
+    return (lastContacted.toDateString() == now.toDateString());
   }
 
   ngOnInit() {
