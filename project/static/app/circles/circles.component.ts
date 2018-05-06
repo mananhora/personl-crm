@@ -99,7 +99,7 @@ export class CirclesComponent implements OnInit {
        .subscribe((eventData: any[]) => {
            if (eventData[0] === this.visNetwork) {
              let id = eventData[1].nodes[0];
-             this.router.navigate(['/app/friends/', id]);
+             if (id >= 0) this.router.navigate(['/app/friends/', id]);
            }
        });
    }
