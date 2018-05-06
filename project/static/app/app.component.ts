@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
-import { MatChipInputEvent } from '@angular/material';
+import { MatChipInputEvent, MatStepper } from '@angular/material';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { CirclesService } from './circles/circles.service';
 import { FriendsService } from './friends/friends.service';
@@ -71,6 +71,11 @@ export class AppComponent implements OnInit {
             }
         });
       });
+  }
+
+  skip(stepper: MatStepper) {
+    stepper.next();
+    stepper.next();
   }
 
   /**
