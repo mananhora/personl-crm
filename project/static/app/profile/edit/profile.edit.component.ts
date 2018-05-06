@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProfileService } from '../profile.service';
 import { CirclesService } from '../../circles/circles.service';
+import { NotificationsService } from '../../notifications/notifications.service';
 import { Profile } from '../profile';
 import { Circle } from '../../circles/circle';
 
@@ -20,7 +21,7 @@ export class ProfileEditComponent implements OnInit {
   model = new Profile('', '', 0);
 
   constructor(private profileService: ProfileService, private circlesService: CirclesService,
-    private route: ActivatedRoute, private router: Router,
+    private notificationsService: NotificationsService, private route: ActivatedRoute, private router: Router,
     private location: Location, public dialog: MatDialog) { }
 
   getProfile() {
@@ -83,6 +84,14 @@ export class ProfileEditComponent implements OnInit {
       })
   }
 
+  // @TODO 500 error ('append' method args issue?)
+  getRemindersForAFriend(id: number) {
+    this.notificationsService.getReminderForAFriend(id)
+      .subscribe(data => {
+        console.log(data);
+    });
+  }
+
   getAllCircles() {
     this.circlesService.getCircles()
       .subscribe(data => {
@@ -98,6 +107,13 @@ export class ProfileEditComponent implements OnInit {
           }
         }
       });
+  }
+
+  setReminder(frequency: number, id: number) {
+    this.notificationsService.setReminder(frequency, id)
+      .subscribe(data => {
+        console.log(data);
+    });
   }
 
   editProfile() {
