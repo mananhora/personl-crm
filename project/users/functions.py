@@ -86,18 +86,18 @@ def login():
   print("password", json_data['password'])
 
   user = User.query.filter_by(email=json_data['username']).first()
-  # print("user")
-  print (user)
-  pw = user.password
-  pw_hash = bcrypt.generate_password_hash(pw)
-  password_match = bcrypt.check_password_hash(pw_hash, pw)
-  if user is not None and password_match is True:
-    session['logged_in'] = True
-    # flash('You were logged in. Go Crazy.')
-    login_user(user)
-    session['logged_in'] = True
-    status = True
-    print("logged in go crazy")
+
+  if user is not None:
+    print (user)
+    pw = user.password
+    pw_hash = bcrypt.generate_password_hash(pw)
+    password_match = bcrypt.check_password_hash(pw_hash, pw)
+    if user is not None and password_match is True:
+      session['logged_in'] = True
+      login_user(user)
+      session['logged_in'] = True
+      status = True
+      print("logged in go crazy")
   else:
     status = False
   return jsonify({'result': status})
@@ -157,6 +157,12 @@ def update_user_info():
     user.location = location
     return jsonify({'result': True})
   return jsonify({'error': True})
+
+
+# @login_required
+# @users_blueprint.route('/deleteaccount', methods=['GET', 'POST'])
+# def delete_account():
+
 
 # @app.before_request
 # def get_current_user():
