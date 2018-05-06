@@ -85,6 +85,10 @@ def get_upcoming_reminders_for_friend():
       friend = Friend.query.get(friend_id)
       last_contacted_date = friend.last_contacted
       num_weeks_reminder = friend.num_weeks_reminder
+      if last_contacted_date is None:
+        return (jsonify({'reminder':False}))
+      if num_weeks_reminder is None:
+        return (jsonify({'reminder': False}))
       now = datetime.datetime.utcnow()
       reminder_date = get_next_contact_date(last_contacted_date, num_weeks_reminder)
       num_days_left = (reminder_date-now).days
