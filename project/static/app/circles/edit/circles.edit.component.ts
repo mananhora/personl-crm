@@ -32,8 +32,8 @@ export class CirclesEditComponent implements OnInit {
     this.circlesService.getCircleInfo(id)
       .subscribe(data => {
         this.circle = new Circle(data['circle_name'], data['id']);
-        if (data['parent_id'] > 0) {
-          this.parentCircle = this.allCircles.find(match => match.id === data['parent_id']);
+        if (data['parent_id']) {
+          this.parentCircle = this.allCircles.find(match => match.id === data['parent_id'])
         }
     });
   }
@@ -62,12 +62,19 @@ export class CirclesEditComponent implements OnInit {
           let name = data['json_list'][i]['name'];
           let email = data['json_list'][i]['email'];
           let friend = new Profile(name, email, friend_id);
-
+          // create interactive local friends list
           if (this.friends) {
             this.friends.push(friend);
           } else {
             this.friends = [friend];
           }
+          // save original friends list
+          if (this.circle.friends) {
+            this.circle.friends.push(friend);
+          } else {
+            this.circle.friends = [friend];
+          }
+
         }
       });
   }
@@ -107,10 +114,6 @@ export class CirclesEditComponent implements OnInit {
       })
   }
 
-  updateParentCircle(circle: Circle) {
-    this.circlesService.assignChildCircle(circle.id, this.routeId).subscribe();
-  }
-
   removeFriend(friend: Profile) {
     let index = this.friends.indexOf(friend);
     if (index >= 0) this.friends.splice(index, 1);
@@ -123,10 +126,6 @@ export class CirclesEditComponent implements OnInit {
     this.circlesService.removeChildCircle(this.routeId, circle.id).subscribe();
   }
 
-  removeParentCircle(circle: Circle) {
-    this.circlesService.removeChildCircle(circle.id, this.routeId).subscribe();
-  }
-
   deleteCircle() {
     if (confirm('Are you sure you want to delete this circle?')) {
       this.circlesService.deleteCircle(this.routeId).subscribe();
@@ -136,14 +135,27 @@ export class CirclesEditComponent implements OnInit {
 
   saveChanges() {
     // parent circle
-    this.circlesService.assignChildCircle(this.parentCircle.id, this.routeId).subscribe();
+    if (this.parentCircle) {
+      this.circlesService.assignChildCircle(this.parentCircle.id, this.routeId).subscribe();
+    } else {
+      this.circlesService.getCircleInfo(this.routeId).subscribe(data => {
+          this.circlesService.removeChildCircle(data['parent_id'], this.routeId).subscribe();
+      });
+    }
     // children
-    // for (let i = 0; i < this.childCircles.length; i++) {
-    //   if (this.circle.childCircles.indexOf(this.childCircles[i])) {
-    //     console.log(this.childCircles[i], ' does not match ');
-    //     console.log(this.circle.childCircles);
-    //   }
-    // }
+    // friends
+    if (this.circle.friends) {
+      for (let i = 0; i < this.friends.length; i++) {
+        if (this.circle.friends.find(match => match.id === this.friends[i].id)) {
+          this.circlesService.addFriendToCircle(this.friends[i].id, this.routeId).subscribe();
+        }
+      }
+      // for (let i = 0; i < this.circle.friends.length; i++) {
+      //   if (this.friends.indexOf(this.circle.friends[i])) {
+      //     this.circlesService.removeFriendFromCircle(friend.id, this.routeId).subscribe();
+      //   }
+      // }
+    }
     this.router.navigate(['/app/friends/', this.routeId]);
   }
 
@@ -152,10 +164,12 @@ export class CirclesEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    // set initial (empty) values of class variables
     this.circle = new Circle('', 0);
     this.routeId = +this.route.snapshot.paramMap.get('id');
     this.childCircles = [];
     this.friends = [];
+    // get and render component data
     if (this.routeId) {
       this.getAllCircles();
       this.getCircleInfo(this.routeId);
@@ -206,7 +220,7 @@ template: `
   <mat-dialog-content>
     <mat-form-field>
       <mat-select placeholder="Add {{data.for}}" multiple name="data.selected" [(value)]="data.selected">
-        <mat-option *ngFor="let x of data.list" [value]="x">{{x}}</mat-option>
+        <mat-option *ngFor="let x of data.list" [value]="x">{{x.name}}</mat-option>
       </mat-select>
     </mat-form-field>
   </mat-dialog-content>

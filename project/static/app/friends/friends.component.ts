@@ -43,7 +43,6 @@ export class FriendsComponent implements OnInit {
   getFriendsForCircle(circle_id: number) {
     this.friendsService.getFriends(circle_id)
       .subscribe(data => {
-        console.log(data);
         for (let i = 0; i < data['json_list'].length; i++) {
           let friend_id = data['json_list'][i]['id'];
           let name = data['json_list'][i]['name'];
