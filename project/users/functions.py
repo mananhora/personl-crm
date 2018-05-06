@@ -8,6 +8,10 @@ from flask.ext.login import login_user, login_required, logout_user, current_use
 from project.models import User
 from project.form import *
 from project import *
+login_error_message = 'It seems you are not logged in. Please log in and try again.'
+something_wrong_message = 'Woops, something went wrong. Sorry, try again later.'
+desc = 'description'
+
 # from flask.ext.social import Social
 # from facebook import get_user_from_cookie, GraphAPI
 
@@ -48,7 +52,7 @@ def is_logged_in():
     return jsonify({'is_logged_in':False})
 
 
-@users_blueprint.route('/register', methods=['POST'])
+@users_blueprint.route('/register', methods=['POST', 'GET'])
 def register():
     print("in register")
     json_data = request.get_json()
@@ -58,6 +62,9 @@ def register():
       password=json_data['password']
     )
     try:
+      user_exists = User.query.filter_by(email=json_data['email']).first()
+      if user_exists is not None:
+        return jsonify({'result': False, 'description': 'There already exists an account with this email. '})
       db.session.add(user)
       db.session.commit()
       status = True
