@@ -16,10 +16,10 @@ export class CirclesAddComponent implements OnInit {
 
   circle: Circle;
   allCircles: Circle[];
-  selectedParentCircles: string[];
-  selectedChildCircles: string[];
+  selectedParentCircles: Circle[];
+  selectedChildCircles: Circle[];
   friends: Profile[];
-  selectedFriends: string[];
+  selectedFriends: Profile[];
 
   constructor(private circlesService: CirclesService,
     private friendsService: FriendsService,
@@ -29,32 +29,23 @@ export class CirclesAddComponent implements OnInit {
   addCircle() {
     this.circlesService.addCircle(this.circle.name)
       .subscribe(data => {
-        // @TODO should return ID of the circle
-        // this.circle.id = data['id'];
-        this.router.navigate(['/app/home']);
+        this.circle.id = data['id'];
+
+        // add friends to circle
+        for (let i = 0; i < this.selectedFriends.length; i++) {
+          this.circlesService.addFriendToCircle(this.selectedFriends[i].id, this.circle.id).subscribe();
+        }
+        // add circle as a child
+        for (let i = 0; i < this.selectedParentCircles.length; i++) {
+          this.circlesService.assignChildCircle(this.selectedParentCircles[i].id, this.circle.id).subscribe();
+        }
+        // add children circles
+        for (let i = 0; i < this.selectedChildCircles.length; i++) {
+          this.circlesService.assignChildCircle(this.circle.id, this.selectedChildCircles[i].id).subscribe();
+        }
+
+        this.router.navigate(['/app/friends/', this.circle.id]);
       });
-
-    // for (friend in selectedFriends) {
-    //   this.circlesService.addFriendToCircle({
-    //     friend_id: friend,
-    //     circle_id: this.circle.id,
-    //   });
-    // }
-    //
-    // for (circle in this.selectedParentCircles) {
-    //   this.circlesService.addChildCircle({
-    //     parent_id: circle.id,
-    //     cild_id: this.circle.id,
-    //   });
-    // }
-    //
-    // for (circle in this.selectedChildCircles) {
-    //   this.circlesService.addFriendToCircle({
-    //     parent_id: this.circle.id,
-    //     child_id: circle_id,
-    //   });
-    // }
-
   }
 
   getAllCircles() {
@@ -81,7 +72,7 @@ export class CirclesAddComponent implements OnInit {
           let name = data['json_list'][i]['name'];
           let email = data['json_list'][i]['email'];
           let id = data['json_list'][i]['id'];
-          let profile = new Profile(name, id, email);
+          let profile = new Profile(name, email, id);
 
           if (this.friends) {
             this.friends.push(profile);
@@ -98,6 +89,9 @@ export class CirclesAddComponent implements OnInit {
 
   ngOnInit() {
     this.circle = new Circle('', 123);
+    this.selectedParentCircles = [];
+    this.selectedChildCircles = [];
+    this.selectedFriends = [];
     this.getAllCircles();
     this.getAllFriends();
   }

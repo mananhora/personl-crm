@@ -21,20 +21,6 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute, private router: Router,
     private location: Location, public dialog: MatDialog) { }
 
-  ngOnInit() {
-    this.routeId = +this.route.snapshot.paramMap.get('id');
-
-    if (this.routeId) {
-      this.getFriendProfile(this.routeId);
-    } else {
-      this.getMyProfile();
-    }
-  }
-
-  goBack() {
-    this.router.navigate(['/app/friends']);
-  }
-
   getMyProfile() {
     this.profileService.getMyProfile()
       .subscribe(data => {
@@ -82,6 +68,21 @@ export class ProfileComponent implements OnInit {
         }
       })
   }
+
+  goBack() {
+    this.router.navigate(['/app/friends']);
+  }
+
+  ngOnInit() {
+    this.routeId = +this.route.snapshot.paramMap.get('id');
+
+    if (this.routeId) {
+      this.getFriendProfile(this.routeId);
+    } else {
+      this.getMyProfile();
+    }
+  }
+
 }
 
 @Component({

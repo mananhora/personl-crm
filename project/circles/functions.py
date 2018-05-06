@@ -88,9 +88,11 @@ def get_child_circles():
 #add a friend to a circle, given that the friend already exists in the user's friend_list
 @login_required
 @circles_blueprint.route('/addtocircle/', methods = ['GET', 'POST'])
-def add_member_to_circle(json=False, friend_id=None, circle_id=None):
+def add_member_to_circle(json=True, friend_id=None, circle_id=None):
   status = False
+
   if(json==True):
+    print("json is true")
     json_data = request.get_json()
     circle_id = json_data['circle_id']
     friend_id = json_data['friend_id']
@@ -99,6 +101,7 @@ def add_member_to_circle(json=False, friend_id=None, circle_id=None):
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
       print("adding to circle..")
+      print(friend_id)
       friend = Friend.query.get(friend_id)
       circle = Circle.query.get(circle_id)
       print("got the friend and the circle")
@@ -226,3 +229,52 @@ def get_circle_by_id():
   return jsonify("not logged in")
 
 
+
+@login_required
+@circles_blueprint.route('/assignchildcircle', methods=['GET', 'POST'])
+def assign_child_circle():
+  json_data = request.get_json()
+  a = (current_user.is_anonymous == True)
+  if current_user is not None and a == False:
+    print ('current user is not none!!')
+    try:
+      print("in assign child circle")
+      parent_circle_id = json_data['parent_id']
+      child_circle_id = json_data['child_id']
+      parent_circle = Circle.query.get(parent_circle_id)
+      child_circle = Circle.query.get(child_circle_id)
+      child_circle.parent = parent_circle
+      db.session.commit()
+      status = True
+      print("done...")
+    except:
+      status = False
+    return jsonify({'result': status})
+  else:
+    print('current user is None')
+    return jsonify({'message': "ERROR, NOT LOGGED IN", 'error': True})
+
+
+@login_required
+@circles_blueprint.route('/removechildcircle', methods = ['GET', 'POST'])
+def remove_child_circle():
+  json_data = request.get_json()
+  a = (current_user.is_anonymous == True)
+  if current_user is not None and a == False:
+    print ('current user is not none!!')
+    try:
+      print("in remove child circle")
+      parent_circle_id = json_data['parent_id']
+      child_circle_id = json_data['child_id']
+      parent_circle = Circle.query.get(parent_circle_id)
+      child_circle = Circle.query.get(child_circle_id)
+      parent_circle.child_circles.remove(child_circle)
+      db.session.commit()
+      status = True
+      print("done...")
+    except:
+      status = False
+    return jsonify({'result': status})
+  else:
+    print('current user is None')
+    return jsonify({'message': "ERROR, NOT LOGGED IN", 'error': True})

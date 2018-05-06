@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProfileService } from '../profile.service';
+import { CirclesService } from '../../circles/circles.service';
 import { Profile } from '../profile';
 import { Circle } from '../../circles/circle';
 
@@ -15,9 +16,10 @@ import { Circle } from '../../circles/circle';
 export class ProfileEditComponent implements OnInit {
 
   routeId: number;
-  model = new Profile('', '', 555);
+  allCircles: Circle[];
+  model = new Profile('', '', 0);
 
-  constructor(private profileService: ProfileService,
+  constructor(private profileService: ProfileService, private circlesService: CirclesService,
     private route: ActivatedRoute, private router: Router,
     private location: Location, public dialog: MatDialog) { }
 
@@ -59,16 +61,45 @@ export class ProfileEditComponent implements OnInit {
         if (data['notes']) this.model.notes = data['notes'];
         if (data['job']) this.model.job = data['job'];
       })
+    this.getCirclesForFriend(this.routeId);
   }
 
-  /**
-   * @function updateProfile
-   * @param {number} id - ID of profile being edited
-   * @param {string} [location=''] - new location value
-   * @param {string} [notes=''] - new notes value
-   * @param {string} [phone=''] - new phone value
-   * @param {string} [job=''] - new job value
-   */
+  getCirclesForFriend(id: number) {
+    this.profileService.getCirclesForFriend(id)
+      .subscribe(data => {
+        console.log(data);
+        for (let i = 0; i < data['json_list'].length; i++) {
+          if (this.model.circles) {
+            this.model.circles.push(new Circle(
+              data['json_list'][i].circle_name,
+              data['json_list'][i].id));
+          } else {
+            this.model.circles = [new Circle(
+              data['json_list'][i].circle_name,
+              data['json_list'][i].id)];
+          }
+        }
+        console.log(this.model.circles);
+      })
+  }
+
+  getAllCircles() {
+    this.circlesService.getCircles()
+      .subscribe(data => {
+        for (let i = 0; i < data['json_list'].length; i++) {
+          let name = data['json_list'][i]['circle_name'];
+          let id = data['json_list'][i]['id'];
+          let circle = new Circle(name, id);
+
+          if (this.allCircles) {
+            this.allCircles.push(circle);
+          } else {
+            this.allCircles = [circle];
+          }
+        }
+      });
+  }
+
   editProfile() {
     if (!this.model.location) {
       this.model.location = '';
@@ -89,11 +120,21 @@ export class ProfileEditComponent implements OnInit {
       this.model.phone,
       this.model.job
     ).subscribe();
+
     this.router.navigate(['/app/profile/', this.routeId]);
   }
 
+  removeCircle(circle: Circle) {
+    let index = this.model.circles.indexOf(circle);
+    if (index >= 0) this.model.circles.splice(index, 1);
+    this.circlesService.removeFriendFromCircle(this.routeId, circle.id).subscribe();
+  }
+
   deleteProfile() {
-    alert('deleted');
+    if (confirm('Are you sure you want to delete this profile?')) {
+      this.profileService.deleteProfile(this.routeId).subscribe();
+      this.router.navigate(['/app/friends']);
+    }
   }
 
   ngOnInit() {
@@ -103,6 +144,7 @@ export class ProfileEditComponent implements OnInit {
       this.getMyProfile();
     } else {
       this.getFriendProfile(this.routeId);
+      this.getAllCircles();
     }
   }
 
@@ -115,6 +157,22 @@ export class ProfileEditComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.model.img = result;
+      }
+    });
+  }
+
+  openCirclesDialog(): void {
+    let dialogRef = this.dialog.open(CirclesDialog, {
+      width: '30em',
+      data: { name: this.model.name, list: this.allCircles, selected: this.model.circles }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        for (let i = 0; i < result.selected.length; i++) {
+          // @TODO 500 error on this response?!
+          this.circlesService.addFriendToCircle(this.routeId, result.selected[i].id).subscribe();
+        }
       }
     });
   }
@@ -138,6 +196,35 @@ export class ProfileEditComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<PhotoDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
+
+  @Component({
+  selector: 'circles-dialog',
+  template: `
+    <h2 mat-dialog-title>Add {{name}} to new circles</h2>
+    <mat-dialog-content>
+      <mat-form-field>
+        <mat-select placeholder="Add to circles" multiple name="data.selected" [(value)]="data.selected">
+          <mat-option *ngFor="let x of data.list" [value]="x">{{x.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions class="right">
+      <button mat-button (click)=onNoClick()>Cancel</button>
+      <button mat-button (click)="dialogRef.close(data)">Done</button>
+    </mat-dialog-actions>
+  `,
+  })
+  export class CirclesDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<CirclesDialog>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   onNoClick(): void {

@@ -14,6 +14,7 @@ import { Profile } from '../profile/profile';
 export class FriendsComponent implements OnInit {
 
   routeId: number;
+  name: string;
   friends: Profile[];
   childCircles: Circle[];
 
@@ -39,14 +40,15 @@ export class FriendsComponent implements OnInit {
       })
   }
 
-  getFriendsForCircle(id: number) {
-    this.friendsService.getFriends(id)
+  getFriendsForCircle(circle_id: number) {
+    this.friendsService.getFriends(circle_id)
       .subscribe(data => {
+        console.log(data);
         for (let i = 0; i < data['json_list'].length; i++) {
-          let id = data['json_list'][i]['id'];
+          let friend_id = data['json_list'][i]['id'];
           let name = data['json_list'][i]['name'];
           let email = data['json_list'][i]['email'];
-          let friend = new Profile(name, email, id);
+          let friend = new Profile(name, email, friend_id);
 
           if (this.friends) {
             this.friends.push(friend);
@@ -57,14 +59,42 @@ export class FriendsComponent implements OnInit {
       });
   }
 
+  getFriendsForChildCircle(circle: Circle): Circle {
+    this.friendsService.getFriends(circle.id)
+      .subscribe(data => {
+        for (let i = 0; i < data['json_list'].length; i++) {
+          let id = data['json_list'][i]['id'];
+          if (this.friends.find(match => match.id === id)) {
+            let name = data['json_list'][i]['name'];
+            let email = data['json_list'][i]['email'];
+            let friend = new Profile(name, email, id);
+
+            if (circle.friends) {
+              circle.friends.push(friend);
+            } else {
+              circle.friends = [friend];
+            }
+          }
+        }
+      });
+    return circle;
+  }
+
   getCircleInfo(id: number) {
+    this.circlesService.getCircleInfo(id)
+      .subscribe(data => {
+        this.name = data['circle_name'];
+    });
+  }
+
+  getChildCircles(id: number) {
     this.circlesService.getChildCircles(id)
       .subscribe(data => {
-        console.log(data);
         for (let i = 0; i < data['json_list'].length; i++) {
           let name = data['json_list'][i].circle_name;
           let id = data['json_list'][i].id;
           let circle = new Circle(name, id);
+          circle = this.getFriendsForChildCircle(circle);
           if (this.childCircles) {
             this.childCircles.push(circle);
           } else {
@@ -81,9 +111,11 @@ export class FriendsComponent implements OnInit {
   ngOnInit() {
     this.routeId = +this.route.snapshot.paramMap.get('id');
     if (this.routeId) {
-      this.getFriendsForCircle(this.routeId);
       this.getCircleInfo(this.routeId);
+      this.getFriendsForCircle(this.routeId);
+      this.getChildCircles(this.routeId);
     } else {
+      this.name = "all friends";
       this.showAllFriends();
     }
 

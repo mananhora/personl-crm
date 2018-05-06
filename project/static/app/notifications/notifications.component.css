@@ -2,12 +2,6 @@
   width: 23em;
 }
 
-.add {
-  position: absolute;
-  bottom: 5vh;
-  right: 5vw;
-}
-
 .mat-raised-button {
   margin-left: 1.5em;
 }

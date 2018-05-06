@@ -11,22 +11,28 @@ import { VisModule } from '../../../node_modules/ng2-vis';
 import { AppComponent } from './app.component';
 import { CirclesComponent } from './circles/circles.component';
 import { CirclesAddComponent } from './circles/add/circles.add.component';
+import { CirclesEditComponent } from './circles/edit/circles.edit.component';
+import { AddDialog } from './circles/edit/circles.edit.component';
 import { FriendsComponent } from './friends/friends.component';
 import { FriendsAddComponent } from './friends/add/friends.add.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DialogOverviewExampleDialog } from './profile/profile.component';
 import { ProfileEditComponent } from './profile/edit/profile.edit.component';
 import { PhotoDialog } from './profile/edit/profile.edit.component';
+import { CirclesDialog } from './profile/edit/profile.edit.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 import { AppService } from './app.service';
 import { CirclesService } from './circles/circles.service';
 import { FriendsService } from './friends/friends.service';
 import { ProfileService } from './profile/profile.service';
+import { NotificationsService } from './notifications/notifications.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/app/home', pathMatch: 'full' },
   { path: 'app/home', component: CirclesComponent },
   { path: 'app/home/add', component: CirclesAddComponent },
+  { path: 'app/circles/:id/edit', component: CirclesEditComponent },
   { path: 'app/home/:id', component: CirclesComponent },
   { path: 'app/friends', component: FriendsComponent },
   { path: 'app/friends/add', component: FriendsAddComponent },
@@ -34,6 +40,7 @@ const appRoutes: Routes = [
   { path: 'app/profile', component: ProfileComponent },
   { path: 'app/profile/:id', component: ProfileComponent },
   { path: 'app/profile/:id/edit', component: ProfileEditComponent },
+  { path: 'app/notifications', component: NotificationsComponent },
 ];
 
 @NgModule({
@@ -41,12 +48,16 @@ const appRoutes: Routes = [
     AppComponent,
     CirclesComponent,
     CirclesAddComponent,
+    CirclesEditComponent,
     FriendsComponent,
     FriendsAddComponent,
     ProfileComponent,
     DialogOverviewExampleDialog,
     ProfileEditComponent,
-    PhotoDialog
+    PhotoDialog,
+    AddDialog,
+    CirclesDialog,
+    NotificationsComponent,
   ],
   imports: [
     HttpClientModule,
@@ -61,22 +72,27 @@ const appRoutes: Routes = [
   ],
   entryComponents: [
     DialogOverviewExampleDialog,
-    PhotoDialog
+    PhotoDialog,
+    AddDialog,
+    CirclesDialog
   ],
   providers: [
     AppService,
     CirclesService,
     FriendsService,
     ProfileService,
+    NotificationsService,
   ],
   bootstrap: [
     AppComponent,
     CirclesComponent,
     CirclesAddComponent,
+    CirclesEditComponent,
     FriendsComponent,
     FriendsAddComponent,
     ProfileComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    NotificationsComponent,
   ]
 })
 export class AppModule { }

@@ -4,6 +4,8 @@
       <span class="secondary" routerLink="/app/home">myVillage</span>
       <span class="example-spacer"></span>
       <div *ngIf="loggedIn == true">
+        <a routerLink="/app/notifications"><i class="material-icons">notifications</i></a>
+        <span class="example-spacer"></span>
         <a routerLink="/app/friends"><i class="material-icons">contacts</i></a>
         <span class="example-spacer"></span>
         <!-- <a routerLink="/app/profile/0"><i class="material-icons">person</i></a>
@@ -139,7 +141,7 @@
                   <mat-chip-list #friendList>
                     <mat-chip *ngFor="let friend of circle.friends" [removable]="removable"
                       (remove)="removeFriend(friend, circle)">
-                        {{friend}}
+                        {{friend.name}}
                       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
                     <input [matChipInputFor]="friendList"

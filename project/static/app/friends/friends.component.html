@@ -1,29 +1,64 @@
 
-  <a (click)="goBack()" class="btn-floating btn-large waves-effect waves-light teal lighten-2" style="top: 14px; left: -135px;">
-    <i class="material-icons">navigate_before</i>
-  </a>
+  <div class="row">
+    <div class="col">
+      <a (click)="goBack()" class="btn-floating btn-large waves-effect waves-light teal lighten-2" style="top: 14px; left: -135px;">
+        <i class="material-icons">navigate_before</i>
+      </a>
+    </div>
+    <div class="col-1" *ngIf="name">
+      <h1 class="center">{{name}}</h1>
+    </div>
+  </div>
 
-  <mat-card  *ngFor="let friend of friends" class="friends" routerLink="/app/profile/{{friend.id}}">
-    <mat-card-title-group>
-      <img mat-card-sm-image *ngIf="friend.img" src="{{friend.img}}" alt="Photo of {{friend.name}}">
-      <mat-card-title>{{friend.name}}</mat-card-title>
-      <!-- <mat-card-subtitle>{{friend.email}}</mat-card-subtitle> -->
-    </mat-card-title-group>
-  </mat-card>
+  <div class="row" *ngIf="childCircles">
+    <mat-tab-group>
+      <mat-tab label="all {{name}} friends">
+        <mat-grid-list cols="2" rowHeight="2.5:1">
+          <mat-grid-tile  *ngFor="let friend of friends">
+            <mat-card class="friends" routerLink="/app/profile/{{friend.id}}">
+              <mat-card-title-group>
+                <img mat-card-sm-image *ngIf="friend.img" src="{{friend.img}}" alt="Photo of {{friend.name}}">
+                <mat-card-title>{{friend.name}}</mat-card-title>
+              </mat-card-title-group>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-tab>
+      <span *ngFor="let child of childCircles">
+        <mat-tab label="{{child.name}}">
+          <mat-grid-list cols="2" rowHeight="2.5:1">
+            <mat-grid-tile  *ngFor="let friend of child.friends">
+              <mat-card class="friends" routerLink="/app/profile/{{friend.id}}">
+                <mat-card-title-group>
+                  <img mat-card-sm-image *ngIf="friend.img" src="{{friend.img}}" alt="Photo of {{friend.name}}">
+                  <mat-card-title>{{friend.name}}</mat-card-title>
+                </mat-card-title-group>
+              </mat-card>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-tab>
+      </span>
+    </mat-tab-group>
+  </div>
 
-  <mat-grid-list cols="2" rowHeight="2.5:1">
-    <mat-grid-tile  *ngFor="let friend of friends">
-      <mat-card class="friends" routerLink="/app/profile/{{friend.id}}">
-        <mat-card-title-group>
-          <img mat-card-sm-image *ngIf="friend.img" src="{{friend.img}}" alt="Photo of {{friend.name}}">
-          <mat-card-title>{{friend.name}}</mat-card-title>
-        </mat-card-title-group>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+  <div class="row" *ngIf="!childCircles">
+    <mat-grid-list cols="2" rowHeight="2.5:1">
+      <mat-grid-tile  *ngFor="let friend of friends">
+        <mat-card class="friends" routerLink="/app/profile/{{friend.id}}">
+          <mat-card-title-group>
+            <img mat-card-sm-image *ngIf="friend.img" src="{{friend.img}}" alt="Photo of {{friend.name}}">
+            <mat-card-title>{{friend.name}}</mat-card-title>
+          </mat-card-title-group>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
 
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a routerLink="/app/friends/add" class="btn-floating btn-large waves-effect waves-light teal lighten-2">
+    <a *ngIf="routeId" routerLink="/app/circles/{{routeId}}/edit" class="btn-floating btn-large waves-effect waves-light teal lighten-2">
+      <i class="material-icons teal lighten-2">edit</i>
+    </a>
+    <a *ngIf="!routeId" routerLink="/app/friends/add" class="btn-floating btn-large waves-effect waves-light teal lighten-2">
       <i class="material-icons teal lighten-2">add</i>
     </a>
   </div>

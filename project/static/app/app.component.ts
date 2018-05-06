@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
 import { CirclesService } from './circles/circles.service';
+import { FriendsService } from './friends/friends.service';
 import { Circle } from './circles/circle';
 import { Profile } from './profile/profile';
 import { MatChipInputEvent } from '@angular/material';
@@ -24,7 +25,7 @@ export class AppComponent implements OnInit {
   removable = true;
   separatorKeysCodes = [ENTER, COMMA];
 
-  constructor(private appService: AppService,
+  constructor(private appService: AppService, private friendsService: FriendsService,
     private circlesService: CirclesService) { }
 
   /**
@@ -59,10 +60,13 @@ export class AppComponent implements OnInit {
         this.appService.login(this.email, this.password)
           .subscribe(data => {
             for (let i = 0; i < this.circles.length; i++) {
-              this.circlesService.addCircle(this.circles[i].name).subscribe();
-              // for (let i = 0; i < this.circles[i].friends.length; i++) {
-              //   this.circlesService.addFriendToCircle(this.circles[i].friends[i], this.circles[i]);
-              // }
+              this.circlesService.addCircle(this.circles[i].name)
+                .subscribe(data => {
+                  this.circles[i].id = data['circle_id'];
+                  for (let i = 0; i < this.circles[i].friends.length; i++) {
+                    this.friendsService.addFriend(this.circles[i].friends[i].name, '', [this.circles[i]]);
+                  }
+              });
             }
         });
       });
@@ -77,10 +81,11 @@ export class AppComponent implements OnInit {
     let input = event.input;
     let value = event.value;
     if ((value || '').trim()) {
+      let friend = new Profile(value.trim(), '', 0);
       if (circle.friends) {
-        circle.friends.push(value.trim());
+        circle.friends.push(friend);
       } else {
-        circle.friends = [value.trim()];
+        circle.friends = [friend];
       }
     }
     if (input) input.value = '';

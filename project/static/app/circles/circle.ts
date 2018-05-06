@@ -1,8 +1,10 @@
+import { Profile } from '../profile/profile';
+
 export class Circle {
   constructor(
     public name: string,
     private _id: number,
-    private _friends?: string[],
+    private _friends?: Profile[],
     private _parentCircles?: Circle[],
     private _childCircles?: Circle[],
   ) { }
@@ -15,10 +17,10 @@ export class Circle {
     this._id = id;
   }
 
-  get friends(): string[] {
+  get friends(): Profile[] {
     return this._friends;
   }
-  set friends (friends: string[]) {
+  set friends (friends: Profile[]) {
     this._friends = friends;
   }
 

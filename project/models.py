@@ -162,7 +162,9 @@ class Friend(db.Model):
         'notes':self.notes,
         'phone_number' : self.phone_number,
         'job' : self.job,
-        'image_url': self.image_url
+        'image_url': self.image_url,
+        'last_contacted_date':self.last_contacted,
+        'reminder_frequency':self.num_weeks_reminder
       }
 
     def is_anonymous(self):

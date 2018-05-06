@@ -3,6 +3,15 @@ h1 {
   font-family: 'justbecool', monospace;
 }
 
+h4 {
+  font-size: 1.64rem;
+}
+
+.label {
+  font-size: .8rem;
+  color: rgba(0, 0, 0, 0.54)!important;
+}
+
 .full-width {
   width: 100%;
 }
@@ -57,4 +66,8 @@ input[type=date].mat-input-element:focus {
   box-shadow: none;
   border-bottom: none;
   height: 100%;
+}
+
+.card-action {
+  margin-bottom: 0;
 }
