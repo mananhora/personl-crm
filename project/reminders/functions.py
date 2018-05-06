@@ -62,7 +62,7 @@ def get_reminders():
         if(friend.last_contacted is not None and friend.num_weeks_reminder is not None):
           reminder_date = get_next_contact_date(friend.last_contacted, friend.num_weeks_reminder)
           num_days_left = abs((reminder_date - now).days)
-          if(num_days_left<8):
+          if(num_days_left<7):
             reminders_list.append([friend.serialize, num_days_left])
       return jsonify({'result':True, 'reminders':reminders_list})
   return (jsonify({"result":"Error"}))
