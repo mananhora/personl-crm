@@ -93,11 +93,10 @@ export class AppComponent implements OnInit {
 
   /**
    * @function removeFriend
-   * @param {any} friend - friend we would like to remove
-   * @TODO change from any to Profile for more consistent
+   * @param {Profile} friend - friend we would like to remove
    * @param {Circle} circle - circle we are removing the friend from
    */
-  removeFriend(friend: any, circle: Circle): void {
+  removeFriend(friend: Profile, circle: Circle): void {
     let index = circle.friends.indexOf(friend);
     if (index >= 0) circle.friends.splice(index, 1);
   }

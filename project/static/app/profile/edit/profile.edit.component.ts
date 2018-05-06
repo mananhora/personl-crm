@@ -183,7 +183,6 @@ export class ProfileEditComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         for (let i = 0; i < result.selected.length; i++) {
-          // @TODO 500 error on this response?!
           this.circlesService.addFriendToCircle(this.routeId, result.selected[i].id).subscribe();
         }
       }
