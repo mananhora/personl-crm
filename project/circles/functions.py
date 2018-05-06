@@ -150,7 +150,7 @@ def get_all_circles_for_friend():
     friend = Friend.query.get(friend_id)
     circles = friend.circles
     db.session.commit()
-    return jsonify({'result':True, circles:[i.serialize for i in circles]})
+    return jsonify({'result':True, 'circles':[i.serialize for i in circles]})
 
 
 
