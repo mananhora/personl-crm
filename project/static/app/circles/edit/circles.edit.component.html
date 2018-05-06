@@ -8,31 +8,30 @@
   </div>
 
   <div class="row">
-    <form class="col s8 offset-s2 card-panel">
+    <div class="col s8 offset-s2 card-panel">
 
       <div class="section">
         <div class="row">
           <mat-form-field>
-            <input matInput placeholder="circle name" [(ngModel)]="name" name="name">
+            <input matInput placeholder="circle name" [(ngModel)]="circle.name" name="circle.name">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select placeholder="belongs to" [(value)]="parentCircle">
+              <mat-option>none</mat-option>
+              <mat-option *ngFor="let circle of allCircles" [value]="circle">
+                {{ circle.name }}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
+
+        <mat-divider></mat-divider>
 
         <h4>subgroups <span class="badge" (click)="openChildCirclesDialog()"><a><i class="material-icons">add</i></a></span></h4>
         <div *ngIf="childCircles" class="row chipListRow">
           <mat-chip-list #childCirclesList>
             <mat-chip *ngFor="let circle of childCircles" (remove)="removeChildCircle(circle)">
-                {{circle.name}}
-              <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
-          </mat-chip-list>
-        </div>
-
-        <mat-divider></mat-divider>
-
-        <h4>parent groups <span class="badge"><a (click)="openParentCirclesDialog()"><i class="material-icons">add</i></a></span></h4>
-        <div *ngIf="parentCircles" class="row chipListRow">
-          <mat-chip-list #childCirclesList>
-            <mat-chip *ngFor="let circle of parentCircles" (remove)="removeParentCircle(circle)">
                 {{circle.name}}
               <mat-icon matChipRemove>cancel</mat-icon>
             </mat-chip>
@@ -53,7 +52,7 @@
 
         <div class="row">
           <div class="col s4 offset-s4">
-            <button routerLink="/app/friends/{{routeId}}" class="btn waves-effect waves-light" name="action">Done</button>
+            <button (click)="saveChanges()" class="btn waves-effect waves-light" name="action">Save Changes</button>
           </div>
         </div>
 
@@ -63,5 +62,5 @@
 
       </div>
 
-    </form>
+    </div>
   </div>

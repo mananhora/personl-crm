@@ -50,6 +50,14 @@ h4 {
   margin: 0;
 }
 
+td {
+  padding: 0;
+}
+
+td>mat-form-field {
+  text-align: center;
+}
+
 /* card action UI */
 mat-icon {
   margin-right: 0.5em;

@@ -44,8 +44,7 @@ export class CirclesComponent implements OnInit {
     let myVillageNode = {
       id: 0,
       label: 'myVillage',
-      color: '#80ccc5',
-      mass: 1,
+      color: '#5BB9AF',
       shape: 'circle',
       shadow: {
         enabled: true,
@@ -68,12 +67,12 @@ export class CirclesComponent implements OnInit {
           let id = data['json_list'][i]['id'];
           let parent_id = (data['json_list'][i]['parent_id']) ?
             data['json_list'][i]['parent_id'] : 0;
+          let color = parent_id ? '#B2E7E1' : '#80CCC5';
 
           let myNode = {
             id: id,
             label: name,
-            color: '#80ccc5',
-            mass: 2,
+            color: color,
             shape: 'circle',
             shadow: {
               enabled: true,
@@ -100,7 +99,7 @@ export class CirclesComponent implements OnInit {
        .subscribe((eventData: any[]) => {
            if (eventData[0] === this.visNetwork) {
              let id = eventData[1].nodes[0];
-             this.router.navigate(['/app/friends/', id]);
+             if (id >= 0) this.router.navigate(['/app/friends/', id]);
            }
        });
    }
@@ -115,7 +114,16 @@ export class CirclesComponent implements OnInit {
       edges,
     };
 
-    this.visNetworkOptions = {};
+    // @TODO manipulation options for visual circle editing?
+    this.visNetworkOptions = {
+      autoResize: true,
+      physics: {
+        enabled: true,
+        minVelocity: 0.02,
+        maxVelocity: 15,
+        solver: 'forceAtlas2Based',
+      },
+    };
   }
 
 }

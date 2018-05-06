@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
+import { MatChipInputEvent, MatStepper } from '@angular/material';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { CirclesService } from './circles/circles.service';
 import { FriendsService } from './friends/friends.service';
 import { Circle } from './circles/circle';
 import { Profile } from './profile/profile';
-import { MatChipInputEvent } from '@angular/material';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   school: Circle;
   hometown: Circle;
   circles: Circle[];
+  isLinear = true;
   removable = true;
   separatorKeysCodes = [ENTER, COMMA];
 
@@ -72,6 +73,11 @@ export class AppComponent implements OnInit {
       });
   }
 
+  skip(stepper: MatStepper) {
+    stepper.next();
+    stepper.next();
+  }
+
   /**
    * @function addFriend
    * @param {MatChipInputEvent} event - event triggered at chip input
@@ -93,11 +99,10 @@ export class AppComponent implements OnInit {
 
   /**
    * @function removeFriend
-   * @param {any} friend - friend we would like to remove
-   * @TODO change from any to Profile for more consistent
+   * @param {Profile} friend - friend we would like to remove
    * @param {Circle} circle - circle we are removing the friend from
    */
-  removeFriend(friend: any, circle: Circle): void {
+  removeFriend(friend: Profile, circle: Circle): void {
     let index = circle.friends.indexOf(friend);
     if (index >= 0) circle.friends.splice(index, 1);
   }

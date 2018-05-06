@@ -17,8 +17,9 @@ export class CirclesEditComponent implements OnInit {
 
   routeId: number;
   name: string;
+  circle: Circle;
   childCircles: Circle[];
-  parentCircles: Circle[];
+  parentCircle: Circle;
   allCircles: Circle[];
   friends: Profile[];
   allFriends: Profile[];
@@ -30,7 +31,10 @@ export class CirclesEditComponent implements OnInit {
   getCircleInfo(id: number) {
     this.circlesService.getCircleInfo(id)
       .subscribe(data => {
-        this.name = data['circle_name'];
+        this.circle = new Circle(data['circle_name'], data['id']);
+        if (data['parent_id']) {
+          this.parentCircle = this.allCircles.find(match => match.id === data['parent_id'])
+        }
     });
   }
 
@@ -58,12 +62,19 @@ export class CirclesEditComponent implements OnInit {
           let name = data['json_list'][i]['name'];
           let email = data['json_list'][i]['email'];
           let friend = new Profile(name, email, friend_id);
-
+          // create interactive local friends list
           if (this.friends) {
             this.friends.push(friend);
           } else {
             this.friends = [friend];
           }
+          // save original friends list
+          if (this.circle.friends) {
+            this.circle.friends.push(friend);
+          } else {
+            this.circle.friends = [friend];
+          }
+
         }
       });
   }
@@ -106,22 +117,13 @@ export class CirclesEditComponent implements OnInit {
   removeFriend(friend: Profile) {
     let index = this.friends.indexOf(friend);
     if (index >= 0) this.friends.splice(index, 1);
-    this.circlesService.removeFriendFromCircle(friend.id, this.routeId)
-      .subscribe(data => {
-        console.log(data);
-    });
+    this.circlesService.removeFriendFromCircle(friend.id, this.routeId).subscribe();
   }
 
   removeChildCircle(circle: Circle) {
     let index = this.childCircles.indexOf(circle);
     if (index >= 0) this.childCircles.splice(index, 1);
-    //@TODO backend
-  }
-
-  removeParentCircle(circle: Circle) {
-    let index = this.parentCircles.indexOf(circle);
-    if (index >= 0) this.parentCircles.splice(index, 1);
-    //@TODO backend
+    this.circlesService.removeChildCircle(this.routeId, circle.id).subscribe();
   }
 
   deleteCircle() {
@@ -131,19 +133,49 @@ export class CirclesEditComponent implements OnInit {
     }
   }
 
+  saveChanges() {
+    // parent circle
+    if (this.parentCircle) {
+      this.circlesService.assignChildCircle(this.parentCircle.id, this.routeId).subscribe();
+    } else {
+      this.circlesService.getCircleInfo(this.routeId).subscribe(data => {
+          this.circlesService.removeChildCircle(data['parent_id'], this.routeId).subscribe();
+      });
+    }
+    // children
+    // friends
+    if (this.circle.friends) {
+      for (let i = 0; i < this.friends.length; i++) {
+        if (this.circle.friends.find(match => match.id === this.friends[i].id)) {
+          this.circlesService.addFriendToCircle(this.friends[i].id, this.routeId).subscribe();
+        }
+      }
+      // for (let i = 0; i < this.circle.friends.length; i++) {
+      //   if (this.friends.indexOf(this.circle.friends[i])) {
+      //     this.circlesService.removeFriendFromCircle(friend.id, this.routeId).subscribe();
+      //   }
+      // }
+    }
+    this.router.navigate(['/app/friends/', this.routeId]);
+  }
+
   goBack() {
     this.location.back();
   }
 
   ngOnInit() {
-    this.name = 'this circle';
+    // set initial (empty) values of class variables
+    this.circle = new Circle('', 0);
     this.routeId = +this.route.snapshot.paramMap.get('id');
+    this.childCircles = [];
+    this.friends = [];
+    // get and render component data
     if (this.routeId) {
-      this.getCircleInfo(this.routeId);
-      this.getFriendsForCircle(this.routeId);
-      this.getChildCircles(this.routeId);
       this.getAllCircles();
+      this.getCircleInfo(this.routeId);
+      this.getChildCircles(this.routeId);
       this.getAllFriends();
+      this.getFriendsForCircle(this.routeId);
     }
   }
 
@@ -156,22 +188,8 @@ export class CirclesEditComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         for (let i = 0; i < result.selected.length; i++) {
+          this.childCircles.push(result.selected[i]);
           this.circlesService.assignChildCircle(this.routeId, result.selected[i].id).subscribe();
-        }
-      }
-    });
-  }
-
-  openParentCirclesDialog(): void {
-    let dialogRef = this.dialog.open(AddDialog, {
-      width: '30em',
-      data: { for: 'parent groups', list: this.allCircles, selected: this.parentCircles }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        for (let i = 0; i < result.selected.length; i++) {
-          this.circlesService.assignChildCircle(result.selected[i].id, this.routeId).subscribe();
         }
       }
     });
@@ -186,7 +204,7 @@ export class CirclesEditComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         for (let i = 0; i < result.selected.length; i++) {
-          // @TODO 500 error on this response?!
+          this.friends.push(result.selected[i]);
           this.circlesService.addFriendToCircle(result.selected[i].id, this.routeId).subscribe();
         }
       }

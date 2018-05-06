@@ -1,4 +1,5 @@
 import { Circle } from '../circles/circle';
+import { Reminder } from '../notifications/reminder';
 
 export class Profile {
   constructor(
@@ -9,11 +10,12 @@ export class Profile {
     private _circles?: Circle[],
     private _phone?: string,
     private _location?: string,
-    private _reminder?: string, // < an object?
+    private _reminder?: Reminder,
     private _notes?: string,
     private _job?: string,
   ) {
     this.img = 'assets/images/profile.png';
+    this.reminder = new Reminder();
   }
 
   get name(): string {
@@ -63,6 +65,13 @@ export class Profile {
   }
   set location (location: string) {
     this._location = location;
+  }
+
+  get reminder(): Reminder {
+    return this._reminder;
+  }
+  set reminder (reminder: Reminder) {
+    this._reminder = reminder;
   }
 
   get notes(): string {

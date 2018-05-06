@@ -22,9 +22,7 @@ export class FriendsAddComponent implements OnInit {
     private router: Router, private location: Location) { }
 
   addFriend() {
-    this.friendsService.addFriend(this.friend.name, this.friend.email, this.friend.circles)
-      .subscribe();
-    // @TODO: for some reason, causes a post error to add this nav into subsrcibe()
+    this.friendsService.addFriend(this.friend.name, this.friend.email, this.friend.circles).subscribe();
     this.router.navigate(['/app/friends']);
   }
 

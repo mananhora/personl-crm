@@ -61,4 +61,19 @@ export class NotificationsService {
     return this.http.post<Object>('/setlastcontacted', id_object, this.httpOptions);
   }
 
+  /**
+   * @function getReminderForAFriend
+   * @param {number} id - friend ID
+   * @example
+   * {
+       friend_id: id
+     }
+   */
+  getReminderForAFriend(id: number): Observable<Object> {
+    let id_object = {
+      friend_id: id
+    }; //create JSON object
+    return this.http.post<Object>('/upcomingreminderforfriend', id_object, this.httpOptions);
+  }
+
 }
