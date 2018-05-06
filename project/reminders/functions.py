@@ -64,7 +64,7 @@ def get_reminders():
           num_days_left = abs((reminder_date - now).days)
           if(num_days_left<8):
             reminders_list.append([friend.serialize, num_days_left])
-      return ({'result':True, 'reminders':jsonify(reminders_list)})
+      return jsonify({'result':True, 'reminders':reminders_list})
   return (jsonify({"result":"Error"}))
 
 
