@@ -20,13 +20,10 @@
   color: #526165;
 }
 
-.card-panel {
-  min-height: 242.250px;
-}
-
 mat-spinner {
   margin-left: 40%;
   margin-top: 1.46rem;
+  margin-bottom: 1.46rem;
 }
 
 #noReminders .material-icons {
