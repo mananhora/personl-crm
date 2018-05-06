@@ -61,10 +61,9 @@ def register():
       db.session.add(user)
       db.session.commit()
       status = True
+      return jsonify({'result':True })
     except:
-      status = False
-    # return redirect(url_for('home.home'))
-    return jsonify({'result': status})
+      return jsonify({'result': False, desc:something_wrong_message})
 
 
 @users_blueprint.route('/logout', methods=['GET', 'POST'])
@@ -96,11 +95,11 @@ def login():
     # flash('You were logged in. Go Crazy.')
     login_user(user)
     session['logged_in'] = True
-    status = True
     print("logged in go crazy")
+    return jsonify({'result': True})
+
   else:
-    status = False
-  return jsonify({'result': status})
+    return jsonify({'result': False, desc:something_wrong_message})
 
 
 @users_blueprint.route('/loginwithfb', methods=['POST', 'GET'])
@@ -156,7 +155,7 @@ def update_user_info():
     user = User.get(current_user.id)
     user.location = location
     return jsonify({'result': True})
-  return jsonify({'error': True})
+  return jsonify({'result': False, desc:login_error_message})
 
 # @app.before_request
 # def get_current_user():
