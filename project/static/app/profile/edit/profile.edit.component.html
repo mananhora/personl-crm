@@ -76,7 +76,7 @@
             <tr>
               <td>contact every </td>
               <td><mat-form-field>
-                <input matInput type="number">
+                <input matInput type="number" [(ngModel)]="model.reminder.frequency" name="frequency">
               </mat-form-field></td>
               <td> weeks</td>
             </tr>
@@ -85,7 +85,7 @@
             <tr>
               <td>last contacted </td>
               <td><mat-form-field>
-                <input type="date" matInput>
+                <input type="date" matInput [(ngModel)]="model.reminder.lastContact" name="lastContact">
               </mat-form-field></td>
             </tr>
           </table>

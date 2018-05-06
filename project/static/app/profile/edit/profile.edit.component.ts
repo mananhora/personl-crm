@@ -63,6 +63,7 @@ export class ProfileEditComponent implements OnInit {
         if (data['job']) this.model.job = data['job'];
       })
     this.getCirclesForFriend(this.routeId);
+    this.getReminderForAFriend(this.routeId);
   }
 
   getCirclesForFriend(id: number) {
@@ -85,7 +86,7 @@ export class ProfileEditComponent implements OnInit {
   }
 
   // @TODO 500 error ('append' method args issue?)
-  getRemindersForAFriend(id: number) {
+  getReminderForAFriend(id: number) {
     this.notificationsService.getReminderForAFriend(id)
       .subscribe(data => {
         console.log(data);
@@ -109,13 +110,6 @@ export class ProfileEditComponent implements OnInit {
       });
   }
 
-  setReminder(frequency: number, id: number) {
-    this.notificationsService.setReminder(frequency, id)
-      .subscribe(data => {
-        console.log(data);
-    });
-  }
-
   editProfile() {
     if (!this.model.location) {
       this.model.location = '';
@@ -135,6 +129,9 @@ export class ProfileEditComponent implements OnInit {
       this.model.notes,
       this.model.phone,
       this.model.job
+    ).subscribe();
+    this.notificationsService.setReminder(
+      this.model.reminder.frequency, this.model.id
     ).subscribe();
 
     this.router.navigate(['/app/profile/', this.routeId]);
