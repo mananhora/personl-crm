@@ -204,6 +204,19 @@ def delete_circle():
       print("entering try")
       try:
         circle = Circle.query.get(circle_id)
+        friends = circle.friends
+        for friend in friends:
+          circle.friends.remove(friend)
+          db.session.commit()
+          print("removed")
+
+        friends = circle.friends
+        for friend in friends:
+          circle.friends.remove(friend)
+          db.session.commit()
+          print("removed")
+
+        db.session.commit()
         db.session.delete(circle)
         db.session.commit()
         print("successfully deleted")
