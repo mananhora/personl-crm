@@ -11,6 +11,7 @@ import { Profile } from '../profile/profile';
 })
 export class NotificationsComponent implements OnInit {
 
+  load = true;
   reminders: Profile[];
   now = new Date();
 
@@ -29,6 +30,7 @@ export class NotificationsComponent implements OnInit {
             this.reminders = [profile];
           }
         }
+        this.load = false;
     });
   }
 

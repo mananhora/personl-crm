@@ -1,11 +1,15 @@
 
   <div class="row">
-    <h2 class="center">this week</h2>
+    <h2 class="center">this week's reminders</h2>
   </div>
 
   <div class="row">
     <div class="col s8 offset-s2 card-panel">
-      <div class="section" *ngIf="reminders">
+      <div *ngIf="load" class="row">
+        <mat-spinner [color]="accent" class="col"></mat-spinner>
+      </div>
+
+      <div class="section" *ngIf="!load && reminders">
         <div class="row">
           <mat-list>
             <mat-list-item *ngFor="let friend of reminders">
@@ -20,6 +24,11 @@
             </mat-list-item>
           </mat-list>
         </div>
+      </div>
+
+      <div class="row" *ngIf="!load && !reminders" id="noReminders">
+        <h3 class="center"><i class="material-icons">check</i></h3>
+        <h4 class="center">great job! you're all caught up for the week</h4>
       </div>
 
     </div>

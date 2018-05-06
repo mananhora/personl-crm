@@ -19,3 +19,19 @@
   font-style: italic;
   color: #526165;
 }
+
+.card-panel {
+  min-height: 242.250px;
+}
+
+mat-spinner {
+  margin-left: 40%;
+  margin-top: 1.46rem;
+}
+
+#noReminders .material-icons {
+  font-size: 80px;
+}
+#noReminders h4 {
+  margin: 1em;
+}
