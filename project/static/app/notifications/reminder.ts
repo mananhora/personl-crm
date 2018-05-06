@@ -3,7 +3,10 @@ export class Reminder {
   constructor(
     private _frequency?: number,
     private _lastContact?: Date,
-  ) { }
+    private _daysLeft?: number,
+  ) {
+    this.lastContact = new Date();
+  }
 
   get frequency(): number {
     return this._frequency;
@@ -17,6 +20,13 @@ export class Reminder {
   }
   set lastContact (lastContact: Date) {
     this._lastContact = lastContact;
+  }
+
+  get daysLeft(): number {
+    return this._daysLeft;
+  }
+  set daysLeft (daysLeft: number) {
+    this._daysLeft = daysLeft;
   }
 
 }

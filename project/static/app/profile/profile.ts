@@ -15,6 +15,7 @@ export class Profile {
     private _job?: string,
   ) {
     this.img = 'assets/images/profile.png';
+    this.reminder = new Reminder();
   }
 
   get name(): string {
