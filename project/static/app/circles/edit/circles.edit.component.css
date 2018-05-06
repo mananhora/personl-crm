@@ -25,6 +25,10 @@ h4 {
   margin-bottom: 1.5em!important;
 }
 
+.mat-chip {
+  margin-bottom: .65em;
+}
+
 button {
   margin-bottom: 1.5em;
 }
