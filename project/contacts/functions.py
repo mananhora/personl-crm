@@ -47,24 +47,22 @@ def add_friend():
           email = json_data['email'],
           user_id= current_user.id,
           location = location)
-
-        db.session.add(friend)
-        db.session.commit()
-
-        status = True
-        if(call_add_to_circle):
-          circles = json_data['circles']
-          for i in circles:
-            status = add_member_to_circle(False, friend.id, i)
-            if status == False:
-              print("error")
-              break
+        try:
+          db.session.add(friend)
+          if(call_add_to_circle):
+            circles = json_data['circles']
+            for i in circles:
+              status = add_member_to_circle(False, friend.id, i)
+              if status == False:
+                print("error")
+                break
+              db.session.commit()
+              return jsonify({'result':True})
           db.session.commit()
-
-          status = False
-        return jsonify({'result': status})
-  status = False
-  return jsonify({'result': status})
+          return jsonify({'result':True})
+        except:
+          return jsonify({'result': False, desc:something_wrong_message})
+  return jsonify({'result': False, desc:login_error_message})
 
 
 @login_required
@@ -89,8 +87,8 @@ def get_friend_info():
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
         friend = Friend.query.get(friend_id)
-        return jsonify(friend.serialize)
-    return jsonify({'error':True})
+        return jsonify({'result':True, 'friend':friend.serialize})
+    return jsonify({'result':False, desc:login_error_message})
 
 
 @login_required
@@ -102,11 +100,14 @@ def add_note_for_friend():
     note = json_data['note']
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
-      friend = Friend.query.get(friend_id)
-      friend.note = note
-      db.session.commit()
-      return jsonify({'result':True})
-    return jsonify({'error': True})
+      try:
+        friend = Friend.query.get(friend_id)
+        friend.note = note
+        db.session.commit()
+        return jsonify({'result':True})
+      except:
+        return jsonify({'result':False, desc:something_wrong_message})
+    return jsonify({'result': False, desc:login_error_message})
 
 
 @login_required
@@ -122,15 +123,18 @@ def update_info():
     job =json_data['job']
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
-      friend = Friend.query.get(friend_id)
-      friend.location = location
-      friend.notes = notes
-      friend.phone_number = phone_number
-      friend.job = job
-      db.session.commit()
-      print("success")
-      return jsonify({'result': True})
-    return jsonify({'error': True})
+      try:
+        friend = Friend.query.get(friend_id)
+        friend.location = location
+        friend.notes = notes
+        friend.phone_number = phone_number
+        friend.job = job
+        db.session.commit()
+        print("success")
+        return jsonify({'result': True})
+      except:
+        return jsonify({'result':False, desc:something_wrong_message})
+    return jsonify({'result': False, desc:login_error_message})
 
 
 @login_required
@@ -162,14 +166,18 @@ def add_image_url():
   if current_user is not None:
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
-      json_data = request.get_json()
-      image_url = json_data['image_url']
-      friend_id = json_data['friend_id']
-      friend = Friend.query.get(friend_id)
-      friend.image_url = image_url
-      return jsonify("Success")
-    return jsonify("error")
-  return jsonify("error")
+      try:
+        json_data = request.get_json()
+        image_url = json_data['image_url']
+        friend_id = json_data['friend_id']
+        friend = Friend.query.get(friend_id)
+        friend.image_url = image_url
+        db.session.commit()
+        return jsonify({'result':True})
+      except:
+        return jsonify({'result':False, desc:something_wrong_message})
+    return jsonify({'result': False, desc:login_error_message})
+  return jsonify({'result': False, desc: login_error_message})
 
 
 @login_required
@@ -185,8 +193,8 @@ def delete_friend():
         db.session.delete(friend)
         db.session.commit()
         print("successfully deleted")
+        return jsonify({'result':True})
       except:
-        return jsonify("Error")
-      return jsonify("successfully deleted friend")
-    return jsonify("not logged in")
-  return jsonify("not logged in")
+        return jsonify({'result':False, desc:something_wrong_message})
+    return jsonify({'result': False, desc:login_error_message})
+  return jsonify({'result': False, desc: login_error_message})
