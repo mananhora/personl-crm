@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import {FormControl} from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProfileService } from '../profile.service';
 import { CirclesService } from '../../circles/circles.service';
@@ -19,6 +20,7 @@ export class ProfileEditComponent implements OnInit {
   routeId: number;
   allCircles: Circle[];
   model = new Profile('', '', 0);
+  lastContactForForm = new FormControl(new Date());
 
   constructor(private profileService: ProfileService, private circlesService: CirclesService,
     private notificationsService: NotificationsService, private route: ActivatedRoute, private router: Router,
@@ -59,17 +61,20 @@ export class ProfileEditComponent implements OnInit {
         if (data['circles']) this.model.circles = data['circles'];
         if (data['phone_number']) this.model.phone = data['phone_number'];
         if (data['location']) this.model.location = data['location'];
+        if (data['reminder_frequency']) this.model.reminder.frequency = data['reminder_frequency'];
+        if (data['last_contacted_date']) {
+          this.model.reminder.lastContact = data['last_contacted_date'];
+          this.lastContactForForm = new FormControl(new Date(data['last_contacted_date']));
+        }
         if (data['notes']) this.model.notes = data['notes'];
         if (data['job']) this.model.job = data['job'];
       })
     this.getCirclesForFriend(this.routeId);
-    this.getReminderForAFriend(this.routeId);
   }
 
   getCirclesForFriend(id: number) {
     this.profileService.getCirclesForFriend(id)
       .subscribe(data => {
-        console.log(data);
         for (let i = 0; i < data['json_list'].length; i++) {
           if (this.model.circles) {
             this.model.circles.push(new Circle(
@@ -81,16 +86,7 @@ export class ProfileEditComponent implements OnInit {
               data['json_list'][i].id)];
           }
         }
-        console.log(this.model.circles);
       })
-  }
-
-  // @TODO 500 error ('append' method args issue?)
-  getReminderForAFriend(id: number) {
-    this.notificationsService.getReminderForAFriend(id)
-      .subscribe(data => {
-        console.log(data);
-    });
   }
 
   getAllCircles() {
@@ -132,6 +128,9 @@ export class ProfileEditComponent implements OnInit {
     ).subscribe();
     this.notificationsService.setReminder(
       this.model.reminder.frequency, this.model.id
+    ).subscribe();
+    this.notificationsService.setLastContact(
+      new Date(this.lastContactForForm.value), this.model.id
     ).subscribe();
 
     this.router.navigate(['/app/profile/', this.routeId]);
