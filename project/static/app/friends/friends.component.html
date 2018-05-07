@@ -55,6 +55,16 @@
     </mat-grid-list>
   </div>
 
+  <div class="row" *ngIf="!friends">
+    <div class="col s8 offset-s2 card-panel center-align">
+      <h5>where is everyone?</h5>
+      <h4>¯\_(ツ)_/¯</h4>
+      <div class="card-action">
+        <a class="btn waves-effect waves-light" routerLink="/app/friends/add">Add Some Friends</a>
+      </div>
+    </div>
+  </div>
+
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
     <a *ngIf="routeId" routerLink="/app/circles/{{routeId}}/edit" class="btn-floating btn-large waves-effect waves-light teal lighten-2">
       <i class="material-icons teal lighten-2">edit</i>
