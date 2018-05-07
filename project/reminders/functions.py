@@ -72,7 +72,7 @@ def get_reminders():
 
       return jsonify({'result': True,  'reminders': reminders_list})
 
-  return (jsonify({"result":"Error"}))
+  return (jsonify({"result":False, desc:login_error_message}))
 
 
 
