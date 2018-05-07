@@ -121,6 +121,7 @@ def update_info():
     notes = json_data['notes']
     phone_number = json_data['phone_number']
     job =json_data['job']
+    image_url=json_data['img']
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
       try:
@@ -129,6 +130,7 @@ def update_info():
         friend.notes = notes
         friend.phone_number = phone_number
         friend.job = job
+        friend.image_url = image_url
         db.session.commit()
         print("success")
         return jsonify({'result': True})
