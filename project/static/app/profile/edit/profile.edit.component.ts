@@ -205,6 +205,11 @@ export class ProfileEditComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         for (let i = 0; i < result.selected.length; i++) {
+          if (this.model.circles) {
+            this.model.circles.push(result.selected[i]);
+          } else {
+            this.model.circles = [result.selected[i]];
+          }
           this.circlesService.addFriendToCircle(this.routeId, result.selected[i].id).subscribe();
         }
       }

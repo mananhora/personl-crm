@@ -10,7 +10,10 @@ h5 {
   color: #526165;
 }
 
-#sidebar-content>div {
+#sidebar-content > .card-content {
+  display: -webkit-box;
+}
+#sidebar-content > .card-action {
   display: flex;
   justify-content: space-around;
 }
