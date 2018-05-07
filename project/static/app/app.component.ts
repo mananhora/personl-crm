@@ -14,6 +14,7 @@ import { Profile } from './profile/profile';
 })
 
 export class AppComponent implements OnInit {
+  loading = true;
   loggedIn = false;
   name = '';
   email = '';
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit {
     this.appService.isLoggedIn()
       .subscribe(data => {
         this.loggedIn = data['is_logged_in'];
+        this.loading = false;
     })
   }
 
@@ -45,6 +47,7 @@ export class AppComponent implements OnInit {
    * login user from email and password. redirect to homepage
    */
   login() {
+    this.loading = true;
     this.appService.login(this.email, this.password).subscribe(data => {
       if (data['result']) {
         location.href = 'http://0.0.0.0:5000/';
@@ -59,6 +62,7 @@ export class AppComponent implements OnInit {
    * registers a new user account
    */
   register() {
+    this.loading = true;
     this.appService.register(this.name, this.email, this.password, this.confirmPassword).subscribe(data => {
       if (data['result']) {
         this.appService.login(this.email, this.password).subscribe(data => {

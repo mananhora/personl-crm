@@ -1,4 +1,9 @@
 
+mat-spinner {
+  margin-top: 40%;
+  margin-left: 40%;
+}
+
 .mylabel {
   font-size: 1.25rem;
   color: rgba(0,0,0,0.87);
