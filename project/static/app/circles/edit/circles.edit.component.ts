@@ -37,7 +37,7 @@ export class CirclesEditComponent implements OnInit {
         this.circle = new Circle(data['circle']['circle_name'], data['circle']['id']);
         if (data['circle']['parent_id']) {
           // and parent circle name
-          this.circlesService.getCircleInfo(id).subscribe(data => {
+          this.circlesService.getCircleInfo(data['circle']['parent_id']).subscribe(data => {
             this.parentCircle = new Circle(data['circle']['circle_name'], data['circle']['id']);
           })
         }
