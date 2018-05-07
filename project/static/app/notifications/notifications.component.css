@@ -5,3 +5,34 @@
 .mat-raised-button {
   margin-left: 1.5em;
 }
+
+.mat-list-item-content {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.mat-list-icon a {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.mat-list-item h4 {
+  font-size: 1.5rem;
+  margin-bottom: .2em;
+}
+
+.mat-list-item p {
+  font-style: italic;
+  color: #526165;
+}
+
+mat-spinner {
+  margin-left: 40%;
+  margin-top: 1.46rem;
+  margin-bottom: 1.46rem;
+}
+
+#noReminders .material-icons {
+  font-size: 80px;
+}
+#noReminders h4 {
+  margin: 1em;
+}

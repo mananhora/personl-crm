@@ -20,6 +20,10 @@ circles_blueprint = Blueprint(
 )
 
 
+login_error_message = 'It seems you are not logged in. Please log in and try again.'
+something_wrong_message = 'Woops, something went wrong. Sorry, try again later.'
+desc = 'description'
+
 
 @login_required
 @circles_blueprint.route('/addcircle/', methods = ['GET', 'POST'])
@@ -33,16 +37,16 @@ def add_circle():
     try:
       print("in add circle")
       user_id = current_user.id,
+      if json_data['circle_name']=='' or json_data['circle_name']=="" or json_data['circle_name']==None:
+        return jsonify({'result': False, 'description': 'Whoops, something went wrong.'})
       circle = Circle(circle_name=json_data['circle_name'], user_id=user_id)
       db.session.add(circle)
       db.session.commit()
-      print("done...")
-      return jsonify(circle.serialize)
+      return jsonify({'result':True, 'circle':circle.serialize})
     except:
-      return jsonify("error")
+      return jsonify({'result':False, 'description':'Whoops, something went wrong.'})
   else:
-    print('current user is None')
-    return jsonify({'message':"ERROR, NOT LOGGED IN", 'error':True})
+    return jsonify({'result':False, 'description':'It seems you are not logged in.'})
 
 
 #add a child circle
@@ -57,17 +61,18 @@ def add_child_circle():
     try:
       print("in add circle")
       user_id = current_user.id,
+      if json_data['circle_name']=='' or json_data['circle_name']=="" or json_data['circle_name']==None:
+        return jsonify({'result': False, 'description': 'Whoops, something went wrong.'})
       circle = Circle(circle_name=json_data['circle_name'], user_id=user_id, parent_id=json_data['parent_id'])
       db.session.add(circle)
       db.session.commit()
-      status = True
       print("done...")
+      return jsonify({'result':True, 'circle':circle.serialize})
     except:
-      status = False
-    return jsonify({'result': status})
+      return jsonify({'result': False, desc:something_wrong_message})
   else:
     print('current user is None')
-    return jsonify({'message':"ERROR, NOT LOGGED IN", 'error':True})
+    return jsonify({'result':False, desc:login_error_message})
 
 
 @login_required
@@ -80,9 +85,9 @@ def get_child_circles():
       parent_id = json_data['circle_id']
       circle = Circle.query.get(parent_id)
       child_circles = circle.child_circles
-      return jsonify(json_list=[i.serialize for i in child_circles])
-    return jsonify("NOT LOGGED IN")
-  return jsonify("NOT LOGGED IN")
+      return jsonify({'result':True, 'child_circles':[i.serialize for i in child_circles]})
+    return jsonify({'result':False, 'description':login_error_message})
+  return jsonify({'result': False, desc:login_error_message})
 
 
 #add a friend to a circle, given that the friend already exists in the user's friend_list
@@ -135,7 +140,8 @@ def get_all_friends_in_circle(circle_id=None):
     for i in range(0, len(friends)):
         print(friends[i].name)
     db.session.commit()
-    return jsonify(json_list=[i.serialize for i in friends])
+    return jsonify({'result':True, 'friends':[i.serialize for i in friends]})
+  return jsonify({'result':False, desc:login_error_message})
 
 
 
@@ -150,7 +156,8 @@ def get_all_circles_for_friend():
     friend = Friend.query.get(friend_id)
     circles = friend.circles
     db.session.commit()
-    return jsonify(json_list=[i.serialize for i in circles])
+    return jsonify({'result':True, 'circles':[i.serialize for i in circles]})
+
 
 
 
@@ -166,9 +173,9 @@ def get_all_circles_for_user():
       user_id = current_user.id
       user = User.query.get(user_id)
       circles = user.circles.all()
-      return jsonify(json_list=[i.serialize for i in circles])
-    return jsonify("NOT LOGGED IN")
-  return jsonify("NOT LOGGED IN")
+      return jsonify({'result':True, 'circles':[i.serialize for i in circles]})
+    return jsonify({'result':False, desc:login_error_message})
+  return jsonify({'result': False, desc: login_error_message})
 
 
 @login_required
@@ -186,11 +193,11 @@ def remove_friend_from_circle():
         circle.friends.remove(friend)
         db.session.commit()
         print("Successfully removed")
+        return jsonify({'result':True})
       except:
-        return jsonify("error")
-      return jsonify("successfully removed friend from circle")
-    return jsonify("Not logged in")
-  return jsonify("Not logged in")
+        return jsonify({'result':False, desc:something_wrong_message})
+    return jsonify({'result':False, desc:login_error_message})
+  return jsonify({'result': False, desc: login_error_message})
 
 
 @login_required
@@ -204,14 +211,27 @@ def delete_circle():
       print("entering try")
       try:
         circle = Circle.query.get(circle_id)
+        friends = circle.friends
+        for friend in friends:
+          circle.friends.remove(friend)
+          db.session.commit()
+          print("removed")
+
+        friends = circle.friends
+        for friend in friends:
+          circle.friends.remove(friend)
+          db.session.commit()
+          print("removed")
+
+        db.session.commit()
         db.session.delete(circle)
         db.session.commit()
         print("successfully deleted")
+        return jsonify({'result':True})
       except:
-        return jsonify("Error")
-      return jsonify("successfully deleted circle")
-    return jsonify("not logged in")
-  return jsonify("not logged in")
+        return jsonify({'result':False, desc:something_wrong_message})
+    return jsonify({'result':False, desc:login_error_message})
+  return jsonify({'result': False, desc: login_error_message})
 
 
 @login_required
@@ -224,10 +244,9 @@ def get_circle_by_id():
       circle_id = json_data['circle_id']
       print("entering try")
       circle = Circle.query.get(circle_id)
-      return jsonify(circle.serialize)
-    return jsonify("not logged in")
-  return jsonify("not logged in")
-
+      return jsonify({'result': True, 'circle':circle.serialize})
+    return jsonify({'result':False, desc:login_error_message})
+  return jsonify({'result': False, desc: login_error_message})
 
 
 @login_required
@@ -247,12 +266,12 @@ def assign_child_circle():
       db.session.commit()
       status = True
       print("done...")
+      return jsonify({'result': status})
     except:
       status = False
-    return jsonify({'result': status})
+      return jsonify({'result': status, desc:something_wrong_message})
   else:
-    print('current user is None')
-    return jsonify({'message': "ERROR, NOT LOGGED IN", 'error': True})
+    return jsonify({'result': False, desc: login_error_message})
 
 
 @login_required
@@ -272,9 +291,10 @@ def remove_child_circle():
       db.session.commit()
       status = True
       print("done...")
+      return jsonify({'result': status})
     except:
       status = False
-    return jsonify({'result': status})
+      return jsonify({'result': status, desc:something_wrong_message})
   else:
     print('current user is None')
-    return jsonify({'message': "ERROR, NOT LOGGED IN", 'error': True})
+    return jsonify({'result': False, desc: login_error_message})

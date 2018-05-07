@@ -25,11 +25,12 @@ export class FriendsComponent implements OnInit {
   showAllFriends() {
     this.friendsService.getAllFriends()
       .subscribe(data => {
-        for (let i = 0; i < data['json_list'].length; i++) {
-          let id = data['json_list'][i]['id'];
-          let name = data['json_list'][i]['name'];
-          let email = data['json_list'][i]['email'];
+        for (let i = 0; i < data['friends'].length; i++) {
+          let id = data['friends'][i]['id'];
+          let name = data['friends'][i]['name'];
+          let email = data['friends'][i]['email'];
           let friend = new Profile(name, email, id);
+          if (data['friends'][i]['image_url']) friend.img = data['friends'][i]['image_url'];
 
           if (this.friends) {
             this.friends.push(friend);
@@ -43,11 +44,12 @@ export class FriendsComponent implements OnInit {
   getFriendsForCircle(circle_id: number) {
     this.friendsService.getFriends(circle_id)
       .subscribe(data => {
-        for (let i = 0; i < data['json_list'].length; i++) {
-          let friend_id = data['json_list'][i]['id'];
-          let name = data['json_list'][i]['name'];
-          let email = data['json_list'][i]['email'];
+        for (let i = 0; i < data['friends'].length; i++) {
+          let friend_id = data['friends'][i]['id'];
+          let name = data['friends'][i]['name'];
+          let email = data['friends'][i]['email'];
           let friend = new Profile(name, email, friend_id);
+          if (data['friends'][i]['image_url']) friend.img = data['friends'][i]['image_url'];
 
           if (this.friends) {
             this.friends.push(friend);
@@ -61,11 +63,11 @@ export class FriendsComponent implements OnInit {
   getFriendsForChildCircle(circle: Circle): Circle {
     this.friendsService.getFriends(circle.id)
       .subscribe(data => {
-        for (let i = 0; i < data['json_list'].length; i++) {
-          let id = data['json_list'][i]['id'];
+        for (let i = 0; i < data['friends'].length; i++) {
+          let id = data['friends'][i]['id'];
           if (this.friends.find(match => match.id === id)) {
-            let name = data['json_list'][i]['name'];
-            let email = data['json_list'][i]['email'];
+            let name = data['friends'][i]['name'];
+            let email = data['friends'][i]['email'];
             let friend = new Profile(name, email, id);
 
             if (circle.friends) {
@@ -82,16 +84,16 @@ export class FriendsComponent implements OnInit {
   getCircleInfo(id: number) {
     this.circlesService.getCircleInfo(id)
       .subscribe(data => {
-        this.name = data['circle_name'];
+        this.name = data['circle']['circle_name'];
     });
   }
 
   getChildCircles(id: number) {
     this.circlesService.getChildCircles(id)
       .subscribe(data => {
-        for (let i = 0; i < data['json_list'].length; i++) {
-          let name = data['json_list'][i].circle_name;
-          let id = data['json_list'][i].id;
+        for (let i = 0; i < data['child_circles'].length; i++) {
+          let name = data['child_circles'][i].circle_name;
+          let id = data['child_circles'][i].id;
           let circle = new Circle(name, id);
           circle = this.getFriendsForChildCircle(circle);
           if (this.childCircles) {

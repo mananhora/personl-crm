@@ -62,34 +62,38 @@ export class CirclesComponent implements OnInit {
 
     this.circlesService.getCircles()
       .subscribe(data => {
-        for (let i = 0; i < data['json_list'].length; i++) {
-          let name = data['json_list'][i]['circle_name'];
-          let id = data['json_list'][i]['id'];
-          let parent_id = (data['json_list'][i]['parent_id']) ?
-            data['json_list'][i]['parent_id'] : 0;
-          let color = parent_id ? '#B2E7E1' : '#80CCC5';
+        if (data['result']) {
+          for (let i = 0; i < data['circles'].length; i++) {
+            let name = data['circles'][i]['circle_name'];
+            let id = data['circles'][i]['id'];
+            let parent_id = (data['circles'][i]['parent_id']) ?
+              data['circles'][i]['parent_id'] : 0;
+            let color = parent_id ? '#B2E7E1' : '#80CCC5';
 
-          let myNode = {
-            id: id,
-            label: name,
-            color: color,
-            shape: 'circle',
-            shadow: {
-              enabled: true,
-              color: 'rgba(0,0,0,0.2)',
-              size: 10,
-              x: -3,
-              y: 3,
-            },
-            font: {
-              face: 'Roboto',
-              size: 18,
-            },
-          };
-          this.nodes.add(myNode as VisNode);
-          this.edges.add({ from: parent_id, to: id });
+            let myNode = {
+              id: id,
+              label: name,
+              color: color,
+              shape: 'circle',
+              shadow: {
+                enabled: true,
+                color: 'rgba(0,0,0,0.2)',
+                size: 10,
+                x: -3,
+                y: 3,
+              },
+              font: {
+                face: 'Roboto',
+                size: 18,
+              },
+            };
+            this.nodes.add(myNode as VisNode);
+            this.edges.add({ from: parent_id, to: id });
+          }
+          this.visNetworkService.fit(this.visNetwork);
+        } else {
+          alert(data['description']);
         }
-        this.visNetworkService.fit(this.visNetwork);
     });
   }
 

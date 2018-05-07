@@ -12,6 +12,10 @@ from project.form import *
 from flask.ext.login import login_user, LoginManager, current_user, login_required
 from project.users.functions import user
 
+login_error_message = 'It seems you are not logged in. Please log in and try again.'
+something_wrong_message = 'Woops, something went wrong. Sorry, try again later.'
+desc = 'description'
+
 
 
 ################
@@ -61,9 +65,9 @@ def add_friend():
               break
           db.session.commit()
 
-          status = False
+          status = True
         return jsonify({'result': status})
-  status = False
+  status = True
   return jsonify({'result': status})
 
 
@@ -89,8 +93,8 @@ def get_friend_info():
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
         friend = Friend.query.get(friend_id)
-        return jsonify(friend.serialize)
-    return jsonify({'error':True})
+        return jsonify({'result':True, 'friend':friend.serialize})
+    return jsonify({'result':False, desc:login_error_message})
 
 
 @login_required
@@ -102,11 +106,14 @@ def add_note_for_friend():
     note = json_data['note']
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
-      friend = Friend.query.get(friend_id)
-      friend.note = note
-      db.session.commit()
-      return jsonify({'result':True})
-    return jsonify({'error': True})
+      try:
+        friend = Friend.query.get(friend_id)
+        friend.note = note
+        db.session.commit()
+        return jsonify({'result':True})
+      except:
+        return jsonify({'result':False, desc:something_wrong_message})
+    return jsonify({'result': False, desc:login_error_message})
 
 
 @login_required
@@ -120,17 +127,22 @@ def update_info():
     notes = json_data['notes']
     phone_number = json_data['phone_number']
     job =json_data['job']
+    image_url=json_data['img']
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
-      friend = Friend.query.get(friend_id)
-      friend.location = location
-      friend.notes = notes
-      friend.phone_number = phone_number
-      friend.job = job
-      db.session.commit()
-      print("success")
-      return jsonify({'result': True})
-    return jsonify({'error': True})
+      try:
+        friend = Friend.query.get(friend_id)
+        friend.location = location
+        friend.notes = notes
+        friend.phone_number = phone_number
+        friend.job = job
+        friend.image_url = image_url
+        db.session.commit()
+        print("success")
+        return jsonify({'result': True})
+      except:
+        return jsonify({'result':False, desc:something_wrong_message})
+    return jsonify({'result': False, desc:login_error_message})
 
 
 @login_required
@@ -162,14 +174,18 @@ def add_image_url():
   if current_user is not None:
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
-      json_data = request.get_json()
-      image_url = json_data['image_url']
-      friend_id = json_data['friend_id']
-      friend = Friend.query.get(friend_id)
-      friend.image_url = image_url
-      return jsonify("Success")
-    return jsonify("error")
-  return jsonify("error")
+      try:
+        json_data = request.get_json()
+        image_url = json_data['image_url']
+        friend_id = json_data['friend_id']
+        friend = Friend.query.get(friend_id)
+        friend.image_url = image_url
+        db.session.commit()
+        return jsonify({'result':True})
+      except:
+        return jsonify({'result':False, desc:something_wrong_message})
+    return jsonify({'result': False, desc:login_error_message})
+  return jsonify({'result': False, desc: login_error_message})
 
 
 @login_required
@@ -185,8 +201,8 @@ def delete_friend():
         db.session.delete(friend)
         db.session.commit()
         print("successfully deleted")
+        return jsonify({'result':True})
       except:
-        return jsonify("Error")
-      return jsonify("successfully deleted friend")
-    return jsonify("not logged in")
-  return jsonify("not logged in")
+        return jsonify({'result':False, desc:something_wrong_message})
+    return jsonify({'result': False, desc:login_error_message})
+  return jsonify({'result': False, desc: login_error_message})

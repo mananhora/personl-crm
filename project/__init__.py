@@ -55,6 +55,10 @@ app.register_blueprint(reminders_blueprint)
 # app.register_blueprint(import_data_blueprint)
 
 
+login_error_message = 'It seems you are not logged in. Please log in and try again.'
+something_wrong_message = 'Woops, something went wrong. Sorry, try again later.'
+desc = 'description'
+
 #LOGIN MANAGER
 login_manager = LoginManager()
 login_manager.init_app(app)

@@ -5,7 +5,9 @@ from flask.ext.login import current_user, login_required
 
 from project import *
 from project.models import *
-
+login_error_message = 'It seems you are not logged in. Please log in and try again.'
+something_wrong_message = 'Woops, something went wrong. Sorry, try again later.'
+desc = 'description'
 
 ################
 #### config ####
@@ -29,8 +31,8 @@ def set_frequency():
       friend.num_weeks_reminder = n
       db.session.commit()
       return jsonify({'result': True})
-    return jsonify({'error': True})
-  return jsonify({'error': True})
+    return jsonify({'result': False, desc:login_error_message})
+  return jsonify({'result': False, desc: login_error_message})
 
 
 @login_required
@@ -46,8 +48,8 @@ def set_last_contacted():
       friend.last_contacted = date
       db.session.commit()
       return jsonify({'result': True})
-    return jsonify({'error': True})
-  return jsonify({'error': True})
+    return jsonify({'result': False, desc:login_error_message})
+  return jsonify({'result': False, desc: login_error_message})
 
 
 @login_required
@@ -61,11 +63,19 @@ def get_reminders():
         now = datetime.datetime.utcnow()
         if(friend.last_contacted is not None and friend.num_weeks_reminder is not None):
           reminder_date = get_next_contact_date(friend.last_contacted, friend.num_weeks_reminder)
-          num_days_left = abs((reminder_date - now).days)
-          if(num_days_left<7):
-            reminders_list.append([friend.serialize, num_days_left])
-      return jsonify({'result':True, 'reminders':reminders_list})
-  return (jsonify({"result":"Error"}))
+
+          num_days_left = (reminder_date - now).days
+
+          if (reminder_date < now):
+            num_days_ago = (now-reminder_date).days
+            reminders_list.append([friend.serialize, num_days_ago, True])
+          if(num_days_left<7 and num_days_left>0):
+            reminders_list.append([friend.serialize, num_days_left, False])
+
+      return jsonify({'result': True,  'reminders': reminders_list})
+
+  return (jsonify({"result":False, desc:login_error_message}))
+
 
 
 def get_next_contact_date(last_contacted_date, n):
@@ -86,17 +96,17 @@ def get_upcoming_reminders_for_friend():
       last_contacted_date = friend.last_contacted
       num_weeks_reminder = friend.num_weeks_reminder
       if last_contacted_date is None:
-        return (jsonify({'reminder':False}))
+        return (jsonify({'result':True,'reminder':False}))
       if num_weeks_reminder is None:
-        return (jsonify({'reminder': False}))
+        return (jsonify({'result':True,'reminder': False}))
       now = datetime.datetime.utcnow()
       reminder_date = get_next_contact_date(last_contacted_date, num_weeks_reminder)
       num_days_left = (reminder_date-now).days
       if(num_days_left<8):
-        return (jsonify({'reminder':True, 'num_days_left':num_days_left}))
+        return (jsonify({'result':True, 'reminder':True, 'num_days_left':num_days_left}))
       else:
-        return (jsonify({'reminder':False}))
-    return jsonify({"result":"error"})
+        return (jsonify({'result':True,'reminder':False}))
+    return jsonify({'result':False, desc:login_error_message})
 
 
 

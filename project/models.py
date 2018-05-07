@@ -123,7 +123,7 @@ class Friend(db.Model):
     user_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
     location = db.Column(db.String())
     circles = db.relationship("Circle",
-                    secondary=friends_circles, backref='circles')
+                    secondary=friends_circles, backref='circles', passive_deletes=True)
     phone_number = db.Column(db.String())
     birthday =  db.Column(DateTime)
     notes = db.Column(db.String())

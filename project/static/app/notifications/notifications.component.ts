@@ -11,6 +11,7 @@ import { Profile } from '../profile/profile';
 })
 export class NotificationsComponent implements OnInit {
 
+  load = true;
   reminders: Profile[];
   now = new Date();
 
@@ -20,15 +21,20 @@ export class NotificationsComponent implements OnInit {
   getReminders() {
     this.notificationsService.getReminders()
       .subscribe(data => {
-        // @TODO this isn't a very adaptive JSON response object
-        for(let i = 0; i < data[0].length-1; i++) {
-          let profile = new Profile(data[i][0].name, data[i][0].email, data[i][0].id);
-          profile.reminder.daysLeft = data[i][1];
-          if (this.reminders) {
-            this.reminders.push(profile);
-          } else {
-            this.reminders = [profile];
+        if (data['result']) {
+          for(let i = 0; i < data['reminders'].length; i++) {
+            let profile = new Profile(data['reminders'][i][0].name, data['reminders'][i][0].email, data['reminders'][i][0].id);
+            profile.reminder.lastContact = data['reminders'][i][0].last_contacted_date;
+            profile.reminder.daysLeft = data['reminders'][i][1];
+            if (this.reminders) {
+              this.reminders.push(profile);
+            } else {
+              this.reminders = [profile];
+            }
           }
+          this.load = false;
+        } else {
+          alert(data['description']);
         }
     });
   }
@@ -40,15 +46,19 @@ export class NotificationsComponent implements OnInit {
   setLastContact(date: Date, id: number) {
     this.notificationsService.setLastContact(date, id)
       .subscribe(data => {
-        let profile = this.reminders.find(match => match.id === id);
-        // profile.reminder.lastContact = new Date();
+        if (data['result']) {
+          let profile = this.reminders.find(match => match.id === id);
+          profile.reminder.lastContact = new Date();
+        } else {
+          alert(data['description']);
+        }
     });
   }
 
   evaluateDate(date: Date): boolean {
-    return date.getDate() == this.now.getDate() &&
-           date.getMonth() == this.now.getMonth() &&
-           date.getFullYear() == this.now.getFullYear();
+    let now = new Date();
+    let lastContacted = new Date(date);
+    return (lastContacted.toDateString() == now.toDateString());
   }
 
   ngOnInit() {

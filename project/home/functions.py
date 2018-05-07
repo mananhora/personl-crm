@@ -7,7 +7,9 @@ from functools import wraps
 from project.models import *
 from project import *
 from flask.ext.login import login_user, LoginManager, current_user, login_required
-
+login_error_message = 'It seems you are not logged in. Please log in and try again.'
+something_wrong_message = 'Woops, something went wrong. Sorry, try again later.'
+desc = 'description'
 
 ################
 #### config ####
@@ -28,8 +30,8 @@ def get_friends():
         friends = Friend.query.filter_by(user_id=user_id).all()
         for i in range(0, len(friends)):
           print(friends[i].name)
-        return jsonify(json_list=[i.serialize for i in friends])
-    return jsonify({'error':True})
+        return jsonify({'result':True, 'friends': [i.serialize for i in friends]})
+    return jsonify({'result':False, desc:login_error_message})
     # flash(str(friends.name))
 
 

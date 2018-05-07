@@ -29,30 +29,44 @@ export class CirclesAddComponent implements OnInit {
   addCircle() {
     this.circlesService.addCircle(this.circle.name)
       .subscribe(data => {
-        this.circle.id = data['id'];
+        if (data['result']) {
+          this.circle.id = data['circle']['id'];
 
-        // add friends to circle
-        for (let i = 0; i < this.selectedFriends.length; i++) {
-          this.circlesService.addFriendToCircle(this.selectedFriends[i].id, this.circle.id).subscribe();
+          // add friends to circle
+          for (let i = 0; i < this.selectedFriends.length; i++) {
+            this.circlesService.addFriendToCircle(this.selectedFriends[i].id, this.circle.id).subscribe();
+          }
+          // add circle as a child
+          if (this.parentCircle) {
+            this.circlesService.assignChildCircle(this.parentCircle.id, this.circle.id).subscribe(data => {
+              if (!data['result']) {
+                alert(data['description']);
+              }
+            });
+          }
+
+          // add children circles
+          for (let i = 0; i < this.selectedChildCircles.length; i++) {
+            this.circlesService.assignChildCircle(this.circle.id, this.selectedChildCircles[i].id).subscribe(data => {
+              if (!data['result']) {
+                alert(data['description']);
+              }
+            });
+          }
+
+          this.router.navigate(['/app/friends/', this.circle.id]);
+        } else {
+          alert(data['description']);
         }
-        // add circle as a child
-        this.circlesService.assignChildCircle(this.parentCircle.id, this.circle.id).subscribe();
-
-        // add children circles
-        for (let i = 0; i < this.selectedChildCircles.length; i++) {
-          this.circlesService.assignChildCircle(this.circle.id, this.selectedChildCircles[i].id).subscribe();
-        }
-
-        this.router.navigate(['/app/friends/', this.circle.id]);
       });
   }
 
   getAllCircles() {
     this.circlesService.getCircles()
       .subscribe(data => {
-        for (let i = 0; i < data['json_list'].length; i++) {
-          let name = data['json_list'][i]['circle_name'];
-          let id = data['json_list'][i]['id'];
+        for (let i = 0; i < data['circles'].length; i++) {
+          let name = data['circles'][i]['circle_name'];
+          let id = data['circles'][i]['id'];
           let circle = new Circle(name, id);
 
           if (this.allCircles) {
@@ -67,10 +81,10 @@ export class CirclesAddComponent implements OnInit {
   getAllFriends() {
     this.friendsService.getAllFriends()
       .subscribe(data => {
-        for (let i = 0; i < data['json_list'].length; i++) {
-          let name = data['json_list'][i]['name'];
-          let email = data['json_list'][i]['email'];
-          let id = data['json_list'][i]['id'];
+        for (let i = 0; i < data['friends'].length; i++) {
+          let name = data['friends'][i]['name'];
+          let email = data['friends'][i]['email'];
+          let id = data['friends'][i]['id'];
           let profile = new Profile(name, email, id);
 
           if (this.friends) {

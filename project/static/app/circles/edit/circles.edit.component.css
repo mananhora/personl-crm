@@ -12,6 +12,15 @@
 }
 
 /* card panel UI */
+mat-spinner {
+  margin-top: 150px;
+  margin-left: 180px;
+}
+
+.card-panel {
+  min-height: 420px;
+}
+
 .card-panel .row {
   margin-bottom: 0;
 }
