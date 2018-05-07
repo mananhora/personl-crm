@@ -14,7 +14,7 @@
           <mat-list>
             <mat-list-item *ngFor="let friend of reminders">
               <mat-icon mat-list-icon  *ngIf="!evaluateDate(friend.reminder.lastContact)" (click)="contacted(friend)">
-                <a href="#!"><span>crop_din</span></a>
+                <a><span>crop_din</span></a>
               </mat-icon>
               <mat-icon mat-list-icon *ngIf="evaluateDate(friend.reminder.lastContact)">
                 <span >done</span>

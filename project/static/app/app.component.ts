@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
 import { MatChipInputEvent, MatStepper } from '@angular/material';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { ENTER, COMMA, TAB } from '@angular/cdk/keycodes';
 import { CirclesService } from './circles/circles.service';
 import { FriendsService } from './friends/friends.service';
 import { Circle } from './circles/circle';
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   circles: Circle[];
   isLinear = true;
   removable = true;
-  separatorKeysCodes = [ENTER, COMMA];
+  separatorKeysCodes = [ENTER, COMMA, TAB];
 
   constructor(private appService: AppService, private friendsService: FriendsService,
     private circlesService: CirclesService) { }
