@@ -35,7 +35,9 @@ export class CirclesEditComponent implements OnInit {
       .subscribe(data => {
         this.circle = new Circle(data['circle']['circle_name'], data['circle']['id']);
         if (data['circle']['parent_id']) {
-          this.parentCircle = this.allCircles.find(match => match.id === data['circle']['parent_id'])
+          this.circlesService.getCircleInfo(id).subscribe(data => {
+            this.parentCircle = new Circle(data['circle']['circle_name'], data['circle']['id']);
+          })
         }
     });
   }
@@ -159,14 +161,32 @@ export class CirclesEditComponent implements OnInit {
       });
     } else {
       this.circlesService.getCircleInfo(this.routeId).subscribe(data => {
-          this.circlesService.removeChildCircle(data['circle']['parent_id'], this.routeId).subscribe();
+        if (data['circle']['parent_id']) {
+          this.circlesService.removeChildCircle(data['circle']['parent_id'], this.routeId).subscribe(data => {
+            if (!data['result']) {
+              alert(data['description']);
+            }
+          });
+        }
       });
     }
-    if (this.circle.friends) {
-      for (let i = 0; i < this.friends.length; i++) {
-        if (this.circle.friends.find(match => match.id === this.friends[i].id)) {
-          this.circlesService.addFriendToCircle(this.friends[i].id, this.routeId).subscribe();
+    // child circles
+    for (let i = 0; i < this.childCircles.length; i++) {
+      this.circlesService.assignChildCircle(this.routeId, this.childCircles[i].id).subscribe(data => {
+        if (!data['result']) {
+          alert(data['description']);
         }
+      });
+    }
+
+    // friends
+    if (this.friends) {
+      for (let i = 0; i < this.friends.length; i++) {
+        this.circlesService.addFriendToCircle(this.friends[i].id, this.routeId).subscribe(data => {
+          if (!data['result']) {
+            alert(data['description']);
+          }
+        });
       }
     }
     this.router.navigate(['/app/friends/', this.routeId]);
@@ -202,11 +222,6 @@ export class CirclesEditComponent implements OnInit {
       if (result) {
         for (let i = 0; i < result.selected.length; i++) {
           this.childCircles.push(result.selected[i]);
-          this.circlesService.assignChildCircle(this.routeId, result.selected[i].id).subscribe(data => {
-            if (!data['result']) {
-              alert(data['description']);
-            }
-          });
         }
       }
     });
@@ -222,7 +237,6 @@ export class CirclesEditComponent implements OnInit {
       if (result) {
         for (let i = 0; i < result.selected.length; i++) {
           this.friends.push(result.selected[i]);
-          this.circlesService.addFriendToCircle(result.selected[i].id, this.routeId).subscribe();
         }
       }
     });

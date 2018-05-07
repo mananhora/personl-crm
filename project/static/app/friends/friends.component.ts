@@ -69,7 +69,7 @@ export class FriendsComponent implements OnInit {
         for (let i = 0; i < data['friends'].length; i++) {
           let id = data['friends'][i]['id'];
           // if we want to filter friends through the parent list,
-          if (this.friends.find(match => match.id === id)) {
+          if (this.friends && this.friends.find(match => match.id === id)) {
             let name = data['friends'][i]['name'];
             let email = data['friends'][i]['email'];
             let friend = new Profile(name, email, id);
