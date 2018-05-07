@@ -5,7 +5,9 @@ from flask.ext.login import current_user, login_required
 
 from project import *
 from project.models import *
-
+login_error_message = 'It seems you are not logged in. Please log in and try again.'
+something_wrong_message = 'Woops, something went wrong. Sorry, try again later.'
+desc = 'description'
 
 ################
 #### config ####

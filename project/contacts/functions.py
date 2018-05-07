@@ -12,6 +12,10 @@ from project.form import *
 from flask.ext.login import login_user, LoginManager, current_user, login_required
 from project.users.functions import user
 
+login_error_message = 'It seems you are not logged in. Please log in and try again.'
+something_wrong_message = 'Woops, something went wrong. Sorry, try again later.'
+desc = 'description'
+
 
 
 ################
@@ -47,22 +51,24 @@ def add_friend():
           email = json_data['email'],
           user_id= current_user.id,
           location = location)
-        try:
-          db.session.add(friend)
-          if(call_add_to_circle):
-            circles = json_data['circles']
-            for i in circles:
-              status = add_member_to_circle(False, friend.id, i)
-              if status == False:
-                print("error")
-                break
-              db.session.commit()
-              return jsonify({'result':True})
+
+        db.session.add(friend)
+        db.session.commit()
+
+        status = True
+        if(call_add_to_circle):
+          circles = json_data['circles']
+          for i in circles:
+            status = add_member_to_circle(False, friend.id, i)
+            if status == False:
+              print("error")
+              break
           db.session.commit()
-          return jsonify({'result':True})
-        except:
-          return jsonify({'result': False, desc:something_wrong_message})
-  return jsonify({'result': False, desc:login_error_message})
+
+          status = True
+        return jsonify({'result': status})
+  status = True
+  return jsonify({'result': status})
 
 
 @login_required

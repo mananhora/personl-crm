@@ -20,7 +20,9 @@ circles_blueprint = Blueprint(
 )
 
 
-
+login_error_message = 'It seems you are not logged in. Please log in and try again.'
+something_wrong_message = 'Woops, something went wrong. Sorry, try again later.'
+desc = 'description'
 
 
 @login_required

@@ -7,7 +7,9 @@ from functools import wraps
 from project.models import *
 from project import *
 from flask.ext.login import login_user, LoginManager, current_user, login_required
-
+login_error_message = 'It seems you are not logged in. Please log in and try again.'
+something_wrong_message = 'Woops, something went wrong. Sorry, try again later.'
+desc = 'description'
 
 ################
 #### config ####
