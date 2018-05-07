@@ -12,16 +12,25 @@
 
 .mat-list-icon a {
   color: rgba(0, 0, 0, 0.87);
+  cursor: pointer;
 }
 
 .mat-list-item h4 {
   font-size: 1.5rem;
   margin-bottom: .2em;
+  cursor: pointer;
 }
 
 .mat-list-item p {
   font-style: italic;
   color: #526165;
+}
+.overdue{
+  color: #b71c1c!important;
+}
+
+.done {
+  text-decoration: line-through;
 }
 
 mat-spinner {

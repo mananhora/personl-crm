@@ -4,6 +4,7 @@ export class Reminder {
     private _frequency?: number,
     private _lastContact?: Date,
     private _daysLeft?: number,
+    private _overdue?: boolean,
   ) {
     this.lastContact = new Date();
   }
@@ -27,6 +28,13 @@ export class Reminder {
   }
   set daysLeft (daysLeft: number) {
     this._daysLeft = daysLeft;
+  }
+
+  get overdue(): boolean {
+    return this._overdue;
+  }
+  set overdue (overdue: boolean) {
+    this._overdue = overdue;
   }
 
 }
