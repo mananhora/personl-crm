@@ -118,7 +118,6 @@ export class CirclesComponent implements OnInit {
       edges,
     };
 
-    // @TODO manipulation options for visual circle editing?
     this.visNetworkOptions = {
       autoResize: true,
       physics: {

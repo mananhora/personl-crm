@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute, private router: Router,
     private location: Location, public dialog: MatDialog) { }
 
+  // get user's profile, limited data options
   getMyProfile() {
     this.profileService.getMyProfile()
       .subscribe(data => {

@@ -33,8 +33,10 @@ export class CirclesEditComponent implements OnInit {
   getCircleInfo(id: number) {
     this.circlesService.getCircleInfo(id)
       .subscribe(data => {
+        // get circle name
         this.circle = new Circle(data['circle']['circle_name'], data['circle']['id']);
         if (data['circle']['parent_id']) {
+          // and parent circle name
           this.circlesService.getCircleInfo(id).subscribe(data => {
             this.parentCircle = new Circle(data['circle']['circle_name'], data['circle']['id']);
           })
@@ -78,7 +80,6 @@ export class CirclesEditComponent implements OnInit {
           } else {
             this.circle.friends = [friend];
           }
-
         }
       });
   }
@@ -152,7 +153,7 @@ export class CirclesEditComponent implements OnInit {
   }
 
   saveChanges() {
-    // parent circle
+    // change parent circle
     if (this.parentCircle) {
       this.circlesService.assignChildCircle(this.parentCircle.id, this.routeId).subscribe(data => {
         if (!data['result']) {
@@ -170,7 +171,7 @@ export class CirclesEditComponent implements OnInit {
         }
       });
     }
-    // child circles
+    // add child circles
     for (let i = 0; i < this.childCircles.length; i++) {
       this.circlesService.assignChildCircle(this.routeId, this.childCircles[i].id).subscribe(data => {
         if (!data['result']) {
@@ -179,7 +180,7 @@ export class CirclesEditComponent implements OnInit {
       });
     }
 
-    // friends
+    // add friends
     if (this.friends) {
       for (let i = 0; i < this.friends.length; i++) {
         this.circlesService.addFriendToCircle(this.friends[i].id, this.routeId).subscribe(data => {
@@ -197,9 +198,9 @@ export class CirclesEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    // set initial (empty) values of class variables
-    this.circle = new Circle('', 0);
     this.routeId = +this.route.snapshot.paramMap.get('id');
+    // initialize blank variables
+    this.circle = new Circle('', 0);
     this.childCircles = [];
     this.friends = [];
     // get and render component data
@@ -212,12 +213,12 @@ export class CirclesEditComponent implements OnInit {
     }
   }
 
+  // add child circles
   openChildCirclesDialog(): void {
     let dialogRef = this.dialog.open(AddDialog, {
       width: '30em',
       data: { for: 'sub groups', list: this.allCircles, selected: this.childCircles }
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         for (let i = 0; i < result.selected.length; i++) {
@@ -227,12 +228,12 @@ export class CirclesEditComponent implements OnInit {
     });
   }
 
+  // add friends
   openFriendsDialog(): void {
     let dialogRef = this.dialog.open(AddDialog, {
       width: '30em',
       data: { for: 'friends', list: this.allFriends, selected: this.friends }
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         for (let i = 0; i < result.selected.length; i++) {
@@ -244,6 +245,7 @@ export class CirclesEditComponent implements OnInit {
 
 }
 
+// dialog pop-up modal for adding child circles or friends
 @Component({
 selector: 'add-dialog',
 template: `

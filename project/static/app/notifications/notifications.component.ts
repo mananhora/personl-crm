@@ -57,6 +57,7 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
+  // check if contact for the done has been completed
   evaluateDate(date: Date): boolean {
     let now = new Date();
     let lastContacted = new Date(date);

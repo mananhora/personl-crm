@@ -68,7 +68,7 @@ export class FriendsComponent implements OnInit {
       .subscribe(data => {
         for (let i = 0; i < data['friends'].length; i++) {
           let id = data['friends'][i]['id'];
-          // if we want to filter friends through the parent list,
+          // filter friends through the parent list,
           if (this.friends && this.friends.find(match => match.id === id)) {
             let name = data['friends'][i]['name'];
             let email = data['friends'][i]['email'];
@@ -115,11 +115,13 @@ export class FriendsComponent implements OnInit {
 
   ngOnInit() {
     this.routeId = +this.route.snapshot.paramMap.get('id');
+    // if circle is specified,
     if (this.routeId) {
       this.getCircleInfo(this.routeId);
       this.getFriendsForCircle(this.routeId);
       this.getChildCircles(this.routeId);
     } else {
+      // otherwise display full contact list
       this.name = "all friends";
       this.showAllFriends();
     }
