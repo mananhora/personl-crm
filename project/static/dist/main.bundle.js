@@ -27,7 +27,7 @@ module.exports = "\n.mylabel {\n  font-size: 1.25rem;\n  color: rgba(0,0,0,0.87)
 /***/ "./project/static/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n  <mat-toolbar color=\"primary\">\n    <mat-toolbar-row>\n      <span class=\"secondary\" routerLink=\"/app/home\">myVillage</span>\n      <span class=\"example-spacer\"></span>\n      <div *ngIf=\"loggedIn == true\">\n        <a routerLink=\"/app/notifications\"><i class=\"material-icons\">notifications</i></a>\n        <span class=\"example-spacer\"></span>\n        <a routerLink=\"/app/friends\"><i class=\"material-icons\">contacts</i></a>\n        <span class=\"example-spacer\"></span>\n        <!-- <a routerLink=\"/app/profile/0\"><i class=\"material-icons\">person</i></a>\n        <span class=\"example-spacer\"></span> -->\n        <a href='/logout'><i class=\"material-icons\">power_settings_new</i></a>\n        <span class=\"example-spacer\"></span>\n      </div>\n    </mat-toolbar-row>\n  </mat-toolbar>\n\n  <div *ngIf=\"loggedIn == false\">\n    <div class=\"container\" id=\"splash\">\n      <h1>Welcome to myVillage!</h1>\n      <h2>get started with your community</h2>\n\n      <mat-tab-group>\n        <div class=\"label\">\n          <mat-tab label=\"login\">\n            <ng-template mat-tab-label>\n              <span class=\"mylabel\">login</span>\n            </ng-template>\n            <form class=\"col s8 offset-s2 card-panel form-signin\"\n                  (ngSubmit)=\"login()\" #loginForm=\"ngForm\">\n              <div class=\"section\">\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <mat-form-field>\n                      <input matInput type=\"email\" validate\n                        placeholder=\"email\" [(ngModel)]=\"email\" name=\"email\">\n                    </mat-form-field>\n                  </div>\n                </div>\n\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <mat-form-field>\n                      <input matInput type=\"password\" placeholder=\"password\"\n                        [(ngModel)]=\"password\" name=\"password\">\n                    </mat-form-field>\n                  </div>\n                </div>\n\n                <button type=\"submit\" class=\"btn waves-effect waves-light\" name=\"action\"\n                        [disabled]=\"!loginForm.form.valid\">\n                  Sign in <i class=\"material-icons right\">send</i>\n                </button>\n              </div>\n            </form>\n          </mat-tab>\n        </div>\n\n        <mat-tab  label=\"register\">\n          <ng-template mat-tab-label>\n            <span class=\"mylabel\">register</span>\n          </ng-template>\n          <mat-horizontal-stepper [linear]=\"isLinear\" #stepper=\"matHorizontalStepper\">\n            <ng-template matStepperIcon=\"edit\">\n              <mat-icon>done</mat-icon>\n            </ng-template>\n            <mat-step label=\"Login Details\" [completed]=\"detailsForm.form.valid\">\n              <form #detailsForm=\"ngForm\">\n                <p>First, please enter your basic login information.</p>\n                <div class=\"section\">\n                  <div class=\"row\">\n                    <div class=\"col s12\">\n                      <mat-form-field>\n                        <input matInput placeholder=\"name\" [(ngModel)]=\"name\" name=\"name\" required>\n                      </mat-form-field>\n                    </div>\n                  </div>\n\n                  <div class=\"row\">\n                    <div class=\"col s12\">\n                      <mat-form-field>\n                        <input matInput type=\"email\" validate\n                          placeholder=\"email\" [(ngModel)]=\"email\" name=\"email\" required>\n                      </mat-form-field>\n                    </div>\n                  </div>\n\n                  <div class=\"row\">\n                    <div class=\"col s12\">\n                      <table cellspacing=\"0\">\n                        <tr>\n                          <td><mat-form-field>\n                            <input matInput type=\"password\" placeholder=\"password\"\n                              [(ngModel)]=\"password\" name=\"password\" required>\n                          </mat-form-field></td>\n                          <td><mat-form-field>\n                            <input matInput type=\"password\" placeholder=\"confirm password\"\n                              [(ngModel)]=\"confirmPassword\" name=\"confirm password\">\n                          </mat-form-field></td>\n                        </tr>\n                      </table>\n                    </div>\n                  </div>\n                </div>\n                <div>\n                  <button mat-button matStepperNext class=\"right\" type=\"submit\" name=\"action\"\n                          [disabled]=\"!detailsForm.form.valid\">Next</button>\n                </div>\n              </form>\n            </mat-step>\n            <mat-step label=\"Personal Info\">\n              <p>Tell us a little more about yourself</p>\n              <div class=\"section\">\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <mat-form-field>\n                      <input matInput placeholder=\"Where's your hometown?\"\n                        [(ngModel)]=\"hometown.name\" name=\"hometown\">\n                    </mat-form-field>\n                  </div>\n                </div>\n\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <mat-form-field>\n                      <input matInput placeholder=\"Where did you go to school?\"\n                        [(ngModel)]=\"school.name\" name=\"school\">\n                    </mat-form-field>\n                  </div>\n                </div>\n              </div>\n              <div>\n                <button *ngIf=\"!hometown.name && !school.name\" (click)=\"skip(stepper)\" mat-button class=\"right\">Skip</button>\n                <button *ngIf=\"hometown.name || school.name\" mat-button matStepperNext class=\"right\">Next</button>\n                <button mat-button matStepperPrevious class=\"right\">Back</button>\n              </div>\n            </mat-step>\n            <mat-step label=\"Circles\">\n              <div *ngFor=\"let circle of circles\">\n                <div *ngIf=\"circle.name\">\n                  <p>Who are you closest friends from <strong>{{circle.name}}</strong>?</p>\n                  <mat-form-field class=\"myChipList\">\n                    <mat-chip-list #friendList>\n                      <mat-chip *ngFor=\"let friend of circle.friends\" [removable]=\"removable\"\n                        (remove)=\"removeFriend(friend, circle)\">\n                          {{friend.name}}\n                        <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\n                      </mat-chip>\n                      <input [matChipInputFor]=\"friendList\"\n                        [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\"\n                        (matChipInputTokenEnd)=\"addFriend($event, circle)\">\n                    </mat-chip-list>\n                  </mat-form-field>\n                </div>\n              </div>\n\n              <div>\n                <button id=\"finish\" mat-button matStepperNext class=\"right btn waves-effect waves-light\"\n                  (click)=\"register()\">Finish</button>\n                <button mat-button matStepperPrevious class=\"right\">Back</button>\n              </div>\n            </mat-step>\n            <mat-step>\n              <ng-template matStepLabel>Done</ng-template>\n              <div class=\"row center-align\">\n                <h4>Congratulations! You're all set up.</h4>\n                <a class=\"btn waves-effect waves-light\" (click)=\"login()\">Go to Dashboard</a>\n              </div>\n            </mat-step>\n          </mat-horizontal-stepper>\n\n        </mat-tab>\n      </mat-tab-group>\n    </div>\n  </div>\n\n  <div *ngIf=\"loggedIn == true\" class=\"container\">\n    <router-outlet></router-outlet>\n  </div>\n"
+module.exports = "\n  <mat-toolbar color=\"primary\">\n    <mat-toolbar-row>\n      <span class=\"secondary\" routerLink=\"/app/home\">myVillage</span>\n      <span class=\"example-spacer\"></span>\n      <div *ngIf=\"loggedIn == true\">\n        <a routerLink=\"/app/notifications\"><i class=\"material-icons\">notifications</i></a>\n        <span class=\"example-spacer\"></span>\n        <a routerLink=\"/app/friends\"><i class=\"material-icons\">contacts</i></a>\n        <span class=\"example-spacer\"></span>\n        <!-- <a routerLink=\"/app/profile/0\"><i class=\"material-icons\">person</i></a>\n        <span class=\"example-spacer\"></span> -->\n        <a href='/logout'><i class=\"material-icons\">power_settings_new</i></a>\n        <span class=\"example-spacer\"></span>\n      </div>\n    </mat-toolbar-row>\n  </mat-toolbar>\n\n  <div *ngIf=\"loggedIn == false\">\n    <div class=\"container\" id=\"splash\">\n      <h1>Welcome to myVillage!</h1>\n      <h2>get started with your community</h2>\n\n      <mat-tab-group>\n        <div class=\"label\">\n          <mat-tab label=\"login\">\n            <ng-template mat-tab-label>\n              <span class=\"mylabel\">login</span>\n            </ng-template>\n            <form class=\"col s8 offset-s2 card-panel form-signin\"\n                  (ngSubmit)=\"login()\" #loginForm=\"ngForm\">\n              <div class=\"section\">\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <mat-form-field>\n                      <input matInput type=\"email\" validate\n                        placeholder=\"email\" [(ngModel)]=\"email\" name=\"email\">\n                    </mat-form-field>\n                  </div>\n                </div>\n\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <mat-form-field>\n                      <input matInput type=\"password\" placeholder=\"password\"\n                        [(ngModel)]=\"password\" name=\"password\">\n                    </mat-form-field>\n                  </div>\n                </div>\n\n                <button type=\"submit\" class=\"btn waves-effect waves-light\" name=\"action\"\n                        [disabled]=\"!loginForm.form.valid\">\n                  Sign in <i class=\"material-icons right\">send</i>\n                </button>\n              </div>\n            </form>\n          </mat-tab>\n        </div>\n\n        <mat-tab  label=\"register\">\n          <ng-template mat-tab-label>\n            <span class=\"mylabel\">register</span>\n          </ng-template>\n          <mat-horizontal-stepper [linear]=\"isLinear\" #stepper=\"matHorizontalStepper\">\n            <ng-template matStepperIcon=\"edit\">\n              <mat-icon>done</mat-icon>\n            </ng-template>\n            <mat-step label=\"Login Details\" [completed]=\"detailsForm.form.valid\">\n              <form #detailsForm=\"ngForm\">\n                <p>First, please enter your basic login information.</p>\n                <div class=\"section\">\n                  <div class=\"row\">\n                    <div class=\"col s12\">\n                      <mat-form-field>\n                        <input matInput placeholder=\"name\" [(ngModel)]=\"name\" name=\"name\" required>\n                      </mat-form-field>\n                    </div>\n                  </div>\n\n                  <div class=\"row\">\n                    <div class=\"col s12\">\n                      <mat-form-field>\n                        <input matInput type=\"email\" validate\n                          placeholder=\"email\" [(ngModel)]=\"email\" name=\"email\" required>\n                      </mat-form-field>\n                    </div>\n                  </div>\n\n                  <div class=\"row\">\n                    <div class=\"col s12\">\n                      <table cellspacing=\"0\">\n                        <tr>\n                          <td><mat-form-field>\n                            <input matInput type=\"password\" placeholder=\"password\"\n                              [(ngModel)]=\"password\" name=\"password\" required>\n                          </mat-form-field></td>\n                          <td><mat-form-field>\n                            <input matInput type=\"password\" placeholder=\"confirm password\"\n                              [(ngModel)]=\"confirmPassword\" name=\"confirm password\">\n                          </mat-form-field></td>\n                        </tr>\n                      </table>\n                    </div>\n                  </div>\n                </div>\n                <div>\n                  <button mat-button matStepperNext class=\"right\" type=\"submit\" name=\"action\"\n                          [disabled]=\"!detailsForm.form.valid\">Next</button>\n                </div>\n              </form>\n            </mat-step>\n            <mat-step label=\"Personal Info\">\n              <p>Tell us a little more about yourself</p>\n              <div class=\"section\">\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <mat-form-field>\n                      <input matInput placeholder=\"Where's your hometown?\"\n                        [(ngModel)]=\"hometown.name\" name=\"hometown\">\n                    </mat-form-field>\n                  </div>\n                </div>\n\n                <div class=\"row\">\n                  <div class=\"col s12\">\n                    <mat-form-field>\n                      <input matInput placeholder=\"Where did you go to school?\"\n                        [(ngModel)]=\"school.name\" name=\"school\">\n                    </mat-form-field>\n                  </div>\n                </div>\n              </div>\n              <div>\n                <button *ngIf=\"!hometown.name && !school.name\" (click)=\"skip(stepper)\" mat-button class=\"right\">Skip</button>\n                <button *ngIf=\"hometown.name || school.name\" mat-button matStepperNext class=\"right\">Next</button>\n                <button mat-button matStepperPrevious class=\"right\">Back</button>\n              </div>\n            </mat-step>\n            <mat-step label=\"Circles\">\n              <div *ngFor=\"let circle of circles\">\n                <div *ngIf=\"circle.name\">\n                  <p>Who are you closest friends from <strong>{{circle.name}}</strong>?</p>\n                  <mat-form-field class=\"myChipList\">\n                    <mat-chip-list #friendList>\n                      <mat-chip *ngFor=\"let friend of circle.friends\" [removable]=\"removable\"\n                        (remove)=\"removeFriend(friend, circle)\">\n                          {{friend.name}}\n                        <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\n                      </mat-chip>\n                      <input [matChipInputFor]=\"friendList\"\n                        [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\"\n                        (matChipInputTokenEnd)=\"addFriend($event, circle)\">\n                    </mat-chip-list>\n                  </mat-form-field>\n                </div>\n              </div>\n\n              <div>\n                <button id=\"finish\" mat-button matStepperNext class=\"right btn waves-effect waves-light\">Done</button>\n                <button mat-button matStepperPrevious class=\"right\">Back</button>\n              </div>\n            </mat-step>\n            <mat-step>\n              <ng-template matStepLabel>Done</ng-template>\n              <div class=\"row center-align\">\n                <h4>Congratulations! You're all set up.</h4>\n                <h5>Ready to get started?</h5>\n                <a class=\"btn waves-effect waves-light\" (click)=\"register()\">Go to Dashboard</a>\n              </div>\n            </mat-step>\n          </mat-horizontal-stepper>\n\n        </mat-tab>\n      </mat-tab-group>\n    </div>\n  </div>\n\n  <div *ngIf=\"loggedIn == true\" class=\"container\">\n    <router-outlet></router-outlet>\n  </div>\n"
 
 /***/ }),
 
@@ -89,9 +89,13 @@ var AppComponent = /** @class */ (function () {
      * login user from email and password. redirect to homepage
      */
     AppComponent.prototype.login = function () {
-        this.appService.login(this.email, this.password)
-            .subscribe(function (data) {
-            location.href = 'http://0.0.0.0:5000/';
+        this.appService.login(this.email, this.password).subscribe(function (data) {
+            if (data['result']) {
+                location.href = 'http://0.0.0.0:5000/';
+            }
+            else {
+                alert(data['description']);
+            }
         });
     };
     /**
@@ -100,23 +104,40 @@ var AppComponent = /** @class */ (function () {
      */
     AppComponent.prototype.register = function () {
         var _this = this;
-        this.appService.register(this.name, this.email, this.password, this.confirmPassword)
-            .subscribe(function (data) {
-            _this.appService.login(_this.email, _this.password)
-                .subscribe(function (data) {
-                var _loop_1 = function (i) {
-                    _this.circlesService.addCircle(_this.circles[i].name)
-                        .subscribe(function (data) {
-                        _this.circles[i].id = data['circle_id'];
-                        for (var i_1 = 0; i_1 < _this.circles[i_1].friends.length; i_1++) {
-                            _this.friendsService.addFriend(_this.circles[i_1].friends[i_1].name, '', [_this.circles[i_1]]);
+        this.appService.register(this.name, this.email, this.password, this.confirmPassword).subscribe(function (data) {
+            if (data['result']) {
+                _this.appService.login(_this.email, _this.password).subscribe(function (data) {
+                    if (data['result']) {
+                        var _loop_1 = function (i) {
+                            _this.circlesService.addCircle(_this.circles[i].name).subscribe(function (data) {
+                                if (data['result']) {
+                                    _this.circles[i].id = data['circle']['id'];
+                                    for (var j = 0; j < _this.circles[i].friends.length; j++) {
+                                        _this.friendsService.addFriend(_this.circles[i].friends[j].name, '', [_this.circles[i]]).subscribe(function (data) {
+                                            if (!data['result']) {
+                                                alert(data['description']);
+                                            }
+                                        });
+                                    }
+                                }
+                                else {
+                                    alert(data['description']);
+                                }
+                            });
+                        };
+                        for (var i = 0; i < _this.circles.length; i++) {
+                            _loop_1(i);
                         }
-                    });
-                };
-                for (var i = 0; i < _this.circles.length; i++) {
-                    _loop_1(i);
-                }
-            });
+                    }
+                    else {
+                        alert(data['description']);
+                    }
+                });
+                location.href = 'http://0.0.0.0:5000/';
+            }
+            else {
+                alert(data['description']);
+            }
         });
     };
     AppComponent.prototype.skip = function (stepper) {
@@ -459,27 +480,42 @@ var CirclesAddComponent = /** @class */ (function () {
         var _this = this;
         this.circlesService.addCircle(this.circle.name)
             .subscribe(function (data) {
-            _this.circle.id = data['id'];
-            // add friends to circle
-            for (var i = 0; i < _this.selectedFriends.length; i++) {
-                _this.circlesService.addFriendToCircle(_this.selectedFriends[i].id, _this.circle.id).subscribe();
+            if (data['result']) {
+                _this.circle.id = data['circle']['id'];
+                // add friends to circle
+                for (var i = 0; i < _this.selectedFriends.length; i++) {
+                    _this.circlesService.addFriendToCircle(_this.selectedFriends[i].id, _this.circle.id).subscribe();
+                }
+                // add circle as a child
+                if (_this.parentCircle) {
+                    _this.circlesService.assignChildCircle(_this.parentCircle.id, _this.circle.id).subscribe(function (data) {
+                        if (!data['result']) {
+                            alert(data['description']);
+                        }
+                    });
+                }
+                // add children circles
+                for (var i = 0; i < _this.selectedChildCircles.length; i++) {
+                    _this.circlesService.assignChildCircle(_this.circle.id, _this.selectedChildCircles[i].id).subscribe(function (data) {
+                        if (!data['result']) {
+                            alert(data['description']);
+                        }
+                    });
+                }
+                _this.router.navigate(['/app/friends/', _this.circle.id]);
             }
-            // add circle as a child
-            _this.circlesService.assignChildCircle(_this.parentCircle.id, _this.circle.id).subscribe();
-            // add children circles
-            for (var i = 0; i < _this.selectedChildCircles.length; i++) {
-                _this.circlesService.assignChildCircle(_this.circle.id, _this.selectedChildCircles[i].id).subscribe();
+            else {
+                alert(data['description']);
             }
-            _this.router.navigate(['/app/friends/', _this.circle.id]);
         });
     };
     CirclesAddComponent.prototype.getAllCircles = function () {
         var _this = this;
         this.circlesService.getCircles()
             .subscribe(function (data) {
-            for (var i = 0; i < data['json_list'].length; i++) {
-                var name_1 = data['json_list'][i]['circle_name'];
-                var id = data['json_list'][i]['id'];
+            for (var i = 0; i < data['circles'].length; i++) {
+                var name_1 = data['circles'][i]['circle_name'];
+                var id = data['circles'][i]['id'];
                 var circle = new __WEBPACK_IMPORTED_MODULE_5__circle__["a" /* Circle */](name_1, id);
                 if (_this.allCircles) {
                     _this.allCircles.push(circle);
@@ -494,10 +530,10 @@ var CirclesAddComponent = /** @class */ (function () {
         var _this = this;
         this.friendsService.getAllFriends()
             .subscribe(function (data) {
-            for (var i = 0; i < data['json_list'].length; i++) {
-                var name_2 = data['json_list'][i]['name'];
-                var email = data['json_list'][i]['email'];
-                var id = data['json_list'][i]['id'];
+            for (var i = 0; i < data['friends'].length; i++) {
+                var name_2 = data['friends'][i]['name'];
+                var email = data['friends'][i]['email'];
+                var id = data['friends'][i]['id'];
                 var profile = new __WEBPACK_IMPORTED_MODULE_6__profile_profile__["a" /* Profile */](name_2, email, id);
                 if (_this.friends) {
                     _this.friends.push(profile);
@@ -672,33 +708,38 @@ var CirclesComponent = /** @class */ (function () {
         this.nodes.add(myVillageNode);
         this.circlesService.getCircles()
             .subscribe(function (data) {
-            for (var i = 0; i < data['json_list'].length; i++) {
-                var name_1 = data['json_list'][i]['circle_name'];
-                var id = data['json_list'][i]['id'];
-                var parent_id = (data['json_list'][i]['parent_id']) ?
-                    data['json_list'][i]['parent_id'] : 0;
-                var color = parent_id ? '#B2E7E1' : '#80CCC5';
-                var myNode = {
-                    id: id,
-                    label: name_1,
-                    color: color,
-                    shape: 'circle',
-                    shadow: {
-                        enabled: true,
-                        color: 'rgba(0,0,0,0.2)',
-                        size: 10,
-                        x: -3,
-                        y: 3,
-                    },
-                    font: {
-                        face: 'Roboto',
-                        size: 18,
-                    },
-                };
-                _this.nodes.add(myNode);
-                _this.edges.add({ from: parent_id, to: id });
+            if (data['result']) {
+                for (var i = 0; i < data['circles'].length; i++) {
+                    var name_1 = data['circles'][i]['circle_name'];
+                    var id = data['circles'][i]['id'];
+                    var parent_id = (data['circles'][i]['parent_id']) ?
+                        data['circles'][i]['parent_id'] : 0;
+                    var color = parent_id ? '#B2E7E1' : '#80CCC5';
+                    var myNode = {
+                        id: id,
+                        label: name_1,
+                        color: color,
+                        shape: 'circle',
+                        shadow: {
+                            enabled: true,
+                            color: 'rgba(0,0,0,0.2)',
+                            size: 10,
+                            x: -3,
+                            y: 3,
+                        },
+                        font: {
+                            face: 'Roboto',
+                            size: 18,
+                        },
+                    };
+                    _this.nodes.add(myNode);
+                    _this.edges.add({ from: parent_id, to: id });
+                }
+                _this.visNetworkService.fit(_this.visNetwork);
             }
-            _this.visNetworkService.fit(_this.visNetwork);
+            else {
+                alert(data['description']);
+            }
         });
     };
     CirclesComponent.prototype.networkInitialized = function () {
@@ -943,14 +984,14 @@ var CirclesService = /** @class */ (function () {
 /***/ "./project/static/app/circles/edit/circles.edit.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "\n.full-width {\n  width: 100%;\n}\n\n.delete {\n  color: #9e9e9e;\n  margin-left: 1em;\n}\n\n.delete:hover {\n  text-decoration: underline;\n}\n\n/* card panel UI */\n\n.card-panel .row {\n  margin-bottom: 0;\n}\n\nh4 {\n  font-size: 1.5rem;\n}\n\n.chipListRow {\n  margin-left: 0em;\n  margin-bottom: 1.5em!important;\n}\n\n.mat-chip {\n  margin-bottom: .65em;\n}\n\nbutton {\n  margin-bottom: 1.5em;\n}\n"
+module.exports = "\n.full-width {\n  width: 100%;\n}\n\n.delete {\n  color: #9e9e9e;\n  margin-left: 1em;\n}\n\n.delete:hover {\n  text-decoration: underline;\n}\n\n/* card panel UI */\n\nmat-spinner {\n  margin-top: 150px;\n  margin-left: 180px;\n}\n\n.card-panel {\n  min-height: 420px;\n}\n\n.card-panel .row {\n  margin-bottom: 0;\n}\n\nh4 {\n  font-size: 1.5rem;\n}\n\n.chipListRow {\n  margin-left: 0em;\n  margin-bottom: 1.5em!important;\n}\n\n.mat-chip {\n  margin-bottom: .65em;\n}\n\nbutton {\n  margin-bottom: 1.5em;\n}\n"
 
 /***/ }),
 
 /***/ "./project/static/app/circles/edit/circles.edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n  <a (click)=\"goBack()\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\" style=\"top: 14px; left: -135px;\">\n    <i class=\"material-icons\">navigate_before</i>\n  </a>\n\n  <div class=\"row\">\n    <h2 class=\"center\">edit circle</h2>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col s8 offset-s2 card-panel\">\n\n      <div class=\"section\">\n        <div class=\"row\">\n          <mat-form-field>\n            <input matInput placeholder=\"circle name\" [(ngModel)]=\"circle.name\" name=\"circle.name\">\n          </mat-form-field>\n\n          <mat-form-field>\n            <mat-select placeholder=\"belongs to\" [(value)]=\"parentCircle\">\n              <mat-option>none</mat-option>\n              <mat-option *ngFor=\"let circle of allCircles\" [value]=\"circle\">\n                {{ circle.name }}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </div>\n\n        <mat-divider></mat-divider>\n\n        <h4>subgroups <span class=\"badge\" (click)=\"openChildCirclesDialog()\"><a><i class=\"material-icons\">add</i></a></span></h4>\n        <div *ngIf=\"childCircles\" class=\"row chipListRow\">\n          <mat-chip-list #childCirclesList>\n            <mat-chip *ngFor=\"let circle of childCircles\" (remove)=\"removeChildCircle(circle)\">\n                {{circle.name}}\n              <mat-icon matChipRemove>cancel</mat-icon>\n            </mat-chip>\n          </mat-chip-list>\n        </div>\n\n        <mat-divider></mat-divider>\n\n        <h4>friends <span class=\"badge\"><a (click)=\"openFriendsDialog()\"><i class=\"material-icons\">add</i></a></span></h4>\n        <div *ngIf=\"friends\" class=\"row chipListRow\">\n          <mat-chip-list #childCirclesList>\n            <mat-chip *ngFor=\"let friend of friends\" (remove)=\"removeFriend(friend)\">\n                {{friend.name}}\n              <mat-icon matChipRemove>cancel</mat-icon>\n            </mat-chip>\n          </mat-chip-list>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col s4 offset-s4\">\n            <button (click)=\"saveChanges()\" class=\"btn waves-effect waves-light\" name=\"action\">Save Changes</button>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <a class=\"delete\" (click)=\"deleteCircle()\">Delete circle</a>\n        </div>\n\n      </div>\n\n    </div>\n  </div>\n"
+module.exports = "\n  <a (click)=\"goBack()\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\" style=\"top: 14px; left: -135px;\">\n    <i class=\"material-icons\">navigate_before</i>\n  </a>\n\n  <div class=\"row\">\n    <h2 class=\"center\">edit circle</h2>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col s8 offset-s2 card-panel\">\n      <!-- @TODO change this to a load variable in case there are no friends -->\n      <mat-spinner *ngIf=\"!allCircles && !allFriends\" [color]=\"accent\" class=\"col\"></mat-spinner>\n      <div class=\"section\" *ngIf=\"allCircles && allFriends\">\n        <div class=\"row\">\n          <mat-form-field>\n            <input matInput placeholder=\"circle name\" [(ngModel)]=\"circle.name\" name=\"circle.name\">\n          </mat-form-field>\n\n          <mat-form-field>\n            <mat-select placeholder=\"belongs to\" [(value)]=\"parentCircle\">\n              <mat-option>none</mat-option>\n              <mat-option *ngFor=\"let circle of allCircles\" [value]=\"circle\">\n                {{ circle.name }}\n              </mat-option>\n            </mat-select>\n          </mat-form-field>\n        </div>\n\n        <mat-divider></mat-divider>\n\n        <h4>subgroups <span class=\"badge\" (click)=\"openChildCirclesDialog()\"><a><i class=\"material-icons\">add</i></a></span></h4>\n        <div *ngIf=\"childCircles\" class=\"row chipListRow\">\n          <mat-chip-list #childCirclesList>\n            <mat-chip *ngFor=\"let circle of childCircles\" (remove)=\"removeChildCircle(circle)\">\n                {{circle.name}}\n              <mat-icon matChipRemove>cancel</mat-icon>\n            </mat-chip>\n          </mat-chip-list>\n        </div>\n\n        <mat-divider></mat-divider>\n\n        <h4>friends <span class=\"badge\"><a (click)=\"openFriendsDialog()\"><i class=\"material-icons\">add</i></a></span></h4>\n        <div *ngIf=\"friends\" class=\"row chipListRow\">\n          <mat-chip-list #childCirclesList>\n            <mat-chip *ngFor=\"let friend of friends\" (remove)=\"removeFriend(friend)\">\n                {{friend.name}}\n              <mat-icon matChipRemove>cancel</mat-icon>\n            </mat-chip>\n          </mat-chip-list>\n        </div>\n\n        <div class=\"row\">\n          <div class=\"col s4 offset-s4\">\n            <button (click)=\"saveChanges()\" class=\"btn waves-effect waves-light\" name=\"action\">Save Changes</button>\n          </div>\n        </div>\n\n        <div class=\"row\">\n          <a class=\"delete\" (click)=\"deleteCircle()\">Delete circle</a>\n        </div>\n      </div>\n\n    </div>\n  </div>\n"
 
 /***/ }),
 
@@ -1001,9 +1042,9 @@ var CirclesEditComponent = /** @class */ (function () {
         var _this = this;
         this.circlesService.getCircleInfo(id)
             .subscribe(function (data) {
-            _this.circle = new __WEBPACK_IMPORTED_MODULE_6__circle__["a" /* Circle */](data['circle_name'], data['id']);
-            if (data['parent_id']) {
-                _this.parentCircle = _this.allCircles.find(function (match) { return match.id === data['parent_id']; });
+            _this.circle = new __WEBPACK_IMPORTED_MODULE_6__circle__["a" /* Circle */](data['circle']['circle_name'], data['circle']['id']);
+            if (data['circle']['parent_id']) {
+                _this.parentCircle = _this.allCircles.find(function (match) { return match.id === data['circle']['parent_id']; });
             }
         });
     };
@@ -1011,9 +1052,9 @@ var CirclesEditComponent = /** @class */ (function () {
         var _this = this;
         this.circlesService.getChildCircles(id)
             .subscribe(function (data) {
-            for (var i = 0; i < data['json_list'].length; i++) {
-                var name_1 = data['json_list'][i].circle_name;
-                var id_1 = data['json_list'][i].id;
+            for (var i = 0; i < data['child_circles'].length; i++) {
+                var name_1 = data['child_circles'][i].circle_name;
+                var id_1 = data['child_circles'][i].id;
                 var circle = new __WEBPACK_IMPORTED_MODULE_6__circle__["a" /* Circle */](name_1, id_1);
                 if (_this.childCircles) {
                     _this.childCircles.push(circle);
@@ -1028,10 +1069,10 @@ var CirclesEditComponent = /** @class */ (function () {
         var _this = this;
         this.friendsService.getFriends(circle_id)
             .subscribe(function (data) {
-            for (var i = 0; i < data['json_list'].length; i++) {
-                var friend_id = data['json_list'][i]['id'];
-                var name_2 = data['json_list'][i]['name'];
-                var email = data['json_list'][i]['email'];
+            for (var i = 0; i < data['friends'].length; i++) {
+                var friend_id = data['friends'][i]['id'];
+                var name_2 = data['friends'][i]['name'];
+                var email = data['friends'][i]['email'];
                 var friend = new __WEBPACK_IMPORTED_MODULE_7__profile_profile__["a" /* Profile */](name_2, email, friend_id);
                 // create interactive local friends list
                 if (_this.friends) {
@@ -1054,9 +1095,9 @@ var CirclesEditComponent = /** @class */ (function () {
         var _this = this;
         this.circlesService.getCircles()
             .subscribe(function (data) {
-            for (var i = 0; i < data['json_list'].length; i++) {
-                var name_3 = data['json_list'][i]['circle_name'];
-                var id = data['json_list'][i]['id'];
+            for (var i = 0; i < data['circles'].length; i++) {
+                var name_3 = data['circles'][i]['circle_name'];
+                var id = data['circles'][i]['id'];
                 var circle = new __WEBPACK_IMPORTED_MODULE_6__circle__["a" /* Circle */](name_3, id);
                 if (_this.allCircles) {
                     _this.allCircles.push(circle);
@@ -1071,10 +1112,10 @@ var CirclesEditComponent = /** @class */ (function () {
         var _this = this;
         this.friendsService.getAllFriends()
             .subscribe(function (data) {
-            for (var i = 0; i < data['json_list'].length; i++) {
-                var id = data['json_list'][i]['id'];
-                var name_4 = data['json_list'][i]['name'];
-                var email = data['json_list'][i]['email'];
+            for (var i = 0; i < data['friends'].length; i++) {
+                var id = data['friends'][i]['id'];
+                var name_4 = data['friends'][i]['name'];
+                var email = data['friends'][i]['email'];
                 var friend = new __WEBPACK_IMPORTED_MODULE_7__profile_profile__["a" /* Profile */](name_4, email, id);
                 if (_this.allFriends) {
                     _this.allFriends.push(friend);
@@ -1089,17 +1130,29 @@ var CirclesEditComponent = /** @class */ (function () {
         var index = this.friends.indexOf(friend);
         if (index >= 0)
             this.friends.splice(index, 1);
-        this.circlesService.removeFriendFromCircle(friend.id, this.routeId).subscribe();
+        this.circlesService.removeFriendFromCircle(friend.id, this.routeId).subscribe(function (data) {
+            if (!data['result']) {
+                alert(data['description']);
+            }
+        });
     };
     CirclesEditComponent.prototype.removeChildCircle = function (circle) {
         var index = this.childCircles.indexOf(circle);
         if (index >= 0)
             this.childCircles.splice(index, 1);
-        this.circlesService.removeChildCircle(this.routeId, circle.id).subscribe();
+        this.circlesService.removeChildCircle(this.routeId, circle.id).subscribe(function (data) {
+            if (!data['result']) {
+                alert(data['description']);
+            }
+        });
     };
     CirclesEditComponent.prototype.deleteCircle = function () {
         if (confirm('Are you sure you want to delete this circle?')) {
-            this.circlesService.deleteCircle(this.routeId).subscribe();
+            this.circlesService.deleteCircle(this.routeId).subscribe(function (data) {
+                if (!data['result']) {
+                    alert(data['description']);
+                }
+            });
             this.router.navigate(['/app/home']);
         }
     };
@@ -1107,15 +1160,24 @@ var CirclesEditComponent = /** @class */ (function () {
         var _this = this;
         // parent circle
         if (this.parentCircle) {
-            this.circlesService.assignChildCircle(this.parentCircle.id, this.routeId).subscribe();
+            this.circlesService.assignChildCircle(this.parentCircle.id, this.routeId).subscribe(function (data) {
+                if (!data['result']) {
+                    alert(data['description']);
+                }
+            });
         }
         else {
             this.circlesService.getCircleInfo(this.routeId).subscribe(function (data) {
-                _this.circlesService.removeChildCircle(data['parent_id'], _this.routeId).subscribe();
+                _this.circlesService.removeChildCircle(data['circle']['parent_id'], _this.routeId).subscribe();
             });
         }
-        // children
-        // friends
+        // @TODO children save (not done)
+        // for (let i = 0; i < this.circle.friends.length; i++) {
+        //   if (this.friends.indexOf(this.circle.friends[i])) {
+        //     this.circlesService.removeFriendFromCircle(friend.id, this.routeId).subscribe();
+        //   }
+        // }
+        // @TODO friends save (not done)
         if (this.circle.friends) {
             var _loop_1 = function (i) {
                 if (this_1.circle.friends.find(function (match) { return match.id === _this.friends[i].id; })) {
@@ -1126,11 +1188,6 @@ var CirclesEditComponent = /** @class */ (function () {
             for (var i = 0; i < this.friends.length; i++) {
                 _loop_1(i);
             }
-            // for (let i = 0; i < this.circle.friends.length; i++) {
-            //   if (this.friends.indexOf(this.circle.friends[i])) {
-            //     this.circlesService.removeFriendFromCircle(friend.id, this.routeId).subscribe();
-            //   }
-            // }
         }
         this.router.navigate(['/app/friends/', this.routeId]);
     };
@@ -1162,7 +1219,11 @@ var CirclesEditComponent = /** @class */ (function () {
             if (result) {
                 for (var i = 0; i < result.selected.length; i++) {
                     _this.childCircles.push(result.selected[i]);
-                    _this.circlesService.assignChildCircle(_this.routeId, result.selected[i].id).subscribe();
+                    _this.circlesService.assignChildCircle(_this.routeId, result.selected[i].id).subscribe(function (data) {
+                        if (!data['result']) {
+                            alert(data['description']);
+                        }
+                    });
                 }
             }
         });
@@ -1268,16 +1329,20 @@ var FriendsAddComponent = /** @class */ (function () {
         this.location = location;
     }
     FriendsAddComponent.prototype.addFriend = function () {
-        this.friendsService.addFriend(this.friend.name, this.friend.email, this.friend.circles).subscribe();
+        this.friendsService.addFriend(this.friend.name, this.friend.email, this.friend.circles).subscribe(function (data) {
+            if (!data['result']) {
+                alert(data['description']);
+            }
+        });
         this.router.navigate(['/app/friends']);
     };
     FriendsAddComponent.prototype.getAllCircles = function () {
         var _this = this;
         this.circlesService.getCircles()
             .subscribe(function (data) {
-            for (var i = 0; i < data['json_list'].length; i++) {
-                var name_1 = data['json_list'][i]['circle_name'];
-                var id = data['json_list'][i]['id'];
+            for (var i = 0; i < data['circles'].length; i++) {
+                var name_1 = data['circles'][i]['circle_name'];
+                var id = data['circles'][i]['id'];
                 var circle = new __WEBPACK_IMPORTED_MODULE_6__circles_circle__["a" /* Circle */](name_1, id);
                 if (_this.circles) {
                     _this.circles.push(circle);
@@ -1322,7 +1387,7 @@ module.exports = ".friends {\n  width: 23em;\n}\n\n.add {\n  position: absolute;
 /***/ "./project/static/app/friends/friends.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n  <div class=\"row\">\n    <div class=\"col\">\n      <a (click)=\"goBack()\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\" style=\"top: 14px; left: -135px;\">\n        <i class=\"material-icons\">navigate_before</i>\n      </a>\n    </div>\n    <div class=\"col-1\" *ngIf=\"name\">\n      <h1 class=\"center\">{{name}}</h1>\n    </div>\n  </div>\n\n  <div class=\"row\" *ngIf=\"childCircles\">\n    <mat-tab-group>\n      <mat-tab label=\"all {{name}} friends\">\n        <mat-grid-list cols=\"2\" rowHeight=\"2.5:1\">\n          <mat-grid-tile  *ngFor=\"let friend of friends\">\n            <mat-card class=\"friends\" routerLink=\"/app/profile/{{friend.id}}\">\n              <mat-card-title-group>\n                <img mat-card-sm-image *ngIf=\"friend.img\" src=\"{{friend.img}}\" alt=\"Photo of {{friend.name}}\">\n                <mat-card-title>{{friend.name}}</mat-card-title>\n              </mat-card-title-group>\n            </mat-card>\n          </mat-grid-tile>\n        </mat-grid-list>\n      </mat-tab>\n      <span *ngFor=\"let child of childCircles\">\n        <mat-tab label=\"{{child.name}}\">\n          <mat-grid-list cols=\"2\" rowHeight=\"2.5:1\">\n            <mat-grid-tile  *ngFor=\"let friend of child.friends\">\n              <mat-card class=\"friends\" routerLink=\"/app/profile/{{friend.id}}\">\n                <mat-card-title-group>\n                  <img mat-card-sm-image *ngIf=\"friend.img\" src=\"{{friend.img}}\" alt=\"Photo of {{friend.name}}\">\n                  <mat-card-title>{{friend.name}}</mat-card-title>\n                </mat-card-title-group>\n              </mat-card>\n            </mat-grid-tile>\n          </mat-grid-list>\n        </mat-tab>\n      </span>\n    </mat-tab-group>\n  </div>\n\n  <div class=\"row\" *ngIf=\"!childCircles\">\n    <mat-grid-list cols=\"2\" rowHeight=\"2.5:1\">\n      <mat-grid-tile  *ngFor=\"let friend of friends\">\n        <mat-card class=\"friends\" routerLink=\"/app/profile/{{friend.id}}\">\n          <mat-card-title-group>\n            <img mat-card-sm-image *ngIf=\"friend.img\" src=\"{{friend.img}}\" alt=\"Photo of {{friend.name}}\">\n            <mat-card-title>{{friend.name}}</mat-card-title>\n          </mat-card-title-group>\n        </mat-card>\n      </mat-grid-tile>\n    </mat-grid-list>\n  </div>\n\n  <div class=\"fixed-action-btn\" style=\"bottom: 45px; right: 24px;\">\n    <a *ngIf=\"routeId\" routerLink=\"/app/circles/{{routeId}}/edit\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\">\n      <i class=\"material-icons teal lighten-2\">edit</i>\n    </a>\n    <a *ngIf=\"!routeId\" routerLink=\"/app/friends/add\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\">\n      <i class=\"material-icons teal lighten-2\">add</i>\n    </a>\n  </div>\n"
+module.exports = "\n  <div class=\"row\">\n    <div class=\"col\">\n      <a (click)=\"goBack()\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\" style=\"top: 14px; left: -135px;\">\n        <i class=\"material-icons\">navigate_before</i>\n      </a>\n    </div>\n    <div class=\"col-1\" *ngIf=\"name\">\n      <h1 class=\"center\">{{name}}</h1>\n    </div>\n  </div>\n\n  <!-- @TODO landing page if there are no friends -->\n  <div class=\"row\" *ngIf=\"childCircles\">\n    <mat-tab-group>\n      <mat-tab label=\"all {{name}} friends\">\n        <mat-grid-list cols=\"2\" rowHeight=\"2.5:1\">\n          <mat-grid-tile  *ngFor=\"let friend of friends\">\n            <mat-card class=\"friends\" routerLink=\"/app/profile/{{friend.id}}\">\n              <mat-card-title-group>\n                <img mat-card-sm-image *ngIf=\"friend.img\" src=\"{{friend.img}}\" alt=\"Photo of {{friend.name}}\">\n                <mat-card-title>{{friend.name}}</mat-card-title>\n              </mat-card-title-group>\n            </mat-card>\n          </mat-grid-tile>\n        </mat-grid-list>\n      </mat-tab>\n      <span *ngFor=\"let child of childCircles\">\n        <mat-tab label=\"{{child.name}}\">\n          <mat-grid-list cols=\"2\" rowHeight=\"2.5:1\">\n            <mat-grid-tile  *ngFor=\"let friend of child.friends\">\n              <mat-card class=\"friends\" routerLink=\"/app/profile/{{friend.id}}\">\n                <mat-card-title-group>\n                  <img mat-card-sm-image *ngIf=\"friend.img\" src=\"{{friend.img}}\" alt=\"Photo of {{friend.name}}\">\n                  <mat-card-title>{{friend.name}}</mat-card-title>\n                </mat-card-title-group>\n              </mat-card>\n            </mat-grid-tile>\n          </mat-grid-list>\n        </mat-tab>\n      </span>\n    </mat-tab-group>\n  </div>\n\n  <div class=\"row\" *ngIf=\"!childCircles\">\n    <mat-grid-list cols=\"2\" rowHeight=\"2.5:1\">\n      <mat-grid-tile  *ngFor=\"let friend of friends\">\n        <mat-card class=\"friends\" routerLink=\"/app/profile/{{friend.id}}\">\n          <mat-card-title-group>\n            <img mat-card-sm-image *ngIf=\"friend.img\" src=\"{{friend.img}}\" alt=\"Photo of {{friend.name}}\">\n            <mat-card-title>{{friend.name}}</mat-card-title>\n          </mat-card-title-group>\n        </mat-card>\n      </mat-grid-tile>\n    </mat-grid-list>\n  </div>\n\n  <div class=\"fixed-action-btn\" style=\"bottom: 45px; right: 24px;\">\n    <a *ngIf=\"routeId\" routerLink=\"/app/circles/{{routeId}}/edit\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\">\n      <i class=\"material-icons teal lighten-2\">edit</i>\n    </a>\n    <a *ngIf=\"!routeId\" routerLink=\"/app/friends/add\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\">\n      <i class=\"material-icons teal lighten-2\">add</i>\n    </a>\n  </div>\n"
 
 /***/ }),
 
@@ -1365,11 +1430,13 @@ var FriendsComponent = /** @class */ (function () {
         var _this = this;
         this.friendsService.getAllFriends()
             .subscribe(function (data) {
-            for (var i = 0; i < data['json_list'].length; i++) {
-                var id = data['json_list'][i]['id'];
-                var name_1 = data['json_list'][i]['name'];
-                var email = data['json_list'][i]['email'];
+            for (var i = 0; i < data['friends'].length; i++) {
+                var id = data['friends'][i]['id'];
+                var name_1 = data['friends'][i]['name'];
+                var email = data['friends'][i]['email'];
                 var friend = new __WEBPACK_IMPORTED_MODULE_6__profile_profile__["a" /* Profile */](name_1, email, id);
+                if (data['friends'][i]['image_url'])
+                    friend.img = data['friends'][i]['image_url'];
                 if (_this.friends) {
                     _this.friends.push(friend);
                 }
@@ -1383,11 +1450,13 @@ var FriendsComponent = /** @class */ (function () {
         var _this = this;
         this.friendsService.getFriends(circle_id)
             .subscribe(function (data) {
-            for (var i = 0; i < data['json_list'].length; i++) {
-                var friend_id = data['json_list'][i]['id'];
-                var name_2 = data['json_list'][i]['name'];
-                var email = data['json_list'][i]['email'];
+            for (var i = 0; i < data['friends'].length; i++) {
+                var friend_id = data['friends'][i]['id'];
+                var name_2 = data['friends'][i]['name'];
+                var email = data['friends'][i]['email'];
                 var friend = new __WEBPACK_IMPORTED_MODULE_6__profile_profile__["a" /* Profile */](name_2, email, friend_id);
+                if (data['friends'][i]['image_url'])
+                    friend.img = data['friends'][i]['image_url'];
                 if (_this.friends) {
                     _this.friends.push(friend);
                 }
@@ -1402,10 +1471,10 @@ var FriendsComponent = /** @class */ (function () {
         this.friendsService.getFriends(circle.id)
             .subscribe(function (data) {
             var _loop_1 = function (i) {
-                var id = data['json_list'][i]['id'];
+                var id = data['friends'][i]['id'];
                 if (_this.friends.find(function (match) { return match.id === id; })) {
-                    var name_3 = data['json_list'][i]['name'];
-                    var email = data['json_list'][i]['email'];
+                    var name_3 = data['friends'][i]['name'];
+                    var email = data['friends'][i]['email'];
                     var friend = new __WEBPACK_IMPORTED_MODULE_6__profile_profile__["a" /* Profile */](name_3, email, id);
                     if (circle.friends) {
                         circle.friends.push(friend);
@@ -1415,7 +1484,7 @@ var FriendsComponent = /** @class */ (function () {
                     }
                 }
             };
-            for (var i = 0; i < data['json_list'].length; i++) {
+            for (var i = 0; i < data['friends'].length; i++) {
                 _loop_1(i);
             }
         });
@@ -1425,16 +1494,16 @@ var FriendsComponent = /** @class */ (function () {
         var _this = this;
         this.circlesService.getCircleInfo(id)
             .subscribe(function (data) {
-            _this.name = data['circle_name'];
+            _this.name = data['circle']['circle_name'];
         });
     };
     FriendsComponent.prototype.getChildCircles = function (id) {
         var _this = this;
         this.circlesService.getChildCircles(id)
             .subscribe(function (data) {
-            for (var i = 0; i < data['json_list'].length; i++) {
-                var name_4 = data['json_list'][i].circle_name;
-                var id_1 = data['json_list'][i].id;
+            for (var i = 0; i < data['child_circles'].length; i++) {
+                var name_4 = data['child_circles'][i].circle_name;
+                var id_1 = data['child_circles'][i].id;
                 var circle = new __WEBPACK_IMPORTED_MODULE_5__circles_circle__["a" /* Circle */](name_4, id_1);
                 circle = _this.getFriendsForChildCircle(circle);
                 if (_this.childCircles) {
@@ -1661,14 +1730,14 @@ var MaterialModule = /** @class */ (function () {
 /***/ "./project/static/app/notifications/notifications.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".friends {\n  padding: 1em;\n}\n\n.mat-raised-button {\n  margin-left: 1.5em;\n}\n"
+module.exports = ".friends {\n  padding: 1em;\n}\n\n.mat-raised-button {\n  margin-left: 1.5em;\n}\n\n.mat-list-item-content {\n  border: 1px solid rgba(0, 0, 0, 0.12);\n}\n\n.mat-list-icon a {\n  color: rgba(0, 0, 0, 0.87);\n}\n\n.mat-list-item h4 {\n  font-size: 1.5rem;\n  margin-bottom: .2em;\n}\n\n.mat-list-item p {\n  font-style: italic;\n  color: #526165;\n}\n\nmat-spinner {\n  margin-left: 40%;\n  margin-top: 1.46rem;\n  margin-bottom: 1.46rem;\n}\n\n#noReminders .material-icons {\n  font-size: 80px;\n}\n\n#noReminders h4 {\n  margin: 1em;\n}\n"
 
 /***/ }),
 
 /***/ "./project/static/app/notifications/notifications.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n  <div class=\"row\">\n    <h2 class=\"center\">this week</h2>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col s8 offset-s2 card-panel\">\n      <div class=\"section\" *ngIf=\"reminders\">\n        <div class=\"row\">\n          <mat-list>\n            <mat-list-item *ngFor=\"let friend of reminders\">\n              <mat-icon mat-list-icon (click)=\"contacted(friend)\">\n                <span *ngIf=\"!evaluateDate(friend.reminder.lastContact)\">crop_din</span>\n                <span *ngIf=\"evaluateDate(friend.reminder.lastContact)\">done</span>\n              </mat-icon>\n              <h4 mat-line>{{friend.name}}</h4>\n              <p mat-line>{{friend.reminder.daysLeft}} days</p>\n              <a *ngIf=\"friend._email\" href=\"mailto:{{friend._email}}\"><i class=\"material-icons right\">email</i></a>\n              <a *ngIf=\"friend._phone\" href=\"tel:{{friend._phone}}\"><i class=\"material-icons right\">phone</i></a>\n            </mat-list-item>\n          </mat-list>\n        </div>\n      </div>\n\n    </div>\n  </div>\n"
+module.exports = "\n  <div class=\"row\">\n    <h2 class=\"center\">this week's reminders</h2>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col s8 offset-s2 card-panel\">\n      <div *ngIf=\"load\" class=\"row\">\n        <mat-spinner [color]=\"accent\" class=\"col\"></mat-spinner>\n      </div>\n\n      <div class=\"section\" *ngIf=\"!load && reminders\">\n        <div class=\"row\">\n          <mat-list>\n            <mat-list-item *ngFor=\"let friend of reminders\">\n              <mat-icon mat-list-icon  *ngIf=\"!evaluateDate(friend.reminder.lastContact)\" (click)=\"contacted(friend)\">\n                <a href=\"#!\"><span>crop_din</span></a>\n              </mat-icon>\n              <mat-icon mat-list-icon *ngIf=\"evaluateDate(friend.reminder.lastContact)\">\n                <span >done</span>\n              </mat-icon>\n              <h4 mat-line routerLink=\"/app/profile/{{friend.id}}\">{{friend.name}}</h4>\n              <!-- @TODO what about overdue reminders?! -->\n              <p mat-line>{{friend.reminder.daysLeft}} day(s) left</p>\n              <a *ngIf=\"friend._email\" href=\"mailto:{{friend._email}}\"><i class=\"material-icons right\">email</i></a>\n              <a *ngIf=\"friend._phone\" href=\"tel:{{friend._phone}}\"><i class=\"material-icons right\">phone</i></a>\n            </mat-list-item>\n          </mat-list>\n        </div>\n      </div>\n\n      <div class=\"row\" *ngIf=\"!load && !reminders\" id=\"noReminders\">\n        <h3 class=\"center\"><i class=\"material-icons\">check</i></h3>\n        <h4 class=\"center\">great job! you're all caught up for the week</h4>\n      </div>\n\n    </div>\n  </div>\n"
 
 /***/ }),
 
@@ -1701,22 +1770,29 @@ var NotificationsComponent = /** @class */ (function () {
         this.notificationsService = notificationsService;
         this.route = route;
         this.location = location;
+        this.load = true;
         this.now = new Date();
     }
     NotificationsComponent.prototype.getReminders = function () {
         var _this = this;
         this.notificationsService.getReminders()
             .subscribe(function (data) {
-            // @TODO this isn't a very adaptive JSON response object
-            for (var i = 0; i < data[0].length - 1; i++) {
-                var profile = new __WEBPACK_IMPORTED_MODULE_4__profile_profile__["a" /* Profile */](data[i][0].name, data[i][0].email, data[i][0].id);
-                profile.reminder.daysLeft = data[i][1];
-                if (_this.reminders) {
-                    _this.reminders.push(profile);
+            if (data['result']) {
+                for (var i = 0; i < data['reminders'].length; i++) {
+                    var profile = new __WEBPACK_IMPORTED_MODULE_4__profile_profile__["a" /* Profile */](data['reminders'][i][0].name, data['reminders'][i][0].email, data['reminders'][i][0].id);
+                    profile.reminder.lastContact = data['reminders'][i][0].last_contacted_date;
+                    profile.reminder.daysLeft = data['reminders'][i][1];
+                    if (_this.reminders) {
+                        _this.reminders.push(profile);
+                    }
+                    else {
+                        _this.reminders = [profile];
+                    }
                 }
-                else {
-                    _this.reminders = [profile];
-                }
+                _this.load = false;
+            }
+            else {
+                alert(data['description']);
             }
         });
     };
@@ -1727,14 +1803,19 @@ var NotificationsComponent = /** @class */ (function () {
         var _this = this;
         this.notificationsService.setLastContact(date, id)
             .subscribe(function (data) {
-            var profile = _this.reminders.find(function (match) { return match.id === id; });
-            // profile.reminder.lastContact = new Date();
+            if (data['result']) {
+                var profile = _this.reminders.find(function (match) { return match.id === id; });
+                profile.reminder.lastContact = new Date();
+            }
+            else {
+                alert(data['description']);
+            }
         });
     };
     NotificationsComponent.prototype.evaluateDate = function (date) {
-        return date.getDate() == this.now.getDate() &&
-            date.getMonth() == this.now.getMonth() &&
-            date.getFullYear() == this.now.getFullYear();
+        var now = new Date();
+        var lastContacted = new Date(date);
+        return (lastContacted.toDateString() == now.toDateString());
     };
     NotificationsComponent.prototype.ngOnInit = function () {
         this.getReminders();
@@ -1910,7 +1991,7 @@ module.exports = "h1 {\n  text-align: center;\n  font-family: 'justbecool', mono
 /***/ "./project/static/app/profile/edit/profile.edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n  <a (click)=\"goBack()\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\" style=\"top: 14px; left: -135px;\" >\n    <i class=\"material-icons\">navigate_before</i>\n  </a>\n\n  <div class=\"row\">\n    <div class=\"col s4\">\n      <div class=\"card body-font\">\n        <div class=\"card-image\">\n          <img (click)='openPhotoDialog()' src=\"{{model._img}}\">\n        </div>\n        <div id=\"sidebar-content\">\n          <div class=\"card-content\">\n            <h4>circles <span class=\"badge\" (click)=\"openCirclesDialog()\"><a><i class=\"material-icons\">add</i></a></span></h4>\n            <div class=\"row chipListRow\">\n              <mat-chip-list>\n                <mat-chip *ngFor=\"let circle of model.circles\" (remove)=\"removeCircle(circle)\">\n                    {{circle.name}}\n                  <mat-icon matChipRemove>cancel</mat-icon>\n                </mat-chip>\n              </mat-chip-list>\n            </div>\n          </div>\n          <div class=\"card-action\">\n            <div class=\"row\">\n              <mat-form-field>\n                <mat-icon matPrefix>email</mat-icon>\n                <input type=\"email\" matInput placeholder=\"Email\" [(ngModel)]=\"model.email\" name=\"email\">\n              </mat-form-field>\n            </div>\n\n            <div class=\"row\">\n              <mat-form-field>\n                <mat-icon matPrefix>phone</mat-icon>\n                <input type=\"tel\" matInput placeholder=\"Phone\" [(ngModel)]=\"model.phone\" name=\"phone\">\n              </mat-form-field>\n            </div>\n          </div>\n\n          <mat-divider></mat-divider>\n\n          <div class=\"card-content\">\n            <a class=\"delete\" (click)=\"deleteProfile()\">Delete {{model.name}}'s profile</a>\n          </div>\n\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col s1\"></div>\n\n    <div class=\"col s7\">\n      <div class=\"card-panel\">\n        <div class=\"row\">\n          <mat-form-field>\n            <input matInput placeholder=\"Name\" [(ngModel)]=\"model.name\" name=\"name\">\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <mat-form-field>\n            <input matInput placeholder=\"Job\" [(ngModel)]=\"model.job\" name=\"job\">\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <mat-form-field>\n            <input matInput placeholder=\"Location\" [(ngModel)]=\"model.location\" name=\"location\">\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <h5 class=\"body-font\">reminders</h5>\n\n          <table cellspacing=\"0\">\n            <tr>\n              <td>contact every </td>\n              <td><mat-form-field>\n                <input matInput type=\"number\" [(ngModel)]=\"model.reminder.frequency\" name=\"frequency\">\n              </mat-form-field></td>\n              <td> week(s)</td>\n            </tr>\n          </table>\n          <table cellspacing=\"0\">\n            <tr>\n              <td>last contacted </td>\n              <td><mat-form-field>\n                <input matInput [matDatepicker]=\"picker\" [(ngModel)]=\"lastContactForForm.value\">\n                <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                <mat-datepicker #picker></mat-datepicker>\n              </mat-form-field></td>\n            </tr>\n          </table>\n        </div>\n\n        <!-- <div class=\"row\">\n          <h5 class=\"body-font\">\n            important dates <span class=\"badge\"><a><i class=\"material-icons\">add</i></a></span>\n          </h5>\n          <table cellspacing=\"0\">\n            <tr>\n              <td><mat-form-field>\n                <input matInput placeholder=\"Occassion\">\n              </mat-form-field></td>\n              <td><mat-form-field>\n                <input type=\"date\" matInput>\n              </mat-form-field></td>\n            </tr>\n          </table>\n        </div>\n\n        <div class=\"row\">\n          <h5 class=\"body-font\">\n            important names <span class=\"badge\"><a><i class=\"material-icons\">add</i></a></span>\n          </h5>\n          <table cellspacing=\"0\">\n            <tr>\n              <td><mat-form-field>\n                <input matInput placeholder=\"Relationship\">\n              </mat-form-field></td>\n              <td><mat-form-field>\n                <input matInput placeholder=\"Name\">\n              </mat-form-field></td>\n            </tr>\n        </table>\n        </div> -->\n\n        <div class=\"row\">\n          <h5 class=\"body-font\">notes</h5>\n          <mat-form-field>\n            <textarea matInput [(ngModel)]=\"model.notes\"></textarea>\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <button class=\"btn waves-effect waves-light right\" (click)=\"editProfile()\">Save Changes</button>\n        </div>\n      </div>\n    </div>\n\n  </div>\n"
+module.exports = "\n  <a (click)=\"goBack()\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\" style=\"top: 14px; left: -135px;\" >\n    <i class=\"material-icons\">navigate_before</i>\n  </a>\n\n  <div class=\"row\">\n    <div class=\"col s4\">\n      <div class=\"card body-font\">\n        <div class=\"card-image\">\n          <img (click)='openPhotoDialog()' src=\"{{model._img}}\">\n        </div>\n        <div id=\"sidebar-content\">\n          <div class=\"card-content\">\n            <h4>circles <span class=\"badge\" *ngIf=\"allCircles\" (click)=\"openCirclesDialog()\"><a><i class=\"material-icons\">add</i></a></span></h4>\n            <div class=\"row chipListRow\">\n              <mat-chip-list>\n                <mat-chip *ngFor=\"let circle of model.circles\" (remove)=\"removeCircle(circle)\">\n                    {{circle.name}}\n                  <mat-icon matChipRemove>cancel</mat-icon>\n                </mat-chip>\n              </mat-chip-list>\n            </div>\n          </div>\n          <div class=\"card-action\">\n            <div class=\"row\">\n              <mat-form-field>\n                <mat-icon matPrefix>email</mat-icon>\n                <input type=\"email\" matInput placeholder=\"Email\" [(ngModel)]=\"model.email\" name=\"email\">\n              </mat-form-field>\n            </div>\n\n            <div class=\"row\">\n              <mat-form-field>\n                <mat-icon matPrefix>phone</mat-icon>\n                <input type=\"tel\" matInput placeholder=\"Phone\" [(ngModel)]=\"model.phone\" name=\"phone\">\n              </mat-form-field>\n            </div>\n          </div>\n\n          <mat-divider></mat-divider>\n\n          <div class=\"card-content\">\n            <a class=\"delete\" (click)=\"deleteProfile()\">Delete {{model.name}}'s profile</a>\n          </div>\n\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col s1\"></div>\n\n    <div class=\"col s7\">\n      <div class=\"card-panel\">\n        <div class=\"row\">\n          <mat-form-field>\n            <input matInput placeholder=\"Name\" [(ngModel)]=\"model.name\" name=\"name\">\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <mat-form-field>\n            <input matInput placeholder=\"Job\" [(ngModel)]=\"model.job\" name=\"job\">\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <mat-form-field>\n            <input matInput placeholder=\"Location\" [(ngModel)]=\"model.location\" name=\"location\">\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <h5 class=\"body-font\">reminders</h5>\n\n          <table cellspacing=\"0\">\n            <tr>\n              <td>contact every </td>\n              <td><mat-form-field>\n                <input matInput type=\"number\" [(ngModel)]=\"model.reminder.frequency\" name=\"frequency\">\n              </mat-form-field></td>\n              <td> week(s)</td>\n            </tr>\n          </table>\n          <table cellspacing=\"0\">\n            <tr>\n              <td>last contacted </td>\n              <td><mat-form-field>\n                <input matInput [matDatepicker]=\"picker\" [(ngModel)]=\"lastContactForForm.value\">\n                <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                <mat-datepicker #picker></mat-datepicker>\n              </mat-form-field></td>\n            </tr>\n          </table>\n        </div>\n\n        <!-- <div class=\"row\">\n          <h5 class=\"body-font\">\n            important dates <span class=\"badge\"><a><i class=\"material-icons\">add</i></a></span>\n          </h5>\n          <table cellspacing=\"0\">\n            <tr>\n              <td><mat-form-field>\n                <input matInput placeholder=\"Occassion\">\n              </mat-form-field></td>\n              <td><mat-form-field>\n                <input type=\"date\" matInput>\n              </mat-form-field></td>\n            </tr>\n          </table>\n        </div>\n\n        <div class=\"row\">\n          <h5 class=\"body-font\">\n            important names <span class=\"badge\"><a><i class=\"material-icons\">add</i></a></span>\n          </h5>\n          <table cellspacing=\"0\">\n            <tr>\n              <td><mat-form-field>\n                <input matInput placeholder=\"Relationship\">\n              </mat-form-field></td>\n              <td><mat-form-field>\n                <input matInput placeholder=\"Name\">\n              </mat-form-field></td>\n            </tr>\n        </table>\n        </div> -->\n\n        <div class=\"row\">\n          <h5 class=\"body-font\">notes</h5>\n          <mat-form-field>\n            <textarea matInput [(ngModel)]=\"model.notes\"></textarea>\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <button class=\"btn waves-effect waves-light right\" (click)=\"editProfile()\">Save Changes</button>\n        </div>\n      </div>\n    </div>\n\n  </div>\n"
 
 /***/ }),
 
@@ -1976,54 +2057,54 @@ var ProfileEditComponent = /** @class */ (function () {
         var _this = this;
         this.profileService.getMyProfile()
             .subscribe(function (data) {
-            if (data['name'])
-                _this.model.name = data['name'];
-            if (data['email'])
-                _this.model.email = data['email'];
-            if (data['id'])
-                _this.model.id = data['id'];
-            (data['img']) ? _this.model.img = data['img'] :
+            if (data['friend']['name'])
+                _this.model.name = data['friend']['name'];
+            if (data['friend']['email'])
+                _this.model.email = data['friend']['email'];
+            if (data['friend']['id'])
+                _this.model.id = data['friend']['id'];
+            (data['friend']['image_url']) ? _this.model.img = data['friend']['image_url'] :
                 _this.model.img = 'assets/images/profile.png';
-            if (data['circles'])
-                _this.model.circles = data['circles'];
-            if (data['phone_number'])
-                _this.model.phone = data['phone_number'];
-            if (data['location'])
-                _this.model.location = data['location'];
-            if (data['notes'])
-                _this.model.notes = data['notes'];
-            if (data['job'])
-                _this.model.job = data['job'];
+            if (data['friend']['circles'])
+                _this.model.circles = data['friend']['circles'];
+            if (data['friend']['phone_number'])
+                _this.model.phone = data['friend']['phone_number'];
+            if (data['friend']['location'])
+                _this.model.location = data['friend']['location'];
+            if (data['friend']['notes'])
+                _this.model.notes = data['friend']['notes'];
+            if (data['friend']['job'])
+                _this.model.job = data['friend']['job'];
         });
     };
     ProfileEditComponent.prototype.getFriendProfile = function (id) {
         var _this = this;
         this.profileService.getFriendProfile(id)
             .subscribe(function (data) {
-            if (data['name'])
-                _this.model.name = data['name'];
-            if (data['email'])
-                _this.model.email = data['email'];
-            if (data['id'])
-                _this.model.id = data['id'];
-            (data['img']) ? _this.model.img = data['img'] :
+            if (data['friend']['name'])
+                _this.model.name = data['friend']['name'];
+            if (data['friend']['email'])
+                _this.model.email = data['friend']['email'];
+            if (data['friend']['id'])
+                _this.model.id = data['friend']['id'];
+            (data['friend']['image_url']) ? _this.model.img = data['friend']['image_url'] :
                 _this.model.img = 'assets/images/profile.png';
-            if (data['circles'])
-                _this.model.circles = data['circles'];
-            if (data['phone_number'])
-                _this.model.phone = data['phone_number'];
-            if (data['location'])
-                _this.model.location = data['location'];
-            if (data['reminder_frequency'])
-                _this.model.reminder.frequency = data['reminder_frequency'];
-            if (data['last_contacted_date']) {
-                _this.model.reminder.lastContact = data['last_contacted_date'];
-                _this.lastContactForForm = new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */](new Date(data['last_contacted_date']));
+            if (data['friend']['circles'])
+                _this.model.circles = data['friend']['circles'];
+            if (data['friend']['phone_number'])
+                _this.model.phone = data['friend']['phone_number'];
+            if (data['friend']['location'])
+                _this.model.location = data['friend']['location'];
+            if (data['friend']['reminder_frequency'])
+                _this.model.reminder.frequency = data['friend']['reminder_frequency'];
+            if (data['friend']['last_contacted_date']) {
+                _this.model.reminder.lastContact = data['friend']['last_contacted_date'];
+                _this.lastContactForForm = new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */](new Date(data['friend']['last_contacted_date']));
             }
-            if (data['notes'])
-                _this.model.notes = data['notes'];
-            if (data['job'])
-                _this.model.job = data['job'];
+            if (data['friend']['notes'])
+                _this.model.notes = data['friend']['notes'];
+            if (data['friend']['job'])
+                _this.model.job = data['friend']['job'];
         });
         this.getCirclesForFriend(this.routeId);
     };
@@ -2031,12 +2112,12 @@ var ProfileEditComponent = /** @class */ (function () {
         var _this = this;
         this.profileService.getCirclesForFriend(id)
             .subscribe(function (data) {
-            for (var i = 0; i < data['json_list'].length; i++) {
+            for (var i = 0; i < data['circles'].length; i++) {
                 if (_this.model.circles) {
-                    _this.model.circles.push(new __WEBPACK_IMPORTED_MODULE_9__circles_circle__["a" /* Circle */](data['json_list'][i].circle_name, data['json_list'][i].id));
+                    _this.model.circles.push(new __WEBPACK_IMPORTED_MODULE_9__circles_circle__["a" /* Circle */](data['circles'][i].circle_name, data['circles'][i].id));
                 }
                 else {
-                    _this.model.circles = [new __WEBPACK_IMPORTED_MODULE_9__circles_circle__["a" /* Circle */](data['json_list'][i].circle_name, data['json_list'][i].id)];
+                    _this.model.circles = [new __WEBPACK_IMPORTED_MODULE_9__circles_circle__["a" /* Circle */](data['circles'][i].circle_name, data['circles'][i].id)];
                 }
             }
         });
@@ -2045,9 +2126,9 @@ var ProfileEditComponent = /** @class */ (function () {
         var _this = this;
         this.circlesService.getCircles()
             .subscribe(function (data) {
-            for (var i = 0; i < data['json_list'].length; i++) {
-                var name_1 = data['json_list'][i]['circle_name'];
-                var id = data['json_list'][i]['id'];
+            for (var i = 0; i < data['circles'].length; i++) {
+                var name_1 = data['circles'][i]['circle_name'];
+                var id = data['circles'][i]['id'];
                 var circle = new __WEBPACK_IMPORTED_MODULE_9__circles_circle__["a" /* Circle */](name_1, id);
                 if (_this.allCircles) {
                     _this.allCircles.push(circle);
@@ -2071,20 +2152,42 @@ var ProfileEditComponent = /** @class */ (function () {
         if (!this.model.notes) {
             this.model.notes = '';
         }
-        this.profileService.updateProfile(this.model.id, this.model.location, this.model.notes, this.model.phone, this.model.job).subscribe();
-        this.notificationsService.setReminder(this.model.reminder.frequency, this.model.id).subscribe();
-        this.notificationsService.setLastContact(new Date(this.lastContactForForm.value), this.model.id).subscribe();
+        this.profileService.updateProfile(this.model.id, this.model.location, this.model.img, this.model.notes, this.model.phone, this.model.job).subscribe(function (data) {
+            if (!data['result']) {
+                alert(data['description']);
+            }
+        });
+        if (this.model.reminder.frequency) {
+            this.notificationsService.setReminder(this.model.reminder.frequency, this.model.id).subscribe(function (data) {
+                if (!data['result']) {
+                    alert(data['description']);
+                }
+            });
+        }
+        this.notificationsService.setLastContact(new Date(this.lastContactForForm.value), this.model.id).subscribe(function (data) {
+            if (!data['result']) {
+                alert(data['description']);
+            }
+        });
         this.router.navigate(['/app/profile/', this.routeId]);
     };
     ProfileEditComponent.prototype.removeCircle = function (circle) {
         var index = this.model.circles.indexOf(circle);
         if (index >= 0)
             this.model.circles.splice(index, 1);
-        this.circlesService.removeFriendFromCircle(this.routeId, circle.id).subscribe();
+        this.circlesService.removeFriendFromCircle(this.routeId, circle.id).subscribe(function (data) {
+            if (!data['result']) {
+                alert(data['description']);
+            }
+        });
     };
     ProfileEditComponent.prototype.deleteProfile = function () {
         if (confirm('Are you sure you want to delete this profile?')) {
-            this.profileService.deleteProfile(this.routeId).subscribe();
+            this.profileService.deleteProfile(this.routeId).subscribe(function (data) {
+                if (!data['result']) {
+                    alert(data['description']);
+                }
+            });
             this.router.navigate(['/app/friends']);
         }
     };
@@ -2239,48 +2342,48 @@ var ProfileComponent = /** @class */ (function () {
         var _this = this;
         this.profileService.getMyProfile()
             .subscribe(function (data) {
-            if (data['name'])
-                _this.model.name = data['name'];
-            if (data['email'])
-                _this.model.email = data['email'];
-            if (data['id'])
-                _this.model.id = data['id'];
-            if (data['img'])
-                _this.model.img = data['img'];
-            if (data['circles'])
-                _this.model.circles = data['circles'];
-            if (data['phone_number'])
-                _this.model.phone = data['phone_number'];
-            if (data['location'])
-                _this.model.location = data['location'];
-            if (data['job'])
-                _this.model.job = data['job'];
+            if (data['friend']['name'])
+                _this.model.name = data['friend']['name'];
+            if (data['friend']['email'])
+                _this.model.email = data['friend']['email'];
+            if (data['friend']['id'])
+                _this.model.id = data['friend']['id'];
+            if (data['friend']['image_url'])
+                _this.model.img = data['friend']['image_url'];
+            if (data['friend']['circles'])
+                _this.model.circles = data['friend']['circles'];
+            if (data['friend']['phone_number'])
+                _this.model.phone = data['friend']['phone_number'];
+            if (data['friend']['location'])
+                _this.model.location = data['friend']['location'];
+            if (data['friend']['job'])
+                _this.model.job = data['friend']['job'];
         });
     };
     ProfileComponent.prototype.getFriendProfile = function (id) {
         var _this = this;
         this.profileService.getFriendProfile(id)
             .subscribe(function (data) {
-            if (data['name'])
-                _this.model.name = data['name'];
-            if (data['email'])
-                _this.model.email = data['email'];
-            if (data['id'])
-                _this.model.id = data['id'];
-            (data['img']) ? _this.model.img = data['img'] :
+            if (data['friend']['name'])
+                _this.model.name = data['friend']['name'];
+            if (data['friend']['email'])
+                _this.model.email = data['friend']['email'];
+            if (data['friend']['id'])
+                _this.model.id = data['friend']['id'];
+            (data['friend']['image_url']) ? _this.model.img = data['friend']['image_url'] :
                 _this.model.img = 'assets/images/profile.png';
-            if (data['circles'])
-                _this.model.circles = data['circles'];
-            if (data['phone_number'])
-                _this.model.phone = data['phone_number'];
-            if (data['location'])
-                _this.model.location = data['location'];
-            if (data['reminder_frequency'])
-                _this.model.reminder.frequency = data['reminder_frequency'];
-            if (data['notes'])
-                _this.model.notes = data['notes'];
-            if (data['job'])
-                _this.model.job = data['job'];
+            if (data['friend']['circles'])
+                _this.model.circles = data['friend']['circles'];
+            if (data['friend']['phone_number'])
+                _this.model.phone = data['friend']['phone_number'];
+            if (data['friend']['location'])
+                _this.model.location = data['friend']['location'];
+            if (data['friend']['reminder_frequency'])
+                _this.model.reminder.frequency = data['friend']['reminder_frequency'];
+            if (data['friend']['notes'])
+                _this.model.notes = data['friend']['notes'];
+            if (data['friend']['job'])
+                _this.model.job = data['friend']['job'];
         });
         this.getCirclesForFriend(id);
     };
@@ -2288,12 +2391,12 @@ var ProfileComponent = /** @class */ (function () {
         var _this = this;
         this.profileService.getCirclesForFriend(id)
             .subscribe(function (data) {
-            for (var i = 0; i < data['json_list'].length; i++) {
+            for (var i = 0; i < data['circles'].length; i++) {
                 if (_this.model.circles) {
-                    _this.model.circles.push(new __WEBPACK_IMPORTED_MODULE_6__circles_circle__["a" /* Circle */](data['json_list'][i].circle_name, data['json_list'][i].id));
+                    _this.model.circles.push(new __WEBPACK_IMPORTED_MODULE_6__circles_circle__["a" /* Circle */](data['circles'][i].circle_name, data['circles'][i].id));
                 }
                 else {
-                    _this.model.circles = [new __WEBPACK_IMPORTED_MODULE_6__circles_circle__["a" /* Circle */](data['json_list'][i].circle_name, data['json_list'][i].id)];
+                    _this.model.circles = [new __WEBPACK_IMPORTED_MODULE_6__circles_circle__["a" /* Circle */](data['circles'][i].circle_name, data['circles'][i].id)];
                 }
             }
         });
@@ -2425,6 +2528,7 @@ var ProfileService = /** @class */ (function () {
      * @function updateProfile
      * @param {number} id - ID of profile being edited
      * @param {string} [location=''] - new location value
+     * @param {string} [img=''] - new profile img URL
      * @param {string} [notes=''] - new notes value
      * @param {string} [phone=''] - new phone value
      * @param {string} [job=''] - new job value
@@ -2432,15 +2536,17 @@ var ProfileService = /** @class */ (function () {
      * {
          friend_id: id,
          location: location,
+         img: img,
          notes: notes,
          phone_number: phone,
          job: job
        }
      */
-    ProfileService.prototype.updateProfile = function (id, location, notes, phone, job) {
+    ProfileService.prototype.updateProfile = function (id, location, img, notes, phone, job) {
         var id_object = {
             friend_id: id,
             location: location,
+            img: img,
             notes: notes,
             phone_number: phone,
             job: job
