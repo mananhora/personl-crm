@@ -24,31 +24,31 @@ export class ProfileComponent implements OnInit {
   getMyProfile() {
     this.profileService.getMyProfile()
       .subscribe(data => {
-        if (data['name']) this.model.name = data['name'];
-        if (data['email']) this.model.email = data['email'];
-        if (data['id']) this.model.id = data['id'];
-        if (data['img']) this.model.img = data['img'];
-        if (data['circles']) this.model.circles = data['circles'];
-        if (data['phone_number']) this.model.phone = data['phone_number'];
-        if (data['location']) this.model.location = data['location'];
-        if (data['job']) this.model.job = data['job'];
+        if (data['friend']['name']) this.model.name = data['friend']['name'];
+        if (data['friend']['email']) this.model.email = data['friend']['email'];
+        if (data['friend']['id']) this.model.id = data['friend']['id'];
+        if (data['friend']['img']) this.model.img = data['friend']['img'];
+        if (data['friend']['circles']) this.model.circles = data['friend']['circles'];
+        if (data['friend']['phone_number']) this.model.phone = data['friend']['phone_number'];
+        if (data['friend']['location']) this.model.location = data['friend']['location'];
+        if (data['friend']['job']) this.model.job = data['friend']['job'];
     })
   }
 
   getFriendProfile(id: number) {
     this.profileService.getFriendProfile(id)
       .subscribe(data => {
-        if (data['name']) this.model.name = data['name'];
-        if (data['email']) this.model.email = data['email'];
-        if (data['id']) this.model.id = data['id'];
-        (data['img']) ? this.model.img = data['img'] :
+        if (data['friend']['name']) this.model.name = data['friend']['name'];
+        if (data['friend']['email']) this.model.email = data['friend']['email'];
+        if (data['friend']['id']) this.model.id = data['friend']['id'];
+        (data['friend']['img']) ? this.model.img = data['friend']['img'] :
           this.model.img = 'assets/images/profile.png';
-        if (data['circles']) this.model.circles = data['circles'];
-        if (data['phone_number']) this.model.phone = data['phone_number'];
-        if (data['location']) this.model.location = data['location'];
-        if (data['reminder_frequency']) this.model.reminder.frequency = data['reminder_frequency'];
-        if (data['notes']) this.model.notes = data['notes'];
-        if (data['job']) this.model.job = data['job'];
+        if (data['friend']['circles']) this.model.circles = data['friend']['circles'];
+        if (data['friend']['phone_number']) this.model.phone = data['friend']['phone_number'];
+        if (data['friend']['location']) this.model.location = data['friend']['location'];
+        if (data['friend']['reminder_frequency']) this.model.reminder.frequency = data['friend']['reminder_frequency'];
+        if (data['friend']['notes']) this.model.notes = data['friend']['notes'];
+        if (data['friend']['job']) this.model.job = data['friend']['job'];
     });
     this.getCirclesForFriend(id);
   }
@@ -56,15 +56,15 @@ export class ProfileComponent implements OnInit {
   getCirclesForFriend(id: number) {
     this.profileService.getCirclesForFriend(id)
       .subscribe(data => {
-        for (let i = 0; i < data['json_list'].length; i++) {
+        for (let i = 0; i < data['circles'].length; i++) {
           if (this.model.circles) {
             this.model.circles.push(new Circle(
-              data['json_list'][i].circle_name,
-              data['json_list'][i].id));
+              data['circles'][i].circle_name,
+              data['circles'][i].id));
           } else {
             this.model.circles = [new Circle(
-              data['json_list'][i].circle_name,
-              data['json_list'][i].id)];
+              data['circles'][i].circle_name,
+              data['circles'][i].id)];
           }
         }
       })

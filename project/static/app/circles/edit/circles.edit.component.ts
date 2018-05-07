@@ -41,9 +41,9 @@ export class CirclesEditComponent implements OnInit {
   getChildCircles(id: number) {
     this.circlesService.getChildCircles(id)
       .subscribe(data => {
-        for (let i = 0; i < data['json_list'].length; i++) {
-          let name = data['json_list'][i].circle_name;
-          let id = data['json_list'][i].id;
+        for (let i = 0; i < data['child_circles'].length; i++) {
+          let name = data['child_circles'][i].circle_name;
+          let id = data['child_circles'][i].id;
           let circle = new Circle(name, id);
           if (this.childCircles) {
             this.childCircles.push(circle);
@@ -57,10 +57,10 @@ export class CirclesEditComponent implements OnInit {
   getFriendsForCircle(circle_id: number) {
     this.friendsService.getFriends(circle_id)
       .subscribe(data => {
-        for (let i = 0; i < data['json_list'].length; i++) {
-          let friend_id = data['json_list'][i]['id'];
-          let name = data['json_list'][i]['name'];
-          let email = data['json_list'][i]['email'];
+        for (let i = 0; i < data['friends'].length; i++) {
+          let friend_id = data['friends'][i]['id'];
+          let name = data['friends'][i]['name'];
+          let email = data['friends'][i]['email'];
           let friend = new Profile(name, email, friend_id);
           // create interactive local friends list
           if (this.friends) {
@@ -117,18 +117,30 @@ export class CirclesEditComponent implements OnInit {
   removeFriend(friend: Profile) {
     let index = this.friends.indexOf(friend);
     if (index >= 0) this.friends.splice(index, 1);
-    this.circlesService.removeFriendFromCircle(friend.id, this.routeId).subscribe();
+    this.circlesService.removeFriendFromCircle(friend.id, this.routeId).subscribe(data => {
+      if (!data['result']) {
+        alert(data['description'])
+      }
+    });
   }
 
   removeChildCircle(circle: Circle) {
     let index = this.childCircles.indexOf(circle);
     if (index >= 0) this.childCircles.splice(index, 1);
-    this.circlesService.removeChildCircle(this.routeId, circle.id).subscribe();
+    this.circlesService.removeChildCircle(this.routeId, circle.id).subscribe(data => {
+      if (!data['result']) {
+        alert(data['description']);
+      }
+    });
   }
 
   deleteCircle() {
     if (confirm('Are you sure you want to delete this circle?')) {
-      this.circlesService.deleteCircle(this.routeId).subscribe();
+      this.circlesService.deleteCircle(this.routeId).subscribe(data => {
+        if (!data['result']) {
+          alert(data['description']);
+        }
+      });
       this.router.navigate(['/app/home']);
     }
   }
@@ -136,25 +148,29 @@ export class CirclesEditComponent implements OnInit {
   saveChanges() {
     // parent circle
     if (this.parentCircle) {
-      this.circlesService.assignChildCircle(this.parentCircle.id, this.routeId).subscribe();
+      this.circlesService.assignChildCircle(this.parentCircle.id, this.routeId).subscribe(data => {
+        if (!data['result']) {
+          alert(data['description']);
+        }
+      });
     } else {
       this.circlesService.getCircleInfo(this.routeId).subscribe(data => {
-          this.circlesService.removeChildCircle(data['parent_id'], this.routeId).subscribe();
+          this.circlesService.removeChildCircle(data['circle']['parent_id'], this.routeId).subscribe();
       });
     }
-    // children
-    // friends
+    // @TODO children save (not done)
+    // for (let i = 0; i < this.circle.friends.length; i++) {
+    //   if (this.friends.indexOf(this.circle.friends[i])) {
+    //     this.circlesService.removeFriendFromCircle(friend.id, this.routeId).subscribe();
+    //   }
+    // }
+    // @TODO friends save (not done)
     if (this.circle.friends) {
       for (let i = 0; i < this.friends.length; i++) {
         if (this.circle.friends.find(match => match.id === this.friends[i].id)) {
           this.circlesService.addFriendToCircle(this.friends[i].id, this.routeId).subscribe();
         }
       }
-      // for (let i = 0; i < this.circle.friends.length; i++) {
-      //   if (this.friends.indexOf(this.circle.friends[i])) {
-      //     this.circlesService.removeFriendFromCircle(friend.id, this.routeId).subscribe();
-      //   }
-      // }
     }
     this.router.navigate(['/app/friends/', this.routeId]);
   }
@@ -189,7 +205,11 @@ export class CirclesEditComponent implements OnInit {
       if (result) {
         for (let i = 0; i < result.selected.length; i++) {
           this.childCircles.push(result.selected[i]);
-          this.circlesService.assignChildCircle(this.routeId, result.selected[i].id).subscribe();
+          this.circlesService.assignChildCircle(this.routeId, result.selected[i].id).subscribe(data => {
+            if (!data['result']) {
+              alert(data['description']);
+            }
+          });
         }
       }
     });

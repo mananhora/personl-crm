@@ -22,7 +22,11 @@ export class FriendsAddComponent implements OnInit {
     private router: Router, private location: Location) { }
 
   addFriend() {
-    this.friendsService.addFriend(this.friend.name, this.friend.email, this.friend.circles).subscribe();
+    this.friendsService.addFriend(this.friend.name, this.friend.email, this.friend.circles).subscribe(data => {
+      if (!data['result']) {
+        alert(data['description']);
+      }
+    });
     this.router.navigate(['/app/friends']);
   }
 
