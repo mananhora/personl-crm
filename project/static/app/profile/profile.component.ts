@@ -86,28 +86,3 @@ export class ProfileComponent implements OnInit {
   }
 
 }
-
-@Component({
-  selector: 'dialog-overview-example-dialog',
-  template: `
-    <h2 mat-dialog-title>Add a note</h2>
-    <mat-dialog-content>
-      <textarea id="data" name="data" [(ngModel)]="data">{{data}}</textarea>
-    </mat-dialog-content>
-    <mat-dialog-actions>
-      <button mat-button (click)=onNoClick()>Cancel</button>
-      <button mat-button (click)="dialogRef.close(data)">Done</button>
-    </mat-dialog-actions>
-  `,
-})
-export class DialogOverviewExampleDialog {
-
-  constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-}
