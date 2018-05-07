@@ -45,9 +45,12 @@ export class AppComponent implements OnInit {
    * login user from email and password. redirect to homepage
    */
   login() {
-    this.appService.login(this.email, this.password)
-      .subscribe(data => {
+    this.appService.login(this.email, this.password).subscribe(data => {
+      if (data['result']) {
         location.href = 'http://0.0.0.0:5000/';
+      } else {
+        alert(data['description']);
+      }
     });
   }
 
@@ -56,22 +59,35 @@ export class AppComponent implements OnInit {
    * registers a new user account
    */
   register() {
-    this.appService.register(this.name, this.email, this.password, this.confirmPassword)
-      .subscribe(data => {
-        this.appService.login(this.email, this.password)
-          .subscribe(data => {
+    this.appService.register(this.name, this.email, this.password, this.confirmPassword).subscribe(data => {
+      if (data['result']) {
+        this.appService.login(this.email, this.password).subscribe(data => {
+          if (data['result']) {
             for (let i = 0; i < this.circles.length; i++) {
-              this.circlesService.addCircle(this.circles[i].name)
-                .subscribe(data => {
-                  this.circles[i].id = data['id'];
+              this.circlesService.addCircle(this.circles[i].name).subscribe(data => {
+                if (data['result']) {
+                  this.circles[i].id = data['circle']['id'];
                   for (let j = 0; j < this.circles[i].friends.length; j++) {
-                    this.friendsService.addFriend(this.circles[i].friends[j].name, '', [this.circles[i]]).subscribe();
+                    this.friendsService.addFriend(this.circles[i].friends[j].name, '', [this.circles[i]]).subscribe(data => {
+                      if (!data['result']) {
+                        alert(data['description']);
+                      }
+                    });
                   }
+                } else {
+                  alert(data['description']);
+                }
               });
             }
+          } else {
+            alert(data['description']);
+          }
         });
         location.href = 'http://0.0.0.0:5000/';
-      });
+      } else {
+        alert(data['description']);
+      }
+    });
   }
 
   skip(stepper: MatStepper) {

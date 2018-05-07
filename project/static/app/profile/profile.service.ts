@@ -70,6 +70,7 @@ export class ProfileService {
    * @function updateProfile
    * @param {number} id - ID of profile being edited
    * @param {string} [location=''] - new location value
+   * @param {string} [img=''] - new profile img URL
    * @param {string} [notes=''] - new notes value
    * @param {string} [phone=''] - new phone value
    * @param {string} [job=''] - new job value
@@ -77,15 +78,17 @@ export class ProfileService {
    * {
        friend_id: id,
        location: location,
+       img: img,
        notes: notes,
        phone_number: phone,
        job: job
      }
    */
-  updateProfile(id: number, location: string, notes: string, phone: string, job: string): Observable<Object> {
+  updateProfile(id: number, location: string, img: string, notes: string, phone: string, job: string): Observable<Object> {
     let id_object = {
       friend_id: id,
       location: location,
+      img: img,
       notes: notes,
       phone_number: phone,
       job: job

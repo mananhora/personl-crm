@@ -8,6 +8,10 @@ from flask.ext.login import login_user, login_required, logout_user, current_use
 from project.models import User
 from project.form import *
 from project import *
+login_error_message = 'It seems you are not logged in. Please log in and try again.'
+something_wrong_message = 'Woops, something went wrong. Sorry, try again later.'
+desc = 'description'
+
 # from flask.ext.social import Social
 # from facebook import get_user_from_cookie, GraphAPI
 
@@ -48,7 +52,7 @@ def is_logged_in():
     return jsonify({'is_logged_in':False})
 
 
-@users_blueprint.route('/register', methods=['POST'])
+@users_blueprint.route('/register', methods=['POST', 'GET'])
 def register():
     print("in register")
     json_data = request.get_json()
@@ -58,13 +62,15 @@ def register():
       password=json_data['password']
     )
     try:
+      user_exists = User.query.filter_by(email=json_data['email']).first()
+      if user_exists is not None:
+        return jsonify({'result': False, 'description': 'There already exists an account with this email. '})
       db.session.add(user)
       db.session.commit()
       status = True
+      return jsonify({'result':True })
     except:
-      status = False
-    # return redirect(url_for('home.home'))
-    return jsonify({'result': status})
+      return jsonify({'result': False, desc:something_wrong_message})
 
 
 @users_blueprint.route('/logout', methods=['GET', 'POST'])
@@ -86,7 +92,7 @@ def login():
   print("password", json_data['password'])
 
   user = User.query.filter_by(email=json_data['username']).first()
-
+  
   if user is not None:
     print (user)
     pw = user.password
@@ -98,9 +104,9 @@ def login():
       session['logged_in'] = True
       status = True
       print("logged in go crazy")
+      return jsonify({'result': True})
   else:
-    status = False
-  return jsonify({'result': status})
+    return jsonify({'result': False, desc:something_wrong_message})
 
 
 @users_blueprint.route('/loginwithfb', methods=['POST', 'GET'])
@@ -156,7 +162,7 @@ def update_user_info():
     user = User.get(current_user.id)
     user.location = location
     return jsonify({'result': True})
-  return jsonify({'error': True})
+  return jsonify({'result': False, desc:login_error_message})
 
 
 @login_required

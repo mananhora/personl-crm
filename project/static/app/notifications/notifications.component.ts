@@ -21,17 +21,21 @@ export class NotificationsComponent implements OnInit {
   getReminders() {
     this.notificationsService.getReminders()
       .subscribe(data => {
-        for(let i = 0; i < data['reminders'].length; i++) {
-          let profile = new Profile(data['reminders'][i][0].name, data['reminders'][i][0].email, data['reminders'][i][0].id);
-          profile.reminder.lastContact = data['reminders'][i][0].last_contacted_date;
-          profile.reminder.daysLeft = data['reminders'][i][1];
-          if (this.reminders) {
-            this.reminders.push(profile);
-          } else {
-            this.reminders = [profile];
+        if (data['result']) {
+          for(let i = 0; i < data['reminders'].length; i++) {
+            let profile = new Profile(data['reminders'][i][0].name, data['reminders'][i][0].email, data['reminders'][i][0].id);
+            profile.reminder.lastContact = data['reminders'][i][0].last_contacted_date;
+            profile.reminder.daysLeft = data['reminders'][i][1];
+            if (this.reminders) {
+              this.reminders.push(profile);
+            } else {
+              this.reminders = [profile];
+            }
           }
+          this.load = false;
+        } else {
+          alert(data['description']);
         }
-        this.load = false;
     });
   }
 
@@ -42,8 +46,12 @@ export class NotificationsComponent implements OnInit {
   setLastContact(date: Date, id: number) {
     this.notificationsService.setLastContact(date, id)
       .subscribe(data => {
-        let profile = this.reminders.find(match => match.id === id);
-        profile.reminder.lastContact = new Date();
+        if (data['result']) {
+          let profile = this.reminders.find(match => match.id === id);
+          profile.reminder.lastContact = new Date();
+        } else {
+          alert(data['description']);
+        }
     });
   }
 

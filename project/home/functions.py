@@ -28,8 +28,8 @@ def get_friends():
         friends = Friend.query.filter_by(user_id=user_id).all()
         for i in range(0, len(friends)):
           print(friends[i].name)
-        return jsonify(json_list=[i.serialize for i in friends])
-    return jsonify({'error':True})
+        return jsonify({'result':True, 'friends': [i.serialize for i in friends]})
+    return jsonify({'result':False, desc:login_error_message})
     # flash(str(friends.name))
 
 

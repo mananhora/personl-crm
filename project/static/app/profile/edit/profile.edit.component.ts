@@ -37,37 +37,37 @@ export class ProfileEditComponent implements OnInit {
   getMyProfile() {
     this.profileService.getMyProfile()
       .subscribe(data => {
-        if (data['name']) this.model.name = data['name'];
-        if (data['email']) this.model.email = data['email'];
-        if (data['id']) this.model.id = data['id'];
-        (data['img']) ? this.model.img = data['img'] :
+        if (data['friend']['name']) this.model.name = data['friend']['name'];
+        if (data['friend']['email']) this.model.email = data['friend']['email'];
+        if (data['friend']['id']) this.model.id = data['friend']['id'];
+        (data['friend']['image_url']) ? this.model.img = data['friend']['image_url'] :
           this.model.img = 'assets/images/profile.png';
-        if (data['circles']) this.model.circles = data['circles'];
-        if (data['phone_number']) this.model.phone = data['phone_number'];
-        if (data['location']) this.model.location = data['location'];
-        if (data['notes']) this.model.notes = data['notes'];
-        if (data['job']) this.model.job = data['job'];
+        if (data['friend']['circles']) this.model.circles = data['friend']['circles'];
+        if (data['friend']['phone_number']) this.model.phone = data['friend']['phone_number'];
+        if (data['friend']['location']) this.model.location = data['friend']['location'];
+        if (data['friend']['notes']) this.model.notes = data['friend']['notes'];
+        if (data['friend']['job']) this.model.job = data['friend']['job'];
     })
   }
 
   getFriendProfile(id: number) {
     this.profileService.getFriendProfile(id)
       .subscribe(data => {
-        if (data['name']) this.model.name = data['name'];
-        if (data['email']) this.model.email = data['email'];
-        if (data['id']) this.model.id = data['id'];
-        (data['img']) ? this.model.img = data['img'] :
+        if (data['friend']['name']) this.model.name = data['friend']['name'];
+        if (data['friend']['email']) this.model.email = data['friend']['email'];
+        if (data['friend']['id']) this.model.id = data['friend']['id'];
+        (data['friend']['image_url']) ? this.model.img = data['friend']['image_url'] :
           this.model.img = 'assets/images/profile.png';
-        if (data['circles']) this.model.circles = data['circles'];
-        if (data['phone_number']) this.model.phone = data['phone_number'];
-        if (data['location']) this.model.location = data['location'];
-        if (data['reminder_frequency']) this.model.reminder.frequency = data['reminder_frequency'];
-        if (data['last_contacted_date']) {
-          this.model.reminder.lastContact = data['last_contacted_date'];
-          this.lastContactForForm = new FormControl(new Date(data['last_contacted_date']));
+        if (data['friend']['circles']) this.model.circles = data['friend']['circles'];
+        if (data['friend']['phone_number']) this.model.phone = data['friend']['phone_number'];
+        if (data['friend']['location']) this.model.location = data['friend']['location'];
+        if (data['friend']['reminder_frequency']) this.model.reminder.frequency = data['friend']['reminder_frequency'];
+        if (data['friend']['last_contacted_date']) {
+          this.model.reminder.lastContact = data['friend']['last_contacted_date'];
+          this.lastContactForForm = new FormControl(new Date(data['friend']['last_contacted_date']));
         }
-        if (data['notes']) this.model.notes = data['notes'];
-        if (data['job']) this.model.job = data['job'];
+        if (data['friend']['notes']) this.model.notes = data['friend']['notes'];
+        if (data['friend']['job']) this.model.job = data['friend']['job'];
       })
     this.getCirclesForFriend(this.routeId);
   }
@@ -75,15 +75,15 @@ export class ProfileEditComponent implements OnInit {
   getCirclesForFriend(id: number) {
     this.profileService.getCirclesForFriend(id)
       .subscribe(data => {
-        for (let i = 0; i < data['json_list'].length; i++) {
+        for (let i = 0; i < data['circles'].length; i++) {
           if (this.model.circles) {
             this.model.circles.push(new Circle(
-              data['json_list'][i].circle_name,
-              data['json_list'][i].id));
+              data['circles'][i].circle_name,
+              data['circles'][i].id));
           } else {
             this.model.circles = [new Circle(
-              data['json_list'][i].circle_name,
-              data['json_list'][i].id)];
+              data['circles'][i].circle_name,
+              data['circles'][i].id)];
           }
         }
       })
@@ -92,9 +92,9 @@ export class ProfileEditComponent implements OnInit {
   getAllCircles() {
     this.circlesService.getCircles()
       .subscribe(data => {
-        for (let i = 0; i < data['json_list'].length; i++) {
-          let name = data['json_list'][i]['circle_name'];
-          let id = data['json_list'][i]['id'];
+        for (let i = 0; i < data['circles'].length; i++) {
+          let name = data['circles'][i]['circle_name'];
+          let id = data['circles'][i]['id'];
           let circle = new Circle(name, id);
 
           if (this.allCircles) {
@@ -122,16 +122,31 @@ export class ProfileEditComponent implements OnInit {
     this.profileService.updateProfile(
       this.model.id,
       this.model.location,
+      this.model.img,
       this.model.notes,
       this.model.phone,
       this.model.job
-    ).subscribe();
-    this.notificationsService.setReminder(
-      this.model.reminder.frequency, this.model.id
-    ).subscribe();
+    ).subscribe(data => {
+      if (!data['result']) {
+        alert(data['description']);
+      }
+    });
+    if (this.model.reminder.frequency) {
+      this.notificationsService.setReminder(
+        this.model.reminder.frequency, this.model.id
+      ).subscribe(data => {
+        if (!data['result']) {
+          alert(data['description']);
+        }
+      });
+    }
     this.notificationsService.setLastContact(
       new Date(this.lastContactForForm.value), this.model.id
-    ).subscribe();
+    ).subscribe(data => {
+      if (!data['result']) {
+        alert(data['description']);
+      }
+    });
 
     this.router.navigate(['/app/profile/', this.routeId]);
   }
@@ -139,12 +154,20 @@ export class ProfileEditComponent implements OnInit {
   removeCircle(circle: Circle) {
     let index = this.model.circles.indexOf(circle);
     if (index >= 0) this.model.circles.splice(index, 1);
-    this.circlesService.removeFriendFromCircle(this.routeId, circle.id).subscribe();
+    this.circlesService.removeFriendFromCircle(this.routeId, circle.id).subscribe(data => {
+      if (!data['result']) {
+        alert(data['description'])
+      }
+    });
   }
 
   deleteProfile() {
     if (confirm('Are you sure you want to delete this profile?')) {
-      this.profileService.deleteProfile(this.routeId).subscribe();
+      this.profileService.deleteProfile(this.routeId).subscribe(data => {
+        if (!data['result']) {
+          alert(data['description']);
+        }
+      });
       this.router.navigate(['/app/friends']);
     }
   }
