@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
         if (data['friend']['name']) this.model.name = data['friend']['name'];
         if (data['friend']['email']) this.model.email = data['friend']['email'];
         if (data['friend']['id']) this.model.id = data['friend']['id'];
-        if (data['friend']['img']) this.model.img = data['friend']['img'];
+        if (data['friend']['image_url']) this.model.img = data['friend']['image_url'];
         if (data['friend']['circles']) this.model.circles = data['friend']['circles'];
         if (data['friend']['phone_number']) this.model.phone = data['friend']['phone_number'];
         if (data['friend']['location']) this.model.location = data['friend']['location'];
@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
         if (data['friend']['name']) this.model.name = data['friend']['name'];
         if (data['friend']['email']) this.model.email = data['friend']['email'];
         if (data['friend']['id']) this.model.id = data['friend']['id'];
-        (data['friend']['img']) ? this.model.img = data['friend']['img'] :
+        (data['friend']['image_url']) ? this.model.img = data['friend']['image_url'] :
           this.model.img = 'assets/images/profile.png';
         if (data['friend']['circles']) this.model.circles = data['friend']['circles'];
         if (data['friend']['phone_number']) this.model.phone = data['friend']['phone_number'];

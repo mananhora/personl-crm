@@ -31,9 +31,9 @@ export class CirclesEditComponent implements OnInit {
   getCircleInfo(id: number) {
     this.circlesService.getCircleInfo(id)
       .subscribe(data => {
-        this.circle = new Circle(data['circle_name'], data['id']);
-        if (data['parent_id']) {
-          this.parentCircle = this.allCircles.find(match => match.id === data['parent_id'])
+        this.circle = new Circle(data['circle']['circle_name'], data['circle']['id']);
+        if (data['circle']['parent_id']) {
+          this.parentCircle = this.allCircles.find(match => match.id === data['circle']['parent_id'])
         }
     });
   }

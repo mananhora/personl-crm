@@ -40,7 +40,7 @@ export class ProfileEditComponent implements OnInit {
         if (data['friend']['name']) this.model.name = data['friend']['name'];
         if (data['friend']['email']) this.model.email = data['friend']['email'];
         if (data['friend']['id']) this.model.id = data['friend']['id'];
-        (data['friend']['img']) ? this.model.img = data['friend']['img'] :
+        (data['friend']['image_url']) ? this.model.img = data['friend']['image_url'] :
           this.model.img = 'assets/images/profile.png';
         if (data['friend']['circles']) this.model.circles = data['friend']['circles'];
         if (data['friend']['phone_number']) this.model.phone = data['friend']['phone_number'];
@@ -56,7 +56,7 @@ export class ProfileEditComponent implements OnInit {
         if (data['friend']['name']) this.model.name = data['friend']['name'];
         if (data['friend']['email']) this.model.email = data['friend']['email'];
         if (data['friend']['id']) this.model.id = data['friend']['id'];
-        (data['friend']['img']) ? this.model.img = data['friend']['img'] :
+        (data['friend']['image_url']) ? this.model.img = data['friend']['image_url'] :
           this.model.img = 'assets/images/profile.png';
         if (data['friend']['circles']) this.model.circles = data['friend']['circles'];
         if (data['friend']['phone_number']) this.model.phone = data['friend']['phone_number'];
@@ -122,6 +122,7 @@ export class ProfileEditComponent implements OnInit {
     this.profileService.updateProfile(
       this.model.id,
       this.model.location,
+      this.model.img,
       this.model.notes,
       this.model.phone,
       this.model.job
@@ -130,13 +131,15 @@ export class ProfileEditComponent implements OnInit {
         alert(data['description']);
       }
     });
-    this.notificationsService.setReminder(
-      this.model.reminder.frequency, this.model.id
-    ).subscribe(data => {
-      if (!data['result']) {
-        alert(data['description']);
-      }
-    });
+    if (this.model.reminder.frequency) {
+      this.notificationsService.setReminder(
+        this.model.reminder.frequency, this.model.id
+      ).subscribe(data => {
+        if (!data['result']) {
+          alert(data['description']);
+        }
+      });
+    }
     this.notificationsService.setLastContact(
       new Date(this.lastContactForForm.value), this.model.id
     ).subscribe(data => {

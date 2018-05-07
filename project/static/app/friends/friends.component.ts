@@ -30,6 +30,7 @@ export class FriendsComponent implements OnInit {
           let name = data['friends'][i]['name'];
           let email = data['friends'][i]['email'];
           let friend = new Profile(name, email, id);
+          if (data['friends'][i]['image_url']) friend.img = data['friends'][i]['image_url'];
 
           if (this.friends) {
             this.friends.push(friend);
@@ -48,6 +49,7 @@ export class FriendsComponent implements OnInit {
           let name = data['friends'][i]['name'];
           let email = data['friends'][i]['email'];
           let friend = new Profile(name, email, friend_id);
+          if (data['friends'][i]['image_url']) friend.img = data['friends'][i]['image_url'];
 
           if (this.friends) {
             this.friends.push(friend);
