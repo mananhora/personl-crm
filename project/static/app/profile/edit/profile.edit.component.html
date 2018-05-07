@@ -14,7 +14,6 @@
             <h4>circles <span class="badge" *ngIf="allCircles" (click)="openCirclesDialog()"><a><i class="material-icons">add</i></a></span></h4>
             <div class="row chipListRow">
               <mat-chip-list>
-                <!-- @TODO update list on edit, but do not automatically update! -->
                 <ul>
                   <li *ngFor="let circle of model.circles">
                     <mat-chip (remove)="removeCircle(circle)">

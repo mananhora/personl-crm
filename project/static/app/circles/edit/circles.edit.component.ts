@@ -15,6 +15,8 @@ import { Profile } from '../../profile/profile';
 })
 export class CirclesEditComponent implements OnInit {
 
+  friendsLoading = true;
+  circleLoading = true;
   routeId: number;
   name: string;
   circle: Circle;
@@ -93,6 +95,7 @@ export class CirclesEditComponent implements OnInit {
             this.allCircles = [circle];
           }
         }
+        this.circleLoading = false;
       });
   }
 
@@ -111,6 +114,7 @@ export class CirclesEditComponent implements OnInit {
             this.allFriends = [friend];
           }
         }
+        this.friendsLoading = false;
       })
   }
 
@@ -158,13 +162,6 @@ export class CirclesEditComponent implements OnInit {
           this.circlesService.removeChildCircle(data['circle']['parent_id'], this.routeId).subscribe();
       });
     }
-    // @TODO children save (not done)
-    // for (let i = 0; i < this.circle.friends.length; i++) {
-    //   if (this.friends.indexOf(this.circle.friends[i])) {
-    //     this.circlesService.removeFriendFromCircle(friend.id, this.routeId).subscribe();
-    //   }
-    // }
-    // @TODO friends save (not done)
     if (this.circle.friends) {
       for (let i = 0; i < this.friends.length; i++) {
         if (this.circle.friends.find(match => match.id === this.friends[i].id)) {
