@@ -13,6 +13,7 @@ import { Profile } from '../profile/profile';
 })
 export class FriendsComponent implements OnInit {
 
+  loading = true;
   routeId: number;
   name: string;
   friends: Profile[];
@@ -38,6 +39,7 @@ export class FriendsComponent implements OnInit {
             this.friends = [friend];
           }
         }
+        this.loading = false;
       })
   }
 
@@ -57,6 +59,7 @@ export class FriendsComponent implements OnInit {
             this.friends = [friend];
           }
         }
+        this.loading = false;
       });
   }
 
@@ -65,6 +68,7 @@ export class FriendsComponent implements OnInit {
       .subscribe(data => {
         for (let i = 0; i < data['friends'].length; i++) {
           let id = data['friends'][i]['id'];
+          // if we want to filter friends through the parent list,
           if (this.friends.find(match => match.id === id)) {
             let name = data['friends'][i]['name'];
             let email = data['friends'][i]['email'];
