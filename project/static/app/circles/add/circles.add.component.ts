@@ -64,9 +64,9 @@ export class CirclesAddComponent implements OnInit {
   getAllCircles() {
     this.circlesService.getCircles()
       .subscribe(data => {
-        for (let i = 0; i < data['json_list'].length; i++) {
-          let name = data['json_list'][i]['circle_name'];
-          let id = data['json_list'][i]['id'];
+        for (let i = 0; i < data['circles'].length; i++) {
+          let name = data['circles'][i]['circle_name'];
+          let id = data['circles'][i]['id'];
           let circle = new Circle(name, id);
 
           if (this.allCircles) {
@@ -81,10 +81,10 @@ export class CirclesAddComponent implements OnInit {
   getAllFriends() {
     this.friendsService.getAllFriends()
       .subscribe(data => {
-        for (let i = 0; i < data['json_list'].length; i++) {
-          let name = data['json_list'][i]['name'];
-          let email = data['json_list'][i]['email'];
-          let id = data['json_list'][i]['id'];
+        for (let i = 0; i < data['friends'].length; i++) {
+          let name = data['friends'][i]['name'];
+          let email = data['friends'][i]['email'];
+          let id = data['friends'][i]['id'];
           let profile = new Profile(name, email, id);
 
           if (this.friends) {
