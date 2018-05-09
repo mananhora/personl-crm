@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
   login() {
     this.appService.login(this.email, this.password).subscribe(data => {
       if (data['result']) {
-        location.href = 'https://mesamis.herokuapp.com/';
+        location.href = 'http://myvillag.herokuapp.com/';
       } else {
         alert(data['description']);
       }
@@ -83,7 +83,7 @@ export class AppComponent implements OnInit {
             alert(data['description']);
           }
         });
-        location.href = 'https://mesamis.herokuapp.com/';
+        location.href = 'http://myvillag.herokuapp.com/';
       } else {
         alert(data['description']);
       }
