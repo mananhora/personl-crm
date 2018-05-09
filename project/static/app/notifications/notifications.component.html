@@ -14,16 +14,16 @@
           <mat-list>
             <mat-list-item *ngFor="let friend of reminders">
               <mat-icon mat-list-icon  *ngIf="!evaluateDate(friend.reminder.lastContact)" (click)="contacted(friend)">
-                <a href="#!"><span>crop_din</span></a>
+                <a><span>crop_din</span></a>
               </mat-icon>
               <mat-icon mat-list-icon *ngIf="evaluateDate(friend.reminder.lastContact)">
-                <span >done</span>
+                <span>done</span>
               </mat-icon>
               <h4 mat-line routerLink="/app/profile/{{friend.id}}">{{friend.name}}</h4>
-              <!-- @TODO what about overdue reminders?! -->
-              <p mat-line>{{friend.reminder.daysLeft}} day(s) left</p>
-              <a *ngIf="friend._email" href="mailto:{{friend._email}}"><i class="material-icons right">email</i></a>
+              <p *ngIf="!friend.reminder.overdue" mat-line>{{friend.reminder.daysLeft}} day(s) left</p>
+              <p *ngIf="friend.reminder.overdue" class="overdue" mat-line>{{friend.reminder.daysLeft}} day(s) overdue</p>
               <a *ngIf="friend._phone" href="tel:{{friend._phone}}"><i class="material-icons right">phone</i></a>
+              <a *ngIf="friend._email" href="mailto:{{friend._email}}"><i class="material-icons right">email</i></a>
             </mat-list-item>
           </mat-list>
         </div>

@@ -101,9 +101,11 @@ export class CirclesAddComponent implements OnInit {
   }
 
   ngOnInit() {
+    // initialize blank variables
     this.circle = new Circle('', 0);
     this.selectedChildCircles = [];
     this.selectedFriends = [];
+    // get all options
     this.getAllCircles();
     this.getAllFriends();
   }

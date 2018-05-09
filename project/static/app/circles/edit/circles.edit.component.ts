@@ -15,6 +15,8 @@ import { Profile } from '../../profile/profile';
 })
 export class CirclesEditComponent implements OnInit {
 
+  friendsLoading = true;
+  circleLoading = true;
   routeId: number;
   name: string;
   circle: Circle;
@@ -31,9 +33,13 @@ export class CirclesEditComponent implements OnInit {
   getCircleInfo(id: number) {
     this.circlesService.getCircleInfo(id)
       .subscribe(data => {
+        // get circle name
         this.circle = new Circle(data['circle']['circle_name'], data['circle']['id']);
         if (data['circle']['parent_id']) {
-          this.parentCircle = this.allCircles.find(match => match.id === data['circle']['parent_id'])
+          // and parent circle name
+          this.circlesService.getCircleInfo(data['circle']['parent_id']).subscribe(data => {
+            this.parentCircle = new Circle(data['circle']['circle_name'], data['circle']['id']);
+          })
         }
     });
   }
@@ -74,7 +80,6 @@ export class CirclesEditComponent implements OnInit {
           } else {
             this.circle.friends = [friend];
           }
-
         }
       });
   }
@@ -93,6 +98,7 @@ export class CirclesEditComponent implements OnInit {
             this.allCircles = [circle];
           }
         }
+        this.circleLoading = false;
       });
   }
 
@@ -111,6 +117,7 @@ export class CirclesEditComponent implements OnInit {
             this.allFriends = [friend];
           }
         }
+        this.friendsLoading = false;
       })
   }
 
@@ -146,7 +153,7 @@ export class CirclesEditComponent implements OnInit {
   }
 
   saveChanges() {
-    // parent circle
+    // change parent circle
     if (this.parentCircle) {
       this.circlesService.assignChildCircle(this.parentCircle.id, this.routeId).subscribe(data => {
         if (!data['result']) {
@@ -155,21 +162,32 @@ export class CirclesEditComponent implements OnInit {
       });
     } else {
       this.circlesService.getCircleInfo(this.routeId).subscribe(data => {
-          this.circlesService.removeChildCircle(data['circle']['parent_id'], this.routeId).subscribe();
+        if (data['circle']['parent_id']) {
+          this.circlesService.removeChildCircle(data['circle']['parent_id'], this.routeId).subscribe(data => {
+            if (!data['result']) {
+              alert(data['description']);
+            }
+          });
+        }
       });
     }
-    // @TODO children save (not done)
-    // for (let i = 0; i < this.circle.friends.length; i++) {
-    //   if (this.friends.indexOf(this.circle.friends[i])) {
-    //     this.circlesService.removeFriendFromCircle(friend.id, this.routeId).subscribe();
-    //   }
-    // }
-    // @TODO friends save (not done)
-    if (this.circle.friends) {
-      for (let i = 0; i < this.friends.length; i++) {
-        if (this.circle.friends.find(match => match.id === this.friends[i].id)) {
-          this.circlesService.addFriendToCircle(this.friends[i].id, this.routeId).subscribe();
+    // add child circles
+    for (let i = 0; i < this.childCircles.length; i++) {
+      this.circlesService.assignChildCircle(this.routeId, this.childCircles[i].id).subscribe(data => {
+        if (!data['result']) {
+          alert(data['description']);
         }
+      });
+    }
+
+    // add friends
+    if (this.friends) {
+      for (let i = 0; i < this.friends.length; i++) {
+        this.circlesService.addFriendToCircle(this.friends[i].id, this.routeId).subscribe(data => {
+          if (!data['result']) {
+            alert(data['description']);
+          }
+        });
       }
     }
     this.router.navigate(['/app/friends/', this.routeId]);
@@ -180,9 +198,9 @@ export class CirclesEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    // set initial (empty) values of class variables
-    this.circle = new Circle('', 0);
     this.routeId = +this.route.snapshot.paramMap.get('id');
+    // initialize blank variables
+    this.circle = new Circle('', 0);
     this.childCircles = [];
     this.friends = [];
     // get and render component data
@@ -195,37 +213,31 @@ export class CirclesEditComponent implements OnInit {
     }
   }
 
+  // add child circles
   openChildCirclesDialog(): void {
     let dialogRef = this.dialog.open(AddDialog, {
       width: '30em',
       data: { for: 'sub groups', list: this.allCircles, selected: this.childCircles }
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         for (let i = 0; i < result.selected.length; i++) {
           this.childCircles.push(result.selected[i]);
-          this.circlesService.assignChildCircle(this.routeId, result.selected[i].id).subscribe(data => {
-            if (!data['result']) {
-              alert(data['description']);
-            }
-          });
         }
       }
     });
   }
 
+  // add friends
   openFriendsDialog(): void {
     let dialogRef = this.dialog.open(AddDialog, {
       width: '30em',
       data: { for: 'friends', list: this.allFriends, selected: this.friends }
     });
-
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         for (let i = 0; i < result.selected.length; i++) {
           this.friends.push(result.selected[i]);
-          this.circlesService.addFriendToCircle(result.selected[i].id, this.routeId).subscribe();
         }
       }
     });
@@ -233,6 +245,7 @@ export class CirclesEditComponent implements OnInit {
 
 }
 
+// dialog pop-up modal for adding child circles or friends
 @Component({
 selector: 'add-dialog',
 template: `

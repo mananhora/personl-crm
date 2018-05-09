@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
 import { MatChipInputEvent, MatStepper } from '@angular/material';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { ENTER, COMMA, TAB } from '@angular/cdk/keycodes';
 import { CirclesService } from './circles/circles.service';
 import { FriendsService } from './friends/friends.service';
 import { Circle } from './circles/circle';
@@ -14,6 +14,7 @@ import { Profile } from './profile/profile';
 })
 
 export class AppComponent implements OnInit {
+  loading = true;
   loggedIn = false;
   name = '';
   email = '';
@@ -24,7 +25,7 @@ export class AppComponent implements OnInit {
   circles: Circle[];
   isLinear = true;
   removable = true;
-  separatorKeysCodes = [ENTER, COMMA];
+  separatorKeysCodes = [ENTER, COMMA, TAB];
 
   constructor(private appService: AppService, private friendsService: FriendsService,
     private circlesService: CirclesService) { }
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit {
     this.appService.isLoggedIn()
       .subscribe(data => {
         this.loggedIn = data['is_logged_in'];
+        this.loading = false;
     })
   }
 
@@ -45,6 +47,7 @@ export class AppComponent implements OnInit {
    * login user from email and password. redirect to homepage
    */
   login() {
+    this.loading = true;
     this.appService.login(this.email, this.password).subscribe(data => {
       if (data['result']) {
         location.href = 'http://myvillag.herokuapp.com/';
@@ -59,6 +62,7 @@ export class AppComponent implements OnInit {
    * registers a new user account
    */
   register() {
+    this.loading = true;
     this.appService.register(this.name, this.email, this.password, this.confirmPassword).subscribe(data => {
       if (data['result']) {
         this.appService.login(this.email, this.password).subscribe(data => {

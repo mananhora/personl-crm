@@ -16,7 +16,6 @@ import { AddDialog } from './circles/edit/circles.edit.component';
 import { FriendsComponent } from './friends/friends.component';
 import { FriendsAddComponent } from './friends/add/friends.add.component';
 import { ProfileComponent } from './profile/profile.component';
-import { DialogOverviewExampleDialog } from './profile/profile.component';
 import { ProfileEditComponent } from './profile/edit/profile.edit.component';
 import { PhotoDialog } from './profile/edit/profile.edit.component';
 import { CirclesDialog } from './profile/edit/profile.edit.component';
@@ -52,7 +51,6 @@ const appRoutes: Routes = [
     FriendsComponent,
     FriendsAddComponent,
     ProfileComponent,
-    DialogOverviewExampleDialog,
     ProfileEditComponent,
     PhotoDialog,
     AddDialog,
@@ -71,7 +69,6 @@ const appRoutes: Routes = [
     VisModule,
   ],
   entryComponents: [
-    DialogOverviewExampleDialog,
     PhotoDialog,
     AddDialog,
     CirclesDialog

@@ -52,6 +52,7 @@ export class FriendsAddComponent implements OnInit {
   }
 
   ngOnInit() {
+    // initialize blank variable
     this.friend = new Profile('', '', 0);
     this.getAllCircles();
   }

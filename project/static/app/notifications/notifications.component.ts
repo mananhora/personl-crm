@@ -24,8 +24,10 @@ export class NotificationsComponent implements OnInit {
         if (data['result']) {
           for(let i = 0; i < data['reminders'].length; i++) {
             let profile = new Profile(data['reminders'][i][0].name, data['reminders'][i][0].email, data['reminders'][i][0].id);
+            if (data['reminders'][i][0].phone_number) profile.phone = data['reminders'][i][0].phone_number;
             profile.reminder.lastContact = data['reminders'][i][0].last_contacted_date;
             profile.reminder.daysLeft = data['reminders'][i][1];
+            profile.reminder.overdue = data['reminders'][i][2];
             if (this.reminders) {
               this.reminders.push(profile);
             } else {
@@ -55,6 +57,7 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
+  // check if contact for the done has been completed
   evaluateDate(date: Date): boolean {
     let now = new Date();
     let lastContacted = new Date(date);

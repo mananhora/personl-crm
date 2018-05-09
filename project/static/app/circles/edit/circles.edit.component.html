@@ -9,9 +9,8 @@
 
   <div class="row">
     <div class="col s8 offset-s2 card-panel">
-      <!-- @TODO change this to a load variable in case there are no friends -->
-      <mat-spinner *ngIf="!allCircles && !allFriends" [color]="accent" class="col"></mat-spinner>
-      <div class="section" *ngIf="allCircles && allFriends">
+      <mat-spinner *ngIf="friendsLoading && circleLoading" [color]="accent" class="col"></mat-spinner>
+      <div class="section" *ngIf="!friendsLoading && !circleLoading">
         <div class="row">
           <mat-form-field>
             <input matInput placeholder="circle name" [(ngModel)]="circle.name" name="circle.name">
@@ -29,7 +28,8 @@
 
         <mat-divider></mat-divider>
 
-        <h4>subgroups <span class="badge" (click)="openChildCirclesDialog()"><a><i class="material-icons">add</i></a></span></h4>
+        <h4>subgroups <span class="badge" *ngIf="allCircles" (click)="openChildCirclesDialog()">
+          <a><i class="material-icons">add</i></a></span></h4>
         <div *ngIf="childCircles" class="row chipListRow">
           <mat-chip-list #childCirclesList>
             <mat-chip *ngFor="let circle of childCircles" (remove)="removeChildCircle(circle)">
@@ -41,7 +41,8 @@
 
         <mat-divider></mat-divider>
 
-        <h4>friends <span class="badge"><a (click)="openFriendsDialog()"><i class="material-icons">add</i></a></span></h4>
+        <h4>friends <span class="badge" *ngIf="allFriends">
+          <a (click)="openFriendsDialog()"><i class="material-icons">add</i></a></span></h4>
         <div *ngIf="friends" class="row chipListRow">
           <mat-chip-list #childCirclesList>
             <mat-chip *ngFor="let friend of friends" (remove)="removeFriend(friend)">

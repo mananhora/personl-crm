@@ -1,3 +1,12 @@
+mat-spinner {
+  margin-top: 30%;
+  margin-left: 40%;
+}
+
+h1 {
+  padding-right: 56px;
+}
+
 .friends {
   width: 23em;
 }
@@ -10,4 +19,9 @@
 
 .mat-raised-button {
   margin-left: 1.5em;
+}
+
+.card-action {
+  margin-top: 2em;
+  margin-bottom: 1.5em;
 }
