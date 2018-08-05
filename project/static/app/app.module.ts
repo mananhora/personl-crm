@@ -20,6 +20,7 @@ import { ProfileEditComponent } from './profile/edit/profile.edit.component';
 import { PhotoDialog } from './profile/edit/profile.edit.component';
 import { CirclesDialog } from './profile/edit/profile.edit.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { PlacesDirective } from './places.directive';
 
 import { AppService } from './app.service';
 import { CirclesService } from './circles/circles.service';
@@ -56,6 +57,7 @@ const appRoutes: Routes = [
     AddDialog,
     CirclesDialog,
     NotificationsComponent,
+    PlacesDirective,
   ],
   imports: [
     HttpClientModule,
