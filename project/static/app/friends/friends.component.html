@@ -14,7 +14,7 @@
 
   <div *ngIf="!loading">
     <div>
-      <input placeholder="Search for Friends" type="text" #searchBox [(ngModel)]="keyword" name="keyword" (input)="searchFriends(searchBox.value)">
+      <input placeholder="Search for Friends" type="text" #keywordSearch [(ngModel)]="keyword" name="keyword" (input)="searchFriends(keywordSearch.value)">
     </div>
 
     <div>
