@@ -43,6 +43,10 @@ export class FriendsComponent implements OnInit {
       })
   }
 
+  searchFriends(keyword : string){
+    console.log("someone searched for: " + keyword);
+  }
+
   getFriendsForCircle(circle_id: number) {
     this.friendsService.getFriends(circle_id)
       .subscribe(data => {
