@@ -13,6 +13,9 @@
   <mat-spinner *ngIf="loading"></mat-spinner>
 
   <div *ngIf="!loading">
+    <div>
+      <input placeholder="Search for Friends" type="text">
+    </div>
     <div class="row" *ngIf="childCircles && friends">
       <mat-tab-group>
         <mat-tab label="{{name}} friends">
