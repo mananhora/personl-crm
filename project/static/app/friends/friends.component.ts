@@ -19,6 +19,8 @@ export class FriendsComponent implements OnInit {
   name: string;
   friends: Profile[];
   childCircles: Circle[];
+  searchedFriends: Profile[];
+  zeroFriendsFound: false;
 
 
   constructor(private friendsService: FriendsService,
@@ -27,30 +29,61 @@ export class FriendsComponent implements OnInit {
 
   showAllFriends() {
     this.friendsService.getAllFriends()
-      .subscribe(data => {
-        for (let i = 0; i < data['friends'].length; i++) {
-          let id = data['friends'][i]['id'];
-          let name = data['friends'][i]['name'];
-          let email = data['friends'][i]['email'];
-          let friend = new Profile(name, email, id);
-          if (data['friends'][i]['image_url']) friend.img = data['friends'][i]['image_url'];
+      .subscribe(
+        data => {
+          for (let i = 0; i < data['friends'].length; i++) {
+            let id = data['friends'][i]['id'];
+            let name = data['friends'][i]['name'];
+            let email = data['friends'][i]['email'];
+            let friend = new Profile(name, email, id);
+            if (data['friends'][i]['image_url']) friend.img = data['friends'][i]['image_url'];
 
-          if (this.friends) {
-            this.friends.push(friend);
-          } else {
-            this.friends = [friend];
+            if (this.friends) {
+              this.friends.push(friend);
+            } else {
+              this.friends = [friend];
+            }
           }
-        }
-        this.loading = false;
-      })
+          this.loading = false;
+      }
+    );
   }
 
   searchFriends(keyword : string){
     console.log("someone searched for: " + keyword);
+    this.loading = true;
     this.friendsService.searchFriends(keyword)
       .subscribe(
-        data => console.log(data);
+        data => {
+          console.log(data.length);
+          if(data.length > 0){
+            this.zeroFriendsFound = false;
+            for (let i = 0; i < data.length; i++) {
+              let id = data[i]['id'];
+              let name = data[i]['name'];
+              let email = data[i]['email'];
+              let friend = new Profile(name, email, id);
+              if (data[i]['image_url']) friend.img = data[i]['image_url'];
+
+              if (this.searchedFriends) {
+                this.searchedFriends.push(friend);
+              } else {
+                this.searchedFriends = [friend];
+              }
+            }
+          } else {
+            this.zeroFriendsFound = true;
+          }
+          this.loading = false;
+        }
       );
+  }
+
+  renewSearchFriends(value){
+    if(!value){
+      this.zeroFriendsFound = false;
+      this.searchedFriends = null;
+    }
   }
 
   getFriendsForCircle(circle_id: number) {
@@ -74,7 +107,7 @@ export class FriendsComponent implements OnInit {
   }
 
   getFriendsForChildCircle(circle: Circle): Circle {
-    this.friendsService.getFriends(circle.id)
+    this.friendsService.getFriends(circle.id);
       .subscribe(data => {
         for (let i = 0; i < data['friends'].length; i++) {
           let id = data['friends'][i]['id'];

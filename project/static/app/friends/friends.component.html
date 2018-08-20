@@ -13,8 +13,30 @@
   <mat-spinner *ngIf="loading"></mat-spinner>
 
   <div *ngIf="!loading">
-    <div *ngIf="name == 'all friends'">
-      <input placeholder="Search for Friends" type="text" #keywordSearch [(ngModel)]="keyword" name="keyword" (input)="searchFriends(keywordSearch.value)">
+
+    <div *ngIf="name == 'all friends'" class="row">
+      <mat-form-field>
+        <input matInput placeholder="Press ENTER to search for Friends" #keywordSearch [(ngModel)]="keyword" name="keyword" (keyup.enter)="searchFriends(keywordSearch.value)" (keyup)="renewSearchFriends(this.value)">
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="zeroFriendsFound" class="row">
+      <h5 class="center">No one found ¯\_(ツ)_/¯</h5>
+    </div>
+
+    <div>
+      <div class="row" *ngIf="searchedFriends != null">
+        <mat-grid-list cols="2" rowHeight="2.5:1">
+          <mat-grid-tile  *ngFor="let friend of searchedFriends">
+            <mat-card class="friends" routerLink="/app/profile/{{friend.id}}">
+              <mat-card-title-group>
+                <img mat-card-sm-image *ngIf="friend.img" src="{{friend.img}}" alt="Photo of {{friend.name}}">
+                <mat-card-title>{{friend.name}}</mat-card-title>
+              </mat-card-title-group>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
     </div>
 
     <div>
@@ -57,7 +79,7 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="!childCircles && friends">
+    <div class="row" *ngIf="!childCircles && friends && !searchedFriends">
       <mat-grid-list cols="2" rowHeight="2.5:1">
         <mat-grid-tile  *ngFor="let friend of friends">
           <mat-card class="friends" routerLink="/app/profile/{{friend.id}}">
