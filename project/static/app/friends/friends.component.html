@@ -13,7 +13,7 @@
   <mat-spinner *ngIf="loading"></mat-spinner>
 
   <div *ngIf="!loading">
-    <div>
+    <div *ngIf="name == 'all friends'">
       <input placeholder="Search for Friends" type="text" #keywordSearch [(ngModel)]="keyword" name="keyword" (input)="searchFriends(keywordSearch.value)">
     </div>
 

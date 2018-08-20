@@ -5,6 +5,7 @@ import { FriendsService } from './friends.service';
 import { CirclesService } from '../circles/circles.service';
 import { Circle } from '../circles/circle';
 import { Profile } from '../profile/profile';
+import { Response } from '@angular/http'
 
 @Component({
   selector: 'app-friends',
@@ -18,6 +19,7 @@ export class FriendsComponent implements OnInit {
   name: string;
   friends: Profile[];
   childCircles: Circle[];
+
 
   constructor(private friendsService: FriendsService,
     private circlesService: CirclesService,
@@ -45,6 +47,10 @@ export class FriendsComponent implements OnInit {
 
   searchFriends(keyword : string){
     console.log("someone searched for: " + keyword);
+    this.friendsService.searchFriends(keyword)
+      .subscribe(
+        data => console.log(data);
+      );
   }
 
   getFriendsForCircle(circle_id: number) {

@@ -146,7 +146,7 @@ def update_info():
 
 
 @login_required
-@contacts_blueprint.route('/searchbykeyword', methods = ['GET'])
+@contacts_blueprint.route('/searchbykeyword', methods = ['POST'])
 def search_by_keyword():
   json_data = request.get_json()
   search_word = json_data['keyword']
