@@ -107,7 +107,7 @@ export class FriendsComponent implements OnInit {
   }
 
   getFriendsForChildCircle(circle: Circle): Circle {
-    this.friendsService.getFriends(circle.id);
+    this.friendsService.getFriends(circle.id)
       .subscribe(data => {
         for (let i = 0; i < data['friends'].length; i++) {
           let id = data['friends'][i]['id'];
