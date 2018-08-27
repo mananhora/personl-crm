@@ -93,11 +93,11 @@ export class FriendsService {
 
    */
 
-  searchFriends (keyword: string): Observable<Object>{
+  searchFriends (keyword: string): Observable<[Object]>{
   let object = {
     keyword: keyword,
   }
-   return this.http.post<Object>('/searchbykeyword', object, this.httpOptions);
+   return this.http.post<[Object]>('/searchbykeyword', object, this.httpOptions);
   }
 
 }
