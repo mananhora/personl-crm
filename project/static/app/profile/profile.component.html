@@ -28,7 +28,7 @@
 
     <div class="col s7">
       <label class="favorite">
-        <input type="checkbox" [(ngModel)]="model._isFavorite">
+        <input type="checkbox" [(ngModel)]="model._isFavorite" (change)="changeFavorite($event.target.checked)"/>
         <i class="fa fa-heart checked" aria-hidden="true"></i>
         <i class="far fa-heart unchecked" aria-hidden="true"></i>
         favorite
