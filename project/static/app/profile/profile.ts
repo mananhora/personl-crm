@@ -14,7 +14,7 @@ export class Profile {
     private _reminder?: Reminder,
     private _notes?: string,
     private _job?: string,
-    private _isFavorite?: boolean,
+    private _isFavorite?: boolean = false,
   ) {
     this.img = 'assets/images/profile.png';
     this.reminder = new Reminder();
