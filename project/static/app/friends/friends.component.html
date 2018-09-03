@@ -16,7 +16,7 @@
 
     <div *ngIf="name == 'all friends'" class="row">
       <mat-form-field>
-        <input matInput placeholder="Press ENTER to search for Friends" #keywordSearch [(ngModel)]="keyword" name="keyword" (keyup.enter)="searchFriends(keywordSearch.value)" (keyup)="renewSearchFriends(this.value)">
+        <input matInput placeholder="Press ENTER to Search for Friends" #keywordSearch [(ngModel)]="keyword" name="keyword" (keyup.enter)="searchFriends(keywordSearch.value)" (keyup)="renewSearchFriends(this.value)">
       </mat-form-field>
     </div>
 

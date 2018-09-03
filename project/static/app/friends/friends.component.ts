@@ -20,7 +20,7 @@ export class FriendsComponent implements OnInit {
   friends: Profile[];
   childCircles: Circle[];
   searchedFriends: Profile[];
-  zeroFriendsFound: false;
+  zeroFriendsFound: boolean = false;
 
 
   constructor(private friendsService: FriendsService,
@@ -50,12 +50,12 @@ export class FriendsComponent implements OnInit {
   }
 
   searchFriends(keyword : string){
-    console.log("someone searched for: " + keyword);
+    console.log("someone searched for: " + keyword.toLowerCase());
     this.loading = true;
-    this.friendsService.searchFriends(keyword)
+    this.friendsService.searchFriends(keyword.toLowerCase())
       .subscribe(
         data => {
-          console.log(data.length);
+          console.log(data);
           if(data.length > 0){
             this.zeroFriendsFound = false;
             for (let i = 0; i < data.length; i++) {
@@ -107,7 +107,7 @@ export class FriendsComponent implements OnInit {
   }
 
   getFriendsForChildCircle(circle: Circle): Circle {
-    this.friendsService.getFriends(circle.id);
+    this.friendsService.getFriends(circle.id)
       .subscribe(data => {
         for (let i = 0; i < data['friends'].length; i++) {
           let id = data['friends'][i]['id'];
