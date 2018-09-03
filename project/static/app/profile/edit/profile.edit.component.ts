@@ -9,6 +9,8 @@ import { CirclesService } from '../../circles/circles.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { Profile } from '../profile';
 import { Circle } from '../../circles/circle';
+import { Address } from 'angular-google-place';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-edit',
@@ -127,6 +129,7 @@ export class ProfileEditComponent implements OnInit {
       this.model.phone,
       this.model.job
     ).subscribe(data => {
+      console.log(this.model.location);
       if (!data['result']) {
         alert(data['description']);
       }
