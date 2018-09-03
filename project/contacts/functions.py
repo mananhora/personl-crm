@@ -157,10 +157,12 @@ def search_by_keyword():
       friends = current_user.friends
       result = []
       for friend in friends:
-        if friend.location.lower() == search_word:
-          result.append((friend.serialize))
-        if friend.job.lower() == search_word:
-          result.append(((friend.serialize)))
+        if friend.location is not None:
+          if friend.location.lower() == search_word:
+            result.append((friend.serialize))
+        if friend.job is not None:
+          if friend.job.lower() == search_word:
+            result.append(((friend.serialize)))
         if friend.name.lower() == search_word:
           result.append(friend.serialize)
         for circle in friend.circles:
