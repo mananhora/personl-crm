@@ -227,17 +227,20 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__profile_profile_component__ = __webpack_require__("./project/static/app/profile/profile.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__profile_edit_profile_edit_component__ = __webpack_require__("./project/static/app/profile/edit/profile.edit.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__notifications_notifications_component__ = __webpack_require__("./project/static/app/notifications/notifications.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__app_service__ = __webpack_require__("./project/static/app/app.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__circles_circles_service__ = __webpack_require__("./project/static/app/circles/circles.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__friends_friends_service__ = __webpack_require__("./project/static/app/friends/friends.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__profile_profile_service__ = __webpack_require__("./project/static/app/profile/profile.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__notifications_notifications_service__ = __webpack_require__("./project/static/app/notifications/notifications.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_angular_google_place__ = __webpack_require__("./node_modules/angular-google-place/angular-google-place.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__app_service__ = __webpack_require__("./project/static/app/app.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__circles_circles_service__ = __webpack_require__("./project/static/app/circles/circles.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__friends_friends_service__ = __webpack_require__("./project/static/app/friends/friends.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__profile_profile_service__ = __webpack_require__("./project/static/app/profile/profile.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__notifications_notifications_service__ = __webpack_require__("./project/static/app/notifications/notifications.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -304,6 +307,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_5__angular_forms__["d" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_6__angular_router__["c" /* RouterModule */].forRoot(appRoutes),
                 __WEBPACK_IMPORTED_MODULE_7__node_modules_ng2_vis__["VisModule"],
+                __WEBPACK_IMPORTED_MODULE_17_angular_google_place__["a" /* AngularGooglePlaceModule */],
+                __WEBPACK_IMPORTED_MODULE_5__angular_forms__["i" /* ReactiveFormsModule */],
             ],
             entryComponents: [
                 __WEBPACK_IMPORTED_MODULE_15__profile_edit_profile_edit_component__["b" /* PhotoDialog */],
@@ -311,11 +316,11 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_15__profile_edit_profile_edit_component__["a" /* CirclesDialog */]
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_17__app_service__["a" /* AppService */],
-                __WEBPACK_IMPORTED_MODULE_18__circles_circles_service__["a" /* CirclesService */],
-                __WEBPACK_IMPORTED_MODULE_19__friends_friends_service__["a" /* FriendsService */],
-                __WEBPACK_IMPORTED_MODULE_20__profile_profile_service__["a" /* ProfileService */],
-                __WEBPACK_IMPORTED_MODULE_21__notifications_notifications_service__["a" /* NotificationsService */],
+                __WEBPACK_IMPORTED_MODULE_18__app_service__["a" /* AppService */],
+                __WEBPACK_IMPORTED_MODULE_19__circles_circles_service__["a" /* CirclesService */],
+                __WEBPACK_IMPORTED_MODULE_20__friends_friends_service__["a" /* FriendsService */],
+                __WEBPACK_IMPORTED_MODULE_21__profile_profile_service__["a" /* ProfileService */],
+                __WEBPACK_IMPORTED_MODULE_22__notifications_notifications_service__["a" /* NotificationsService */],
             ],
             bootstrap: [
                 __WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* AppComponent */],
@@ -1263,7 +1268,7 @@ var CirclesEditComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__circles_service__["a" /* CirclesService */], __WEBPACK_IMPORTED_MODULE_5__friends_friends_service__["a" /* FriendsService */],
             __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */],
-            __WEBPACK_IMPORTED_MODULE_2__angular_common__["f" /* Location */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["f" /* MatDialog */]])
+            __WEBPACK_IMPORTED_MODULE_2__angular_common__["f" /* Location */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["g" /* MatDialog */]])
     ], CirclesEditComponent);
     return CirclesEditComponent;
 }());
@@ -1283,7 +1288,7 @@ var AddDialog = /** @class */ (function () {
             template: "\n  <h2 mat-dialog-title>Add {{data.for}}</h2>\n  <mat-dialog-content>\n    <mat-form-field>\n      <mat-select placeholder=\"Add {{data.for}}\" multiple name=\"data.selected\" [(value)]=\"data.selected\">\n        <mat-option *ngFor=\"let x of data.list\" [value]=\"x\">{{x.name}}</mat-option>\n      </mat-select>\n    </mat-form-field>\n  </mat-dialog-content>\n  <mat-dialog-actions class=\"right\">\n    <button mat-button (click)=onNoClick()>Cancel</button>\n    <button mat-button (click)=\"dialogRef.close(data)\">Done</button>\n  </mat-dialog-actions>\n",
         }),
         __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_3__angular_material__["a" /* MAT_DIALOG_DATA */])),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__angular_material__["h" /* MatDialogRef */], Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__angular_material__["i" /* MatDialogRef */], Object])
     ], AddDialog);
     return AddDialog;
 }());
@@ -1401,7 +1406,7 @@ module.exports = "mat-spinner {\n  margin-top: 30%;\n  margin-left: 40%;\n}\n\nh
 /***/ "./project/static/app/friends/friends.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n  <div class=\"row\">\n    <div class=\"col\">\n      <a (click)=\"goBack()\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\" style=\"top: 14px; left: -135px;\">\n        <i class=\"material-icons\">navigate_before</i>\n      </a>\n    </div>\n    <div class=\"col-1\" *ngIf=\"name\">\n      <h1 class=\"center\">{{name}}</h1>\n    </div>\n  </div>\n\n  <mat-spinner *ngIf=\"loading\"></mat-spinner>\n\n  <div *ngIf=\"!loading\">\n    <div class=\"row\" *ngIf=\"childCircles && friends\">\n      <mat-tab-group>\n        <mat-tab label=\"{{name}} friends\">\n          <mat-grid-list cols=\"2\" rowHeight=\"2.5:1\">\n            <mat-grid-tile  *ngFor=\"let friend of friends\">\n              <mat-card class=\"friends\" routerLink=\"/app/profile/{{friend.id}}\">\n                <mat-card-title-group>\n                  <img mat-card-sm-image *ngIf=\"friend.img\" src=\"{{friend.img}}\" alt=\"Photo of {{friend.name}}\">\n                  <mat-card-title>{{friend.name}}</mat-card-title>\n                </mat-card-title-group>\n              </mat-card>\n            </mat-grid-tile>\n          </mat-grid-list>\n        </mat-tab>\n        <span *ngFor=\"let child of childCircles\">\n          <mat-tab label=\"{{child.name}}\">\n            <mat-grid-list cols=\"2\" rowHeight=\"2.5:1\" *ngIf=\"child.friends\">\n              <mat-grid-tile  *ngFor=\"let friend of child.friends\">\n                <mat-card class=\"friends\" routerLink=\"/app/profile/{{friend.id}}\">\n                  <mat-card-title-group>\n                    <img mat-card-sm-image *ngIf=\"friend.img\" src=\"{{friend.img}}\" alt=\"Photo of {{friend.name}}\">\n                    <mat-card-title>{{friend.name}}</mat-card-title>\n                  </mat-card-title-group>\n                </mat-card>\n              </mat-grid-tile>\n            </mat-grid-list>\n            <div *ngIf=\"!child.friends\" class=\"col s8 offset-s2 card-panel center-align\">\n              <h5>where is everyone?</h5>\n              <h4>¯\\_(ツ)_/¯</h4>\n              <div class=\"card-action\">\n                <a class=\"btn waves-effect waves-light\" routerLink=\"/app/friends/add\">Add Some Friends</a>\n              </div>\n            </div>\n          </mat-tab>\n        </span>\n      </mat-tab-group>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!childCircles && friends\">\n      <mat-grid-list cols=\"2\" rowHeight=\"2.5:1\">\n        <mat-grid-tile  *ngFor=\"let friend of friends\">\n          <mat-card class=\"friends\" routerLink=\"/app/profile/{{friend.id}}\">\n            <mat-card-title-group>\n              <img mat-card-sm-image *ngIf=\"friend.img\" src=\"{{friend.img}}\" alt=\"Photo of {{friend.name}}\">\n              <mat-card-title>{{friend.name}}</mat-card-title>\n            </mat-card-title-group>\n          </mat-card>\n        </mat-grid-tile>\n      </mat-grid-list>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!friends\">\n      <div class=\"col s8 offset-s2 card-panel center-align\">\n        <h5>where is everyone?</h5>\n        <h4>¯\\_(ツ)_/¯</h4>\n        <div class=\"card-action\">\n          <a class=\"btn waves-effect waves-light\" routerLink=\"/app/friends/add\">Add Some Friends</a>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"fixed-action-btn\" style=\"bottom: 45px; right: 24px;\">\n      <a *ngIf=\"routeId\" routerLink=\"/app/circles/{{routeId}}/edit\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\">\n        <i class=\"material-icons teal lighten-2\">edit</i>\n      </a>\n      <a *ngIf=\"!routeId\" routerLink=\"/app/friends/add\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\">\n        <i class=\"material-icons teal lighten-2\">add</i>\n      </a>\n    </div>\n  </div>\n"
+module.exports = "\n  <div class=\"row\">\n    <div class=\"col\">\n      <a (click)=\"goBack()\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\" style=\"top: 14px; left: -135px;\">\n        <i class=\"material-icons\">navigate_before</i>\n      </a>\n    </div>\n    <div class=\"col-1\" *ngIf=\"name\">\n      <h1 class=\"center\">{{name}}</h1>\n    </div>\n  </div>\n\n  <mat-spinner *ngIf=\"loading\"></mat-spinner>\n\n  <div *ngIf=\"!loading\">\n\n    <div *ngIf=\"name == 'all friends'\" class=\"row\">\n      <mat-form-field>\n        <input matInput placeholder=\"Press ENTER to Search for Friends\" #keywordSearch [(ngModel)]=\"keyword\" name=\"keyword\" (keyup.enter)=\"searchFriends(keywordSearch.value)\" (keyup)=\"renewSearchFriends(this.value)\">\n      </mat-form-field>\n    </div>\n\n    <div *ngIf=\"zeroFriendsFound\" class=\"row\">\n      <h5 class=\"center\">No one found ¯\\_(ツ)_/¯</h5>\n    </div>\n\n    <div>\n      <div class=\"row\" *ngIf=\"searchedFriends != null\">\n        <mat-grid-list cols=\"2\" rowHeight=\"2.5:1\">\n          <mat-grid-tile  *ngFor=\"let friend of searchedFriends\">\n            <mat-card class=\"friends\" routerLink=\"/app/profile/{{friend.id}}\">\n              <mat-card-title-group>\n                <img mat-card-sm-image *ngIf=\"friend.img\" src=\"{{friend.img}}\" alt=\"Photo of {{friend.name}}\">\n                <mat-card-title>{{friend.name}}</mat-card-title>\n              </mat-card-title-group>\n            </mat-card>\n          </mat-grid-tile>\n        </mat-grid-list>\n      </div>\n    </div>\n\n    <div>\n      <div class=\"row\" *ngIf=\"childCircles && friends\">\n        <mat-tab-group>\n          <mat-tab label=\"{{name}} friends\">\n            <mat-grid-list cols=\"2\" rowHeight=\"2.5:1\">\n              <mat-grid-tile  *ngFor=\"let friend of friends\">\n                <mat-card class=\"friends\" routerLink=\"/app/profile/{{friend.id}}\">\n                  <mat-card-title-group>\n                    <img mat-card-sm-image *ngIf=\"friend.img\" src=\"{{friend.img}}\" alt=\"Photo of {{friend.name}}\">\n                    <mat-card-title>{{friend.name}}</mat-card-title>\n                  </mat-card-title-group>\n                </mat-card>\n              </mat-grid-tile>\n            </mat-grid-list>\n          </mat-tab>\n          <span *ngFor=\"let child of childCircles\">\n            <mat-tab label=\"{{child.name}}\">\n              <mat-grid-list cols=\"2\" rowHeight=\"2.5:1\" *ngIf=\"child.friends\">\n                <mat-grid-tile  *ngFor=\"let friend of child.friends\">\n                  <mat-card class=\"friends\" routerLink=\"/app/profile/{{friend.id}}\">\n                    <mat-card-title-group>\n                      <img mat-card-sm-image *ngIf=\"friend.img\" src=\"{{friend.img}}\" alt=\"Photo of {{friend.name}}\">\n                      <mat-card-title>{{friend.name}}</mat-card-title>\n                    </mat-card-title-group>\n                  </mat-card>\n                </mat-grid-tile>\n              </mat-grid-list>\n              <div *ngIf=\"!child.friends\" class=\"col s8 offset-s2 card-panel center-align\">\n                <h5>where is everyone?</h5>\n                <h4>¯\\_(ツ)_/¯</h4>\n                <div class=\"card-action\">\n                  <a class=\"btn waves-effect waves-light\" routerLink=\"/app/friends/add\">Add Some Friends</a>\n                </div>\n              </div>\n            </mat-tab>\n          </span>\n        </mat-tab-group>\n      </div>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!childCircles && friends && !searchedFriends\">\n      <mat-grid-list cols=\"2\" rowHeight=\"2.5:1\">\n        <mat-grid-tile  *ngFor=\"let friend of friends\">\n          <mat-card class=\"friends\" routerLink=\"/app/profile/{{friend.id}}\">\n            <mat-card-title-group>\n              <img mat-card-sm-image *ngIf=\"friend.img\" src=\"{{friend.img}}\" alt=\"Photo of {{friend.name}}\">\n              <mat-card-title>{{friend.name}}</mat-card-title>\n            </mat-card-title-group>\n          </mat-card>\n        </mat-grid-tile>\n      </mat-grid-list>\n    </div>\n\n    <div class=\"row\" *ngIf=\"!friends\">\n      <div class=\"col s8 offset-s2 card-panel center-align\">\n        <h5>where is everyone?</h5>\n        <h4>¯\\_(ツ)_/¯</h4>\n        <div class=\"card-action\">\n          <a class=\"btn waves-effect waves-light\" routerLink=\"/app/friends/add\">Add Some Friends</a>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"fixed-action-btn\" style=\"bottom: 45px; right: 24px;\">\n      <a *ngIf=\"routeId\" routerLink=\"/app/circles/{{routeId}}/edit\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\">\n        <i class=\"material-icons teal lighten-2\">edit</i>\n      </a>\n      <a *ngIf=\"!routeId\" routerLink=\"/app/friends/add\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\">\n        <i class=\"material-icons teal lighten-2\">add</i>\n      </a>\n    </div>\n  </div>\n"
 
 /***/ }),
 
@@ -1440,6 +1445,7 @@ var FriendsComponent = /** @class */ (function () {
         this.route = route;
         this.location = location;
         this.loading = true;
+        this.zeroFriendsFound = false;
     }
     FriendsComponent.prototype.showAllFriends = function () {
         var _this = this;
@@ -1462,15 +1468,51 @@ var FriendsComponent = /** @class */ (function () {
             _this.loading = false;
         });
     };
+    FriendsComponent.prototype.searchFriends = function (keyword) {
+        var _this = this;
+        console.log("someone searched for: " + keyword.toLowerCase());
+        this.loading = true;
+        this.friendsService.searchFriends(keyword.toLowerCase())
+            .subscribe(function (data) {
+            console.log(data);
+            if (data.length > 0) {
+                _this.zeroFriendsFound = false;
+                for (var i = 0; i < data.length; i++) {
+                    var id = data[i]['id'];
+                    var name_2 = data[i]['name'];
+                    var email = data[i]['email'];
+                    var friend = new __WEBPACK_IMPORTED_MODULE_6__profile_profile__["a" /* Profile */](name_2, email, id);
+                    if (data[i]['image_url'])
+                        friend.img = data[i]['image_url'];
+                    if (_this.searchedFriends) {
+                        _this.searchedFriends.push(friend);
+                    }
+                    else {
+                        _this.searchedFriends = [friend];
+                    }
+                }
+            }
+            else {
+                _this.zeroFriendsFound = true;
+            }
+            _this.loading = false;
+        });
+    };
+    FriendsComponent.prototype.renewSearchFriends = function (value) {
+        if (!value) {
+            this.zeroFriendsFound = false;
+            this.searchedFriends = null;
+        }
+    };
     FriendsComponent.prototype.getFriendsForCircle = function (circle_id) {
         var _this = this;
         this.friendsService.getFriends(circle_id)
             .subscribe(function (data) {
             for (var i = 0; i < data['friends'].length; i++) {
                 var friend_id = data['friends'][i]['id'];
-                var name_2 = data['friends'][i]['name'];
+                var name_3 = data['friends'][i]['name'];
                 var email = data['friends'][i]['email'];
-                var friend = new __WEBPACK_IMPORTED_MODULE_6__profile_profile__["a" /* Profile */](name_2, email, friend_id);
+                var friend = new __WEBPACK_IMPORTED_MODULE_6__profile_profile__["a" /* Profile */](name_3, email, friend_id);
                 if (data['friends'][i]['image_url'])
                     friend.img = data['friends'][i]['image_url'];
                 if (_this.friends) {
@@ -1491,9 +1533,9 @@ var FriendsComponent = /** @class */ (function () {
                 var id = data['friends'][i]['id'];
                 // filter friends through the parent list,
                 if (_this.friends && _this.friends.find(function (match) { return match.id === id; })) {
-                    var name_3 = data['friends'][i]['name'];
+                    var name_4 = data['friends'][i]['name'];
                     var email = data['friends'][i]['email'];
-                    var friend = new __WEBPACK_IMPORTED_MODULE_6__profile_profile__["a" /* Profile */](name_3, email, id);
+                    var friend = new __WEBPACK_IMPORTED_MODULE_6__profile_profile__["a" /* Profile */](name_4, email, id);
                     if (circle.friends) {
                         circle.friends.push(friend);
                     }
@@ -1520,9 +1562,9 @@ var FriendsComponent = /** @class */ (function () {
         this.circlesService.getChildCircles(id)
             .subscribe(function (data) {
             for (var i = 0; i < data['child_circles'].length; i++) {
-                var name_4 = data['child_circles'][i].circle_name;
+                var name_5 = data['child_circles'][i].circle_name;
                 var id_1 = data['child_circles'][i].id;
-                var circle = new __WEBPACK_IMPORTED_MODULE_5__circles_circle__["a" /* Circle */](name_4, id_1);
+                var circle = new __WEBPACK_IMPORTED_MODULE_5__circles_circle__["a" /* Circle */](name_5, id_1);
                 circle = _this.getFriendsForChildCircle(circle);
                 if (_this.childCircles) {
                     _this.childCircles.push(circle);
@@ -1663,6 +1705,17 @@ var FriendsService = /** @class */ (function () {
         };
         return this.http.post('/addtocircle/', object, this.httpOptions);
     };
+    /**
+     * @function searchFriend
+     * @param {string} keyword
+  
+     */
+    FriendsService.prototype.searchFriends = function (keyword) {
+        var object = {
+            keyword: keyword,
+        };
+        return this.http.post('/searchbykeyword', object, this.httpOptions);
+    };
     FriendsService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
@@ -1696,47 +1749,49 @@ var MaterialModule = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_material__["b" /* MatButtonModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatMenuModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["w" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["m" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["q" /* MatMenuModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["x" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["n" /* MatIconModule */],
                 __WEBPACK_IMPORTED_MODULE_1__angular_material__["c" /* MatCardModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["n" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["k" /* MatFormFieldModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["t" /* MatSelectModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["r" /* MatOptionModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["g" /* MatDialogModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["i" /* MatDividerModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["v" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["j" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["u" /* MatStepperModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["d" /* MatChipsModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["s" /* MatProgressSpinnerModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["l" /* MatGridListModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["o" /* MatListModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["e" /* MatDatepickerModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["q" /* MatNativeDateModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["o" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["l" /* MatFormFieldModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["u" /* MatSelectModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["s" /* MatOptionModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["h" /* MatDialogModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["j" /* MatDividerModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["w" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["k" /* MatExpansionModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["v" /* MatStepperModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["e" /* MatChipsModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["t" /* MatProgressSpinnerModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["m" /* MatGridListModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatListModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["f" /* MatDatepickerModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["r" /* MatNativeDateModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["d" /* MatCheckboxModule */]
             ],
             exports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_material__["b" /* MatButtonModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatMenuModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["w" /* MatToolbarModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["m" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["q" /* MatMenuModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["x" /* MatToolbarModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["n" /* MatIconModule */],
                 __WEBPACK_IMPORTED_MODULE_1__angular_material__["c" /* MatCardModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["n" /* MatInputModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["k" /* MatFormFieldModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["t" /* MatSelectModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["r" /* MatOptionModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["g" /* MatDialogModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["i" /* MatDividerModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["v" /* MatTabsModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["j" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["u" /* MatStepperModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["d" /* MatChipsModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["s" /* MatProgressSpinnerModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["l" /* MatGridListModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["o" /* MatListModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["e" /* MatDatepickerModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_material__["q" /* MatNativeDateModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["o" /* MatInputModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["l" /* MatFormFieldModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["u" /* MatSelectModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["s" /* MatOptionModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["h" /* MatDialogModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["j" /* MatDividerModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["w" /* MatTabsModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["k" /* MatExpansionModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["v" /* MatStepperModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["e" /* MatChipsModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["t" /* MatProgressSpinnerModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["m" /* MatGridListModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["p" /* MatListModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["f" /* MatDatepickerModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["r" /* MatNativeDateModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_material__["d" /* MatCheckboxModule */]
             ]
         })
     ], MaterialModule);
@@ -2026,7 +2081,7 @@ module.exports = "h1 {\n  text-align: center;\n  font-family: 'justbecool', mono
 /***/ "./project/static/app/profile/edit/profile.edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n  <a (click)=\"goBack()\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\" style=\"top: 14px; left: -135px;\" >\n    <i class=\"material-icons\">navigate_before</i>\n  </a>\n\n  <div class=\"row\">\n    <div class=\"col s4\">\n      <div class=\"card body-font\">\n        <div class=\"card-image\">\n          <img (click)='openPhotoDialog()' src=\"{{model._img}}\">\n        </div>\n        <div id=\"sidebar-content\">\n          <div class=\"card-content\">\n            <h4>circles <span class=\"badge\" *ngIf=\"allCircles\" (click)=\"openCirclesDialog()\"><a><i class=\"material-icons\">add</i></a></span></h4>\n            <div class=\"row chipListRow\">\n              <mat-chip-list>\n                <ul>\n                  <li *ngFor=\"let circle of model.circles\">\n                    <mat-chip (remove)=\"removeCircle(circle)\">\n                        {{circle.name}}\n                      <mat-icon matChipRemove>cancel</mat-icon>\n                    </mat-chip>\n                  </li>\n                </ul>\n              </mat-chip-list>\n            </div>\n          </div>\n          <div class=\"card-action\">\n            <div class=\"row\">\n              <mat-form-field>\n                <mat-icon matPrefix>email</mat-icon>\n                <input type=\"email\" matInput placeholder=\"Email\" [(ngModel)]=\"model.email\" name=\"email\">\n              </mat-form-field>\n            </div>\n\n            <div class=\"row\">\n              <mat-form-field>\n                <mat-icon matPrefix>phone</mat-icon>\n                <input type=\"tel\" matInput placeholder=\"Phone\" [(ngModel)]=\"model.phone\" name=\"phone\">\n              </mat-form-field>\n            </div>\n          </div>\n\n          <mat-divider></mat-divider>\n\n          <div class=\"card-content\">\n            <a class=\"delete\" (click)=\"deleteProfile()\">Delete {{model.name}}'s profile</a>\n          </div>\n\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col s1\"></div>\n\n    <div class=\"col s7\">\n      <div class=\"card-panel\">\n        <div class=\"row\">\n          <mat-form-field>\n            <input matInput placeholder=\"Name\" [(ngModel)]=\"model.name\" name=\"name\">\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <mat-form-field>\n            <input matInput placeholder=\"Job\" [(ngModel)]=\"model.job\" name=\"job\">\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <mat-form-field>\n            <input matInput placeholder=\"Location\" [(ngModel)]=\"model.location\" name=\"location\">\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <h5 class=\"body-font\">reminders</h5>\n\n          <table cellspacing=\"0\">\n            <tr>\n              <td>contact every </td>\n              <td><mat-form-field>\n                <input matInput type=\"number\" [(ngModel)]=\"model.reminder.frequency\" name=\"frequency\">\n              </mat-form-field></td>\n              <td> week(s)</td>\n            </tr>\n          </table>\n          <table cellspacing=\"0\">\n            <tr>\n              <td>last contacted </td>\n              <td><mat-form-field>\n                <input matInput [matDatepicker]=\"picker\" [(ngModel)]=\"lastContactForForm.value\">\n                <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                <mat-datepicker #picker></mat-datepicker>\n              </mat-form-field></td>\n            </tr>\n          </table>\n        </div>\n\n        <!-- <div class=\"row\">\n          <h5 class=\"body-font\">\n            important dates <span class=\"badge\"><a><i class=\"material-icons\">add</i></a></span>\n          </h5>\n          <table cellspacing=\"0\">\n            <tr>\n              <td><mat-form-field>\n                <input matInput placeholder=\"Occassion\">\n              </mat-form-field></td>\n              <td><mat-form-field>\n                <input type=\"date\" matInput>\n              </mat-form-field></td>\n            </tr>\n          </table>\n        </div>\n\n        <div class=\"row\">\n          <h5 class=\"body-font\">\n            important names <span class=\"badge\"><a><i class=\"material-icons\">add</i></a></span>\n          </h5>\n          <table cellspacing=\"0\">\n            <tr>\n              <td><mat-form-field>\n                <input matInput placeholder=\"Relationship\">\n              </mat-form-field></td>\n              <td><mat-form-field>\n                <input matInput placeholder=\"Name\">\n              </mat-form-field></td>\n            </tr>\n        </table>\n        </div> -->\n\n        <div class=\"row\">\n          <h5 class=\"body-font\">notes</h5>\n          <mat-form-field>\n            <textarea matInput [(ngModel)]=\"model.notes\"></textarea>\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <button class=\"btn waves-effect waves-light right\" (click)=\"editProfile()\">Save Changes</button>\n        </div>\n      </div>\n    </div>\n\n  </div>\n"
+module.exports = "\n  <a (click)=\"goBack()\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\" style=\"top: 14px; left: -135px;\" >\n    <i class=\"material-icons\">navigate_before</i>\n  </a>\n\n  <div class=\"row\">\n    <div class=\"col s4\">\n      <div class=\"card body-font\">\n        <div class=\"card-image\">\n          <img (click)='openPhotoDialog()' src=\"{{model._img}}\">\n        </div>\n        <div id=\"sidebar-content\">\n          <div class=\"card-content\">\n            <h4>circles <span class=\"badge\" *ngIf=\"allCircles\" (click)=\"openCirclesDialog()\"><a><i class=\"material-icons\">add</i></a></span></h4>\n            <div class=\"row chipListRow\">\n              <mat-chip-list>\n                <ul>\n                  <li *ngFor=\"let circle of model.circles\">\n                    <mat-chip (remove)=\"removeCircle(circle)\">\n                        {{circle.name}}\n                      <mat-icon matChipRemove>cancel</mat-icon>\n                    </mat-chip>\n                  </li>\n                </ul>\n              </mat-chip-list>\n            </div>\n          </div>\n          <div class=\"card-action\">\n            <div class=\"row\">\n              <mat-form-field>\n                <mat-icon matPrefix>email</mat-icon>\n                <input type=\"email\" matInput placeholder=\"Email\" [(ngModel)]=\"model.email\" name=\"email\">\n              </mat-form-field>\n            </div>\n\n            <div class=\"row\">\n              <mat-form-field>\n                <mat-icon matPrefix>phone</mat-icon>\n                <input type=\"tel\" matInput placeholder=\"Phone\" [(ngModel)]=\"model.phone\" name=\"phone\">\n              </mat-form-field>\n            </div>\n          </div>\n\n          <mat-divider></mat-divider>\n\n          <div class=\"card-content\">\n            <a class=\"delete\" (click)=\"deleteProfile()\">Delete {{model.name}}'s profile</a>\n          </div>\n\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col s1\"></div>\n\n    <div class=\"col s7\">\n      <div class=\"card-panel\">\n        <div class=\"row\">\n          <mat-form-field>\n            <input matInput placeholder=\"Name\" [(ngModel)]=\"model.name\" name=\"name\">\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <mat-form-field>\n            <input matInput placeholder=\"Job\" [(ngModel)]=\"model.job\" name=\"job\">\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <mat-form-field>\n            <input matInput placeholder=\"Location\" [(ngModel)]=\"model.location\" name=\"location\" angularGooglePlace>\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <h5 class=\"body-font\">reminders</h5>\n\n          <table cellspacing=\"0\">\n            <tr>\n              <td>contact every </td>\n              <td><mat-form-field>\n                <input matInput type=\"number\" [(ngModel)]=\"model.reminder.frequency\" name=\"frequency\">\n              </mat-form-field></td>\n              <td> week(s)</td>\n            </tr>\n          </table>\n          <table cellspacing=\"0\">\n            <tr>\n              <td>last contacted </td>\n              <td><mat-form-field>\n                <input matInput [matDatepicker]=\"picker\" [(ngModel)]=\"lastContactForForm.value\">\n                <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n                <mat-datepicker #picker></mat-datepicker>\n              </mat-form-field></td>\n            </tr>\n          </table>\n        </div>\n\n        <!-- <div class=\"row\">\n          <h5 class=\"body-font\">\n            important dates <span class=\"badge\"><a><i class=\"material-icons\">add</i></a></span>\n          </h5>\n          <table cellspacing=\"0\">\n            <tr>\n              <td><mat-form-field>\n                <input matInput placeholder=\"Occassion\">\n              </mat-form-field></td>\n              <td><mat-form-field>\n                <input type=\"date\" matInput>\n              </mat-form-field></td>\n            </tr>\n          </table>\n        </div>\n\n        <div class=\"row\">\n          <h5 class=\"body-font\">\n            important names <span class=\"badge\"><a><i class=\"material-icons\">add</i></a></span>\n          </h5>\n          <table cellspacing=\"0\">\n            <tr>\n              <td><mat-form-field>\n                <input matInput placeholder=\"Relationship\">\n              </mat-form-field></td>\n              <td><mat-form-field>\n                <input matInput placeholder=\"Name\">\n              </mat-form-field></td>\n            </tr>\n        </table>\n        </div> -->\n\n        <div class=\"row\">\n          <h5 class=\"body-font\">notes</h5>\n          <mat-form-field>\n            <textarea matInput [(ngModel)]=\"model.notes\"></textarea>\n          </mat-form-field>\n        </div>\n\n        <div class=\"row\">\n          <button class=\"btn waves-effect waves-light right\" (click)=\"editProfile()\">Save Changes</button>\n        </div>\n      </div>\n    </div>\n\n  </div>\n"
 
 /***/ }),
 
@@ -2175,6 +2230,7 @@ var ProfileEditComponent = /** @class */ (function () {
         });
     };
     ProfileEditComponent.prototype.editProfile = function () {
+        var _this = this;
         if (!this.model.location) {
             this.model.location = '';
         }
@@ -2188,6 +2244,7 @@ var ProfileEditComponent = /** @class */ (function () {
             this.model.notes = '';
         }
         this.profileService.updateProfile(this.model.id, this.model.location, this.model.img, this.model.notes, this.model.phone, this.model.job).subscribe(function (data) {
+            console.log(_this.model.location);
             if (!data['result']) {
                 alert(data['description']);
             }
@@ -2276,7 +2333,7 @@ var ProfileEditComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5__profile_service__["a" /* ProfileService */], __WEBPACK_IMPORTED_MODULE_6__circles_circles_service__["a" /* CirclesService */],
             __WEBPACK_IMPORTED_MODULE_7__notifications_notifications_service__["a" /* NotificationsService */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */],
-            __WEBPACK_IMPORTED_MODULE_2__angular_common__["f" /* Location */], __WEBPACK_IMPORTED_MODULE_4__angular_material__["f" /* MatDialog */]])
+            __WEBPACK_IMPORTED_MODULE_2__angular_common__["f" /* Location */], __WEBPACK_IMPORTED_MODULE_4__angular_material__["g" /* MatDialog */]])
     ], ProfileEditComponent);
     return ProfileEditComponent;
 }());
@@ -2295,7 +2352,7 @@ var PhotoDialog = /** @class */ (function () {
             template: "\n    <h2 mat-dialog-title>Add or update profile photo</h2>\n    <mat-dialog-content>\n      <input matInput type=\"url\" name=\"data\" [(ngModel)]=\"data\">\n    </mat-dialog-content>\n    <mat-dialog-actions class=\"right\">\n      <button mat-button (click)=onNoClick()>Cancel</button>\n      <button mat-button (click)=\"dialogRef.close(data)\">Done</button>\n    </mat-dialog-actions>\n  ",
         }),
         __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_4__angular_material__["a" /* MAT_DIALOG_DATA */])),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__angular_material__["h" /* MatDialogRef */], Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__angular_material__["i" /* MatDialogRef */], Object])
     ], PhotoDialog);
     return PhotoDialog;
 }());
@@ -2314,7 +2371,7 @@ var CirclesDialog = /** @class */ (function () {
             template: "\n    <h2 mat-dialog-title>Add {{name}} to new circles</h2>\n    <mat-dialog-content>\n      <mat-form-field>\n        <mat-select placeholder=\"Add to circles\" multiple name=\"data.selected\" [(value)]=\"data.selected\">\n          <mat-option *ngFor=\"let x of data.list\" [value]=\"x\">{{x.name}}</mat-option>\n        </mat-select>\n      </mat-form-field>\n    </mat-dialog-content>\n    <mat-dialog-actions class=\"right\">\n      <button mat-button (click)=onNoClick()>Cancel</button>\n      <button mat-button (click)=\"dialogRef.close(data)\">Done</button>\n    </mat-dialog-actions>\n  ",
         }),
         __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"])(__WEBPACK_IMPORTED_MODULE_4__angular_material__["a" /* MAT_DIALOG_DATA */])),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__angular_material__["h" /* MatDialogRef */], Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__angular_material__["i" /* MatDialogRef */], Object])
     ], CirclesDialog);
     return CirclesDialog;
 }());
@@ -2326,14 +2383,14 @@ var CirclesDialog = /** @class */ (function () {
 /***/ "./project/static/app/profile/profile.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "h1 {\n  margin-bottom: 0rem;\n}\nh4 {\n  margin: 0 0 0.3em 0;\n}\nh5 {\n  font-style: italic;\n  margin: 0rem 0 1.6rem 0;\n  color: #526165;\n}\n#sidebar-content > .card-content {\n  display: -webkit-box;\n}\n#sidebar-content > .card-action {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n.card-action>a {\n  margin-right: 0!important;\n}\n.card {\n  margin-top: 1.7em;\n}\n"
+module.exports = "h1 {\n  margin-bottom: 0rem;\n  margin-top: 1rem;\n}\nh4 {\n  margin: 0 0 0.3em 0;\n}\nh5 {\n  font-style: italic;\n  margin: 0rem 0 1.6rem 0;\n  color: #526165;\n}\n#sidebar-content > .card-content {\n  display: -webkit-box;\n}\n#sidebar-content > .card-action {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n.card-action>a {\n  margin-right: 0!important;\n}\n.card {\n  margin-top: 1.7em;\n}\n.favorite{\n  font-size: 1rem;\n  color: pink;\n  text-transform: uppercase;\n}\n.favorite input[type=\"checkbox\"],\n.favorite .checked {\n  display: none;\n}\n.favorite input[type=\"checkbox\"]:checked ~ .checked\n{\n    display: inline-block;\n}\n.favorite input[type=\"checkbox\"]:checked ~ .unchecked\n{\n    display: none;\n}\n"
 
 /***/ }),
 
 /***/ "./project/static/app/profile/profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n  <a (click)=\"goBack()\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\" style=\"top: 14px; left: -135px;\">\n    <i class=\"material-icons\">navigate_before</i>\n  </a>\n\n  <div class=\"row\">\n    <div class=\"col s4\">\n      <div class=\"card body-font\">\n        <div class=\"card-image\">\n          <img src=\"{{model._img}}\">\n        </div>\n        <div id=\"sidebar-content\">\n          <div class=\"card-content\">\n            <div class=\"chip\" *ngFor=\"let circle of model._circles\">\n              <a routerLink=\"/app/friends/{{circle.id}}\">{{circle.name}}</a>\n            </div>\n          </div>\n          <div class=\"card-action\">\n            <a *ngIf=\"model._email\" href=\"mailto:{{model._email}}\"><i class=\"material-icons\">email</i></a>\n            <a *ngIf=\"model._phone\" href=\"tel:{{model._phone}}\"><i class=\"material-icons\">phone</i></a>\n            <a *ngIf=\"model._extra\" href=\"{{model._extra}}\"><i class=\"material-icons\">explicit</i></a>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col s1\"></div>\n\n    <div class=\"col s7\">\n      <h1 class=\"secondary\">{{model._name}}</h1>\n      <h5 *ngIf=\"model.reminder.frequency\">reminder set for every {{model.reminder.frequency}} week(s)</h5>\n      <h4 *ngIf=\"model._job\"><i class=\"material-icons\">work</i> {{model._job}}</h4>\n      <h4 *ngIf=\"model._location\"><i class=\"material-icons\">location_on</i> {{model._location}}</h4>\n\n      <!-- dates -->\n      <div *ngIf=\"model._dates\" class=\"card body-font\">\n        <div class=\"card-content\">\n          <span class=\"card-title\">important dates</span>\n          <ul *ngFor=\"let date of model._dates\" class=\"collection\">\n            <li class=\"collection-item\">{{date}}</li>\n          </ul>\n        </div>\n      </div>\n\n      <!-- notes -->\n      <div *ngIf=\"model._notes\" class=\"card body-font\">\n        <div class=\"card-content\">\n          <span class=\"card-title\">notes</span>\n          <p>{{model._notes}}</p>\n        </div>\n      </div>\n\n    </div>\n  </div>\n\n  <div class=\"fixed-action-btn\" style=\"bottom: 45px; right: 24px;\">\n    <a routerLink=\"/app/profile/{{routeId}}/edit\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\">\n      <i class=\"material-icons\">edit</i>\n    </a>\n  </div>\n"
+module.exports = "\n  <a (click)=\"goBack()\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\" style=\"top: 14px; left: -135px;\">\n    <i class=\"material-icons\">navigate_before</i>\n  </a>\n\n  <div class=\"row\">\n    <div class=\"col s4\">\n      <div class=\"card body-font\">\n        <div class=\"card-image\">\n          <img src=\"{{model._img}}\">\n        </div>\n        <div id=\"sidebar-content\">\n          <div class=\"card-content\">\n            <div class=\"chip\" *ngFor=\"let circle of model._circles\">\n              <a routerLink=\"/app/friends/{{circle.id}}\">{{circle.name}}</a>\n            </div>\n          </div>\n          <div class=\"card-action\">\n            <a *ngIf=\"model._email\" href=\"mailto:{{model._email}}\"><i class=\"material-icons\">email</i></a>\n            <a *ngIf=\"model._phone\" href=\"tel:{{model._phone}}\"><i class=\"material-icons\">phone</i></a>\n            <a *ngIf=\"model._extra\" href=\"{{model._extra}}\"><i class=\"material-icons\">explicit</i></a>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col s1\"></div>\n\n    <div class=\"col s7\">\n      <label class=\"favorite\">\n        <input type=\"checkbox\" [(ngModel)]=\"model._isFavorite\" (change)=\"changeFavorite($event.target.checked)\"/>\n        <i class=\"fa fa-heart checked\" aria-hidden=\"true\"></i>\n        <i class=\"far fa-heart unchecked\" aria-hidden=\"true\"></i>\n        favorite\n      </label>\n      <h1 class=\"secondary\">\n        {{model._name}}\n      </h1>\n      <h5 *ngIf=\"model.reminder.frequency\">reminder set for every {{model.reminder.frequency}} week(s)</h5>\n      <h4 *ngIf=\"model._job\"><i class=\"material-icons\">work</i> {{model._job}}</h4>\n      <h4 *ngIf=\"model._location\"><i class=\"material-icons\">location_on</i> {{model._location}}</h4>\n\n      <!-- dates -->\n      <div *ngIf=\"model._dates\" class=\"card body-font\">\n        <div class=\"card-content\">\n          <span class=\"card-title\">important dates</span>\n          <ul *ngFor=\"let date of model._dates\" class=\"collection\">\n            <li class=\"collection-item\">{{date}}</li>\n          </ul>\n        </div>\n      </div>\n\n      <!-- notes -->\n      <div *ngIf=\"model._notes\" class=\"card body-font\">\n        <div class=\"card-content\">\n          <span class=\"card-title\">notes</span>\n          <p>{{model._notes}}</p>\n        </div>\n      </div>\n\n    </div>\n  </div>\n\n  <div class=\"fixed-action-btn\" style=\"bottom: 45px; right: 24px;\">\n    <a routerLink=\"/app/profile/{{routeId}}/edit\" class=\"btn-floating btn-large waves-effect waves-light teal lighten-2\">\n      <i class=\"material-icons\">edit</i>\n    </a>\n  </div>\n"
 
 /***/ }),
 
@@ -2375,6 +2432,11 @@ var ProfileComponent = /** @class */ (function () {
         this.dialog = dialog;
         this.model = new __WEBPACK_IMPORTED_MODULE_5__profile__["a" /* Profile */]('', '', 0);
     }
+    //update favorite on database
+    ProfileComponent.prototype.changeFavorite = function (value) {
+        console.log(value);
+        //update database on this value??
+    };
     // get user's profile, limited data options
     ProfileComponent.prototype.getMyProfile = function () {
         var _this = this;
@@ -2459,7 +2521,7 @@ var ProfileComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__profile_service__["a" /* ProfileService */],
             __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */],
-            __WEBPACK_IMPORTED_MODULE_2__angular_common__["f" /* Location */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["f" /* MatDialog */]])
+            __WEBPACK_IMPORTED_MODULE_2__angular_common__["f" /* Location */], __WEBPACK_IMPORTED_MODULE_3__angular_material__["g" /* MatDialog */]])
     ], ProfileComponent);
     return ProfileComponent;
 }());
@@ -2605,7 +2667,9 @@ var ProfileService = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__notifications_reminder__ = __webpack_require__("./project/static/app/notifications/reminder.ts");
 
 var Profile = /** @class */ (function () {
-    function Profile(_name, _email, _id, _img, _circles, _phone, _location, _reminder, _notes, _job) {
+    function Profile(
+        // the question mark makes that attribute optional for the constructor
+        _name, _email, _id, _img, _circles, _phone, _location, _reminder, _notes, _job, _isFavorite) {
         this._name = _name;
         this._email = _email;
         this._id = _id;
@@ -2616,6 +2680,7 @@ var Profile = /** @class */ (function () {
         this._reminder = _reminder;
         this._notes = _notes;
         this._job = _job;
+        this._isFavorite = _isFavorite;
         this.img = 'assets/images/profile.png';
         this.reminder = new __WEBPACK_IMPORTED_MODULE_0__notifications_reminder__["a" /* Reminder */]();
     }
