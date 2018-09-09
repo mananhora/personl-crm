@@ -7,7 +7,6 @@ import { MaterialModule } from './material.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { VisModule } from '../../../node_modules/ng2-vis';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { CirclesComponent } from './circles/circles.component';
@@ -21,7 +20,6 @@ import { ProfileEditComponent } from './profile/edit/profile.edit.component';
 import { PhotoDialog } from './profile/edit/profile.edit.component';
 import { CirclesDialog } from './profile/edit/profile.edit.component';
 import { NotificationsComponent } from './notifications/notifications.component';
-import {AngularGooglePlaceModule} from 'angular-google-place';
 
 import { AppService } from './app.service';
 import { CirclesService } from './circles/circles.service';
@@ -42,7 +40,6 @@ const appRoutes: Routes = [
   { path: 'app/profile/:id', component: ProfileComponent },
   { path: 'app/profile/:id/edit', component: ProfileEditComponent },
   { path: 'app/notifications', component: NotificationsComponent },
-
 ];
 
 @NgModule({
@@ -70,8 +67,6 @@ const appRoutes: Routes = [
       appRoutes,
     ),
     VisModule,
-    AngularGooglePlaceModule,
-    ReactiveFormsModule,
   ],
   entryComponents: [
     PhotoDialog,

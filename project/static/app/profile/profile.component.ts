@@ -21,12 +21,6 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute, private router: Router,
     private location: Location, public dialog: MatDialog) { }
 
-  //update favorite on database
-  changeFavorite(value){
-    console.log(value);
-    //update database on this value??
-  }
-
   // get user's profile, limited data options
   getMyProfile() {
     this.profileService.getMyProfile()

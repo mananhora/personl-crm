@@ -13,38 +13,24 @@
   <mat-spinner *ngIf="loading"></mat-spinner>
 
   <div *ngIf="!loading">
-
-    <div *ngIf="name == 'all friends'" class="row">
-      <mat-form-field>
-        <input matInput placeholder="Press ENTER to Search for Friends" #keywordSearch [(ngModel)]="keyword" name="keyword" (keyup.enter)="searchFriends(keywordSearch.value)" (keyup)="renewSearchFriends(this.value)">
-      </mat-form-field>
-    </div>
-
-    <div *ngIf="zeroFriendsFound" class="row">
-      <h5 class="center">No one found ¯\_(ツ)_/¯</h5>
-    </div>
-
-    <div>
-      <div class="row" *ngIf="searchedFriends != null">
-        <mat-grid-list cols="2" rowHeight="2.5:1">
-          <mat-grid-tile  *ngFor="let friend of searchedFriends">
-            <mat-card class="friends" routerLink="/app/profile/{{friend.id}}">
-              <mat-card-title-group>
-                <img mat-card-sm-image *ngIf="friend.img" src="{{friend.img}}" alt="Photo of {{friend.name}}">
-                <mat-card-title>{{friend.name}}</mat-card-title>
-              </mat-card-title-group>
-            </mat-card>
-          </mat-grid-tile>
-        </mat-grid-list>
-      </div>
-    </div>
-
-    <div>
-      <div class="row" *ngIf="childCircles && friends">
-        <mat-tab-group>
-          <mat-tab label="{{name}} friends">
-            <mat-grid-list cols="2" rowHeight="2.5:1">
-              <mat-grid-tile  *ngFor="let friend of friends">
+    <div class="row" *ngIf="childCircles && friends">
+      <mat-tab-group>
+        <mat-tab label="{{name}} friends">
+          <mat-grid-list cols="2" rowHeight="2.5:1">
+            <mat-grid-tile  *ngFor="let friend of friends">
+              <mat-card class="friends" routerLink="/app/profile/{{friend.id}}">
+                <mat-card-title-group>
+                  <img mat-card-sm-image *ngIf="friend.img" src="{{friend.img}}" alt="Photo of {{friend.name}}">
+                  <mat-card-title>{{friend.name}}</mat-card-title>
+                </mat-card-title-group>
+              </mat-card>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </mat-tab>
+        <span *ngFor="let child of childCircles">
+          <mat-tab label="{{child.name}}">
+            <mat-grid-list cols="2" rowHeight="2.5:1" *ngIf="child.friends">
+              <mat-grid-tile  *ngFor="let friend of child.friends">
                 <mat-card class="friends" routerLink="/app/profile/{{friend.id}}">
                   <mat-card-title-group>
                     <img mat-card-sm-image *ngIf="friend.img" src="{{friend.img}}" alt="Photo of {{friend.name}}">
@@ -53,33 +39,19 @@
                 </mat-card>
               </mat-grid-tile>
             </mat-grid-list>
-          </mat-tab>
-          <span *ngFor="let child of childCircles">
-            <mat-tab label="{{child.name}}">
-              <mat-grid-list cols="2" rowHeight="2.5:1" *ngIf="child.friends">
-                <mat-grid-tile  *ngFor="let friend of child.friends">
-                  <mat-card class="friends" routerLink="/app/profile/{{friend.id}}">
-                    <mat-card-title-group>
-                      <img mat-card-sm-image *ngIf="friend.img" src="{{friend.img}}" alt="Photo of {{friend.name}}">
-                      <mat-card-title>{{friend.name}}</mat-card-title>
-                    </mat-card-title-group>
-                  </mat-card>
-                </mat-grid-tile>
-              </mat-grid-list>
-              <div *ngIf="!child.friends" class="col s8 offset-s2 card-panel center-align">
-                <h5>where is everyone?</h5>
-                <h4>¯\_(ツ)_/¯</h4>
-                <div class="card-action">
-                  <a class="btn waves-effect waves-light" routerLink="/app/friends/add">Add Some Friends</a>
-                </div>
+            <div *ngIf="!child.friends" class="col s8 offset-s2 card-panel center-align">
+              <h5>where is everyone?</h5>
+              <h4>¯\_(ツ)_/¯</h4>
+              <div class="card-action">
+                <a class="btn waves-effect waves-light" routerLink="/app/friends/add">Add Some Friends</a>
               </div>
-            </mat-tab>
-          </span>
-        </mat-tab-group>
-      </div>
+            </div>
+          </mat-tab>
+        </span>
+      </mat-tab-group>
     </div>
 
-    <div class="row" *ngIf="!childCircles && friends && !searchedFriends">
+    <div class="row" *ngIf="!childCircles && friends">
       <mat-grid-list cols="2" rowHeight="2.5:1">
         <mat-grid-tile  *ngFor="let friend of friends">
           <mat-card class="friends" routerLink="/app/profile/{{friend.id}}">

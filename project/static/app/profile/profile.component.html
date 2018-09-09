@@ -27,15 +27,7 @@
     <div class="col s1"></div>
 
     <div class="col s7">
-      <label class="favorite">
-        <input type="checkbox" [(ngModel)]="model._isFavorite" (change)="changeFavorite($event.target.checked)"/>
-        <i class="fa fa-heart checked" aria-hidden="true"></i>
-        <i class="far fa-heart unchecked" aria-hidden="true"></i>
-        favorite
-      </label>
-      <h1 class="secondary">
-        {{model._name}}
-      </h1>
+      <h1 class="secondary">{{model._name}}</h1>
       <h5 *ngIf="model.reminder.frequency">reminder set for every {{model.reminder.frequency}} week(s)</h5>
       <h4 *ngIf="model._job"><i class="material-icons">work</i> {{model._job}}</h4>
       <h4 *ngIf="model._location"><i class="material-icons">location_on</i> {{model._location}}</h4>

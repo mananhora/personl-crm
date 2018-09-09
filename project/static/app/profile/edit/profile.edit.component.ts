@@ -9,8 +9,6 @@ import { CirclesService } from '../../circles/circles.service';
 import { NotificationsService } from '../../notifications/notifications.service';
 import { Profile } from '../profile';
 import { Circle } from '../../circles/circle';
-import { Address } from 'angular-google-place';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-edit',
@@ -129,7 +127,6 @@ export class ProfileEditComponent implements OnInit {
       this.model.phone,
       this.model.job
     ).subscribe(data => {
-      console.log(this.model.location);
       if (!data['result']) {
         alert(data['description']);
       }
@@ -208,6 +205,11 @@ export class ProfileEditComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         for (let i = 0; i < result.selected.length; i++) {
+          if (this.model.circles) {
+            this.model.circles.push(result.selected[i]);
+          } else {
+            this.model.circles = [result.selected[i]];
+          }
           this.circlesService.addFriendToCircle(this.routeId, result.selected[i].id).subscribe();
         }
       }

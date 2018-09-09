@@ -3,7 +3,6 @@ import { Reminder } from '../notifications/reminder';
 
 export class Profile {
   constructor(
-    // the question mark makes that attribute optional for the constructor
     private _name: string,
     private _email: string,
     private _id: number,
@@ -14,7 +13,6 @@ export class Profile {
     private _reminder?: Reminder,
     private _notes?: string,
     private _job?: string,
-    private _isFavorite?: boolean,
   ) {
     this.img = 'assets/images/profile.png';
     this.reminder = new Reminder();

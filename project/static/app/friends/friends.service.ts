@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { Circle } from '../circles/circle';
 
@@ -85,19 +85,6 @@ export class FriendsService {
       circle_name: circle,
     }
     return this.http.post<Object>('/addtocircle/', object, this.httpOptions);
-  }
-
-  /**
-   * @function searchFriend
-   * @param {string} keyword
-
-   */
-
-  searchFriends (keyword: string): Observable<[Object]>{
-  let object = {
-    keyword: keyword,
-  }
-   return this.http.post<[Object]>('/searchbykeyword', object, this.httpOptions);
   }
 
 }
