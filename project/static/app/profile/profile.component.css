@@ -1,5 +1,6 @@
 h1 {
   margin-bottom: 0rem;
+  margin-top: 1rem;
 }
 h4 {
   margin: 0 0 0.3em 0;
@@ -10,10 +11,7 @@ h5 {
   color: #526165;
 }
 
-#sidebar-content > .card-content {
-  display: -webkit-box;
-}
-#sidebar-content > .card-action {
+#sidebar-content>div {
   display: flex;
   justify-content: space-around;
 }
@@ -24,4 +22,25 @@ h5 {
 
 .card {
   margin-top: 1.7em;
+}
+
+.favorite{
+  font-size: 1rem;
+  color: pink;
+  text-transform: uppercase;
+}
+
+.favorite input[type="checkbox"],
+.favorite .checked {
+  display: none;
+}
+
+.favorite input[type="checkbox"]:checked ~ .checked
+{
+    display: inline-block;
+}
+
+.favorite input[type="checkbox"]:checked ~ .unchecked
+{
+    display: none;
 }

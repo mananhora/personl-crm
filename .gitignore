@@ -4,80 +4,32 @@
 
 *.xml
 
-/venv
-/src
+
 
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
-/project/static/dist/*
-/dist-server
-/tmp
-/out-tsc
+
+
 /documentation
 
+
 # dependencies
-/node_modules
-/facebookenv
+
 
 # IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+
 
 # IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 
 # misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-testem.log
-/typings
+
 
 # e2e
-/e2e/*.js
-/e2e/*.map
+
 
 # System Files
 .DS_Store
 Thumbs.db
 
-project/static/dist/main.bundle.js
 
-*.map
-
-*.map
-
-*.map
-
-*.map
-
-project/static/dist/inline.bundle.js.map
-
-project/static/dist/main.bundle.js.map
-
-project/static/dist/polyfills.bundle.js.map
-
-project/static/dist/styles.bundle.js
-
-project/static/dist/styles.bundle.js.map
-
-project/static/dist/vendor.bundle.js
-
-project/static/dist/vendor.bundle.js.map
-
-project/static/dist/polyfills.bundle.js
-
-project/static/dist/main.bundle.js

@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
     this.loading = true;
     this.appService.login(this.email, this.password).subscribe(data => {
       if (data['result']) {
-        location.href = 'http://0.0.0.0:5000/';
+        location.href = 'http://myvillag.herokuapp.com/';
       } else {
         alert(data['description']);
       }
@@ -87,7 +87,7 @@ export class AppComponent implements OnInit {
             alert(data['description']);
           }
         });
-        location.href = 'http://0.0.0.0:5000/';
+        location.href = 'http://myvillag.herokuapp.com/';
       } else {
         alert(data['description']);
       }
