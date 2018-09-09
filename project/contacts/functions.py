@@ -122,12 +122,15 @@ def update_info():
   if current_user is not None:
     json_data = request.get_json()
     print (json_data)
+
     friend_id = json_data['friend_id']
     location = json_data['location']
     notes = json_data['notes']
     phone_number = json_data['phone_number']
     job =json_data['job']
     image_url=json_data['img']
+    is_favorite = json_data['is_favorite']
+
     a = current_user.is_anonymous()
     if current_user.id is not None and a == False:
       try:
@@ -137,12 +140,36 @@ def update_info():
         friend.phone_number = phone_number
         friend.job = job
         friend.image_url = image_url
+        friend.is_favorite = is_favorite
         db.session.commit()
         print("success")
         return jsonify({'result': True})
       except:
         return jsonify({'result':False, desc:something_wrong_message})
     return jsonify({'result': False, desc:login_error_message})
+
+
+@login_required
+@contacts_blueprint.route('/setasfavorite', methods = ['POST', 'GET'])
+def set_as_favorite():
+  if current_user is not None:
+    json_data = request.get_json()
+    friend_id = json_data['friend_id']
+    a = current_user.is_anonymous()
+    if current_user.id is not None and a == False:
+      try:
+        friend = Friend.query.get(friend_id)
+        print("helo")
+        friend.is_favorite = True
+        db.session.commit()
+        return jsonify({'result': True})
+      except:
+        return jsonify({'result': False, desc: something_wrong_message})
+    return jsonify({'result': False, desc: login_error_message})
+
+
+
+
 
 
 @login_required

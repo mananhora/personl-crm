@@ -3,6 +3,8 @@ from sqlalchemy import ForeignKey
 from project import db
 from project import bcrypt
 
+##commmentttts
+
 # from flask_security import UserMixin, RoleMixin
 from sqlalchemy import create_engine
 from sqlalchemy.orm import relationship, backref
@@ -135,6 +137,7 @@ class Friend(db.Model):
     num_weeks_reminder = db.Column(db.Integer)
     last_contacted = db.Column(DateTime)
     image_url = db.Column(db.String())
+    is_favorite = db.Column(db.Boolean)
 
 
 
@@ -164,7 +167,8 @@ class Friend(db.Model):
         'job' : self.job,
         'image_url': self.image_url,
         'last_contacted_date':self.last_contacted,
-        'reminder_frequency':self.num_weeks_reminder
+        'reminder_frequency':self.num_weeks_reminder,
+        'is_favorite' :self.is_favorite
       }
 
     def is_anonymous(self):
