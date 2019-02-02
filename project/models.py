@@ -3,6 +3,8 @@ from sqlalchemy import ForeignKey
 from project import db
 from project import bcrypt
 
+#blaa
+
 # from flask_security import UserMixin, RoleMixin
 from sqlalchemy import create_engine
 from sqlalchemy.orm import relationship, backref
