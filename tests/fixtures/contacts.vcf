@@ -1,0 +1,32 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Kim;Annie;;;
+FN:Annie Kim
+ORG:Harvard;
+TITLE:Researcher
+EMAIL;type=INTERNET;type=HOME;type=pref:annie@example.com
+TEL;type=CELL;type=VOICE;type=pref:+1 (617) 555-0101
+item1.ADR;type=HOME;type=pref:;;1 Main St;Boston;MA;02110;United States
+BDAY:1994-07-12
+NOTE:Met at a climbing gym\, loves sci-fi
+item2.URL:https://www.linkedin.com/in/anniekim
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+N:;Luka;;;
+FN:Luka
+TEL;type=CELL:415-555-0199
+BDAY;X-APPLE-OMIT-YEAR=1604:1604-10-05
+END:VCARD
+BEGIN:VCARD
+VERSION:2.1
+N;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:M=C3=BCller;J=C3=BCrgen;;;
+FN;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:J=C3=BCrgen M=C3=BCller
+TEL;CELL:+49 30 1234567
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+FN:Rahul Kayala
+N:Kayala;Rahul;;;
+TEL;type=CELL:+1 415 555 0123
+END:VCARD
